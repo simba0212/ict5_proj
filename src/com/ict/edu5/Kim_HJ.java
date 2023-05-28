@@ -5,5 +5,5 @@ public class Kim_HJ {
 // 짜증나
 // 집에서도 이러고있넨
 // 또수정해 simba에서
-// ddd
+
 }
