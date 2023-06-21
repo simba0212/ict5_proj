@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 public class CreateAccount extends JPanel {
 	Huge_main main;
 	CardLayout cardlayout;
+	// 수정중
 
 	public CreateAccount(Huge_main main) {
 		this.main = main;
