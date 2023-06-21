@@ -29,7 +29,7 @@ public class CreateAccount extends JPanel {
 		titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(titleLabel, BorderLayout.NORTH);
-
+ㅇㅇ
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(14, 1));
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
