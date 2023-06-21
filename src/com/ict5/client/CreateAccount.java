@@ -20,7 +20,8 @@ public class CreateAccount extends JPanel {
 	Huge_main main;
 	CardLayout cardlayout;
 	// 수정중
-
+	// 한번 더 수정
+	
 	public CreateAccount(Huge_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
