@@ -16,6 +16,7 @@ public class Huge_main extends JFrame {
 
 		CreateAccount ca = new CreateAccount(this);
 		Notice nt= new Notice(this);
+		Myp myp = new Myp(this);
 //		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -24,7 +25,7 @@ public class Huge_main extends JFrame {
 		pg1.add("nt",nt);
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 		pg1.add("ca",ca);
-//		pg1.add("페이지명",객체이름);
+		pg1.add("myp",myp);
 //		pg1.add("페이지명",객체이름);
 //		pg1.add("페이지명",객체이름);
 	
@@ -33,7 +34,8 @@ public class Huge_main extends JFrame {
 		cardlayout.next(pg1);
 		pg1.add("1",ca);
 		pg1.add("2",nt);
-		cardlayout.show(pg1, "2");
+		pg1.add("3",myp);
+		cardlayout.show(pg1, "3");
 		add(pg1);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
