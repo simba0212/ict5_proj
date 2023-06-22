@@ -48,7 +48,7 @@ public class Huge_main extends JFrame {
 		setSize(500, 800);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		//qwqwqtryty
+		//qwqwqtrytydrfsdfsd
 	}
 	//성경수정테스트중, 지금현재 이 주석줄만 한번 써서 테스트 해보는중
 	public static void main(String[] args) {
