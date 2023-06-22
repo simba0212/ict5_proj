@@ -40,7 +40,7 @@ public class Huge_main extends JFrame {
 		pg1.add("1",ca);
 		pg1.add("2",nt);
 		pg1.add("3",myp);
-		cardlayout.show(pg1, "3");
+		cardlayout.show(pg1, "1");
 
 		add(pg1);
 		setVisible(true);
