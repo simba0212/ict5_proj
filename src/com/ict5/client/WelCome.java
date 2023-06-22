@@ -15,7 +15,7 @@ public class WelCome extends JPanel {
         // 이미지 레이블 추가
         ImageIcon imageIcon = new ImageIcon("D:/YDP/javastudy/예비/src/images/welcome.png"); // 이미지 경로 수정
         JLabel imageLabel = new JLabel(imageIcon);
-        add(imageLabel, BorderLayout.NORTH);
+        add(imageLabel, BorderLayout.CENTER);
 
         // 중앙 패널 생성
         JPanel centerPanel = new JPanel();
@@ -29,11 +29,11 @@ public class WelCome extends JPanel {
         JButton loginButton = new JButton("로그인");
         centerPanel.add(loginButton);
 
-        add(centerPanel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.SOUTH);
 
         // 하단 공백 패널 추가
         JPanel bottomPanel = new JPanel();
-        add(bottomPanel, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.NORTH);
     }
 
     public static void main(String[] args) {

@@ -56,7 +56,7 @@ public class Huge_main extends JFrame {
 	public static void main(String[] args) {
 
 		try {
-//			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 			new Huge_main();
 		} catch (Exception e) {
 		}
