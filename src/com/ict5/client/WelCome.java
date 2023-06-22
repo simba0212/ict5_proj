@@ -3,10 +3,14 @@ package com.ict5.client;
 import javax.swing.*;
 import java.awt.*;
 
-public class WelCome extends JFrame {
-    public WelCome() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Welcome");
+public class WelCome extends JPanel {
+	Huge_main main;
+	CardLayout cardlayout;
+	
+    public WelCome(Huge_main main) {
+        setLayout(new BorderLayout());
+        this.main = main;
+		this.cardlayout = main.cardlayout;
 
         // 이미지 레이블 추가
         ImageIcon imageIcon = new ImageIcon("D:/YDP/javastudy/예비/src/images/welcome.png"); // 이미지 경로 수정
@@ -30,14 +34,15 @@ public class WelCome extends JFrame {
         // 하단 공백 패널 추가
         JPanel bottomPanel = new JPanel();
         add(bottomPanel, BorderLayout.SOUTH);
-        
-        pack();
-        setResizable(false);
-        setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {
-        WelCome example = new WelCome();
-        example.setVisible(true);
+        JFrame frame = new JFrame("Welcome");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane();
+        frame.pack();
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
