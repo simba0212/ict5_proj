@@ -114,6 +114,6 @@ public class CreateAccount extends JPanel {
 		add(panel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 
-		
+		// 동표수정1
 	}
 }
