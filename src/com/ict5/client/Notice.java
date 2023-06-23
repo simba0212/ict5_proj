@@ -21,7 +21,7 @@ public class Notice extends JPanel {
 		JPanel noti = new JPanel();
 		noti.setLayout(new GridLayout(0, 1)); // 그리드 레이아웃 사용
 
-		int ii = 4; // 제공될 알림의 수 지정하는 변수
+		int ii = 7; // 제공될 알림의 수 지정하는 변수
 		// 패널 배열 생성
 		JPanel[] panels = new JPanel[ii];
 		for (int i = 0; i < panels.length; i++) {
