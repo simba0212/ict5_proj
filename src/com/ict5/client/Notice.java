@@ -27,11 +27,13 @@ public class Notice extends JPanel {
 		this.cardlayout = main.cardlayout;
 		setLayout(new BorderLayout());
 
+
 		JPanel noti = new JPanel();
 		noti.setLayout(new BoxLayout(noti, BoxLayout.Y_AXIS)); // 박스
-		noti.setPreferredSize(new Dimension(400, 380));
+	
 		noti.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		int ii = 10; // 제공될 알림의 수 지정하는 변수
+
 		// 패널 배열 생성
 		JPanel[] panels = new JPanel[ii];
 		for (int i = 0; i < panels.length; i++) {
@@ -39,6 +41,7 @@ public class Notice extends JPanel {
 			noti.add(panels[i]); // 프레임에 패널 추가
 		}
 		jsp = new JScrollPane(noti,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jsp.setPreferredSize(new Dimension(400, 380));
 		add(jsp);
 	}
 

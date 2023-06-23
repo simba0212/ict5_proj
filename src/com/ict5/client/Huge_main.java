@@ -24,7 +24,11 @@ public class Huge_main extends JFrame {
 		Mypoint mp = new Mypoint(this);
 		TabPage tab = new TabPage(this);
 
+
 		Home home = new Home(this);
+
+
+		chargepoint charp =new chargepoint(this);
 
 //		Schedule schedule = new Schedule(this);
 
@@ -46,7 +50,8 @@ public class Huge_main extends JFrame {
 
 
 //		pg1.add("페이지명",객체이름);
-//		pg1.add("페이지명",객체이름);
+		pg1.add("charp",charp);
+
 
 
 
@@ -54,6 +59,7 @@ public class Huge_main extends JFrame {
 
 		
 		cardlayout.show(pg1, "home");
+
 
 		add(pg1);
 		setVisible(true);
