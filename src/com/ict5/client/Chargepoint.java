@@ -16,10 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class chargepoint extends JPanel{
+public class Chargepoint extends JPanel{
 	Huge_main main;
 	CardLayout cardlayout;
-	public chargepoint(Huge_main main) {
+	public Chargepoint(Huge_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
 		JPanel top =new JPanel(new BorderLayout());

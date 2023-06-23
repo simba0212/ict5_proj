@@ -23,21 +23,16 @@ public class Huge_main extends JFrame {
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
 		TabPage tab = new TabPage(this);
-
-
 		Home home = new Home(this);
-
-
-		chargepoint charp =new chargepoint(this);
-
-//		Schedule schedule = new Schedule(this);
-
+		Chargepoint charp =new Chargepoint(this);
+		PassChange pc = new PassChange(this);
+		
+		
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
-
 		pg1.add("nt", nt);	// 공지사항
 		pg1.add("ca",ca);	// 회원가입
 		pg1.add("myp",myp);	// 마이페이지
@@ -46,19 +41,13 @@ public class Huge_main extends JFrame {
 		pg1.add("mp",mp);	// 포인트이력
 		pg1.add("tab",tab); // 탭페이지
 		pg1.add("home",home); // 탭페이지
+		pg1.add("charp",charp); // 포인트충전
+		pg1.add("pc",pc); // 비밀번호 변경
 		
-
-
+		
+		cardlayout.show(pg1, "tab"); 
 //		pg1.add("페이지명",객체이름);
-		pg1.add("charp",charp);
-
-
-
-
-
-
 		
-		cardlayout.show(pg1, "home");
 
 
 		add(pg1);
@@ -67,7 +56,6 @@ public class Huge_main extends JFrame {
 		setSize(500, 800);
 		setLocationRelativeTo(null);
 		setResizable(true);
-
 	}
 	//성경수정테스트중, 지금현재 이 주석줄만 한번 써서 테스트 해보는중
 	public static void main(String[] args) {
