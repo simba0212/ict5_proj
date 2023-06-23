@@ -18,9 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Myp extends JPanel{
+public class Myp extends JPanel {
 	Huge_main main;
-CardLayout cardlayout;
+	CardLayout cardlayout;
 
 public Myp(Huge_main main) {
 	this.main = main;
@@ -92,7 +92,9 @@ public Myp(Huge_main main) {
 	 JPanel jp = new JPanel(new GridLayout(0, 1));
 	 JPanel jp2 = new JPanel(new BorderLayout());
 	 
+
 //	add(new JLabel("목표"));
+
 	 JLabel jl1 =new JLabel("목표",JLabel.CENTER);
 	 jl1.setFont(font2);
 	jp2.add(jl1,BorderLayout.NORTH);
@@ -112,38 +114,39 @@ public Myp(Huge_main main) {
 			cardlayout.show(main.pg1, "nt"); // 이동 타갯 변경해야함
 		}
 			
+
 		});
-	point.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
-		}
-			
+		point.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+			}
+
 		});
-	noti.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
-		}
-			
+		noti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+			}
+
 		});
-	setpass.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
-		}
-			
+		setpass.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+			}
+
 		});
-	logout.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
-		}
-			
+		logout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+			}
+
 		});
 	jb1.addActionListener(new ActionListener() {
 		
@@ -154,5 +157,5 @@ public Myp(Huge_main main) {
 		}
 	});
 
-}
+	}
 }

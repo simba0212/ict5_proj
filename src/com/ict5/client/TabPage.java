@@ -34,10 +34,10 @@ public class TabPage extends JPanel {
 
         // 탭 패널
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("          수업일정          ", new JPanel());
+        tabbedPane.addTab("          수업일정          ", new Schedule(main));
         tabbedPane.addTab("          예약현황          ", new JPanel());
-        tabbedPane.addTab("           알 림           ", notificationScrollPane);
-        tabbedPane.addTab("           My           ", new JPanel());
+        tabbedPane.addTab("           알 림           ",  new Notice(main));
+        tabbedPane.addTab("           My           ", new Myp(main));
 
         // JTabbedPane 가로 크기 설정
         addComponentListener(new ComponentAdapter() {
