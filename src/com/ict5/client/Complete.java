@@ -8,9 +8,9 @@ public class Complete extends JPanel {
 	CardLayout cardlayout;
 
 	public Complete(Huge_main main) {
-		setLayout(new BorderLayout());
 		this.main = main;
 		this.cardlayout = main.cardlayout;
+		setLayout(new BorderLayout());
 
 		// 이미지 레이블 추가
 		ImageIcon imageIcon = new ImageIcon("src/images/complete.png"); // 이미지 경로 수정
