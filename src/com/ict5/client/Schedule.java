@@ -169,12 +169,13 @@ public class Schedule extends JPanel {
 
 		// 수업패널
 		frameBottomPanel = new JPanel();
-		frameBottomPanel.setPreferredSize(new Dimension(500, 350));
+		frameBottomPanel.setPreferredSize(new Dimension(500, 400));
 		Notice nt = new Notice(main);
-		JScrollPane jsp = new JScrollPane(nt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		frameBottomPanel.add(jsp);
+		frameBottomPanel.add(nt);
 
+		calPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		frameBottomPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		
 		// Panel에 전부 배치
 		add(calOpPanel, BorderLayout.NORTH);
 		add(calPanel, BorderLayout.CENTER);
