@@ -23,6 +23,7 @@ public class Huge_main extends JFrame {
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
 		TabPage tab = new TabPage(this);
+		chargepoint charp =new chargepoint(this);
 //		Schedule schedule = new Schedule(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -38,9 +39,9 @@ public class Huge_main extends JFrame {
 		pg1.add("tab", tab); // 탭페이지
 //		pg1.add("schedule", schedule); // 달력
 //		pg1.add("페이지명",객체이름);
-//		pg1.add("페이지명",객체이름);
+		pg1.add("charp",charp);
 
-		cardlayout.show(pg1, "tab");
+		cardlayout.show(pg1, "charp");
 
 		add(pg1);
 		setVisible(true);
