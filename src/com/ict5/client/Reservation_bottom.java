@@ -31,7 +31,7 @@ public class Reservation_bottom extends JPanel {
 		JPanel bt = new JPanel();
 		bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
 
-		int ii = 10; // 제공될 알림의 수 지정하는 변수
+		int ii = 5; // 제공될 알림의 수 지정하는 변수
 		// 패널 배열 생성
 		JPanel[] panels = new JPanel[ii];
 		for (int i = 0; i < panels.length; i++) {
