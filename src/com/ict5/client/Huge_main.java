@@ -14,39 +14,36 @@ public class Huge_main extends JFrame {
 		super("거구로 거듭나자 거구장센터");
 		cardlayout = new CardLayout();
 		pg1 = new JPanel(cardlayout);
+		
 
+//		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		CreateAccount ca = new CreateAccount(this);
-
 		Notice nt= new Notice(this);
 		Myp myp = new Myp(this);
 		WelCome wc = new WelCome(this);
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
-//		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
+		TabPage tab = new TabPage(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 
 
-		pg1.add("nt", nt);
+
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
-
-		pg1.add("ca",ca);
-		pg1.add("myp",myp);
-		pg1.add("wc",wc);
-		pg1.add("cp",cp);
-		pg1.add("mp",mp);
+		pg1.add("nt", nt);	// 공지사항
+		pg1.add("ca",ca);	// 회원가입
+		pg1.add("myp",myp);	// 마이페이지
+		pg1.add("wc",wc);	// 회원가입완료
+		pg1.add("cp",cp);	// 입금완료
+		pg1.add("mp",mp);	// 포인트이력
+		pg1.add("tab",tab); // 탭페이지
 //		pg1.add("페이지명",객체이름);
 //		pg1.add("페이지명",객체이름);
 
-		cardlayout.next(pg1);
 
 		
-		pg1.add("1",ca);
-		pg1.add("2",nt);
-		pg1.add("3",myp);
-		pg1.add("4",wc);
-		cardlayout.show(pg1, "mp");
+		cardlayout.show(pg1, "tab");
 
 		add(pg1);
 		setVisible(true);
@@ -58,6 +55,7 @@ public class Huge_main extends JFrame {
 
 	public static void main(String[] args) {
 
+		
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 			new Huge_main();
