@@ -24,6 +24,7 @@ public class Huge_main extends JFrame {
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
 		TabPage tab = new TabPage(this);
+		Home home = new Home(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -38,6 +39,8 @@ public class Huge_main extends JFrame {
 		pg1.add("cp",cp);	// 입금완료
 		pg1.add("mp",mp);	// 포인트이력
 		pg1.add("tab",tab); // 탭페이지
+		pg1.add("home",home); // 탭페이지
+		
 //		pg1.add("페이지명",객체이름);
 //		pg1.add("페이지명",객체이름);
 
@@ -45,7 +48,7 @@ public class Huge_main extends JFrame {
 
 
 		
-		cardlayout.show(pg1, "myp");
+		cardlayout.show(pg1, "home");
 
 
 
@@ -54,7 +57,7 @@ public class Huge_main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 800);
 		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
 		//qwqwqtrytydrfsdfsd
 	}
 	//성경수정테스트중, 지금현재 이 주석줄만 한번 써서 테스트 해보는중
