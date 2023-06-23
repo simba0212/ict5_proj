@@ -25,14 +25,10 @@ public class Notice extends JPanel {
 		// 패널 배열 생성
 		JPanel[] panels = new JPanel[ii];
 		for (int i = 0; i < panels.length; i++) {
-
 			panels[i] = createPanel(); // 패널 생성 및 배열에 할당
 			noti.add(panels[i]); // 프레임에 패널 추가
-
 		}
 		add(noti);
-		
-
 	}
 	
 	        
