@@ -29,6 +29,7 @@ public class Huge_main extends JFrame {
 		Chargepoint charp =new Chargepoint(this);
 		PassChange pc = new PassChange(this);
 		Login lo = new Login(this);
+		PaymentPage pp = new PaymentPage(this);
 		
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -46,9 +47,10 @@ public class Huge_main extends JFrame {
 		pg1.add("charp",charp); // 포인트충전
 		pg1.add("pc",pc); // 비밀번호 변경
 		pg1.add("lo",lo); // 로그인 페이지
+		pg1.add("pp",pp); // 결제2번째 페이지
 		
 		
-		cardlayout.show(pg1, "lo"); 
+		cardlayout.show(pg1, "pp"); 
 //		pg1.add("페이지명",객체이름);
 		
 
