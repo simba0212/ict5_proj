@@ -100,5 +100,11 @@ public class Login extends JPanel {
             	pw_tf.requestFocus(); // 커서 포커스 설정
             }
         });
+      //로그인 버튼->홈으로
+        login_btn.addActionListener(e -> {
+            Home home = new Home(main);
+            main.pg1.add("home", home);
+            main.cardlayout.show(main.pg1, "home");
+        });
     }
 }
