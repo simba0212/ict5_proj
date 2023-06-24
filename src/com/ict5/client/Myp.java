@@ -112,7 +112,6 @@ public Myp(Huge_main main) {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			cardlayout.show(main.pg1, "nt"); // 이동 타갯 변경해야함
-			tabbedPane.tabbedPane.setSelectedIndex(1);
 		}
 			
 

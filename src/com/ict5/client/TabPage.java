@@ -38,9 +38,7 @@ public class TabPage extends JPanel {
         tabbedPane.addTab("          예약현황          ", new Reservation(main));
         tabbedPane.addTab("           알 림           ",  new Notice(main));
         tabbedPane.addTab("           My           ", new Myp(main));
-        public void static setSelectIndex(int i) {
-        	
-        }
+       
         // JTabbedPane 가로 크기 설정
         addComponentListener(new ComponentAdapter() {
             @Override
