@@ -1,6 +1,8 @@
 package com.ict5.client;
 
 import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,7 +28,6 @@ public class Huge_main extends JFrame {
 		Home home = new Home(this);
 		Chargepoint charp =new Chargepoint(this);
 		PassChange pc = new PassChange(this);
-		
 		
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
