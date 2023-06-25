@@ -50,7 +50,7 @@ public class Huge_main extends JFrame {
 		pg1.add("pp",pp); // 결제2번째 페이지
 		
 		
-		cardlayout.show(pg1, "pp"); 
+		cardlayout.show(pg1, "lo"); 
 //		pg1.add("페이지명",객체이름);
 		
 
