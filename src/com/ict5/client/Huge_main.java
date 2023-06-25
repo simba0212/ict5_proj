@@ -46,7 +46,7 @@ public class Huge_main extends JFrame {
 		pg1.add("pc",pc); // 비밀번호 변경
 		
 		
-		cardlayout.show(pg1, "tab"); 
+		cardlayout.show(pg1, "charp"); 
 //		pg1.add("페이지명",객체이름);
 		
 
