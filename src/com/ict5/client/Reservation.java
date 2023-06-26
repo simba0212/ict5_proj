@@ -24,7 +24,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-public class Schedule extends JPanel {
+public class Reservation extends JPanel {
 	Huge_main main;
 
 	static final int CAL_WIDTH = 7;
@@ -58,7 +58,7 @@ public class Schedule extends JPanel {
 	// 상수, 메세지
 	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
 
-	public Schedule(Huge_main main) {
+	public Reservation(Huge_main main) {
 		this.main = main;
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
@@ -159,6 +159,7 @@ public class Schedule extends JPanel {
 		}
 		calPanel.setLayout(new GridLayout(0, 7, 2, 2));
 		calPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+
 		showCal(); // 달력을 표시
 
 		Dimension calOpPanelSize = calOpPanel.getPreferredSize();
@@ -169,8 +170,8 @@ public class Schedule extends JPanel {
 		// 수업패널
 		frameBottomPanel = new JPanel();
 		frameBottomPanel.setPreferredSize(new Dimension(500, 400));
-		Schedule_bottom sb = new Schedule_bottom(main);
-		frameBottomPanel.add(sb);
+		Reservation_bottom rb = new Reservation_bottom(main);
+		frameBottomPanel.add(rb);
 
 		
 		// Panel에 전부 배치
@@ -204,7 +205,7 @@ public class Schedule extends JPanel {
 //				else 수업없을때
 				dateButs[i][j].setText("<html><font color=" + fontColor + ">" + calDates[i][j] + "</font></html>");
 
-				JLabel todayMark = new JLabel("<html><font color=green>*</html>");
+				JLabel todayMark = new JLabel("<html><font color=fuchsia>●  </html>");
 				dateButs[i][j].removeAll();
 				if (calMonth == today.get(Calendar.MONTH) && calYear == today.get(Calendar.YEAR)
 						&& calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)) {

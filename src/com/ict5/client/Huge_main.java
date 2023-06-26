@@ -1,6 +1,8 @@
 package com.ict5.client;
 
 import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,17 +25,17 @@ public class Huge_main extends JFrame {
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
 		TabPage tab = new TabPage(this);
-
 		Home home = new Home(this);
-
-//		Schedule schedule = new Schedule(this);
-
+		Chargepoint charp =new Chargepoint(this);
+		PassChange pc = new PassChange(this);
+		Login lo = new Login(this);
+		PaymentPage pp = new PaymentPage(this);
+		
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
-
 		pg1.add("nt", nt);	// 공지사항
 		pg1.add("ca",ca);	// 회원가입
 		pg1.add("myp",myp);	// 마이페이지
@@ -42,18 +44,16 @@ public class Huge_main extends JFrame {
 		pg1.add("mp",mp);	// 포인트이력
 		pg1.add("tab",tab); // 탭페이지
 		pg1.add("home",home); // 탭페이지
+		pg1.add("charp",charp); // 포인트충전
+		pg1.add("pc",pc); // 비밀번호 변경
+		pg1.add("lo",lo); // 로그인 페이지
+		pg1.add("pp",pp); // 결제2번째 페이지
+		
+		
+		cardlayout.show(pg1, "lo"); 
+//		pg1.add("페이지명",객체이름);
 		
 
-
-//		pg1.add("페이지명",객체이름);
-//		pg1.add("페이지명",객체이름);
-
-
-
-
-
-		
-		cardlayout.show(pg1, "home");
 
 		add(pg1);
 		setVisible(true);
@@ -61,7 +61,6 @@ public class Huge_main extends JFrame {
 		setSize(500, 800);
 		setLocationRelativeTo(null);
 		setResizable(true);
-
 	}
 	
 	public static void main(String[] args) {
