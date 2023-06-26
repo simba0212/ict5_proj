@@ -24,7 +24,7 @@ public class Huge_main extends JFrame {
 		WelCome wc = new WelCome(this);
 		Complete cp = new Complete(this);
 		Mypoint mp = new Mypoint(this);
-		TabPage tab = new TabPage(this);
+//		TabPage tab = new TabPage(this);
 		Home home = new Home(this);
 		Chargepoint charp =new Chargepoint(this);
 		PassChange pc = new PassChange(this);
@@ -42,7 +42,7 @@ public class Huge_main extends JFrame {
 		pg1.add("wc",wc);	// 회원가입완료
 		pg1.add("cp",cp);	// 입금완료
 		pg1.add("mp",mp);	// 포인트이력
-		pg1.add("tab",tab); // 탭페이지
+//		pg1.add("tab",tab); // 탭페이지
 		pg1.add("home",home); // 탭페이지
 		pg1.add("charp",charp); // 포인트충전
 		pg1.add("pc",pc); // 비밀번호 변경
