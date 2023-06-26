@@ -25,6 +25,23 @@ public class Home extends JPanel {
 
 		// 화면단 패널을 공지사항, 가까운수업, 버튼 총3개로 나눔
 		setLayout(new BorderLayout());
+		
+		
+		JPanel topPanel = new JPanel(new BorderLayout());
+        JButton alarmButton = new JButton("알람");
+        JButton logoutButton = new JButton("로그아웃");
+        JButton backButton = new JButton("<<");
+        JLabel customerLabel = new JLabel("OOO고객님");
+
+        // 버튼과 라벨을 한 줄로 배치하기 위한 패널
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        buttonPanel.add(alarmButton);
+        buttonPanel.add(logoutButton);//12312314123
+        buttonPanel.add(customerLabel);
+
+        topPanel.add(backButton, BorderLayout.WEST);
+        topPanel.add(buttonPanel, BorderLayout.EAST);
+
 
 		// 공지사항 패널
 		JPanel first = new JPanel();
@@ -84,6 +101,8 @@ public class Home extends JPanel {
 		last.add(book_bt, BorderLayout.CENTER);
 		last.add(attend_bt, BorderLayout.SOUTH);
 
+		
+		add(topPanel, new BorderLayout().NORTH);
 		add(first, new BorderLayout().NORTH);
 		add(second, new BorderLayout().CENTER);
 		add(last, new BorderLayout().SOUTH);
