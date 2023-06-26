@@ -51,7 +51,7 @@ public class Huge_main extends JFrame {
 		
 		
 
-		cardlayout.show(pg1, "lo"); 
+		cardlayout.show(pg1, ""); 
 //		pg1.add("페이지명",객체이름);
 		
 
