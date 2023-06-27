@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class Admin_member2 extends JPanel{
+public class Admin_memberview2 extends JPanel{
 	Admin_main main;
 	
-	public Admin_member2 (Admin_main main) {
+	public Admin_memberview2 (Admin_main main) {
 		this.main = main;
 		
 		

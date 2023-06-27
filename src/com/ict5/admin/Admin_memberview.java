@@ -16,7 +16,7 @@ public class Admin_memberview extends JPanel {
 		
 		setLayout(new BorderLayout());
 		add(new Admin_nav(main),BorderLayout.NORTH);
-		add(new Member_view(main),BorderLayout.SOUTH);
+		add(new Member_view(main),BorderLayout.CENTER);
 		
 //		JPanel jp_east = new JPanel(new BorderLayout());
 //		jp_east.add(new Point_new(),BorderLayout.NORTH);

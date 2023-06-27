@@ -24,7 +24,7 @@ public class Admin_main extends JFrame {
 		Admin_Home home = new Admin_Home(this);
 		Admin_ClassEdit classEdit = new Admin_ClassEdit(this);
 		Admin_memberview member = new Admin_memberview(this);
-		Admin_member2 member2 = new Admin_member2(this);
+		Admin_memberview2 member2 = new Admin_memberview2(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -40,7 +40,7 @@ public class Admin_main extends JFrame {
 		cardlayout.show(pg1, "member2");
 		
 		
-		setResizable(false);
+		setResizable(true);
 		getContentPane().setBackground(Color.white);
 		setSize(1280, 840);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

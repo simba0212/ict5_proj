@@ -2,6 +2,7 @@ package com.ict5.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,9 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import com.ict5.admin.Member_view2.CenterTableCellRenderer;
 
 public class Member_view extends JPanel{
 	Admin_main main;
@@ -85,6 +91,7 @@ public class Member_view extends JPanel{
 	        for (int i = 0; i < columnNames.length; i++) {
 	            TableColumn column = columnModel.getColumn(i);
 	            column.setPreferredWidth(columnWidths[i]);
+	            column.setCellRenderer(new CenterTableCellRenderer());
 	        }
 	       
 	        
@@ -117,6 +124,14 @@ public class Member_view extends JPanel{
 	            }
 	        });
 	     
+	    }
+	}
+	public class CenterTableCellRenderer implements TableCellRenderer {
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+	        return renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 	    }
 	}
 }
