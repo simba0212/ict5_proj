@@ -31,6 +31,8 @@ public class Admin_main extends JFrame {
 		Admin_CoMgmt1 coMg1 = new Admin_CoMgmt1(this);
 		Admin_CoMgmt2 coMg2 = new Admin_CoMgmt2(this);
 		Admin_CoMgmt3 coMg3 = new Admin_CoMgmt3(this);
+		Admin_UserAppMgmt userMg = new Admin_UserAppMgmt(this);
+		
 //	클래스명 변수명 = new 클래스명(this);
 //	클래스명 변수명 = new 클래스명(this);
 //	클래스명 변수명 = new 클래스명(this);
@@ -46,6 +48,7 @@ public class Admin_main extends JFrame {
 		pg1.add("coMg1", coMg1);//강사관리-강사목록
 		pg1.add("coMg2", coMg2);//강사관리-해당강사의 수업
 		pg1.add("coMg3",coMg3);
+		pg1.add("userMg",userMg);//유저앱관리
 
 //		pg1.add("페이지명",객체이름);
 	
@@ -53,7 +56,7 @@ public class Admin_main extends JFrame {
 		
 		add(pg1);
 
-		cardlayout.show(pg1, "checkagain");
+		cardlayout.show(pg1, "coMg2");
 
 		setResizable(true);
 		getContentPane().setBackground(Color.white);
