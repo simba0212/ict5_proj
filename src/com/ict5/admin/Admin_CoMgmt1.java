@@ -11,7 +11,7 @@ public class Admin_CoMgmt1 extends JPanel {
 		this.main = main;
 		
 	setLayout(new BorderLayout());
-		add(new Admin_nav(main),BorderLayout.NORTH);
+		add(new Navi(main),BorderLayout.NORTH);
 		add(new CoTable1(main),BorderLayout.CENTER);
 		
 		

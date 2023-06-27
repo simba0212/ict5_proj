@@ -2,6 +2,7 @@ package com.ict5.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,19 +17,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-public class Admin_member extends JPanel{
+import com.ict5.admin.Member_view2.CenterTableCellRenderer;
+
+public class Member_view extends JPanel{
 	Admin_main main;
-	public Admin_member(Admin_main main) {{
+	public Member_view(Admin_main main) {{
 		this.main=main;
 			 
 			JPanel jp1 =new JPanel(new BorderLayout());
 			JPanel jp1_1 =new JPanel(new BorderLayout());
-			JPanel jp2 =new JPanel(new BorderLayout());
-			JPanel jp2_1 =new JPanel(new BorderLayout());
+			
 			 Font font = new Font("돋움", Font.BOLD, 30);
 			 
 		
@@ -38,23 +43,20 @@ public class Admin_member extends JPanel{
 			jl1.setFont(font);
 			jl2.setFont(font);
 			jl3.setFont(font);
-			
-			
-			
 			jp1.add(jl1,BorderLayout.WEST);
 			jp1_1.add(jl2,BorderLayout.WEST);
 			jp1_1.add(jl3,BorderLayout.EAST);
-			
 			jp1_1.setBackground(Color.lightGray);
 			jp1.setBackground(Color.lightGray);
 			jp1.add(jp1_1,BorderLayout.AFTER_LINE_ENDS);
-			//jp1.add();
 			
 			JTextField jtfMember = new JTextField(" 회원검색", 20);
 			jtfMember.setEditable(false);
 			jtfMember.setPreferredSize(new Dimension(80, 40));
 			JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
 			bt_search.setPreferredSize(new Dimension(80, 40));
+			JPanel jp2 =new JPanel(new BorderLayout());
+			JPanel jp2_1 =new JPanel(new BorderLayout());
 			
 			jp2_1.add(jtfMember,BorderLayout.WEST);
 			jp2_1.add(new JLabel("  "),BorderLayout.CENTER);
@@ -64,7 +66,7 @@ public class Admin_member extends JPanel{
 			jp2.setPreferredSize(new Dimension(1200, 40));
 
 	        // 가변 데이터 수를 결정할 변수
-	        int rowCount = 25; // 예시로 5개의 데이터 행을 가정합니다.
+	        int rowCount = 25; // 예시로 25개의 데이터 행을 가정합니다.
 
 	        // 열 제목 지정
 	        String[] columnNames = {"회원번호", "이름", "ID","전화번호","이메일","성별","생년월일","최근예약","주소","보유 포인트","등록 날짜","최근 출석일","이번달출석","사용포인트","충전포인트(달)","누적사용포인트","누적충전포인트"};
@@ -75,7 +77,7 @@ public class Admin_member extends JPanel{
 
 	        // 데이터 추가
 	        for (int i = 1; i <= rowCount; i++) {
-	            Object[] rowData = {  i, "노종문씨",  "idsmsrlftneh","010-1234-1234","aqweqw@qasdfaf","남","1999-12-34","2023-06-26","서울마포구백범로213412소","123412354","2023-06-26","2023-06-26","30","사용포인트","412345453","13241543","123547456"};
+	            Object[] rowData = {  i, "노종문",  "idsmsrlftneh","010-1234-1234","aqweqw@qasdfaf","남","1999-12-34","2023-06-26","서울마포구백범로213412소","123412354","2023-06-26","2023-06-26","30","사용포인트","412345453","13241543","123547456"};
 	            
 	            model.addRow(rowData);
 	        }
@@ -89,6 +91,7 @@ public class Admin_member extends JPanel{
 	        for (int i = 0; i < columnNames.length; i++) {
 	            TableColumn column = columnModel.getColumn(i);
 	            column.setPreferredWidth(columnWidths[i]);
+	            column.setCellRenderer(new CenterTableCellRenderer());
 	        }
 	       
 	        
@@ -121,6 +124,14 @@ public class Admin_member extends JPanel{
 	            }
 	        });
 	     
+	    }
+	}
+	public class CenterTableCellRenderer implements TableCellRenderer {
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+	        return renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 	    }
 	}
 }

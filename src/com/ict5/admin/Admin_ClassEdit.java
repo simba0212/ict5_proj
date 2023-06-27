@@ -14,8 +14,8 @@ public class Admin_ClassEdit extends JPanel {
 		
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
-		add(new Admin_nav(main),BorderLayout.NORTH);
-		add(new Admin_TimeTable(main),BorderLayout.WEST);
+		add(new Navi(main),BorderLayout.NORTH);
+		add(new TimeTable(main),BorderLayout.WEST);
 		add(new ClassEdit1(),BorderLayout.EAST);
 		
 	}

@@ -17,12 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Admin_nav extends JPanel {
+public class Navi extends JPanel {
 	Admin_main main;
 	CardLayout cardLayout;
 	JPanel pg1;
 
-	public Admin_nav(Admin_main main) {
+	public Navi(Admin_main main) {
 		this.main = main;
 		this.cardLayout = main.cardlayout;
 		JPanel nav = new JPanel(new BorderLayout()); // 내비게이션패널
