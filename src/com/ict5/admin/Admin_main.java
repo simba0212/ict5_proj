@@ -22,21 +22,35 @@ public class Admin_main extends JFrame {
 
 //		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		Admin_Home home = new Admin_Home(this);
+
 		Admin_Login login = new Admin_Login(this);
+		Admin_CheckAgain checkagain = new Admin_CheckAgain(this);
+		Admin_ClassEdit classEdit = new Admin_ClassEdit(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
 
+
+
+	
+
+//		클래스명 변수명 = new 클래스명(this);
+//		클래스명 변수명 = new 클래스명(this);
+//		클래스명 변수명 = new 클래스명(this);
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 		pg1.add("home", home);
 		pg1.add("login", login);
+		pg1.add("classEdit", classEdit);
+		pg1.add("checkagain", checkagain);
+
+
+
 //		pg1.add("페이지명",객체이름);
 	
 
+		
 		add(pg1);
-		
-		cardlayout.show(pg1, "home");
-		
+		cardlayout.show(pg1, "checkagain");
 		
 		
 		setResizable(false);
