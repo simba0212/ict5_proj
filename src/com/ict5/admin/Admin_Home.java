@@ -17,6 +17,7 @@ public class Admin_Home extends JPanel {
 		setLayout(new BorderLayout());
 		add(new Admin_nav(main),BorderLayout.NORTH);
 
+
 		add(new Admin_TimeTable(main),BorderLayout.WEST);
 		
 		JPanel jp_east = new JPanel(new BorderLayout());
