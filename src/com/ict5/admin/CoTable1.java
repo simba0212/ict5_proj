@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class CoTable1 extends JPanel {
 
@@ -97,8 +98,15 @@ public class CoTable1 extends JPanel {
         };
 
         Object[] columnNames = {"강사 번호", "이름", "전화 번호", "성별", "생년월일", "주소", "등록날짜", "담당 운동", "근무 요일"};
-        instrTable = new JTable(data, columnNames);
-        
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
+                return column == columnNames.length;
+            }
+        };
+        instrTable = new JTable(model);
+        instrTable.getTableHeader().setReorderingAllowed(false);
 
         JScrollPane instrScrollPane = new JScrollPane(instrTable);
         centerPanel.add(instrScrollPane, BorderLayout.CENTER);

@@ -3,11 +3,14 @@ package com.ict5.admin;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class CoTable2 extends JPanel {
 
@@ -100,12 +105,26 @@ public class CoTable2 extends JPanel {
             // 필요하면 더하기
         };
 
-        Object[] columnNames = {"이름", "전화번호", "등록날짜", "담당운동"};
-        instrTable = new JTable(data, columnNames);
+        Object[] columnNames = {"이름", "전화번호", "등록날짜", "담당운동", "삭제버튼"};
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
+                return column == columnNames.length - 1;
+            }
+        };
+        instrTable = new JTable(model);
+        //instrTable.setEnabled(false);
+        instrTable.getTableHeader().setReorderingAllowed(false);
+
+        // 마지막 열에 단추 렌더러 및 편집기 추가
+        TableColumnButtonRenderer buttonRenderer = new TableColumnButtonRenderer();
+        TableColumnButtonEditor buttonEditor = new TableColumnButtonEditor();
+        instrTable.getColumnModel().getColumn(columnNames.length - 1).setCellRenderer(buttonRenderer);
+        instrTable.getColumnModel().getColumn(columnNames.length - 1).setCellEditor(buttonEditor);	
 
         JScrollPane instrScrollPane = new JScrollPane(instrTable);
         leftPanel.add(instrScrollPane, BorderLayout.CENTER);
-
 
         centerPanel.add(leftPanel, BorderLayout.WEST);
 
@@ -117,16 +136,22 @@ public class CoTable2 extends JPanel {
         classLabel.setFont(classLabel.getFont().deriveFont(Font.BOLD, 20f));
         rightPanel.add(classLabel, BorderLayout.NORTH);
 
-     // 샘플 class data
+        // 샘플 class data
         Object[][] classData = {
             {"5/10", "4층 401호", "2023-06-01", "17:00 ~ 19:00"},
             {"9/10", "2층 211호", "2023-06-03", "08:00 ~ 08:50"}
-
         };
 
         Object[] classColumnNames = {"인원", "장소", "날짜", "시간"};
-        classTable = new JTable(classData, classColumnNames);
-
+        DefaultTableModel model1 = new DefaultTableModel(classData, classColumnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
+                return column == classColumnNames.length;
+            }
+        };
+        classTable = new JTable(model1);
+        classTable.getTableHeader().setReorderingAllowed(false);
         JScrollPane classScrollPane = new JScrollPane(classTable);
         rightPanel.add(classScrollPane, BorderLayout.CENTER);
 
@@ -137,7 +162,45 @@ public class CoTable2 extends JPanel {
         instrTable.setDefaultRenderer(Object.class, centerRenderer);
 
         centerPanel.add(rightPanel, BorderLayout.CENTER);
-        
+
         add(centerPanel, BorderLayout.CENTER);
+    }
+
+    // 삭제 버튼
+    private class TableColumnButtonRenderer extends JButton implements TableCellRenderer {
+        public TableColumnButtonRenderer() {
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText("삭제");
+            return this;
+        }
+    }
+
+    // 삭제 버튼 관련
+    private class TableColumnButtonEditor extends DefaultCellEditor {
+        private JButton button;
+
+        public TableColumnButtonEditor() {
+            super(new JTextField());
+            setClickCountToStart(1);
+
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(e -> fireEditingStopped());
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            button.setText("삭제");
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "삭제";
+        }
     }
 }
