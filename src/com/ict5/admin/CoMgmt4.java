@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 
@@ -192,13 +193,26 @@ public class CoMgmt4 extends JPanel {
 		ImageIcon imageIcon = new ImageIcon(imagePath);
 		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);  // 원하는 크기로 조정
 		imageLabel.setIcon(new ImageIcon(image));
+		
 
 		// 이미지 패널 생성
 		JPanel imagePanel = new JPanel();
 		imagePanel.setLayout(new BorderLayout());
-		imagePanel.add(imageLabel);
+		
+		imagePanel.add(imageLabel, BorderLayout.CENTER);
+		add(imagePanel, BorderLayout.WEST);
 		imagePanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 10));
+		
+		// "사진 첨부" 버튼 생성
+		JButton attachButton = new JButton("사진 첨부");
+		attachButton.setFont(attachButton.getFont().deriveFont(15f)); // 폰트 크기를 18로 설정
+		attachButton.setPreferredSize(new Dimension(120, 20));
 
+		// 버튼을 이미지 패널의 오른쪽 아래에 추가
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		buttonPanel.add(attachButton);
+		imagePanel.add(buttonPanel, BorderLayout.SOUTH);
+		
 		// 이미지 레이블을 이미지 패널의 가운데에 추가
 		imagePanel.add(imageLabel, BorderLayout.CENTER);
 		add(imagePanel, BorderLayout.WEST);
@@ -216,14 +230,11 @@ public class CoMgmt4 extends JPanel {
 		JButton editButton = new JButton("수정");
 		editButton.setFont(editButton.getFont().deriveFont(18f)); // 폰트 크기를 24로 설정
 
-		// "삭제" 버튼 생성
-		JButton deleteButton = new JButton("삭제");
-		deleteButton.setFont(deleteButton.getFont().deriveFont(18f)); // 폰트 크기를 24로 설정
-
 		// 버튼들을 하단 패널에 추가
+
 		bottomPanel.add(addButton);
 		bottomPanel.add(editButton);
-		bottomPanel.add(deleteButton);
+		bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 40, 10));
 
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
