@@ -27,12 +27,12 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Color;
 
-public class Admin_TimeTable extends JPanel {
+public class TimeTable extends JPanel {
 	private JTable table;
 	Admin_main main;
 	CardLayout cardLayout;
 
-	public Admin_TimeTable(Admin_main main) {
+	public TimeTable(Admin_main main) {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		

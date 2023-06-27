@@ -94,7 +94,7 @@ public class Admin_CheckAgain extends JPanel{
 	
 	
 	setLayout(new BorderLayout());
-	add(new Admin_nav(main),BorderLayout.NORTH);
+	add(new Navi(main),BorderLayout.NORTH);
 	add(home,BorderLayout.CENTER);
 	
 	login_bt.addActionListener(new ActionListener() {
