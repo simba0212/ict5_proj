@@ -26,6 +26,10 @@ public class Admin_main extends JFrame {
 		Admin_Login login = new Admin_Login(this);
 
 		Admin_ClassEdit classEdit = new Admin_ClassEdit(this);
+		
+		Admin_CoMgmt1 coMg1 = new Admin_CoMgmt1(this);
+		
+		Admin_CoMgmt2 coMg2 = new Admin_CoMgmt2(this);
 
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -34,13 +38,15 @@ public class Admin_main extends JFrame {
 		pg1.add("home", home);
 		pg1.add("login", login);
 		pg1.add("classEdit", classEdit);
+		pg1.add("coMg1", coMg1);//강사관리-강사목록
+		pg1.add("coMg2", coMg2);//강사관리-해당강사의 수업
 
 //		pg1.add("페이지명",객체이름);
 	
 
 		
 		add(pg1);
-		cardlayout.show(pg1, "classEdit");
+		cardlayout.show(pg1, "coMg2");
 		
 		
 		setResizable(false);
