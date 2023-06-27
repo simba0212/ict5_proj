@@ -8,7 +8,7 @@ import java.awt.event.ComponentEvent;
 public class TabPage extends JPanel {
     Huge_main main;
     CardLayout cardlayout;
-
+    static JTabbedPane tabbedPane;
     public TabPage(Huge_main main) {
         // Tab 4개와 이름 출력, 로그아웃 알람 누르면 알람으로 가는 기능만 있습니다.
 
@@ -33,12 +33,12 @@ public class TabPage extends JPanel {
         JScrollPane notificationScrollPane = new JScrollPane(notificationPanel);
 
         // 탭 패널
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
         tabbedPane.addTab("          수업일정          ", new Schedule(main));
         tabbedPane.addTab("          예약현황          ", new Reservation(main));
         tabbedPane.addTab("           알 림           ",  new Notice(main));
         tabbedPane.addTab("           My           ", new Myp(main));
-
+       
         // JTabbedPane 가로 크기 설정
         addComponentListener(new ComponentAdapter() {
             @Override
