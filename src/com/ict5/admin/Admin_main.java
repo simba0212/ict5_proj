@@ -20,27 +20,26 @@ public class Admin_main extends JFrame {
 		pg1 = new JPanel();
 		pg1.setLayout(cardlayout);
 
-//		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
+//	클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		Admin_Home home = new Admin_Home(this);
 
 		Admin_Login login = new Admin_Login(this);
-
+		Admin_CheckAgain checkagain = new Admin_CheckAgain(this);
 		Admin_ClassEdit classEdit = new Admin_ClassEdit(this);
-		
-
 		Admin_CoMgmt1 coMg1 = new Admin_CoMgmt1(this);
-		
 		Admin_CoMgmt2 coMg2 = new Admin_CoMgmt2(this);
-		
 		Admin_CoMgmt3 coMg3 = new Admin_CoMgmt3(this);
-
-//		클래스명 변수명 = new 클래스명(this);
-//		클래스명 변수명 = new 클래스명(this);
-//		클래스명 변수명 = new 클래스명(this);
-//		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
+//	클래스명 변수명 = new 클래스명(this);
+//	클래스명 변수명 = new 클래스명(this);
+//	클래스명 변수명 = new 클래스명(this);
+    
+//	pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 		pg1.add("home", home);
 		pg1.add("login", login);
 		pg1.add("classEdit", classEdit);
+		pg1.add("checkagain", checkagain);
+
+
 
 		pg1.add("coMg1", coMg1);//강사관리-강사목록
 		pg1.add("coMg2", coMg2);//강사관리-해당강사의 수업
@@ -53,9 +52,8 @@ public class Admin_main extends JFrame {
 		
 		add(pg1);
 
-		cardlayout.show(pg1, "coMg3");
+		cardlayout.show(pg1, "checkagain");
 
-		
 		
 		setResizable(false);
 		getContentPane().setBackground(Color.white);

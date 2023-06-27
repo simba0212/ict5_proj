@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -59,6 +61,15 @@ public class Admin_Login extends JPanel {
 		login.add(login2,BorderLayout.CENTER);
 		
 		add(login);
+		
+		login_bt.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	
 	
 	}
