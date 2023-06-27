@@ -177,4 +177,5 @@ public class Member_view2  extends JPanel {
 	        return renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 	    }
 	}
+
 }
