@@ -19,13 +19,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Teachsub extends JPanel {
+public class CoMgmt4 extends JPanel {
 	CardLayout cardlayout;
 	JPanel pg1;
 	
 	Admin_main main;
 	
-	public Teachsub(Admin_main main) {
+	public CoMgmt4(Admin_main main) {
 		this.main = main;
 		
 		setLayout(new BorderLayout());

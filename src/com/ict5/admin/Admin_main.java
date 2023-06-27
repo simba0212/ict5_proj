@@ -27,7 +27,7 @@ public class Admin_main extends JFrame {
 
 		Admin_ClassEdit classEdit = new Admin_ClassEdit(this);
 		
-		Admin_Teach teach = new Admin_Teach(this);
+		Admin_CoMgmt3 teach = new Admin_CoMgmt3(this);
 
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
