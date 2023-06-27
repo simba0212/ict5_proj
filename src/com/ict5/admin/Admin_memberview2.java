@@ -1,3 +1,4 @@
+
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
@@ -26,4 +27,5 @@ public class Admin_memberview2 extends JPanel{
 		
 	}
 	
+
 }

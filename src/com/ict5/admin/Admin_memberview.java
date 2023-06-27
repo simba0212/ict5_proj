@@ -26,4 +26,5 @@ public class Admin_memberview extends JPanel {
 		
 	}
 	
+
 }
