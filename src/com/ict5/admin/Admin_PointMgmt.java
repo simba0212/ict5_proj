@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class Point_Mgmt extends JPanel {
+public class Admin_PointMgmt extends JPanel {
 	Admin_main main;
 	
-	public Point_Mgmt(Admin_main main) {
+	public Admin_PointMgmt(Admin_main main) {
 		this.main = main;
 		
 		setLayout(new BorderLayout());

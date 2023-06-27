@@ -36,7 +36,7 @@ public class Admin_main extends JFrame {
 		
 		Admin_member member = new Admin_member(this);
 		
-		Point_Mgmt point_Mgmt = new Point_Mgmt(this);
+		Admin_PointMgmt point_Mgmt = new Admin_PointMgmt(this);
 		
 		Admin_TimeTable timeTable = new Admin_TimeTable(this);
 		
