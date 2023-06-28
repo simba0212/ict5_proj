@@ -34,15 +34,12 @@ public class Member_view extends JPanel{
 			JPanel jp1 =new JPanel(new BorderLayout());
 			JPanel jp1_1 =new JPanel(new BorderLayout());
 			
-			 Font font = new Font("돋움", Font.BOLD, 30);
-			 
-		
 			JLabel jl1 = new JLabel("     회원관리");
+			jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
 			JLabel jl2 = new JLabel("회원검색");
+			jl2.setFont(jl2.getFont().deriveFont(Font.BOLD,17f));
 			JLabel jl3 = new JLabel("     포인트관리    ");
-			jl1.setFont(font);
-			jl2.setFont(font);
-			jl3.setFont(font);
+			jl3.setFont(jl3.getFont().deriveFont(Font.BOLD,17f));
 			jp1.add(jl1,BorderLayout.WEST);
 			jp1_1.add(jl2,BorderLayout.WEST);
 			jp1_1.add(jl3,BorderLayout.EAST);

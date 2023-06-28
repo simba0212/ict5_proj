@@ -1,33 +1,37 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Admin_Home extends JPanel {
-	Admin_main main;
-	
-	public Admin_Home(Admin_main main) {
-		this.main = main;
-		
-		
-		
-		
-		
-		setLayout(new BorderLayout());
-		add(new Navi(main),BorderLayout.NORTH);
+    Admin_main main;
 
+    public Admin_Home(Admin_main main) {
+        this.main = main;
 
+        setLayout(new BorderLayout());
+        add(new Navi(main), BorderLayout.NORTH);
+        add(new TimeTable(main), BorderLayout.WEST);
 
-		add(new TimeTable(main),BorderLayout.WEST);
+        JPanel jp_east = new JPanel(new BorderLayout());
+        jp_east.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 0)); // 패널의 테두리 설정
 
-		
-		JPanel jp_east = new JPanel(new BorderLayout());
-		jp_east.add(new Point_new(),BorderLayout.NORTH);
-		jp_east.add(new Member_new(),BorderLayout.SOUTH);
-		add(jp_east,BorderLayout.EAST);
+        // Point_new 패널의 테두리 설정
+        JPanel pointPanel = new Point_new();
+        Border pointBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // 테두리 스타일 설정
+        pointPanel.setBorder(pointBorder);
+        jp_east.add(pointPanel, BorderLayout.NORTH);
 
-		
-	}
-	
+        // Member_new 패널의 테두리 설정
+        JPanel memberPanel = new Member_new();
+        Border memberBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // 테두리 스타일 설정
+        memberPanel.setBorder(memberBorder);
+        jp_east.add(memberPanel, BorderLayout.SOUTH);
+
+        add(jp_east, BorderLayout.CENTER);
+    }
 }

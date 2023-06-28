@@ -37,20 +37,23 @@ public class CoTable1 extends JPanel {
 
         // Top panel
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.setBackground(Color.GRAY);
+        topPanel.setPreferredSize(new Dimension(200, 60));
+        topPanel.setBackground(Color.lightGray);
 
         // 3번째 패널 (상단패널)
         JLabel titleLabel = new JLabel("강사 관리");
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 15f));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 10));
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 17f));
         topPanel.add(titleLabel);
 
         // 3번째 패널 (상단패널)
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        searchPanel.setBackground(Color.GRAY);
+        searchPanel.setBackground(Color.lightGray);
 
         searchTextField = new JTextField("강사 검색", 20);
         searchTextField.setPreferredSize(new Dimension(200, 30));
         searchPanel.add(searchTextField);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(7, 0, 0, 0));
 
         searchButton = new JButton("검색");
         searchButton.setPreferredSize(new Dimension(80, 30));

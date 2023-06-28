@@ -1,34 +1,41 @@
 package com.ict5.admin;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
 
 public class ClassEdit1 extends JPanel {
 
 	public ClassEdit1() {
+		 setBorder(BorderFactory.createLineBorder(Color.black));
+
+		
 		setBackground(Color.white);
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(600, 600));
 		JPanel north = new JPanel(new BorderLayout());
-		north.setPreferredSize(new Dimension(0, 80));
-		north.setBackground(Color.WHITE);
+		north.setPreferredSize(new Dimension(0, 60));
+		north.setBackground(Color.lightGray);
 		JPanel top_R = new JPanel();
-		top_R.setBackground(Color.WHITE);
-		north.add(new JLabel("<html><h1>수업관리</h1></html>"), BorderLayout.WEST);
+		top_R.setBackground(Color.lightGray);
+		JLabel titleLabel = new JLabel("수업관리");
+		Font labelFont = titleLabel.getFont().deriveFont(Font.BOLD,20f);
+		titleLabel.setFont(labelFont);
+		north.add(titleLabel, BorderLayout.WEST);
 		top_R.setLayout(new BorderLayout(0, 0));
 		JLabel label = new JLabel("<html><h2>수업등록/수정</h2></html>");
 		label.setHorizontalAlignment(SwingConstants.LEFT);
@@ -37,6 +44,7 @@ public class ClassEdit1 extends JPanel {
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		top_R.add(label_1, BorderLayout.EAST);
 		north.add(top_R, BorderLayout.EAST);
+		north.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
 		
 		JLabel lblNewLabel_8 = new JLabel("");
 		lblNewLabel_8.setPreferredSize(new Dimension(30, 30));
@@ -60,6 +68,7 @@ public class ClassEdit1 extends JPanel {
 
 		JLabel lblNewLabel = new JLabel("수업종류");
 		panel_1.add(lblNewLabel);
+		panel_1.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		ButtonGroup bg1 = new ButtonGroup();
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("PT");
@@ -206,6 +215,7 @@ public class ClassEdit1 extends JPanel {
 
 		JButton bt_fileopen = new JButton("파일열기");
 		panel.add(bt_fileopen, BorderLayout.EAST);
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		JPanel south = new JPanel();
 		south.setBackground(Color.WHITE);

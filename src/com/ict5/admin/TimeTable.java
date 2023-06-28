@@ -1,17 +1,16 @@
 package com.ict5.admin;
 
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-
-import java.awt.BorderLayout;
-
-
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,14 +24,17 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import java.awt.Color;
 
 public class TimeTable extends JPanel {
 	private JTable table;
 	Admin_main main;
 	CardLayout cardLayout;
+	
 
 	public TimeTable(Admin_main main) {
+		 setBorder(BorderFactory.createLineBorder(Color.black));
+
+		
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		
@@ -47,12 +49,15 @@ public class TimeTable extends JPanel {
 		north2.setBackground(Color.WHITE);
 		north.setPreferredSize(new Dimension(10, 140));
 
-		JLabel lblNewLabel = new JLabel("<html><h1>오늘의 강의목록</h1></html>");
+		JLabel lblNewLabel = new JLabel("오늘의 강의목록");
+		lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(Font.BOLD,17f));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		north1.add(lblNewLabel, BorderLayout.WEST);
 
 		JButton btnNewButton = new JButton("강의추가");
+		btnNewButton.setFont(btnNewButton.getFont().deriveFont(17f));
 		btnNewButton.setPreferredSize(new Dimension(100, 50));
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

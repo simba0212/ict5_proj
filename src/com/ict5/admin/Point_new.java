@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -22,7 +23,10 @@ public class Point_new extends JPanel {
 
 	public Point_new() {
 		setLayout(new BorderLayout());
-		add(new JLabel("<html><h2>최근 포인트 신청</h2></html>"),BorderLayout.NORTH);
+		JLabel titleLabel = new JLabel("최근 포인트 신청");
+		Font labelFont = titleLabel.getFont().deriveFont(Font.BOLD,20f);
+		titleLabel.setFont(labelFont);
+		add(titleLabel, BorderLayout.NORTH);
 		String[] columnNames = { "이름", "신청포인트", "입금상태", "지급상태", "지급하기", "신청날짜" };
 		Object[][] data = { { "고길동", 50000, "입금완료", "지급대기", "지급", "2023-06-10" },
 				{ "둘리", 10000, "입금대기", "지급대기", "", "2023-06-10" }, { "도우너", 20000, "입금대기", "지급대기", "", "2023-06-10" },

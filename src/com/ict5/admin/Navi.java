@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 public class Navi extends JPanel {
 	Admin_main main;
 	CardLayout cardLayout;
-	JPanel pg1;
+	
 
 	public Navi(Admin_main main) {
 		this.main = main;
@@ -121,7 +121,7 @@ public class Navi extends JPanel {
             	jtfMember.requestFocus(); // 커서 포커스 설정
             }
         });
-		
+			
 	}
 
 }

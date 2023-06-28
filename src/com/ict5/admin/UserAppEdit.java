@@ -23,11 +23,13 @@ public class UserAppEdit extends JPanel {
 
         // Top panel
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.setBackground(Color.GRAY);
+        topPanel.setBackground(Color.lightGray);
         JLabel titleLabel = new JLabel("사용자 앱 관리");
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 15f));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 17f));
         topPanel.add(titleLabel);
         add(topPanel, BorderLayout.NORTH);
+        topPanel.setPreferredSize(new Dimension(200, 60)); // 원하는 크기로 지정
         
         // 왼쪽패널
         JPanel leftPanel = new JPanel(new BorderLayout());
