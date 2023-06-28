@@ -11,7 +11,7 @@ public class Admin_PointMgmt extends JPanel {
 		this.main = main;
 		
 		setLayout(new BorderLayout());
-		add(new Admin_nav(main),BorderLayout.NORTH);
+		add(new Navi(main),BorderLayout.NORTH);
 		add(new Point_MgmtSub(main),BorderLayout.CENTER);
 
 		
