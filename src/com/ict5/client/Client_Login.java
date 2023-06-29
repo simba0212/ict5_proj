@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,8 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Login extends JPanel {
-    Huge_main main;
+public class Client_Login extends JPanel {
+    Client_main main;
     CardLayout cardlayout;
 
     JPanel login_p;
@@ -24,13 +25,14 @@ public class Login extends JPanel {
     JLabel img;
     JTextField id_tf,pw_tf;
 
-    public Login(Huge_main main) {
+    public Client_Login(Client_main main) {
     	setLayout(new BorderLayout());
         this.main = main;
         this.cardlayout = main.cardlayout;
 
-
-        JPanel jp1 = new JPanel(new GridLayout(0, 1));
+        JPanel jp1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        jp1.setPreferredSize(new Dimension(500, 300));
+        jp1.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 130));
         JPanel jp1_1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel jp1_2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel jp4 = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -68,9 +70,9 @@ public class Login extends JPanel {
         jp2_2.add(join_btn);
         
 
-        JPanel jp3 = new JPanel();
-        jp3.setPreferredSize(new Dimension(300, 80));
-
+        JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jp3.setPreferredSize(new Dimension(200, 70));
+ 
         jp1.add(jp1_1);
         jp1.add(jp1_2);
         jp2.add(jp2_1);
@@ -78,7 +80,7 @@ public class Login extends JPanel {
         jp2.add(jp3);
 
         add(imageLabel, BorderLayout.NORTH);
-        add(jp1, BorderLayout.CENTER);
+        add(jp1, BorderLayout.EAST);
         add(jp2, BorderLayout.SOUTH);
 
         // 마우스 클릭 이벤트 처리
@@ -90,7 +92,6 @@ public class Login extends JPanel {
                 id_tf.requestFocus(); // 커서 포커스 설정
             }
         });
-        
         // 마우스 클릭 이벤트 처리
         pw_tf.addMouseListener(new MouseAdapter() {
             @Override
@@ -102,9 +103,15 @@ public class Login extends JPanel {
         });
       //로그인 버튼->홈으로
         login_btn.addActionListener(e -> {
-            Home home = new Home(main);
+        	Client_Home home = new Client_Home(main);
             main.pg1.add("home", home);
             main.cardlayout.show(main.pg1, "home");
+        });
+      //가입 버튼->가입으로
+        join_btn.addActionListener(e -> {
+        	Client_CreateId createId = new Client_CreateId(main);
+            main.pg1.add("createId", createId);
+            main.cardlayout.show(main.pg1, "createId");
         });
     }
 }

@@ -6,10 +6,10 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class TabPage extends JPanel {
-    Huge_main main;
+    Client_main main;
     CardLayout cardlayout;
     static JTabbedPane tabbedPane;
-    public TabPage(Huge_main main) {
+    public TabPage(Client_main main) {
         // Tab 4개와 이름 출력, 로그아웃 알람 누르면 알람으로 가는 기능만 있습니다.
 
         // 상단 패널
@@ -22,11 +22,12 @@ public class TabPage extends JPanel {
         // 버튼과 라벨을 한 줄로 배치하기 위한 패널
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.add(alarmButton);
-        buttonPanel.add(logoutButton);//12312314123
+        buttonPanel.add(logoutButton);
         buttonPanel.add(customerLabel);
 
         topPanel.add(backButton, BorderLayout.WEST);
         topPanel.add(buttonPanel, BorderLayout.EAST);
+
 
         // 알림 탭
         JPanel notificationPanel = new JPanel(new FlowLayout());
@@ -37,7 +38,7 @@ public class TabPage extends JPanel {
         tabbedPane.addTab("          수업일정          ", new Schedule(main));
         tabbedPane.addTab("          예약현황          ", new Reservation(main));
         tabbedPane.addTab("           알 림           ",  new Notice(main));
-        tabbedPane.addTab("           My           ", new Myp(main));
+        tabbedPane.addTab("           My           ", new Mypage(main));
        
         // JTabbedPane 가로 크기 설정
         addComponentListener(new ComponentAdapter() {
@@ -55,6 +56,19 @@ public class TabPage extends JPanel {
         setLayout(new BorderLayout());
         add(topPanel, BorderLayout.NORTH);
         add(tabbedPane, BorderLayout.CENTER);
+        
+        //뒤로 버튼->홈으로
+        backButton.addActionListener(e -> {
+        	Client_Home home = new Client_Home(main);
+            main.pg1.add("home", home);
+            main.cardlayout.show(main.pg1, "home");
+        });
+        //로그아웃->로그인
+        logoutButton.addActionListener(e -> {
+        	Client_Login login = new Client_Login(main);
+        	main.pg1.add("login", login);
+        	main.cardlayout.show(main.pg1, "login");
+        });
 
     }
 }
