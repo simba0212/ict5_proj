@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class Schedule extends JPanel {
-	Huge_main main;
+	Client_main main;
 
 	static final int CAL_WIDTH = 7;
 	final static int CAL_HEIGHT = 6;
@@ -58,7 +58,7 @@ public class Schedule extends JPanel {
 	// 상수, 메세지
 	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
 
-	public Schedule(Huge_main main) {
+	public Schedule(Client_main main) {
 		this.main = main;
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());

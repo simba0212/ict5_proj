@@ -19,11 +19,11 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class Schedule_bottom extends JPanel {
-	Huge_main main;
+	Client_main main;
 	CardLayout cardlayout;
 	JScrollPane jsp;
 
-	public Schedule_bottom(Huge_main main) {
+	public Schedule_bottom(Client_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
 		setLayout(new BorderLayout());
