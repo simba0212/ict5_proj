@@ -199,7 +199,7 @@ public class CoMgmt4 extends JPanel {
 		
 		// "사진 첨부" 버튼 생성
 		JButton attachButton = new JButton("사진 첨부");
-		attachButton.setFont(attachButton.getFont().deriveFont(Font.BOLD,17f));
+		attachButton.setFont(attachButton.getFont().deriveFont(17f));
 		attachButton.setPreferredSize(new Dimension(120, 20));
 
 		// 버튼을 이미지 패널의 오른쪽 아래에 추가
@@ -218,11 +218,11 @@ public class CoMgmt4 extends JPanel {
 
 		// "등록" 버튼 생성
 		JButton addButton = new JButton("등록");
-		addButton.setFont(addButton.getFont().deriveFont(Font.BOLD,17f));
+		addButton.setFont(addButton.getFont().deriveFont(17f));
 		
 		// "수정" 버튼 생성
 		JButton editButton = new JButton("수정");
-		editButton.setFont(editButton.getFont().deriveFont(Font.BOLD,17f));
+		editButton.setFont(editButton.getFont().deriveFont(17f));
 
 		// 버튼들을 하단 패널에 추가
 
