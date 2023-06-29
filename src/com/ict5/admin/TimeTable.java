@@ -1,6 +1,5 @@
 package com.ict5.admin;
 
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -29,18 +28,16 @@ public class TimeTable extends JPanel {
 	private JTable table;
 	Admin_main main;
 	CardLayout cardLayout;
-	
 
 	public TimeTable(Admin_main main) {
-		 setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.black));
 
-		
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
-		
+
 		this.main = main;
 		this.cardLayout = main.cardlayout;
-		
+
 		JPanel north = new JPanel(new BorderLayout());
 		north.setBackground(Color.WHITE);
 		JPanel north1 = new JPanel(new BorderLayout());
@@ -50,18 +47,16 @@ public class TimeTable extends JPanel {
 		north.setPreferredSize(new Dimension(10, 140));
 
 		JLabel lblNewLabel = new JLabel("오늘의 강의목록");
-		lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(Font.BOLD,17f));
+		lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(Font.BOLD, 17f));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		north1.add(lblNewLabel, BorderLayout.WEST);
 
 		JButton btnNewButton = new JButton("강의추가");
 		btnNewButton.setFont(btnNewButton.getFont().deriveFont(17f));
 		btnNewButton.setPreferredSize(new Dimension(100, 50));
+
 		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		north1.add(btnNewButton, BorderLayout.EAST);
 
 		JButton btnNewButton_1_1 = new JButton("<<");
@@ -94,7 +89,8 @@ public class TimeTable extends JPanel {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return !(data[row][column].toString().equals("") || column == 0);
+//				return !(data[row][column].toString().equals("") || column == 0);
+				return true;
 			}
 		};
 
@@ -112,15 +108,24 @@ public class TimeTable extends JPanel {
 		jsp.setPreferredSize(new Dimension(600, 544));
 		add(jsp, BorderLayout.SOUTH);
 		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(main.pg1, "classEdit");
+
+			}
+		});
+		
 	}
+	
+	
 }
 
 class ButtonRenderer extends JButton implements TableCellRenderer {
-	
-	
+
 	public ButtonRenderer() {
 		setOpaque(true);
 	}
+
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
@@ -138,21 +143,23 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 		}
 	}
 }
+
 class ButtonEditor extends DefaultCellEditor {
 	private JButton button;
-	
+
 	public ButtonEditor(Admin_main main) {
 		super(new JTextField());
 		button = new JButton("Button");
 		button.addActionListener(e -> {
 			// Button action
-			JButton jb = (JButton)e.getSource();
-				
+			JButton jb = (JButton) e.getSource();
+
 			main.cardlayout.show(main.pg1, "home");
 			JOptionPane.showMessageDialog(button, "눌러");
 			fireEditingStopped();
 		});
 	}
+
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		// Edit the specific cells in the third row using the button editor
@@ -160,7 +167,7 @@ class ButtonEditor extends DefaultCellEditor {
 			button.setText(value.toString());
 			return button;
 		} else {
-			// Edit other cells normally
+
 			return super.getTableCellEditorComponent(table, value, isSelected, row, column);
 		}
 	}
@@ -169,4 +176,5 @@ class ButtonEditor extends DefaultCellEditor {
 	public Object getCellEditorValue() {
 		return button.getText();
 	}
+
 }

@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -104,9 +106,27 @@ public class Admin_CheckAgain extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+			cardLayout.show(main.pg1, "point_Mgmt");
 		}
+	});
+	
+	jl1.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseEntered(MouseEvent e) {
+	    	jl1.setForeground(Color.red);
+	    }
+	    
+	    @Override
+	    public void mouseExited(MouseEvent e) {
+	    	jl1.setForeground(Color.black);
+	    }
+	});
+	
+	jl1.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+	    }
 	});
 	 
 }

@@ -1,6 +1,7 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -24,7 +27,8 @@ import javax.swing.table.TableColumnModel;
 
 public class Point_MgmtSub extends JPanel {
 	Admin_main main;
-
+	CardLayout cardLayout;
+	
 	public Point_MgmtSub(Admin_main main) {
 		this.main = main;
 
@@ -163,5 +167,50 @@ public class Point_MgmtSub extends JPanel {
 				}
 			}
 		});
+		
+		memberSearchLabel.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        memberSearchLabel.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        memberSearchLabel.setForeground(Color.black);
+		    }
+		});
+		
+		pointManagementLabel.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	pointManagementLabel.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	pointManagementLabel.setForeground(Color.black);
+		    }
+		});
+		
+		jl1.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	jl1.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	jl1.setForeground(Color.black);
+		    }
+		});
+		
+		jl1.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+		    }
+		});
+		
+		
 	}
 }

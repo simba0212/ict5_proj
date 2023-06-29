@@ -120,6 +120,49 @@ public class Member_view extends JPanel{
 	                //
 	            }
 	        });
+	        
+	        jl1.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseEntered(MouseEvent e) {
+			    	jl1.setForeground(Color.red);
+			    }
+			    
+			    @Override
+			    public void mouseExited(MouseEvent e) {
+			    	jl1.setForeground(Color.black);
+			    }
+			});
+			
+	        jl2.addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseEntered(MouseEvent e) {
+	        		jl2.setForeground(Color.red);
+	        	}
+	        	
+	        	@Override
+	        	public void mouseExited(MouseEvent e) {
+	        		jl2.setForeground(Color.black);
+	        	}
+	        });
+	        
+	        jl3.addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseEntered(MouseEvent e) {
+	        		jl3.setForeground(Color.red);
+	        	}
+	        	
+	        	@Override
+	        	public void mouseExited(MouseEvent e) {
+	        		jl3.setForeground(Color.black);
+	        	}
+	        });
+	        
+	        jl3.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseClicked(MouseEvent e) {
+			        main.cardlayout.show(main.pg1, "checkagain"); // "member" 페이지로 이동
+			    }
+			});
 	     
 	    }
 	}

@@ -148,9 +148,6 @@ public class CoMgmt4 extends JPanel {
 		// 중앙 패널을 BorderLayout의 CENTER 위치에 배치
 		add(centerPanel, BorderLayout.CENTER);
 
-
-
-
 		// 우측 패널 생성
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());

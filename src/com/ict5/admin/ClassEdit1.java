@@ -1,10 +1,13 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,8 +22,12 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
 public class ClassEdit1 extends JPanel {
-
-	public ClassEdit1() {
+	Admin_main main;
+	CardLayout cardLayout;
+	
+	public ClassEdit1(Admin_main main) {
+		this.main = main;
+		
 		 setBorder(BorderFactory.createLineBorder(Color.black));
 
 		
@@ -228,7 +235,27 @@ public class ClassEdit1 extends JPanel {
 		JButton bt_cancel = new JButton("취소");
 		bt_cancel.setPreferredSize(new Dimension(200, 50));
 		south.add(bt_cancel);
-
+		
+		label_1.addMouseListener(new MouseAdapter() {
+			
+			@Override
+		    public void mouseEntered(MouseEvent e) {
+				label_1.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	label_1.setForeground(Color.black);
+		    }
+			
+		});
+		
+		label_1.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        main.cardlayout.show(main.pg1, "classcheck"); // "member" 페이지로 이동
+		    }
+		});
 	}
 
 }
