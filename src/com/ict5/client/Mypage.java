@@ -18,11 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Myp extends JPanel {
-	Huge_main main;
+public class Mypage extends JPanel {
+	Client_main main;
 	CardLayout cardlayout;
+	TabPage tab;
 
-public Myp(Huge_main main) {
+public Mypage(Client_main main) {
 	this.main = main;
 	this.cardlayout = main.cardlayout;
 	  JTextArea jta = new JTextArea(8, 35); // 10행 20열의 JTextArea 생성
@@ -56,7 +57,7 @@ public Myp(Huge_main main) {
 	book.setPreferredSize(new Dimension(400,80));
 	book.setBackground(Color.WHITE);
 	book.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	JLabel book1 =new JLabel("예약 현황",JLabel.CENTER);
+	JLabel book1 =new JLabel("        예약 현황                 >>",JLabel.CENTER);
 	book1.setFont(font);
 	book.add(book1);
 	
@@ -64,28 +65,28 @@ public Myp(Huge_main main) {
 	point.setPreferredSize(new Dimension(400,80));
 	point.setBackground(Color.WHITE);
 	point.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	JLabel point1 =new JLabel("내 포인트 현황",JLabel.CENTER);
+	JLabel point1 =new JLabel("     내 포인트 현황               >>",JLabel.CENTER);
 	point1.setFont(font);
 	point.add(point1);
 	
 	noti.setPreferredSize(new Dimension(400,80));
 	noti.setBackground(Color.WHITE);
 	noti.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	JLabel noti1 =new JLabel("알림",JLabel.CENTER);
+	JLabel noti1 =new JLabel("          알림                     >>",JLabel.CENTER);
 	noti1.setFont(font);
 	noti.add(noti1);
 	
 	 setpass.setPreferredSize(new Dimension(400,80));
 	 setpass.setBackground(Color.WHITE);
 	 setpass.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	 JLabel setpass1 =new JLabel("비밀번호 변경",JLabel.CENTER);
+	 JLabel setpass1 =new JLabel("    비밀번호 변경               >>",JLabel.CENTER);
 	 setpass1.setFont(font);
 	 setpass.add(setpass1);
 	 
 	 logout.setPreferredSize(new Dimension(400,80));
 	 logout.setBackground(Color.WHITE);
 	 logout.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	 JLabel logout1 =new JLabel("로그아웃",JLabel.CENTER);
+	 JLabel logout1 =new JLabel("      로그아웃                  >>",JLabel.CENTER);
 	 logout1.setFont(font);
 	 logout.add(logout1);
 	 
@@ -110,41 +111,49 @@ public Myp(Huge_main main) {
 	book.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			cardlayout.show(main.pg1, "nt"); // 이동 타갯 변경해야함
+			 TabPage tab = new TabPage(main);
+             main.pg1.add("tab", tab);
+             main.cardlayout.show(main.pg1, "tab");
+             TabPage.tabbedPane.setSelectedIndex(1);
 		}
 			
 
 		});
+	
 		point.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+				Mypoint myPo = new Mypoint(main);
+	            main.pg1.add("myPo", myPo);
+	            main.cardlayout.show(main.pg1, "myPo");
 			}
 
 		});
 		noti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+				 TabPage tab = new TabPage(main);
+	             main.pg1.add("tab", tab);
+	             main.cardlayout.show(main.pg1, "tab");
+	             TabPage.tabbedPane.setSelectedIndex(2);
 			}
 
 		});
 		setpass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+				PassChange pwChan = new PassChange(main);
+	            main.pg1.add("pwChan", pwChan);
+	            main.cardlayout.show(main.pg1, "pwChan");
 			}
 
 		});
 		logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				cardlayout.show(main.pg1, "nt");// 이동 타갯 변경해야함
+				Client_Login login = new Client_Login(main);
+	            main.pg1.add("login", login);
+	            main.cardlayout.show(main.pg1, "login");
 			}
 
 		});

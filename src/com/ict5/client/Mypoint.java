@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Mypoint extends JPanel{
-	Huge_main main;
-	CardLayout cardlayout;
-public Mypoint(Huge_main main) {
+	Client_main main;
+	CardLayout cardlayout; 
+public Mypoint(Client_main main) {
 	this.main = main;
 	this.cardlayout = main.cardlayout;
 	JPanel jp1 =new JPanel();

@@ -5,10 +5,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class PassChange extends JPanel {
-    Huge_main main;
+	Client_main main;
     CardLayout cardlayout;
 
-    public PassChange(Huge_main main) {
+    public PassChange(Client_main main) {
         setLayout(null); // Use AbsoluteLayout
         this.main = main;
         this.cardlayout = main.cardlayout;
@@ -68,49 +68,49 @@ public class PassChange extends JPanel {
         buttonPanel.add(confirmButton);
         add(buttonPanel);
 
-//        // Add focus listeners to the text fields
-//        id_tf.addFocusListener(new CustomFocusListener(condition1, condition2));
-//        id_tf2.addFocusListener(new CustomFocusListener(condition3, condition4));
-//        id_tf3.addFocusListener(new CustomFocusListener(condition5, condition6));
-//    }
-//    // Custom focus listener class
-//    private class CustomFocusListener implements FocusListener {
-//        private JLabel conditionLabel1;
-//        private JLabel conditionLabel2;
-//        private Color defaultColor;
-//
-//        public CustomFocusListener(JLabel conditionLabel1, JLabel conditionLabel2) {
-//            this.conditionLabel1 = conditionLabel1;
-//            this.conditionLabel2 = conditionLabel2;
-//            this.defaultColor = conditionLabel1.getForeground();
-//        }
-//
-//        @Override
-//        public void focusGained(FocusEvent e) {
-//            // Do nothing when the text field gains focus
-//        }
-//
-//        @Override
-//        public void focusLost(FocusEvent e) {
-//            JTextField textField = (JTextField) e.getSource();
-//            String text = textField.getText();
-//
-//            // Check conditions and update the labels accordingly
-//            if (text.length() >= 6) {
-//                conditionLabel1.setText("6글자이상 O");
-//                conditionLabel1.setForeground(Color.GREEN);
-//            } else {
-//                conditionLabel1.setText("6글자이상 X");
-//                conditionLabel1.setForeground(Color.RED);
-//            }
-//
-//            if (text.matches(".*[!@#$%^&*()].*")) {
-//                conditionLabel2.setText("특수문자 O");
-//                conditionLabel2.setForeground(Color.GREEN);
-//            } else {
-//                conditionLabel2.setText("특수문자 X");
-//                conditionLabel2.setForeground(Color.RED);
-//            }
-//        }
+        // Add focus listeners to the text fields
+        id_tf.addFocusListener(new CustomFocusListener(condition1, condition2));
+        id_tf2.addFocusListener(new CustomFocusListener(condition3, condition4));
+        id_tf3.addFocusListener(new CustomFocusListener(condition5, condition6));
+    }
+    // Custom focus listener class
+    private class CustomFocusListener implements FocusListener {
+        private JLabel conditionLabel1;
+        private JLabel conditionLabel2;
+        private Color defaultColor;
+
+        public CustomFocusListener(JLabel conditionLabel1, JLabel conditionLabel2) {
+            this.conditionLabel1 = conditionLabel1;
+            this.conditionLabel2 = conditionLabel2;
+            this.defaultColor = conditionLabel1.getForeground();
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            // Do nothing when the text field gains focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            JTextField textField = (JTextField) e.getSource();
+            String text = textField.getText();
+
+            // Check conditions and update the labels accordingly
+            if (text.length() >= 6) {
+                conditionLabel1.setText("6글자이상 O");
+                conditionLabel1.setForeground(Color.GREEN);
+            } else {
+                conditionLabel1.setText("6글자이상 X");
+                conditionLabel1.setForeground(Color.RED);
+            }
+
+            if (text.matches(".*[!@#$%^&*()].*")) {
+                conditionLabel2.setText("특수문자 O");
+                conditionLabel2.setForeground(Color.GREEN);
+            } else {
+                conditionLabel2.setText("특수문자 X");
+                conditionLabel2.setForeground(Color.RED);
+            }
+        }
     }
 }

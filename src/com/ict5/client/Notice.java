@@ -19,11 +19,11 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class Notice extends JPanel {
-	Huge_main main;
+	Client_main main;
 	CardLayout cardlayout;
 	JScrollPane jsp;
 
-	public Notice(Huge_main main) {
+	public Notice(Client_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
 		

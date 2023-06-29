@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PaymentPage extends JPanel {
+public class ChargeP2 extends JPanel {
     
-    public PaymentPage(Huge_main main) {
+    public ChargeP2(Client_main main) {
         setLayout(new BorderLayout());
 
         // 탑 패널
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setPreferredSize(new Dimension(300, 50));
+        topPanel.setPreferredSize(new Dimension(300, 100));
         add(topPanel, BorderLayout.NORTH);
 
         // "포인트 충전" 글자와 "<<" 버튼 추가
@@ -24,7 +24,7 @@ public class PaymentPage extends JPanel {
         
         // 빈 공간을 추가하여 spacing 조정
         JPanel emptyPanel = new JPanel();
-        emptyPanel.setPreferredSize(new Dimension(300, 100));
+        emptyPanel.setPreferredSize(new Dimension(400, 100));
         topPanel.add(emptyPanel, BorderLayout.SOUTH);
         // line 추가
         JSeparator separator1 = new JSeparator();
@@ -32,29 +32,43 @@ public class PaymentPage extends JPanel {
 
         // 중앙 패널
         JPanel centerPanel = new JPanel(new BorderLayout());
-        add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setPreferredSize(new Dimension(450, 200));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
+        add(centerPanel, BorderLayout.WEST);
+        Icon icon = new ImageIcon("../images/complete.png"); // 아이콘 이미지 파일 경로에 맞게 수정
 
         // "충전방법" 글자 추가
         JLabel methodLabel = new JLabel("충전방법");
-        methodLabel.setFont(methodLabel.getFont().deriveFont(Font.BOLD, 18f));
+        methodLabel.setFont(methodLabel.getFont().deriveFont(Font.BOLD, 17f));
         centerPanel.add(methodLabel, BorderLayout.NORTH);
+        
 
-        // "포인트" 버튼과 비활성화된 "카드" 버튼 추가
-        JPanel buttonsPanel = new JPanel(new GridLayout(2, 1));
+        // "포인트" 라디오 버튼과 비활성화된 "카드" 라디오 버튼 추가
+        JPanel buttonsPanel = new JPanel(new GridLayout(0, 1));
         centerPanel.add(buttonsPanel, BorderLayout.CENTER);
 
-        JButton pointButton = new JButton("포인트");
+        JRadioButton pointButton = new JRadioButton("포인트");
         pointButton.setPreferredSize(new Dimension(150, 30));
+        pointButton.setFont(pointButton.getFont().deriveFont(Font.BOLD, 20f));
+        pointButton.setBackground(Color.WHITE);
+        pointButton.setIcon(icon);
         buttonsPanel.add(pointButton);
 
-        JButton cardButton = new JButton("카드");
+        JRadioButton cardButton = new JRadioButton("카드");
         cardButton.setPreferredSize(new Dimension(150, 30));
+        cardButton.setFont(cardButton.getFont().deriveFont(Font.BOLD, 20f));
+        cardButton.setBackground(Color.LIGHT_GRAY);
+        cardButton.setIcon(icon);
         cardButton.setEnabled(false);
         buttonsPanel.add(cardButton);
         // line 추가
         JSeparator separator2 = new JSeparator();
         centerPanel.add(separator2, BorderLayout.SOUTH);
 
+        // 그룹화된 버튼으로 설정하여 하나의 선택만 가능하도록 함
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(pointButton);
+        buttonGroup.add(cardButton);
 
         // "금액확인" 글자와 이전 페이지에서 선택한 포인트 표기 추가
         JPanel amountPanel = new JPanel(new BorderLayout());
@@ -97,11 +111,26 @@ public class PaymentPage extends JPanel {
         // "결제" 버튼 추가
         JButton paymentButton = new JButton("결제");
         bottomPanel.add(paymentButton, BorderLayout.SOUTH);
-        paymentButton.setPreferredSize(new Dimension(150, 80));
+        paymentButton.setPreferredSize(new Dimension(100, 80));
         paymentButton.setEnabled(false);
 
+
+        //뒤로 버튼->홈으로
+      	backButton.addActionListener(e -> {
+      		Client_ChargeP chargeP =new Client_ChargeP(main);
+			main.pg1.add("chargeP", chargeP);
+			main.cardlayout.show(main.pg1, "chargeP");
+		});
+      	
+      	//결제 버튼->결제완료으로
+      	paymentButton.addActionListener(e -> {
+      		ChargeP3 chargeP3 = new ChargeP3(main);
+      		main.pg1.add("chargeP3", chargeP3);
+      		main.cardlayout.show(main.pg1, "chargeP3");
+      	});
+      		
         
-        
+        //
         agreementLabel.addMouseListener(new java.awt.event.MouseAdapter() {
         	public void mouseClicked(java.awt.event.MouseEvent evt) {
         		showAgreementDialog();
