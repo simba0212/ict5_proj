@@ -133,17 +133,7 @@ public class Member_view extends JPanel{
 			    }
 			});
 			
-	        jl2.addMouseListener(new MouseAdapter() {
-	        	@Override
-	        	public void mouseEntered(MouseEvent e) {
-	        		jl2.setForeground(Color.red);
-	        	}
-	        	
-	        	@Override
-	        	public void mouseExited(MouseEvent e) {
-	        		jl2.setForeground(Color.black);
-	        	}
-	        });
+	       
 	        
 	        jl3.addMouseListener(new MouseAdapter() {
 	        	@Override

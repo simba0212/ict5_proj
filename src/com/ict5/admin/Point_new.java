@@ -1,6 +1,7 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,9 +27,11 @@ public class Point_new extends JPanel {
     public Point_new() {
         setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("최근 포인트 신청");
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));        
         Font labelFont = titleLabel.getFont().deriveFont(Font.BOLD, 20f);
         titleLabel.setFont(labelFont);
         add(titleLabel, BorderLayout.NORTH);
+        setBackground(Color.lightGray);
         String[] columnNames = { "이름", "신청포인트", "입금상태", "지급상태", "지급하기", "신청날짜" };
         Object[][] data = { { "고길동", 50000, "입금완료", "지급대기", "지급", "2023-06-10" },
                 { "둘리", 10000, "입금대기", "지급대기", "", "2023-06-10" }, { "도우너", 20000, "입금대기", "지급대기", "", "2023-06-10" },
@@ -69,6 +73,7 @@ public class Point_new extends JPanel {
             if ((column == 4 && value.toString().equals("지급"))) {
                 JButton button = new JButton(value.toString());
                 button.setOpaque(true);
+                button.setBackground(null);
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         // 버튼 클릭 시 동작을 수행할 수 있도록 구현

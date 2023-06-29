@@ -126,6 +126,7 @@ class ButtonRenderer extends DefaultTableCellRenderer {
         if (column == 2 && value.toString().equals("수업1")|| column == 3 && value.toString().equals("수업2")) {
             JButton button = new JButton(value.toString());
             button.setOpaque(true);
+            button.setBackground(null);
             return button;
         } else {
             return component;

@@ -180,17 +180,7 @@ public class Point_MgmtSub extends JPanel {
 		    }
 		});
 		
-		pointManagementLabel.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		    	pointManagementLabel.setForeground(Color.red);
-		    }
-		    
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		    	pointManagementLabel.setForeground(Color.black);
-		    }
-		});
+		
 		
 		jl1.addMouseListener(new MouseAdapter() {
 		    @Override

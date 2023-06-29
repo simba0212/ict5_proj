@@ -1,9 +1,11 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +19,8 @@ public class Member_new extends JPanel {
 	public Member_new() {
 		setLayout(new BorderLayout());
 		JLabel titleLabel = new JLabel("신규 회원 등록");
+        setBackground(Color.lightGray);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
 		Font labelFont = titleLabel.getFont().deriveFont(Font.BOLD,20f);
 		titleLabel.setFont(labelFont);
 		add(titleLabel, BorderLayout.NORTH);

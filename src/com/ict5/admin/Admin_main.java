@@ -59,7 +59,7 @@ public class Admin_main extends JFrame {
 		
 		add(pg1);
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "member");
 		
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
