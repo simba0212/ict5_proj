@@ -3,24 +3,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 public class ChargeP2 extends JPanel {
-    
+	//ChargeP selectedPoints;
+	int selectedPoints;
+	JLabel selectedPointsLabel;
+	
+	JCheckBox agreementCheckbox;
+	JButton paymentButton;
     public ChargeP2(Client_main main) {
         setLayout(new BorderLayout());
-
         // 탑 패널
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setPreferredSize(new Dimension(300, 100));
         add(topPanel, BorderLayout.NORTH);
 
-        // "포인트 충전" 글자와 "<<" 버튼 추가
+        // "포인트 충전" 글자 버튼 추가
         JLabel rechargeLabel = new JLabel("포인트 충전");
         rechargeLabel.setFont(rechargeLabel.getFont().deriveFont(Font.BOLD, 20f));
         topPanel.add(rechargeLabel, BorderLayout.WEST);
-
-        JButton backButton = new JButton("<<");
-        topPanel.add(backButton, BorderLayout.EAST);
         
         // 빈 공간을 추가하여 spacing 조정
         JPanel emptyPanel = new JPanel();
@@ -78,8 +81,8 @@ public class ChargeP2 extends JPanel {
         amountLabel.setFont(amountLabel.getFont().deriveFont(Font.BOLD, 18f));
         amountPanel.add(amountLabel, BorderLayout.NORTH);
 
-        int selectedPoints = 500000; // 이전 페이지에서 선택한 포인트
-        JLabel selectedPointsLabel = new JLabel(String.valueOf(selectedPoints) + " 포인트");
+        // 이전 페이지에서 선택한 포인트
+        selectedPointsLabel = new JLabel(String.valueOf(main.chargeP.cp.selectedPoints) + " 포인트");
         selectedPointsLabel.setFont(selectedPointsLabel.getFont().deriveFont(Font.BOLD, 30f));
         selectedPointsLabel.setHorizontalAlignment(JLabel.RIGHT);
         amountPanel.add(selectedPointsLabel, BorderLayout.SOUTH);
@@ -96,36 +99,27 @@ public class ChargeP2 extends JPanel {
         JLabel agreementLabel = new JLabel("약관동의 [링크]");
         agreementLabel.setFont(agreementLabel.getFont().deriveFont(Font.BOLD, 18f));
         agreementPanel.add(agreementLabel, BorderLayout.WEST);
-
+        
 
         // 체크박스와 "약관에 동의합니다" 글자 추가
         JPanel checkboxPanel = new JPanel(new BorderLayout());
         bottomPanel.add(checkboxPanel, BorderLayout.CENTER);
 
-        JCheckBox agreementCheckbox = new JCheckBox();
+        agreementCheckbox = new JCheckBox();
         checkboxPanel.add(agreementCheckbox, BorderLayout.WEST);
-
+        agreementCheckbox.setEnabled(false);
+        
         JLabel agreeText = new JLabel("약관에 동의합니다");
         checkboxPanel.add(agreeText, BorderLayout.CENTER);
 
         // "결제" 버튼 추가
-        JButton paymentButton = new JButton("결제");
+        paymentButton = new JButton("결제");
         bottomPanel.add(paymentButton, BorderLayout.SOUTH);
         paymentButton.setPreferredSize(new Dimension(100, 80));
         paymentButton.setEnabled(false);
 
-
-        //뒤로 버튼->홈으로
-      	backButton.addActionListener(e -> {
-      		Client_ChargeP chargeP =new Client_ChargeP(main);
-			main.pg1.add("chargeP", chargeP);
-			main.cardlayout.show(main.pg1, "chargeP");
-		});
-      	
       	//결제 버튼->결제완료으로
       	paymentButton.addActionListener(e -> {
-      		ChargeP3 chargeP3 = new ChargeP3(main);
-      		main.pg1.add("chargeP3", chargeP3);
       		main.cardlayout.show(main.pg1, "chargeP3");
       	});
       		
@@ -141,8 +135,10 @@ public class ChargeP2 extends JPanel {
                 // Perform payment logic here
             }
         });
+        
     }
-    // Method to show agreement dialog
+    
+    //약관기능
     private void showAgreementDialog() {
         String agreementText = 
         		"\r\n"
@@ -178,25 +174,21 @@ public class ChargeP2 extends JPanel {
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(400, 300));
-
-        JOptionPane.showMessageDialog(this, scrollPane, "약관", JOptionPane.PLAIN_MESSAGE);
-
-        // 계약을 보고나서 결제 버튼 사용가능
-        Component[] components = this.getComponents();
-        for (Component component : components) {
-            if (component instanceof JPanel) {
-                JPanel panel = (JPanel) component;
-                Component[] subComponents = panel.getComponents();
-                for (Component subComponent : subComponents) {
-                    if (subComponent instanceof JButton) {
-                        JButton button = (JButton) subComponent;
-                        if (button.getText().equals("결제")) {
-                            button.setEnabled(true);
-                            break;
-                        }
-                    }
+        
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                // 스크롤바 다 내려가면 체크온 버튼활성화
+                if (scrollBar.getValue() + scrollBar.getModel().getExtent() == scrollBar.getMaximum()) {
+                    paymentButton.setEnabled(true);
+                    agreementCheckbox.setSelected(true);
                 }
             }
-        }
+        });
+
+        JOptionPane.showMessageDialog(this, scrollPane, "약관", JOptionPane.PLAIN_MESSAGE);
+        
     }
 }
+

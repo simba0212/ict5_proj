@@ -3,7 +3,6 @@ package com.ict5.client;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 
 public class Client_Home extends JPanel {
@@ -13,7 +12,8 @@ public class Client_Home extends JPanel {
         this.main = main;
 
         setLayout(new BorderLayout());
-		add(new UserTop(main),BorderLayout.NORTH);
-		add(new Home(main),BorderLayout.CENTER);
+        add(new UserTop(main, false), BorderLayout.NORTH);//
+        add(new Home(main), BorderLayout.CENTER);
     }
 }
+

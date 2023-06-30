@@ -11,6 +11,8 @@ import javax.swing.UIManager;
 public class Client_main extends JFrame {
 	CardLayout cardlayout;
 	JPanel pg1;
+	Client_ChargeP chargeP;
+	Client_ChargeP2 chargeP2;
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -21,15 +23,15 @@ public class Client_main extends JFrame {
 		Client_Login login = new Client_Login(this);
 		Client_CreateId createId = new Client_CreateId(this);
 		Client_Home home = new Client_Home(this); 
-		Client_ChargeP chargeP =new Client_ChargeP(this);
+		chargeP =new Client_ChargeP(this);
 		TabPage tab = new TabPage(this);
 		CreateId_2 createId2 = new CreateId_2(this);
-		ChargeP2 chargeP2 = new ChargeP2(this);
-		ChargeP3 chargeP3 = new ChargeP3(this);
+		chargeP2 = new Client_ChargeP2(this);
+		Client_ChargeP3 chargeP3 = new Client_ChargeP3(this);
 		Notice noti = new Notice(this);
 		Mypage myPg = new Mypage(this);
-		Mypoint myPo = new Mypoint(this);
-		PassChange pwChan = new PassChange(this);
+		Client_MyPoint myPo = new Client_MyPoint(this);
+		Client_PassChange pwChan = new Client_PassChange(this);
 		
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -45,7 +47,7 @@ public class Client_main extends JFrame {
 		pg1.add("chargeP2",chargeP2); // 포인트충전2p
 		pg1.add("chargeP3",chargeP3); // 입금완료
 		pg1.add("notice", noti);	// 공지사항
-		pg1.add("myPg",myPg);	// 마이페이지 -작업중
+		pg1.add("myPg",myPg);	// 마이페이지
 		pg1.add("myPo",myPo);	// 포인트이력
 		pg1.add("pwChan",pwChan); // 비밀번호 변경
 		 

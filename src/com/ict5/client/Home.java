@@ -92,24 +92,17 @@ public class Home extends JPanel {
 
 		// 포인트충전 버튼
 		point_bt.addActionListener(e -> {
-			Client_ChargeP chargeP = new Client_ChargeP(main);
-			main.pg1.add("chargeP", chargeP);
 			main.cardlayout.show(main.pg1, "chargeP");
 		});
 		// 수업예약 클릭 이벤트
 		book_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
 		attend_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(1);
 		});
-
 	}
 }

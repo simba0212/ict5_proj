@@ -59,14 +59,10 @@ public class TabPage extends JPanel {
         
         //뒤로 버튼->홈으로
         backButton.addActionListener(e -> {
-        	Client_Home home = new Client_Home(main);
-            main.pg1.add("home", home);
             main.cardlayout.show(main.pg1, "home");
         });
         //로그아웃->로그인
         logoutButton.addActionListener(e -> {
-        	Client_Login login = new Client_Login(main);
-        	main.pg1.add("login", login);
         	main.cardlayout.show(main.pg1, "login");
         });
 
