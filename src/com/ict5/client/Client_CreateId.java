@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -29,7 +32,8 @@ public class Client_CreateId extends JPanel {
 	CardLayout cardlayout;
 	// 수정중
 	// 한번 더 수정
-
+	JButton nextButton;
+	JCheckBox agreementCheckbox;
 	public Client_CreateId(Client_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
@@ -121,7 +125,7 @@ public class Client_CreateId extends JPanel {
 		panel.add(checkboxPanel, BorderLayout.CENTER);
 		
 
-		JCheckBox agreementCheckbox = new JCheckBox();
+		agreementCheckbox = new JCheckBox();
 		checkboxPanel.add(agreementCheckbox, BorderLayout.WEST);
 		agreementCheckbox.setEnabled(false);
 
@@ -131,7 +135,7 @@ public class Client_CreateId extends JPanel {
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton backButton = new JButton("뒤로가기");
 		backButton.setPreferredSize(new Dimension(100, 40));
-		JButton nextButton = new JButton("다음");
+		nextButton = new JButton("다음");
 		nextButton.setEnabled(false);
 		nextButton.setPreferredSize(new Dimension(100, 40));
 		buttonPanel.add(backButton);
@@ -142,14 +146,10 @@ public class Client_CreateId extends JPanel {
 
 		// 백 버튼->로그인으로
 		backButton.addActionListener(e -> {
-			Client_Login login = new Client_Login(main);
-			main.pg1.add("login", login);
 			main.cardlayout.show(main.pg1, "login");
 		});
 		// 다음 버튼->가입완료로
 		nextButton.addActionListener(e -> {
-			CreateId_2 createId2 = new CreateId_2(main);
-			main.pg1.add("createId2", createId2);
 			main.cardlayout.show(main.pg1, "createId2");
 		});
 		// 약관동의[링크] 버튼
@@ -161,44 +161,56 @@ public class Client_CreateId extends JPanel {
 
 	}
 
-// Method to show agreement dialog
-	private void showAgreementDialog() {
-		String agreementText = "\r\n" + "서비스이용약관(자사 제품, 서비스 공급용)\r\n" + "\r\n"
-				+ "회사가 제품의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, 이용자에게 그 내용을 고지하고자 하는 경우에 사용하는 약관입니다\r\n" + "\r\n"
-				+ "서비스이용약관(플랫폼-공급회원용)\r\n" + "\r\n" + "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, "
-				+ "제품 판매 회원사에게 그 내용을 고지하고자 하는 경우에 사용하는 약관입니다\r\n" + "\r\n" + "서비스이용약관(플랫폼-일반 및 공급기업용)\r\n" + "\r\n"
-				+ "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, " + "제품 판매자 및 서비스 이용자에게 그 내용을 고지하고자 할 때 사용하는 약관입니다.\r\n"
-				+ "\r\n" + "서비스이용약관(플랫폼-일반회원용)\r\n" + "\r\n" + "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고,"
-				+ " 자사 플랫폼을 이용하는 회원에게 그 내용을 고지하고자 할 때 사용하는 약관입니다.\r\n" + "\r\n" + "위치기반 서비스 이용약관\r\n" + "\r\n"
-				+ "회사가 이용자의 개인위치정보를 사용하여 서비스를 제공하고자 하는 경우, 위치정보를 " + "수집 및 사용한다는 내용을 이용자에게 고지하고 동의를 받고자 할 때 작성하는 약관입니다";
+	  //약관기능
+    private void showAgreementDialog() {
+        String agreementText = 
+        		"\r\n"
+        		+ "서비스이용약관(자사 제품, 서비스 공급용)\r\n"
+        		+ "\r\n"
+        		+ "회사가 제품의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, 이용자에게 그 내용을 고지하고자 하는 경우에 사용하는 약관입니다\r\n"
+        		+ "\r\n"
+        		+ "서비스이용약관(플랫폼-공급회원용)\r\n"
+        		+ "\r\n"
+        		+ "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, "
+        		+ "제품 판매 회원사에게 그 내용을 고지하고자 하는 경우에 사용하는 약관입니다\r\n"
+        		+ "\r\n"
+        		+ "서비스이용약관(플랫폼-일반 및 공급기업용)\r\n"
+        		+ "\r\n"
+        		+ "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고, "
+        		+ "제품 판매자 및 서비스 이용자에게 그 내용을 고지하고자 할 때 사용하는 약관입니다.\r\n"
+        		+ "\r\n"
+        		+ "서비스이용약관(플랫폼-일반회원용)\r\n"
+        		+ "\r\n"
+        		+ "회사가 플랫폼의 사용 조건과 서비스 이용 절차 등에 관한 사항을 규정하고,"
+        		+ " 자사 플랫폼을 이용하는 회원에게 그 내용을 고지하고자 할 때 사용하는 약관입니다.\r\n"
+        		+ "\r\n"
+        		+ "위치기반 서비스 이용약관\r\n"
+        		+ "\r\n"
+        		+ "회사가 이용자의 개인위치정보를 사용하여 서비스를 제공하고자 하는 경우, 위치정보를 "
+        		+ "수집 및 사용한다는 내용을 이용자에게 고지하고 동의를 받고자 할 때 작성하는 약관입니다";
 
-	    JTextArea textArea = new JTextArea(agreementText);
-	    textArea.setEditable(false);
-	    textArea.setLineWrap(true);
-	    textArea.setWrapStyleWord(true); // 단어 경계에서 줄 바꿈
+        JTextArea textArea = new JTextArea(agreementText);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true); // 단어 경계에서 줄 바꿈
 
-	    JScrollPane scrollPane = new JScrollPane(textArea);
-	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	    scrollPane.setPreferredSize(new Dimension(400, 300));
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+        
+        JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                // 스크롤바 다 내려가면 체크온 버튼활성화
+                if (scrollBar.getValue() + scrollBar.getModel().getExtent() == scrollBar.getMaximum()) {
+                	nextButton.setEnabled(true);
+                    agreementCheckbox.setSelected(true);
+                }
+            }
+        });
 
-	    JOptionPane.showMessageDialog(this, scrollPane, "약관", JOptionPane.PLAIN_MESSAGE);
-
-	    // 계약을 보고나서 결제 버튼 사용가능
-	    Component[] components = this.getComponents();
-	    for (Component component : components) {
-	        if (component instanceof JPanel) {
-	            JPanel panel = (JPanel) component;
-	            Component[] subComponents = panel.getComponents();
-	            for (Component subComponent : subComponents) {
-	                if (subComponent instanceof JButton) {
-	                    JButton button = (JButton) subComponent;
-	                    if (button.getText().equals("다음")) {
-	                        button.setEnabled(true);
-	                        break;
-	                    }
-	                }
-	            }
-	        }
-	    }
-	}
+        JOptionPane.showMessageDialog(this, scrollPane, "약관", JOptionPane.PLAIN_MESSAGE);
+        
+    }
 }

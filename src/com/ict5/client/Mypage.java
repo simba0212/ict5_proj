@@ -96,8 +96,8 @@ public Mypage(Client_main main) {
 
 //	add(new JLabel("목표"));
 
-	 JLabel jl1 =new JLabel("목표",JLabel.CENTER);
-	 jl1.setFont(font2);
+	JLabel jl1 =new JLabel("목표",JLabel.CENTER);
+	jl1.setFont(font2);
 	jp2.add(jl1,BorderLayout.NORTH);
 	jp2.add(goal);
 	jp.add(book);
@@ -111,9 +111,7 @@ public Mypage(Client_main main) {
 	book.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			 TabPage tab = new TabPage(main);
-             main.pg1.add("tab", tab);
-             main.cardlayout.show(main.pg1, "tab");
+			 main.cardlayout.show(main.pg1, "tab");
              TabPage.tabbedPane.setSelectedIndex(1);
 		}
 			
@@ -123,8 +121,6 @@ public Mypage(Client_main main) {
 		point.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Mypoint myPo = new Mypoint(main);
-	            main.pg1.add("myPo", myPo);
 	            main.cardlayout.show(main.pg1, "myPo");
 			}
 
@@ -132,9 +128,7 @@ public Mypage(Client_main main) {
 		noti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 TabPage tab = new TabPage(main);
-	             main.pg1.add("tab", tab);
-	             main.cardlayout.show(main.pg1, "tab");
+				 main.cardlayout.show(main.pg1, "tab");
 	             TabPage.tabbedPane.setSelectedIndex(2);
 			}
 
@@ -142,8 +136,6 @@ public Mypage(Client_main main) {
 		setpass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				PassChange pwChan = new PassChange(main);
-	            main.pg1.add("pwChan", pwChan);
 	            main.cardlayout.show(main.pg1, "pwChan");
 			}
 
@@ -151,8 +143,6 @@ public Mypage(Client_main main) {
 		logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Client_Login login = new Client_Login(main);
-	            main.pg1.add("login", login);
 	            main.cardlayout.show(main.pg1, "login");
 			}
 
