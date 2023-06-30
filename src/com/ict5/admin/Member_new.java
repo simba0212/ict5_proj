@@ -1,8 +1,11 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,7 +18,13 @@ public class Member_new extends JPanel {
 
 	public Member_new() {
 		setLayout(new BorderLayout());
-		add(new JLabel("<html><h2>신규 등록 회원</h2></html>"),BorderLayout.NORTH);
+		JLabel titleLabel = new JLabel("신규 회원 등록");
+        setBackground(Color.lightGray);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
+		Font labelFont = titleLabel.getFont().deriveFont(Font.BOLD,20f);
+		titleLabel.setFont(labelFont);
+		add(titleLabel, BorderLayout.NORTH);
+
 		String[] columnNames = { "이름", "전화번호", "성별", "생년월일", "등록날짜", "주소" };
 		Object[][] data = { { "고길동", "000-1111-2222", "남성", "1990-00-00", "2023-06-10", "인천광역시 서구" },
 							{ "둘리", "000-1111-2222", "남성", "1990-00-00", "2023-06-10", "인천광역시 서구" },
@@ -46,6 +55,7 @@ public class Member_new extends JPanel {
 		table.getColumn("주소").setCellRenderer(celAlignCenter);
 		table.getColumn("전화번호").setPreferredWidth(100);
 		table.getColumn("주소").setPreferredWidth(200);
+		table.getTableHeader().setReorderingAllowed(false);
 
 		// Add the table to a scroll pane and display it
 		JScrollPane jsp = new JScrollPane(table);

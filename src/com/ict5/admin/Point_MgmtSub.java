@@ -1,19 +1,24 @@
 package com.ict5.admin;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -22,7 +27,8 @@ import javax.swing.table.TableColumnModel;
 
 public class Point_MgmtSub extends JPanel {
 	Admin_main main;
-
+	CardLayout cardLayout;
+	
 	public Point_MgmtSub(Admin_main main) {
 		this.main = main;
 
@@ -30,36 +36,27 @@ public class Point_MgmtSub extends JPanel {
 		JPanel jp1_1 = new JPanel(new BorderLayout());
 		JPanel jp2 = new JPanel(new BorderLayout());
 		JPanel jp2_1 = new JPanel(new BorderLayout());
-		Font font = new Font("돋움", Font.BOLD, 30);
 
-		JLabel jl1 = new JLabel("     회원관리");
-		jl1.setFont(font);
+		JLabel jl1 = new JLabel("회원관리");
+		jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
+		jl1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
+		jp1_1.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		// "포인트관리" 버튼 생성
-		JButton pointManagementButton = new JButton("회원검색");
-		pointManagementButton.setFont(font);
-
-		// "포인트관리" 버튼 클릭 이벤트 리스너 등록
-		pointManagementButton.addActionListener(e -> {
-			// 버튼 클릭 시 동작을 수행할 수 있도록 구현
-			System.out.println("회원검색 버튼 clicked");
-		});
-
-		// JPanel에 "포인트관리" 버튼 추가
-		jp1_1.add(pointManagementButton, BorderLayout.CENTER);
-
+		JLabel pointManagementLabel = new JLabel("회원검색");
+		pointManagementLabel.setFont(pointManagementLabel.getFont().deriveFont(Font.BOLD,17f));
+		pointManagementLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jp1_1.add(pointManagementLabel);
+		
 		// Create the "회원검색" button
-		JButton memberSearchButton = new JButton("포인트관리");
-		memberSearchButton.setFont(font);
-
-		// "회원검색" 버튼 클릭 이벤트 리스너 등록
-		memberSearchButton.addActionListener(e -> {
-			// Implement the action to be performed when the button is clicked
-			System.out.println("포인트관리 버튼 clicked");
-		});
+		JLabel memberSearchLabel = new JLabel("포인트관리");
+		memberSearchLabel.setFont(memberSearchLabel.getFont().deriveFont(Font.BOLD,17f));
+		memberSearchLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jp1_1.add(memberSearchLabel);
 
 		// JPanel에 "회원검색" 버튼 추가
-		jp1_1.add(memberSearchButton, BorderLayout.EAST);
+		jp1_1.add(pointManagementLabel, BorderLayout.EAST);
+		jp1_1.add(memberSearchLabel, BorderLayout.EAST);
 
 		jp1.add(jl1, BorderLayout.WEST);
 
@@ -134,6 +131,7 @@ public class Point_MgmtSub extends JPanel {
 				return column == 8;
 			}
 		};
+		table.getTableHeader().setReorderingAllowed(false);
 
 		// 승인 여부 열에 버튼 렌더러와 에디터 설정
 		TableColumn approveColumn = table.getColumnModel().getColumn(8);
@@ -170,5 +168,40 @@ public class Point_MgmtSub extends JPanel {
 				}
 			}
 		});
+		
+		memberSearchLabel.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        memberSearchLabel.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        memberSearchLabel.setForeground(Color.black);
+		    }
+		});
+		
+		
+		
+		jl1.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	jl1.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	jl1.setForeground(Color.black);
+		    }
+		});
+		
+		jl1.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+		    }
+		});
+		
+		
 	}
 }

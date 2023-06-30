@@ -34,15 +34,12 @@ public class Member_view extends JPanel{
 			JPanel jp1 =new JPanel(new BorderLayout());
 			JPanel jp1_1 =new JPanel(new BorderLayout());
 			
-			 Font font = new Font("돋움", Font.BOLD, 30);
-			 
-		
 			JLabel jl1 = new JLabel("     회원관리");
+			jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
 			JLabel jl2 = new JLabel("회원검색");
+			jl2.setFont(jl2.getFont().deriveFont(Font.BOLD,17f));
 			JLabel jl3 = new JLabel("     포인트관리    ");
-			jl1.setFont(font);
-			jl2.setFont(font);
-			jl3.setFont(font);
+			jl3.setFont(jl3.getFont().deriveFont(Font.BOLD,17f));
 			jp1.add(jl1,BorderLayout.WEST);
 			jp1_1.add(jl2,BorderLayout.WEST);
 			jp1_1.add(jl3,BorderLayout.EAST);
@@ -84,6 +81,7 @@ public class Member_view extends JPanel{
 
 	        // 테이블 생성 및 모델 설정
 	        JTable table = new JTable(model);
+	        table.getTableHeader().setReorderingAllowed(false);
 	        
 	        // 테이블 각 열 너비지정
 	        TableColumnModel columnModel = table.getColumnModel();
@@ -123,6 +121,39 @@ public class Member_view extends JPanel{
 	                //
 	            }
 	        });
+	        
+	        jl1.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseEntered(MouseEvent e) {
+			    	jl1.setForeground(Color.red);
+			    }
+			    
+			    @Override
+			    public void mouseExited(MouseEvent e) {
+			    	jl1.setForeground(Color.black);
+			    }
+			});
+			
+	       
+	        
+	        jl3.addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseEntered(MouseEvent e) {
+	        		jl3.setForeground(Color.red);
+	        	}
+	        	
+	        	@Override
+	        	public void mouseExited(MouseEvent e) {
+	        		jl3.setForeground(Color.black);
+	        	}
+	        });
+	        
+	        jl3.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseClicked(MouseEvent e) {
+			        main.cardlayout.show(main.pg1, "checkagain"); // "member" 페이지로 이동
+			    }
+			});
 	     
 	    }
 	}

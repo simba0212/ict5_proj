@@ -26,13 +26,17 @@ public class Member_view2  extends JPanel {
 		JPanel jp = new JPanel(new BorderLayout());
 		JPanel jp1 =new JPanel(new BorderLayout());
 		JPanel jp1_1 =new JPanel(new BorderLayout());
-		 Font font = new Font("돋움", Font.BOLD, 30);
-		JLabel jl1 = new JLabel("     회원관리");
+		
+		JLabel jl1 = new JLabel("회원관리");
+		jl1.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 10));
+		jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
 		JLabel jl2 = new JLabel("회원검색");
-		JLabel jl3 = new JLabel("     포인트관리    ");
-		jl1.setFont(font);
-		jl2.setFont(font);
-		jl3.setFont(font);
+		jl2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jl2.setFont(jl2.getFont().deriveFont(Font.BOLD,17f));
+		JLabel jl3 = new JLabel("포인트관리");
+		jl3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 40));
+		jl3.setFont(jl3.getFont().deriveFont(Font.BOLD,17f));
+		
 		jp1.add(jl1,BorderLayout.WEST);
 		jp1_1.add(jl2,BorderLayout.WEST);
 		jp1_1.add(jl3,BorderLayout.EAST);
@@ -76,6 +80,8 @@ public class Member_view2  extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(540, 580));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        table.getTableHeader().setReorderingAllowed(false);
+        
         //테이블 속 텍스트 가운데 정렬을 위한 코드 -> 하단에 클래스도 필요
         TableColumnModel columnModel = table.getColumnModel();
         TableColumn column = columnModel.getColumn(0); 
@@ -96,7 +102,7 @@ public class Member_view2  extends JPanel {
 		// jp3_1 은 오른쪽 위 패널
 		JPanel jp3_1 = new JPanel(new BorderLayout());
 		JLabel classlabel = new JLabel("수업 예약 내역");
-		classlabel.setFont(font);
+		classlabel.setFont(classlabel.getFont().deriveFont(Font.BOLD,20f));
 		String[] columnNames2 = {"수업 번호", "종류","예약날짜","수강날짜","강사이름","출석여부"};
         // 테이블 모델 생성
         DefaultTableModel model2 = new DefaultTableModel(columnNames2, 0 );
@@ -108,6 +114,7 @@ public class Member_view2  extends JPanel {
             model2.addRow(rowData);
         }
         JTable table2 = new JTable(model2);
+        table2.getTableHeader().setReorderingAllowed(false);
         
          JScrollPane scrollPane2 = new JScrollPane(table2);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -126,7 +133,7 @@ public class Member_view2  extends JPanel {
 		//jp3_2는 오른쪽 아래 패널
 		JPanel jp3_2 = new JPanel(new BorderLayout());
 		JLabel pointlabel = new JLabel("포인트 충전 / 사용 내역");
-		pointlabel.setFont(font);
+		pointlabel.setFont(pointlabel.getFont().deriveFont(Font.BOLD,20f));
 		pointlabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 		
 		
@@ -142,6 +149,7 @@ public class Member_view2  extends JPanel {
             model3.addRow(rowData);
         }
         JTable table3 = new JTable(model3);
+        table3.getTableHeader().setReorderingAllowed(false);
         
          JScrollPane scrollPane3 = new JScrollPane(table3);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);

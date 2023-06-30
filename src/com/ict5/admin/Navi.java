@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,7 +22,8 @@ import javax.swing.JTextField;
 public class Navi extends JPanel {
 	Admin_main main;
 	CardLayout cardLayout;
-	JPanel pg1;
+	
+	// 새로고침, 회원검색 기능 추가해야됨
 
 	public Navi(Admin_main main) {
 		this.main = main;
@@ -85,20 +88,18 @@ public class Navi extends JPanel {
 		JPanel navSE = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		navSE.setBackground(Color.WHITE);
 		JLabel sche = new JLabel("스케줄러", JLabel.CENTER);
-		String[] options1 = { "수업관리", "수업등록 / 수정", "수업확인" };
+		String[] options1 = { "수업등록 / 수정", "수업확인" };
 		JComboBox<String> dropdown1 = new JComboBox<>(options1);
-		String[] options2 = { "회원관리", "회원검색", "포인트관리" };
+		String[] options2 = { "회원관리", "회원목록", "포인트관리" };
 		JComboBox<String> dropdown2 = new JComboBox<>(options2);
-		String[] options3 = { "강사관리", "강사목록", "강사등록", "강사수정 / 삭제" };
+		String[] options3 = { "강사관리", "강사스케줄", "강사등록" }; // 패널에 숫자에 맞춰서 목록 수정함
 		JComboBox<String> dropdown3 = new JComboBox<>(options3);
 		JLabel userApp = new JLabel("사용자 앱 관리", JLabel.CENTER);
-		JLabel stat = new JLabel("통계보기", JLabel.CENTER);
 		navSE.add(sche);
 		navSE.add(dropdown1);
 		navSE.add(dropdown2);
 		navSE.add(dropdown3);
 		navSE.add(userApp);
-		navSE.add(stat);
 		for (Component k : navSE.getComponents()) {
 			k.setPreferredSize(new Dimension(100, 40));
 		}
@@ -121,7 +122,146 @@ public class Navi extends JPanel {
             	jtfMember.requestFocus(); // 커서 포커스 설정
             }
         });
+        
+        bt_back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	cardLayout.show(main.pg1, "home"); // 이전 페이지로 전환
+            }
+        });
+        
+        logout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(main.pg1, "login");
+			}
+		});
+        
+        bt_newClass.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(main.pg1, "classEdit");
+			}
+		});
+        
+        bt_newClient.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(main.pg1, "member");
+			}
+		});
+        
+        bt_newPoint.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(main.pg1, "checkagain");
+			}
+		});
+        
+        dropdown3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown3.getSelectedItem();
+                if (selected.equals("강사관리")) {
+                    cardLayout.show(main.pg1, "coMg1");
+                }
+            }
+        });
+        
+        dropdown3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown3.getSelectedItem();
+                if (selected.equals("강사스케줄")) {
+                    cardLayout.show(main.pg1, "coMg2");
+                }
+            }
+        });
+        
+        dropdown3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown3.getSelectedItem();
+                if (selected.equals("강사등록")) {
+                    cardLayout.show(main.pg1, "coMg3");
+                }
+            }
+        });
+        
+        dropdown2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown2.getSelectedItem();
+                if (selected.equals("회원목록")) {
+                    cardLayout.show(main.pg1, "member");
+                }
+            }
+        });
+        
+        dropdown2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown2.getSelectedItem();
+                if (selected.equals("회원관리")) {
+                    cardLayout.show(main.pg1, "member2");
+                }
+            }
+        });
+        
+        dropdown2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown2.getSelectedItem();
+                if (selected.equals("포인트관리")) {
+                    cardLayout.show(main.pg1, "checkagain");
+                }
+            }
+        });
+        
+        
+        dropdown1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown1.getSelectedItem();
+                if (selected.equals("수업등록 / 수정")) {
+                    cardLayout.show(main.pg1, "classEdit");
+                }
+            }
+        });
+        
+        dropdown1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) dropdown1.getSelectedItem();
+                if (selected.equals("수업확인")) {
+                    cardLayout.show(main.pg1, "classcheck");
+                }
+            }
+        });
+        
+        userApp.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	userApp.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	userApp.setForeground(Color.black);
+		    }
+		});
 		
+        userApp.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        main.cardlayout.show(main.pg1, "userMg"); // "member" 페이지로 이동
+		    }
+		});
+			
 	}
-
+	
 }

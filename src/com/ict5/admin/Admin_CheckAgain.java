@@ -7,7 +7,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -67,15 +70,17 @@ public class Admin_CheckAgain extends JPanel{
 	JPanel jp1_1 =new JPanel(new BorderLayout());
 	JPanel jp2 =new JPanel(new BorderLayout());
 	JPanel jp2_1 =new JPanel(new BorderLayout());
-	 Font font = new Font("돋움", Font.BOLD, 30);
 	 
 
-	JLabel jl1 = new JLabel("     회원관리");
+	JLabel jl1 = new JLabel("회원관리");
+	jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
+	jl1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 	JLabel jl2 = new JLabel("회원검색");
-	JLabel jl3 = new JLabel("     포인트관리    ");
-	jl1.setFont(font);
-	jl2.setFont(font);
-	jl3.setFont(font);
+	jl2.setFont(jl2.getFont().deriveFont(Font.BOLD,17f));
+	jl2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	JLabel jl3 = new JLabel("포인트관리");
+	jl3.setFont(jl3.getFont().deriveFont(Font.BOLD,17f));
+	jl3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	
 	
 	
@@ -101,9 +106,27 @@ public class Admin_CheckAgain extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+			cardLayout.show(main.pg1, "point_Mgmt");
 		}
+	});
+	
+	jl1.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseEntered(MouseEvent e) {
+	    	jl1.setForeground(Color.red);
+	    }
+	    
+	    @Override
+	    public void mouseExited(MouseEvent e) {
+	    	jl1.setForeground(Color.black);
+	    }
+	});
+	
+	jl1.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent e) {
+	        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+	    }
 	});
 	 
 }
