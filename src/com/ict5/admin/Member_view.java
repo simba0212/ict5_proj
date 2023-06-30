@@ -81,6 +81,7 @@ public class Member_view extends JPanel{
 
 	        // 테이블 생성 및 모델 설정
 	        JTable table = new JTable(model);
+	        table.getTableHeader().setReorderingAllowed(false);
 	        
 	        // 테이블 각 열 너비지정
 	        TableColumnModel columnModel = table.getColumnModel();

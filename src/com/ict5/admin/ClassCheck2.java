@@ -90,6 +90,7 @@ public class ClassCheck2 extends JPanel {
 	    };
 
 	    JTable table = new JTable(model);
+	    table.getTableHeader().setReorderingAllowed(false);
 	    table.setRowHeight(30);
 
 	    // Center align the cell contents

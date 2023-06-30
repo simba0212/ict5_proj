@@ -55,6 +55,7 @@ public class Member_new extends JPanel {
 		table.getColumn("주소").setCellRenderer(celAlignCenter);
 		table.getColumn("전화번호").setPreferredWidth(100);
 		table.getColumn("주소").setPreferredWidth(200);
+		table.getTableHeader().setReorderingAllowed(false);
 
 		// Add the table to a scroll pane and display it
 		JScrollPane jsp = new JScrollPane(table);

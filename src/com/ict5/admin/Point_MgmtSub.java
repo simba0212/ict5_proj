@@ -131,6 +131,7 @@ public class Point_MgmtSub extends JPanel {
 				return column == 8;
 			}
 		};
+		table.getTableHeader().setReorderingAllowed(false);
 
 		// 승인 여부 열에 버튼 렌더러와 에디터 설정
 		TableColumn approveColumn = table.getColumnModel().getColumn(8);

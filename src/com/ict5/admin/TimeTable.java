@@ -101,6 +101,7 @@ public class TimeTable extends JPanel {
         table.setShowVerticalLines(false);
         table.setDefaultRenderer(Object.class, buttonRenderer);
         table.setDefaultEditor(Object.class, buttonEditor);
+        table.getTableHeader().setReorderingAllowed(false);
 
         // Add the table to a scroll pane and display it
         JScrollPane jsp = new JScrollPane(table);

@@ -56,6 +56,7 @@ public class Point_new extends JPanel {
         table.getColumn("신청포인트").setPreferredWidth(100);
         table.setDefaultRenderer(Object.class, buttonRenderer);
         table.setDefaultEditor(Object.class, buttonEditor);
+        table.getTableHeader().setReorderingAllowed(false);
 
         // Add the table to a scroll pane and display it
         JScrollPane jsp = new JScrollPane(table);

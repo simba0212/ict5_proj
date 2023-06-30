@@ -80,6 +80,8 @@ public class Member_view2  extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(540, 580));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        table.getTableHeader().setReorderingAllowed(false);
+        
         //테이블 속 텍스트 가운데 정렬을 위한 코드 -> 하단에 클래스도 필요
         TableColumnModel columnModel = table.getColumnModel();
         TableColumn column = columnModel.getColumn(0); 
@@ -112,6 +114,7 @@ public class Member_view2  extends JPanel {
             model2.addRow(rowData);
         }
         JTable table2 = new JTable(model2);
+        table2.getTableHeader().setReorderingAllowed(false);
         
          JScrollPane scrollPane2 = new JScrollPane(table2);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -146,6 +149,7 @@ public class Member_view2  extends JPanel {
             model3.addRow(rowData);
         }
         JTable table3 = new JTable(model3);
+        table3.getTableHeader().setReorderingAllowed(false);
         
          JScrollPane scrollPane3 = new JScrollPane(table3);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
