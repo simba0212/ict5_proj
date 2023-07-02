@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import com.ict5.admin.panel.Member_view;
+import com.ict5.admin.panel.Navi;
+
 public class Admin_memberview extends JPanel {
 	Admin_main main;
 	

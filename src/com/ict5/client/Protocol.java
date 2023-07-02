@@ -8,10 +8,10 @@ import com.ict5.db.VO;
 
 public class Protocol implements Serializable{
 	// 1.로그인
-	int cmd;
-	int result ;
-	List<VO> list;
-	VO vo ;
+	public int cmd;
+	public int result ;
+	public List<VO> list;
+	public VO vo ;
 	
 	public int getCmd() {
 		return cmd;

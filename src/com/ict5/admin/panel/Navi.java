@@ -1,4 +1,4 @@
-package com.ict5.admin;
+package com.ict5.admin.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.ict5.admin.Admin_main;
 
 public class Navi extends JPanel {
 	Admin_main main;

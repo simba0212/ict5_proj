@@ -1,4 +1,4 @@
-package com.ict5.admin;
+package com.ict5.admin.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -22,6 +22,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import com.ict5.admin.Admin_main;
 
 public class CoTable2 extends JPanel {
 

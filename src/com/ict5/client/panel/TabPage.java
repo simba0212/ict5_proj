@@ -1,6 +1,9 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import javax.swing.*;
+
+import com.ict5.client.Client_main;
+
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

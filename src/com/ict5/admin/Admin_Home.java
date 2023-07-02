@@ -7,6 +7,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.ict5.admin.panel.Member_new;
+import com.ict5.admin.panel.Navi;
+import com.ict5.admin.panel.Point_new;
+import com.ict5.admin.panel.TimeTable;
+
 public class Admin_Home extends JPanel {
     Admin_main main;
 

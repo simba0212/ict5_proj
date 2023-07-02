@@ -1,4 +1,4 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import com.ict5.client.Client_ChargeP;
+import com.ict5.client.Client_main;
 import com.ict5.db.DAO;
 import com.ict5.db.VO;
 

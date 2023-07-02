@@ -1,4 +1,4 @@
-package com.ict5.admin;
+package com.ict5.admin.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -24,6 +24,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import com.ict5.admin.Admin_main;
 
 public class Point_MgmtSub extends JPanel {
 	Admin_main main;

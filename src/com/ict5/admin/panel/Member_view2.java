@@ -1,4 +1,4 @@
-package com.ict5.admin;
+package com.ict5.admin.panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import com.ict5.admin.Admin_main;
 
 public class Member_view2  extends JPanel {
 	Admin_main main;

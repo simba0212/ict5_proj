@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import com.ict5.client.panel.PassChange;
+import com.ict5.client.panel.UserTop;
+
 
 public class Client_PassChange extends JPanel {
     Client_main main;

@@ -1,4 +1,4 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.ict5.client.Client_main;
 import com.ict5.db.VO;
 
 public class UserTop extends JPanel {

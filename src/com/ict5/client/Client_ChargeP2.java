@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import com.ict5.client.panel.ChargeP2;
+import com.ict5.client.panel.UserTop;
+
 
 public class Client_ChargeP2 extends JPanel {
     Client_main main;

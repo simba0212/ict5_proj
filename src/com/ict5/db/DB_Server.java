@@ -1,10 +1,12 @@
-package com.ict5.client;
+package com.ict5.db;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import com.ict5.client.panel.CP_Client;
 
 public class DB_Server implements Runnable{
 	ServerSocket ss = null;

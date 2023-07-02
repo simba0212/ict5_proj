@@ -1,4 +1,4 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -23,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import com.ict5.client.Client_main;
 
 public class Schedule extends JPanel {
 	Client_main main;

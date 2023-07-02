@@ -1,5 +1,8 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 import javax.swing.*;
+
+import com.ict5.client.Client_main;
+
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

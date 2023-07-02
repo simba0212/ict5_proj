@@ -1,6 +1,10 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import javax.swing.*;
+
+import com.ict5.client.Client_Login;
+import com.ict5.client.Client_main;
+
 import java.awt.*;
 
 public class CreateId_2 extends JPanel {

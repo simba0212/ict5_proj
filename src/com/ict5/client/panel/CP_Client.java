@@ -1,10 +1,12 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import com.ict5.client.Protocol;
 import com.ict5.db.DAO;
+import com.ict5.db.DB_Server;
 import com.ict5.db.VO;
 
 public class CP_Client extends Thread {

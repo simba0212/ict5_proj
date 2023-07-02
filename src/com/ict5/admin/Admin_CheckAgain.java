@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.ict5.admin.panel.Navi;
+
 public class Admin_CheckAgain extends JPanel{
 	Admin_main main;
 	CardLayout cardLayout;

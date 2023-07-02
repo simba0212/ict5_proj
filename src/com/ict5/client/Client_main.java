@@ -10,30 +10,38 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.client.panel.ChargeP2;
+import com.ict5.client.panel.ChargeP3;
+import com.ict5.client.panel.CreateId_2;
+import com.ict5.client.panel.Mypage;
+import com.ict5.client.panel.Mypoint;
+import com.ict5.client.panel.Notice;
+import com.ict5.client.panel.PassChange;
+import com.ict5.client.panel.TabPage;
 import com.ict5.db.VO;
 
 public class Client_main extends JFrame implements Runnable {
-	Socket s;
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	public Socket s;
+	public ObjectOutputStream out;
+	public ObjectInputStream in;
 
-	Client_Login login;
-	Client_CreateId createId;
-	Client_Home home;
-	TabPage tab;
-	CreateId_2 createId2;
-	Notice noti;
-	Mypage myPg;
-	Mypoint myPo;
-	PassChange pwChan;
-	ChargeP2 chargeP2;
-	ChargeP3 chargeP3;
-	Client_ChargeP chargeP;
-	VO vo;
+	public Client_Login login;
+	public Client_CreateId createId;
+	public Client_Home home;
+	public TabPage tab;
+	public CreateId_2 createId2;
+	public Notice noti;
+	public Mypage myPg;
+	public Mypoint myPo;
+	public PassChange pwChan;
+	public ChargeP2 chargeP2;
+	public ChargeP3 chargeP3;
+	public Client_ChargeP chargeP;
+	public VO vo;
 
-	CardLayout cardlayout;
-	JPanel pg1;
-	String membername;
+	public CardLayout cardlayout;
+	public JPanel pg1;
+	public String membername;
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -74,7 +82,7 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("myPo", myPo); // 포인트이력
 		pg1.add("pwChan", pwChan); // 비밀번호 변경
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 //		pg1.add("페이지명",객체이름);
 
 		add(pg1);

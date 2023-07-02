@@ -1,4 +1,4 @@
-package com.ict5.client;
+package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.ict5.client.Client_main;
 
 public class Mypoint extends JPanel{
 	Client_main main;

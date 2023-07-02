@@ -1,4 +1,4 @@
-package com.ict5.admin;
+package com.ict5.admin.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.ict5.admin.Admin_main;
 
 public class ClassCheck2 extends JPanel {
 	Admin_main main;

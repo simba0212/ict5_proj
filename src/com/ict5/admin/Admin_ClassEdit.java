@@ -5,6 +5,10 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import com.ict5.admin.panel.ClassEdit1;
+import com.ict5.admin.panel.Navi;
+import com.ict5.admin.panel.TimeTable;
+
 public class Admin_ClassEdit extends JPanel {
     Admin_main main;
 

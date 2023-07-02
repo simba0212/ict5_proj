@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import com.ict5.admin.panel.CoTable2;
+import com.ict5.admin.panel.Navi;
+
 public class Admin_CoMgmt2 extends JPanel {
 	Admin_main main;
 	
