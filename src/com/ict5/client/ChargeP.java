@@ -134,10 +134,9 @@ public class ChargeP extends JPanel {
 
         bot_btn.addActionListener(e -> {
         	String str = selectedPoints+"";
-        	main.chargeP2.cp2.selectedPointsLabel.setText(str);
+        	main.chargeP2.selectedPointsLabel.setText(str);
             main.cardlayout.show(main.pg1, "chargeP2");
         });
-        
     }
  // selectedPoints 변수에 값을 설정하는 메서드
     public void setSelectedPoints(int points) {
