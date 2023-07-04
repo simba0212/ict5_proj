@@ -3,15 +3,26 @@ package com.ict5.admin;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class Admin_main extends JFrame {
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
+
+public class Admin_main extends JFrame implements Runnable{
+	public Socket s;
+	public ObjectOutputStream out;
+	public ObjectInputStream in;
+	public VO vo;
+	
+	
 	public CardLayout cardlayout;
 	public JPanel pg1;
-
 	public Admin_Home home;
 	public Admin_Login login;
 	public Admin_CheckAgain checkagain;
@@ -27,11 +38,12 @@ public class Admin_main extends JFrame {
 
 	public Admin_main() {
 		super("거구로 거듭나자 거구장센터");
+		connected();
 		cardlayout = new CardLayout();
 		pg1 = new JPanel();
 		pg1.setLayout(cardlayout);
 
-//	클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
+		//	클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		home = new Admin_Home(this);
 		login = new Admin_Login(this);
 		checkagain = new Admin_CheckAgain(this);
@@ -45,11 +57,11 @@ public class Admin_main extends JFrame {
 		userMg = new Admin_UserAppMgmt(this);
 		classcheck = new Admin_ClassCheck(this);
 
-//	클래스명 변수명 = new 클래스명(this);
-//	클래스명 변수명 = new 클래스명(this);
-//	클래스명 변수명 = new 클래스명(this);
+		// 클래스명 변수명 = new 클래스명(this);
+		// 클래스명 변수명 = new 클래스명(this);
+		// 클래스명 변수명 = new 클래스명(this);
 
-//	pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
+		// pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 
 		pg1.add("home", home); // 홈
 		pg1.add("login", login); // 로그인
@@ -64,7 +76,7 @@ public class Admin_main extends JFrame {
 		pg1.add("point_Mgmt", point_Mgmt); // 포인트 관리
 		pg1.add("classcheck", classcheck); // 수업 확인
 
-//		pg1.add("페이지명",객체이름);
+		// pg1.add("페이지명",객체이름);
 
 		add(pg1);
 
@@ -76,6 +88,53 @@ public class Admin_main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
+	
+	// 접속
+	public void connected() {
+		try {
+			s = new Socket("192.168.0.93", 7780);
+			out = new ObjectOutputStream(s.getOutputStream());
+			in = new ObjectInputStream(s.getInputStream());
+			new Thread(this).start();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	// 끝내기
+	public void closed() {
+		try {
+			out.close();
+			in.close();
+			s.close();
+			System.exit(0);
+		} catch (Exception e) {
+		}
+	}
+	
+	@Override
+	public void run() {
+		esc: while (true) {
+			try {
+				Object obj = in.readObject();
+				if (obj != null) {
+					Protocol p = (Protocol) obj;
+					vo = p.getVo();
+					
+					switch (p.getCmd()) {
+					case 1101:
+						break esc;
+					case 1:
+						break;
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
+		closed();
+	}
+	
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

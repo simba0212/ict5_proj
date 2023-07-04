@@ -18,13 +18,15 @@ import com.ict5.client.panel.Mypoint;
 import com.ict5.client.panel.Notice;
 import com.ict5.client.panel.PassChange;
 import com.ict5.client.panel.TabPage;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Client_main extends JFrame implements Runnable {
 	public Socket s;
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
-
+	public VO vo;
+	
 	public Client_Login login;
 	public Client_CreateId createId;
 	public Client_Home home;
@@ -37,11 +39,10 @@ public class Client_main extends JFrame implements Runnable {
 	public ChargeP2 chargeP2;
 	public ChargeP3 chargeP3;
 	public Client_ChargeP chargeP;
-	public VO vo;
-
 	public CardLayout cardlayout;
 	public JPanel pg1;
-	public String membername;
+
+	
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -101,7 +102,7 @@ public class Client_main extends JFrame implements Runnable {
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("localhost", 7780);
+			s = new Socket("192.168.0.93", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -136,9 +137,8 @@ public class Client_main extends JFrame implements Runnable {
 					case 1:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-							home.home.refresh();
 							home.usertop.refresh();
-							
+							home.home.refresh();
 						} else {
 							System.out.println("실패");
 						}

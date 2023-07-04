@@ -5,11 +5,15 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Admin_Login extends JPanel {
     Admin_main main;
@@ -64,7 +68,20 @@ public class Admin_Login extends JPanel {
 		login_bt.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        cardLayout.show(main.pg1, "home"); // 2번 페이지로 전환
+		    	try {
+		    	Protocol p = new Protocol();
+		    	VO vo = new VO();
+		    	
+		    	vo.setAdmin_id(idf.getText());
+		    	
+		    	p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		});
 		

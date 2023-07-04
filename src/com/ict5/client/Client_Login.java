@@ -19,13 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Client_Login extends JPanel {
 	Socket s;
 	ObjectOutputStream out;
 	ObjectInputStream in;
-
 
 	Client_main main;
 	CardLayout cardlayout;
@@ -115,10 +115,10 @@ public class Client_Login extends JPanel {
 		// 로그인 버튼->홈으로
 		login_btn.addActionListener(e -> {
 			try {
-				VO vo=new VO();
+				VO vo = new VO();
+				Protocol p = new Protocol();
 				vo.setMember_id(id_tf.getText());
 				vo.setMember_pw(pw_tf.getText());
-				Protocol p = new Protocol();
 				p.setCmd(1);
 				p.setVo(vo);
 				main.out.writeObject(p);

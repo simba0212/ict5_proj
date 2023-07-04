@@ -1,13 +1,8 @@
-package com.ict5.client.panel;
+package com.ict5.db;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-import com.ict5.client.Protocol;
-import com.ict5.db.DAO;
-import com.ict5.db.DB_Server;
-import com.ict5.db.VO;
 
 public class CP_Client extends Thread {
 	Socket s;
@@ -40,9 +35,9 @@ public class CP_Client extends Thread {
 						break;
 					case 1: // 로그인
 						VO vo = new VO();
-						vo = p.getVo();
-						vo = DAO.getLoginChk(vo);
-						
+						vo = p.getVo(); // id, pw를 가지고 왔어요 어디서? 로그인창에있는 jtf에 있는 text를 get으로 가져온상태.
+						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
+
 						p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 						if (vo != null) {
 							// 로그인 성공
@@ -56,18 +51,10 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-//					case 2 :
-//						vo = p.getVo();
-//						int result = DAO.getInsert(vo);
-//						if(result>0) {
-//							Protocol p2 = new Protocol();
-//							List<VO> list2 = DAO.getList();
-//							p2.setCmd(1);
-//							p2.setList(list2);
-//							out.writeObject(p2);
-//							out.flush();
-//						}
-//						break;
+					case 1001: { // 관리자 로그인
+
+					}
+						break;
 					}
 				}
 			} catch (Exception e) {

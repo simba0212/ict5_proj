@@ -1,9 +1,7 @@
-package com.ict5.client;
+package com.ict5.db;
 
 import java.io.Serializable;
 import java.util.List;
-
-import com.ict5.db.VO;
 
 
 public class Protocol implements Serializable{

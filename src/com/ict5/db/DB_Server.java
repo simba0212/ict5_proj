@@ -6,8 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.ict5.client.panel.CP_Client;
-
 public class DB_Server implements Runnable{
 	ServerSocket ss = null;
 	Socket s = null;
@@ -18,7 +16,7 @@ public class DB_Server implements Runnable{
 					
 			new Thread(this).start();
 		} catch (IOException e) {
-		
+			
 		}
 	}
 	@Override
@@ -31,7 +29,6 @@ public class DB_Server implements Runnable{
 			} catch (Exception e) {
 			}
 		}
-		
 	}
 	public static void main(String[] args) {
 		new DB_Server();
