@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,6 +27,7 @@ public class Client_main extends JFrame implements Runnable {
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
 	public VO vo;
+	public List<VO> list;
 	
 	public Client_Login login;
 	public Client_CreateId createId;
@@ -41,7 +43,7 @@ public class Client_main extends JFrame implements Runnable {
 	public Client_ChargeP chargeP;
 	public CardLayout cardlayout;
 	public JPanel pg1;
-
+	
 	
 
 	public Client_main() {
@@ -102,7 +104,7 @@ public class Client_main extends JFrame implements Runnable {
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("192.168.0.93", 7780);
+			s = new Socket("localhost", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -137,11 +139,17 @@ public class Client_main extends JFrame implements Runnable {
 					case 1:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-							home.usertop.refresh();
-							home.home.refresh();
+							refreshAll();
+							
 						} else {
 							System.out.println("실패");
 						}
+						break;
+						
+					case 2301:
+						 list = p.getList();
+						// 초기화 메서드
+						tab.schedule.sb.refresh();
 						break;
 					}
 				}
@@ -150,6 +158,16 @@ public class Client_main extends JFrame implements Runnable {
 		}
 		closed();
 	}
+	
+	
+	
+	public void refreshAll() {
+		home.usertop.refresh();
+		tab.usertop.refresh();
+		home.home.refresh();
+		
+	}
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

@@ -64,6 +64,18 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
+	public static List<VO> t_bookclass(VO vo){
+		List<VO> list = null;
+		// selectList() : 결과가 하나이상일때 
+		// selectOne()  : 반드시 결과가 하나일때
+		// 파라미터가 있는 메서드와 파라미터가 없는메서드로 나눈다.
+		// 파라미터가 있는 메서드 : selectList("mepper의 id",파라미터);
+		// 파라미터가 없는 메서드  : selectList("mepper의 id")
+		list = getSession().selectList("t_bookclass");
+		
+		
+		return list;
+	}
 //	public static String near_type() {
 //		List<VO> list = null;
 //		list = getSession().selectList("mostclose");

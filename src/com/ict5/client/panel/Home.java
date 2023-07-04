@@ -23,7 +23,6 @@ import com.ict5.db.VO;
 public class Home extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
-	TabPage tab;
 	JLabel label2, label3, label4, label5, label6;
 	JTextArea notice;
 
@@ -111,15 +110,14 @@ public class Home extends JPanel {
 		});
 		// 수업예약 클릭 이벤트
 		book_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
+			
+			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
 		attend_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
+			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(1);
 		});

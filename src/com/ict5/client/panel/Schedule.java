@@ -39,7 +39,8 @@ public class Schedule extends JPanel {
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
-
+	public Schedule_bottom sb;
+	
 	JPanel calOpPanel;
 	JButton todayBut;
 	JLabel todayLab;
@@ -171,7 +172,7 @@ public class Schedule extends JPanel {
 		// 수업패널
 		frameBottomPanel = new JPanel();
 		frameBottomPanel.setPreferredSize(new Dimension(500, 400));
-		Schedule_bottom sb = new Schedule_bottom(main);
+		sb = new Schedule_bottom(main);
 		frameBottomPanel.add(sb);
 
 		

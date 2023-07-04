@@ -3,6 +3,7 @@ package com.ict5.db;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class CP_Client extends Thread {
 	Socket s;
@@ -51,10 +52,20 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 1001: { // 관리자 로그인
+					case 1001: // 관리자 로그인
 
-					}
 						break;
+					case 2301:
+						List<VO> list = null;
+						vo = p.getVo();
+						list = DAO.t_bookclass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						
+
+						break;
+
 					}
 				}
 			} catch (Exception e) {

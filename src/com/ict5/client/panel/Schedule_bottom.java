@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,27 +21,46 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.DAO;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Schedule_bottom extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
 	JScrollPane jsp;
-
+	VO vo;
+	List<VO> list;
 	public Schedule_bottom(Client_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
 		setLayout(new BorderLayout());
-
+		
 		JPanel bt = new JPanel();
 		bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
-
 		int ii = 10; // 제공될 알림의 수 지정하는 변수
+		try {
+			
+			Protocol p = new Protocol();
+			p.setCmd(2301);
+			this.vo = main.vo;
+			p.setVo(vo);
+			main.out.writeObject(p);
+			main.out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		// 패널 배열 생성
 		JPanel[] panels = new JPanel[ii];
 		for (int i = 0; i < panels.length; i++) {
 			panels[i] = createPanel(); // 패널 생성 및 배열에 할당
 			bt.add(panels[i]); // 프레임에 패널 추가
 		}
+		
+		
 		jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setPreferredSize(new Dimension(480, 350));
@@ -66,5 +87,20 @@ public class Schedule_bottom extends JPanel {
 
 		return panel;
 	}
-
+	public void refresh() {
+		list = main.list;
+		JPanel bt = new JPanel();
+		// 패널 배열 생성
+		JPanel[] panels = new JPanel[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			panels[i] = createPanel(); // 패널 생성 및 배열에 할당
+			bt.add(panels[i]); // 프레임에 패널 추가
+		}
+		System.out.println(list.get(1)+"스케줄하단 에서 리스트 불러오고있습니다");
+		
+//		jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+//				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		add(jsp);
+	}
+	
 }

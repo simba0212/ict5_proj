@@ -25,5 +25,9 @@
 	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num} and rownum = 1
 	</select>
+	<select id="t_bookclass" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		 select * from class where class_num in (select class_num from book where member_num =#{member_num}) and class_date = TRUNC(SYSDATE);
+	</select>
+	
 	
 </mapper>
