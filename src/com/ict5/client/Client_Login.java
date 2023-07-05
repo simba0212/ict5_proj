@@ -132,5 +132,15 @@ public class Client_Login extends JPanel {
 			main.cardlayout.show(main.pg1, "createId");
 		});
 	}
-
+	@Override 
+    public void setVisible(boolean visible) { //돌아왔을때 화면 아이디 비번 복구
+        super.setVisible(visible);
+        if (visible) {
+            id_tf.setText("        ID를 입력해주세요.       ");
+            id_tf.setEditable(false);
+            pw_tf.setText("Password를 입력해주세요.");
+            pw_tf.setEditable(false);
+        }
+    }
 }
+
