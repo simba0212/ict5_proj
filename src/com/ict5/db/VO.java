@@ -9,7 +9,15 @@ public class VO implements Serializable {
 	private String notice_num, notice_content;
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type,
 			teacher_num, teacher_name;
-	private String admin_num, admin_id, admin_pw; // 
+	private String admin_num, admin_id, admin_pw, admin_t; // 
+
+	public String getAdmin_t() {
+		return admin_t;
+	}
+
+	public void setAdmin_t(String admin_t) {
+		this.admin_t = admin_t;
+	}
 
 	public String getAdmin_num() {
 		return admin_num;

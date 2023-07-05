@@ -51,10 +51,23 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 1001: { // 관리자 로그인
-
-					}
+					case 1001:  // 관리자 로그인
+						vo = p.getVo();
+						vo = DAO.getLoginChk_Admin(vo);
+						p.setVo(vo);
+						if (vo != null) {
+							// 로그인 성공
+							p.setResult(1);
+							System.out.println("로그인성공!");
+						} else {
+							System.out.println("로그인실패");
+						}
+						out.writeObject(p);
+						out.flush();
+					
 						break;
+					case 1002:
+						
 					}
 				}
 			} catch (Exception e) {

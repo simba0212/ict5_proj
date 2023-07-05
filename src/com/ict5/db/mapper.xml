@@ -25,5 +25,12 @@
 	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num} and rownum = 1
 	</select>
+	<select id="loginChk_Admin" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from
+		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
+	</select>
+	<select id="todayclass" resultType="com.ict5.db.VO">
+		select * from class where class_num = 10
+	</select>
 	
 </mapper>

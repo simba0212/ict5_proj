@@ -50,7 +50,18 @@ public class DAO {
 			return null;
 		}
 	}
-	
+	public static VO getLoginChk_Admin(VO vo) {
+		
+		vo = getSession().selectOne("loginChk_Admin", vo);
+		if(vo != null) {
+			System.out.println("검색결과 있음");
+			return vo;
+		}else {
+			System.out.println("검색결과 없음");
+			return null;
+		}
+	}
+
 	public static String getNotice() {
 		List<VO> list = null;
 		list = getSession().selectList("getNotice");
@@ -64,6 +75,15 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
+	
+	public static VO gettoday() {
+		List<VO> list = null;
+		list = getSession().selectList("todayclass");
+		VO vo = list.get(0);
+		
+		return vo;
+	}
+	
 //	public static String near_type() {
 //		List<VO> list = null;
 //		list = getSession().selectList("mostclose");

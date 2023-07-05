@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -26,12 +27,20 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.CP_Client;
+import com.ict5.db.DAO;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class TimeTable extends JPanel {
     private JTable table;
     Admin_main main;
     CardLayout cardLayout;
-
+    VO vo;
+    JTextField date;
+    
+    
+    
     public TimeTable(Admin_main main) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(Color.WHITE);
@@ -67,11 +76,11 @@ public class TimeTable extends JPanel {
         lblNewLabel_2.setIcon(new ImageIcon("src/images/calender.png"));
         north2.add(lblNewLabel_2);
 
-        JTextField date = new JTextField();
+        date = new JTextField();
         date.setColumns(20);
         date.setPreferredSize(new Dimension(100, 50));
         north2.add(date);
-
+        
         JButton btnNewButton_1 = new JButton(">>");
         btnNewButton_1.setPreferredSize(new Dimension(50, 30));
         north2.add(btnNewButton_1);
@@ -115,6 +124,17 @@ public class TimeTable extends JPanel {
                 cardLayout.show(main.pg1, "classEdit");
             }
         });
+        
+        
+    }
+    
+    public void date() {
+//    	this.vo = main.vo;
+//    	String today = vo.getClass_date();
+//    	String month = today.substring(5, 7);
+//    	String day = today.substring(8, 10);
+//    	String date2 = month + "-" + day;
+//    	date.setText(date2);
     }
 
 }
@@ -172,4 +192,6 @@ class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
         // 필요한 경우 추가적인 작업을 수행할 수 있습니다.
         return super.stopCellEditing();
     }
+
+
 }

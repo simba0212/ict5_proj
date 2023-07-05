@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.admin.panel.TimeTable;
+import com.ict5.client.panel.Home;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -92,7 +94,7 @@ public class Admin_main extends JFrame implements Runnable{
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("192.168.0.93", 7780);
+			s = new Socket("localhost", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -122,8 +124,14 @@ public class Admin_main extends JFrame implements Runnable{
 					vo = p.getVo();
 					
 					switch (p.getCmd()) {
-					case 1101:
-						break esc;
+					case 1001:
+						if(p.getResult() == 1) {
+							cardlayout.show(pg1, "home");
+							home.timetable.date();
+						}else {
+							System.out.println("실패");
+							break esc;
+						}
 					case 1:
 						break;
 					}
