@@ -3,6 +3,8 @@ package com.ict5.db;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CP_Client extends Thread {
@@ -28,7 +30,7 @@ public class CP_Client extends Thread {
 			try {
 				Object obj = in.readObject();
 				if (obj != null) {
-
+					List<VO> list = new ArrayList<>();
 					Protocol p = (Protocol) obj;
 					switch (p.getCmd()) {
 					case 0:
@@ -53,11 +55,12 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
 					case 1001: // 관리자 로그인
 
 						break;
 					case 2301:
-						List<VO> list = null;
+						 list = null;
 						vo = p.getVo();
 						list = DAO.t_bookclass(vo);
 						p.setList(list);
@@ -77,8 +80,18 @@ public class CP_Client extends Thread {
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
+
 						break;
+					
+					case 1301:  // 강사목록 불러오기
+						list = new ArrayList<>();
+						list = DAO.getCoachList();
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+					
 					}
+
 				}
 			} catch (Exception e) {
 				

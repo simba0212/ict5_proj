@@ -34,5 +34,8 @@
     	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyymmdd')
 	</select>
 	
+	<select id="getCoachList" resultType="com.ict5.db.VO">
+		select * from teacher order by teacher_num
+	</select>
 	
 </mapper>
