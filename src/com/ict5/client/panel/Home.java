@@ -6,10 +6,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -45,7 +48,7 @@ public class Home extends JPanel {
 		notice.setEditable(false);
 		JScrollPane jsp = new JScrollPane(notice, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		noticePanel.add(new JLabel(" 공  지  사  항 ",JLabel.CENTER), BorderLayout.NORTH);
+		noticePanel.add(new JLabel(" 공  지  사  항 ", JLabel.CENTER), BorderLayout.NORTH);
 		noticePanel.add(jsp, BorderLayout.SOUTH);
 
 		// 가까운 수업 패널
@@ -102,7 +105,6 @@ public class Home extends JPanel {
 		add(near_class, BorderLayout.CENTER);
 		add(btnPanel, BorderLayout.SOUTH);
 
-
 		// 포인트충전 버튼
 		point_bt.addActionListener(e -> {
 			Client_ChargeP chargeP = new Client_ChargeP(main);
@@ -123,6 +125,19 @@ public class Home extends JPanel {
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(1);
 		});
+		// 패널 클릭
+		near_class.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (vo == null) {
+					JOptionPane.showMessageDialog(null, "예약된 클래스가 없습니다", "알림", JOptionPane.WARNING_MESSAGE);
+				} else {
+					main.cardlayout.show(main.pg1, "tab");
+					TabPage.tabbedPane.setSelectedIndex(1);
+					// 최근 강의시간으로 가야함
+				}
+			}
+		});
 
 	}
 
@@ -138,89 +153,96 @@ public class Home extends JPanel {
 		System.out.println(vo.getMember_num());
 		// 가까운 수업
 		vo = DAO.getNearClasstime(vo);
-		System.out.print("최근수업 vo : ");
-		System.out.println(vo.getClass_type());
-		System.out.println(vo.getTeacher_name());
-		System.out.println(vo.getClass_date());
-		
-		label3.setText(vo.getClass_room());
-		
-		switch (vo.getClass_type()) {
-		case "1":
-			label2.setText("수영");
-			break;
-		case "2":
-			label2.setText("헬스");
-			break;
-		case "3":
-			label2.setText("요가");
-			break;
-		case "4":
-			label2.setText("필라테스");
-			break;
-		default:
-			break;
+		if (vo == null) {
+			label2.setText("");
+			label3.setText("");
+			label4.setText("No class");
+			label5.setText("");
+			label6.setText("");
+		} else {
+			System.out.print("최근수업 vo : ");
+			System.out.println(vo.getClass_type());
+			System.out.println(vo.getTeacher_name());
+			System.out.println(vo.getClass_date());
+
+			label3.setText(vo.getClass_room());
+
+			switch (vo.getClass_type()) {
+			case "1":
+				label2.setText("수영");
+				break;
+			case "2":
+				label2.setText("헬스");
+				break;
+			case "3":
+				label2.setText("요가");
+				break;
+			case "4":
+				label2.setText("필라테스");
+				break;
+			default:
+				break;
+			}
+			String t_name = vo.getTeacher_name();
+			label4.setText(t_name);// 강사이름
+
+			String room = "정원 : " + vo.getClass_res() + "/" + vo.getClass_max();
+			label5.setText(room); // 정원정보
+
+			String near_classdate = vo.getClass_date();
+			String near_classtime = "";
+			switch (vo.getClass_time()) {
+			case "1":
+				near_classtime = "09:00~";
+				break;
+			case "2":
+				near_classtime = "10:00~";
+				break;
+			case "3":
+				near_classtime = "11:00~";
+				break;
+			case "4":
+				near_classtime = "12:00~";
+				break;
+			case "5":
+				near_classtime = "13:00~";
+				break;
+			case "6":
+				near_classtime = "14:00~";
+				break;
+			case "7":
+				near_classtime = "15:00~";
+				break;
+			case "8":
+				near_classtime = "16:00~";
+				break;
+			case "9":
+				near_classtime = "17:00~";
+				break;
+			case "10":
+				near_classtime = "18:00~";
+				break;
+			case "11":
+				near_classtime = "19:00~";
+				break;
+			case "12":
+				near_classtime = "20:00~";
+				break;
+			case "13":
+				near_classtime = "21:00~";
+				break;
+
+			default:
+				break;
+			}
+
+			String month = near_classdate.substring(5, 7);
+			String day = near_classdate.substring(8, 10);
+			String date = month + "-" + day + " / " + near_classtime;
+
+			label6.setText(date);
+
 		}
-		String t_name = vo.getTeacher_name();
-		label4.setText(t_name);// 강사이름
-
-		String room = "정원 : " + vo.getClass_res() + "/" + vo.getClass_max();
-
-		label5.setText(room); // 정원정보
-
-		String near_classdate = vo.getClass_date();
-		String near_classtime = "";
-		switch (vo.getClass_time()) {
-		case "1":
-			near_classtime = "09:00~";
-			break;
-		case "2":
-			near_classtime = "10:00~";
-			break;
-		case "3":
-			near_classtime = "11:00~";
-			break;
-		case "4":
-			near_classtime = "12:00~";
-			break;
-		case "5":
-			near_classtime = "13:00~";
-			break;
-		case "6":
-			near_classtime = "14:00~";
-			break;
-		case "7":
-			near_classtime = "15:00~";
-			break;
-		case "8":
-			near_classtime = "16:00~";
-			break;
-		case "9":
-			near_classtime = "17:00~";
-			break;
-		case "10":
-			near_classtime = "18:00~";
-			break;
-		case "11":
-			near_classtime = "19:00~";
-			break;
-		case "12":
-			near_classtime = "20:00~";
-			break;
-		case "13":
-			near_classtime = "21:00~";
-			break;
-
-		default:
-			break;
-		}
-
-		String month = near_classdate.substring(5, 7);
-		String day = near_classdate.substring(8, 10);
-		String date = month + "-" + day + " / " + near_classtime;
-
-		label6.setText(date);
 
 	}
-
 }
