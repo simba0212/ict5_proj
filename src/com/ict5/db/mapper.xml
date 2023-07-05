@@ -25,5 +25,8 @@
 	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num} and rownum = 1
 	</select>
+	<select id="getCoachList" resultType="com.ict5.db.VO">
+		select * from teacher order by teacher_num
+	</select>
 	
 </mapper>

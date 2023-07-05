@@ -63,3 +63,9 @@ select * from bookedclass where member_num = 1 and rownum = 1;
 
 INSERT INTO customer(CUSTID, NAME, ADDRESS, PHONE)
 VALUES(CUSTOMER_SEQ.NEXTVAL, '박지성', '영국 맨체스타', '000-5000-0001');
+
+ ALTER TABLE TEACHER ADD(TEACHER_TYPE number);
+ 
+ 
+ 
+ 

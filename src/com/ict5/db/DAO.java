@@ -64,42 +64,13 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
-//	public static String near_type() {
-//		List<VO> list = null;
-//		list = getSession().selectList("mostclose");
-//		VO vo = list.get(0);
-//		String str = vo.getClass_type();
-//		return str;
-//	}
-//	public static String t_name_select() {
-//		List<VO> list = null;
-//		list = getSession().selectList("t_name_select");
-//		VO vo = list.get(0);
-//		String str = vo.getTeacher_name();
-//		return str;
-//	}
-//	public static String near_classtime() {
-//		List<VO> list = null;
-//		list = getSession().selectList("mostclose");
-//		VO vo = list.get(0);
-//		String str = vo.getClass_time();
-//		return str;
-//	}
-//	public static String near_classdate() {
-//		List<VO> list = null;
-//		list = getSession().selectList("mostclose");
-//		VO vo = list.get(0);
-//		String str = vo.getClass_date();
-//		return str;
-//	}
-//	public static String near_membername() {
-//		List<VO> list = null;
-//		list = getSession().selectList("mostclose");//변경필요
-//		VO vo = list.get(0);
-//		String str = vo.getMember_name();
-//		return str;
-//	}
-//	
+
+
+	public static List<VO> getCoachList() {
+		List<VO> list = null;
+		list = getSession().selectList("getCoachList");
+		return list;
+	}
 }
 
 
