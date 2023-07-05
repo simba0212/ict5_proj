@@ -76,6 +76,11 @@ public class DAO {
 		
 		return list;
 	}
+	public static List<VO> sel_date_class(VO vo){
+		List<VO> list = null;
+		list = getSession().selectList("sel_date_class");
+		return list;
+	}
 //	public static String near_type() {
 //		List<VO> list = null;
 //		list = getSession().selectList("mostclose");

@@ -30,22 +30,9 @@ public class Reservation_bottom extends JPanel {
 		this.cardlayout = main.cardlayout;
 		setLayout(new BorderLayout());
 
-		JPanel bt = new JPanel();
-		bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
-
-		int ii = 5; // 제공될 알림의 수 지정하는 변수
-		// 패널 배열 생성
-		JPanel[] panels = new JPanel[ii];
-		for (int i = 0; i < panels.length; i++) {
-			panels[i] = createPanel(); // 패널 생성 및 배열에 할당
-			bt.add(panels[i]); // 프레임에 패널 추가
-		}
-		jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jsp.setPreferredSize(new Dimension(480, 350));
-
+		
 		add(new JLabel("<html><h3>내가 예약한 수업 (18일)</h2></html>"),BorderLayout.NORTH);
-		add(jsp);
+		
 	}
 
 	private static JPanel createPanel() {
@@ -66,6 +53,23 @@ public class Reservation_bottom extends JPanel {
 		panel.add(new JLabel("정원", JLabel.RIGHT));
 
 		return panel;
+	}
+	
+	public void refresh() {
+	JPanel bt = new JPanel();
+	bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
+
+	int ii = 5; // 제공될 알림의 수 지정하는 변수
+	// 패널 배열 생성
+	JPanel[] panels = new JPanel[ii];
+	for (int i = 0; i < panels.length; i++) {
+		panels[i] = createPanel(); // 패널 생성 및 배열에 할당
+		bt.add(panels[i]); // 프레임에 패널 추가
+	}
+	jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	jsp.setPreferredSize(new Dimension(480, 350));
+	add(jsp);
 	}
 
 }

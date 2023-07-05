@@ -1,34 +1,33 @@
 package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Schedule extends JPanel {
 	Client_main main;
-
+	VO vo;
 	static final int CAL_WIDTH = 7;
 	final static int CAL_HEIGHT = 6;
 	int calDates[][] = new int[CAL_HEIGHT][CAL_WIDTH];
@@ -302,6 +301,45 @@ public class Schedule extends JPanel {
 
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			
+			JButton jb = (JButton) e.getSource();
+			String str =jb.getText().trim();
+			 String day = str.replaceAll("\\D+", "");
+			 
+			 
+			 String mon="",day_s;
+			 if((calMonth+1)<10) {
+				 mon = "0"+(calMonth+1);
+			 }else {
+				 mon=""+(calMonth+1);
+			 }
+			 System.out.println(Integer.parseInt(day));
+			 if((Integer.parseInt(day))<10) {
+				 day_s = "0"+day;
+			 }else {
+				 day_s=""+day;
+			 }
+			 
+			 String indate= calYear+mon+day_s;
+			 
+			 
+			 System.out.println(indate);
+			 
+			 Protocol p = new Protocol();
+			 vo = main.vo;
+			 vo.setClass_date(indate);
+			 p.setCmd(2302);
+			 p.setVo(vo);
+			 try {
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			 
+
+			
 			int k = 0, l = 0;
 			for (int i = 0; i < CAL_HEIGHT; i++) {
 				for (int j = 0; j < CAL_WIDTH; j++) {
@@ -328,5 +366,8 @@ public class Schedule extends JPanel {
 				dDayString = "D+" + (dDay) * (-1);
 
 		}
+	}
+	public void refresh() {
+		System.out.println("스케쥴에서 re프레쉬실행됨썌~");
 	}
 }

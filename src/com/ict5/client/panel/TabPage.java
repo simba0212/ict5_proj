@@ -14,10 +14,12 @@ public class TabPage extends JPanel {
     public UserTop usertop;
     static JTabbedPane tabbedPane;
     public Schedule schedule;
+    public Reservation reservation;
     public TabPage(Client_main main) {
     	
     	 usertop= new UserTop(main, true);
     	 schedule= new Schedule(main);
+    	 reservation = new Reservation(main);
         // Tab 4개와 이름 출력, 로그아웃 알람 누르면 알람으로 가는 기능만 있습니다.
 //
 //        // 상단 패널
@@ -44,7 +46,7 @@ public class TabPage extends JPanel {
         // 탭 패널
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("          수업일정          ", schedule);
-        tabbedPane.addTab("          예약현황          ", new Reservation(main));
+        tabbedPane.addTab("          예약현황          ", reservation);
         tabbedPane.addTab("           알 림           ",  new Notice(main));
         tabbedPane.addTab("           My           ", new Mypage(main));
        

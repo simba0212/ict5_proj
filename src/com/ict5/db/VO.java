@@ -10,7 +10,8 @@ public class VO implements Serializable {
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type,
 			teacher_num, teacher_name;
 	private String admin_num, admin_id, admin_pw; // 
-
+	
+	
 	public String getAdmin_num() {
 		return admin_num;
 	}

@@ -27,6 +27,7 @@ public class DB_Server implements Runnable{
 				CP_Client cc = new CP_Client(s, this);
 				cc.start();
 			} catch (Exception e) {
+				
 			}
 		}
 	}
