@@ -29,8 +29,10 @@
 		select * from
 		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
 	</select>
+	
 	<select id="todayclass" resultType="com.ict5.db.VO">
-		select * from class where class_num = 10
+		SELECT class_type FROM class WHERE class_date = TRUNC(SYSDATE)
 	</select>
 	
+		
 </mapper>

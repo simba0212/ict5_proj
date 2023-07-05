@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -27,8 +29,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
-import com.ict5.db.CP_Client;
-import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -38,6 +38,7 @@ public class TimeTable extends JPanel {
     CardLayout cardLayout;
     VO vo;
     JTextField date;
+    String date2;
     
     
     
@@ -75,11 +76,19 @@ public class TimeTable extends JPanel {
         JLabel lblNewLabel_2 = new JLabel();
         lblNewLabel_2.setIcon(new ImageIcon("src/images/calender.png"));
         north2.add(lblNewLabel_2);
-
+        
+        LocalDate today = LocalDate.now();
+    	date2 = today.toString();
         date = new JTextField();
         date.setColumns(20);
         date.setPreferredSize(new Dimension(100, 50));
+        date.setText(date2);
         north2.add(date);
+        
+        
+    	String month = date2.substring(5, 7);
+    	String day = date2.substring(8, 10);
+    	String date2 = month + "월" + day + "일";
         
         JButton btnNewButton_1 = new JButton(">>");
         btnNewButton_1.setPreferredSize(new Dimension(50, 30));
@@ -89,20 +98,14 @@ public class TimeTable extends JPanel {
 
         add(north, BorderLayout.NORTH);
 
-        Object[][] data = { { "09:00", "", "", "", "" }, { "10:00", "", "수업1", "", "" }, { "11:00", "", "", "수업2", "" },
-                { "12:00", "", "", "", "" }, { "13:00", "", "", "", "" }, { "14:00", "", "", "", "" },
+        Object[][] data = { { "09:00", "", "", "", "" }, { "10:00", "", "수업1", "수업1", "수업1" }, { "11:00", "", "", "수업2", "" },
+                { "12:00", "", "", "", "" }, { "13:00", "", "", "수업1", "" }, { "14:00", "", "", "", "" },
                 { "15:00", "", "", "", "" }, { "16:00", "", "", "", "" }, { "17:00", "", "", "", "" },
                 { "18:00", "", "", "", "" }, { "19:00", "", "", "", "" }, { "20:00", "", "", "", "" },
-                { "21:00", "", "", "", "" } };
-        String[] columnNames = { "6월 10일", "P.T", "요가", "수영", "필라테스" };
+                { "21:00", "", "", "수업1", "" } };
+        String[] columnNames = { date2, "P.T", "요가", "수영", "필라테스" };
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // 원하는 셀을 편집 가능하도록 설정
-                return column != 0;
-            }
-        };
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
         TableCellRenderer buttonRenderer = new ButtonRenderer();
         TableCellEditor buttonEditor = new ButtonEditor();
@@ -126,16 +129,36 @@ public class TimeTable extends JPanel {
         });
         
         
+        
     }
     
-    public void date() {
+
+//    public void Date() {
+//    	
 //    	this.vo = main.vo;
-//    	String today = vo.getClass_date();
-//    	String month = today.substring(5, 7);
-//    	String day = today.substring(8, 10);
-//    	String date2 = month + "-" + day;
-//    	date.setText(date2);
-    }
+    	
+////    	
+////    	
+//    	try {
+//    	
+//    	
+//    	Protocol p = new Protocol();
+//    	vo.setClass_date(date2);
+//    	p.setCmd(1002);
+//    	p.setVo(vo);
+//		main.out.writeObject(p);
+//		main.out.flush();
+//		
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	
+//    	
+//    	
+//    	
+//    }
+    
 
 }
 
@@ -144,11 +167,10 @@ class ButtonRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column) {
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
+
         // 특정 열과 조건을 만족하는 경우에만 버튼 생성
-        if (column == 2 && value.toString().equals("수업1")|| column == 3 && value.toString().equals("수업2")) {
+        if (column >= 1  && !value.toString().equals("")) {
             JButton button = new JButton(value.toString());
-            button.setOpaque(true);
             button.setBackground(null);
             return button;
         } else {
@@ -156,6 +178,8 @@ class ButtonRenderer extends DefaultTableCellRenderer {
         }
     }
 }
+
+
 
 class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
     private JButton button;
@@ -174,7 +198,7 @@ class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
 
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         // Edit the specific cells in the desired columns using the button editor
-        if (column == 2 && value.toString().equals("수업1")|| column == 3 && value.toString().equals("수업2")) {
+        if (column >= 1  && !value.toString().equals("")) {
             button.setText(value.toString());
             return button;
         } else {
@@ -192,6 +216,7 @@ class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
         // 필요한 경우 추가적인 작업을 수행할 수 있습니다.
         return super.stopCellEditing();
     }
+
 
 
 }

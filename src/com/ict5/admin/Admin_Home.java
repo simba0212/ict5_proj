@@ -17,7 +17,7 @@ public class Admin_Home extends JPanel {
     TimeTable timetable;
     public Admin_Home(Admin_main main) {
         this.main = main;
-        TimeTable timetable = new TimeTable(main);
+        timetable = new TimeTable(main);
         setLayout(new BorderLayout());
         add(new Navi(main), BorderLayout.NORTH);
         add(timetable, BorderLayout.WEST);

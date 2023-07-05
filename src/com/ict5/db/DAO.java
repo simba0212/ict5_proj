@@ -76,13 +76,7 @@ public class DAO {
 		return vo;
 	}
 	
-	public static VO gettoday() {
-		List<VO> list = null;
-		list = getSession().selectList("todayclass");
-		VO vo = list.get(0);
-		
-		return vo;
-	}
+	
 	
 //	public static String near_type() {
 //		List<VO> list = null;

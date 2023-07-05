@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.ict5.admin.panel.TimeTable;
 import com.ict5.client.panel.Home;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -82,7 +81,7 @@ public class Admin_main extends JFrame implements Runnable{
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -127,7 +126,6 @@ public class Admin_main extends JFrame implements Runnable{
 					case 1001:
 						if(p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-							home.timetable.date();
 						}else {
 							System.out.println("실패");
 							break esc;
