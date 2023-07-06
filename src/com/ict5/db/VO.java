@@ -7,10 +7,58 @@ public class VO implements Serializable {
 	private String member_num, member_id, member_name, member_gen, member_addr,
 			member_pw, member_mail, member_phone,member_point, member_chargep, member_usep, member_birth, member_signup_date;
 	private String notice_num, notice_content;
-	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type,
-			teacher_num, teacher_name;
+	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
 	private String admin_num, admin_id, admin_pw;
+	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img, teacher_type;
 	
+	public String getTeacher_phone() {
+		return teacher_phone;
+	}
+
+	public void setTeacher_phone(String teacher_phone) {
+		this.teacher_phone = teacher_phone;
+	}
+
+	public String getTeacher_addr() {
+		return teacher_addr;
+	}
+
+	public void setTeacher_addr(String teacher_addr) {
+		this.teacher_addr = teacher_addr;
+	}
+
+	public String getTeacher_gen() {
+		return teacher_gen;
+	}
+
+	public void setTeacher_gen(String teacher_gen) {
+		this.teacher_gen = teacher_gen;
+	}
+
+	public String getTeacher_career() {
+		return teacher_career;
+	}
+
+	public void setTeacher_career(String teacher_career) {
+		this.teacher_career = teacher_career;
+	}
+
+	public String getTeacher_img() {
+		return teacher_img;
+	}
+
+	public void setTeacher_img(String teacher_img) {
+		this.teacher_img = teacher_img;
+	}
+
+	public String getTeacher_type() {
+		return teacher_type;
+	}
+
+	public void setTeacher_type(String teacher_type) {
+		this.teacher_type = teacher_type;
+	}
+
 	public String getMember_num() {
 		return member_num;
 	}

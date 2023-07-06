@@ -3,6 +3,8 @@ package com.ict5.db;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CP_Client extends Thread {
 	Socket s;
@@ -51,27 +53,39 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 2101: // 가입
-					    vo = new VO();
-					    vo = p.getVo(); // 가입창의 정보를 가져옴
-					    if (vo != null) {
-					    	System.out.println("cp옴");
-					        DAO.setInsertJoinFields(vo); // 가입 정보를 DB에 삽입
-					        System.out.println("정보가져옴");
-					    } else {
-					    	System.out.println("정보못가져옴");
-					    }
-					    p.setVo(vo); // 업데이트된 VO를 프로토콜 객체에 설정
-					    p.setResult(1);
-					    System.out.println("정보넘김");
-					    out.writeObject(p);
-					    out.flush();
-					    break;
-					case 1001: { // 관리자 로그인
 
-					}
+
+					case 1001:  // 관리자 로그인
+
 						break;
+					
+					case 1301:  // 강사목록 불러오기
+						List<VO> list = new ArrayList<>();
+						list = DAO.getCoachList();
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						
+						
+					case 2101: // 가입
+						vo = new VO();
+						vo = p.getVo(); // 가입창의 정보를 가져옴
+						if (vo != null) {
+							System.out.println("cp옴");
+							DAO.setInsertJoinFields(vo); // 가입 정보를 DB에 삽입
+							System.out.println("정보가져옴");
+						} else {
+							System.out.println("정보못가져옴");
+						}
+						p.setVo(vo); // 업데이트된 VO를 프로토콜 객체에 설정
+						p.setResult(1);
+						System.out.println("정보넘김");
+						out.writeObject(p);
+						out.flush();
+						break;
+					
 					}
+
 				}
 			} catch (Exception e) {
 			}

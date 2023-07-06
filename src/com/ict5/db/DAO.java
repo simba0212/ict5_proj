@@ -119,4 +119,12 @@ public class DAO {
 //		return str;
 //	}
 //	
+
+
+	public static List<VO> getCoachList() {
+		List<VO> list = null;
+		list = getSession().selectList("getCoachList");
+		return list;
+	}
+
 }
