@@ -81,7 +81,7 @@ public class Admin_main extends JFrame implements Runnable{
 
 		add(pg1);
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -130,8 +130,16 @@ public class Admin_main extends JFrame implements Runnable{
 							System.out.println("실패");
 							break esc;
 						}
-					case 1:
+					case 1002:
+						home.timetable.Date();
+						if(p.getResult() == 1) {
+							System.out.println("테이블 성공 2");
+						}else {
+							System.out.println("테이블 실패 2");
+							
+						}
 						break;
+						
 					}
 				}
 			} catch (Exception e) {

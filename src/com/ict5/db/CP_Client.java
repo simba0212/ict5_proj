@@ -3,6 +3,8 @@ package com.ict5.db;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CP_Client extends Thread {
 	Socket s;
@@ -51,7 +53,7 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 1001:  // 관리자 로그인
+					case 1001: // 관리자 로그인
 						vo = p.getVo();
 						vo = DAO.getLoginChk_Admin(vo);
 						p.setVo(vo);
@@ -64,10 +66,27 @@ public class CP_Client extends Thread {
 						}
 						out.writeObject(p);
 						out.flush();
-					
+
 						break;
+
 					case 1002:
+						List<VO> list = new ArrayList<>();
+					    vo = p.getVo();
+					    list = DAO.getToday();
+						p.setVo(vo);
+						p.setList(list);
 						
+						if(p.getList() != null) {
+							p.setResult(1);
+							System.out.println("테이블 성공");
+						}else {
+							System.out.println("테이블 실패");
+						}
+						
+					    break;
+
+
+
 					}
 				}
 			} catch (Exception e) {

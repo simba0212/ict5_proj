@@ -1,5 +1,6 @@
 package com.ict5.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -76,6 +77,16 @@ public class DAO {
 		return vo;
 	}
 	
+	public static List<VO> getToday() {
+		List<VO> list = null;
+		list = getSession().selectList("todayclass");
+		
+		return list;
+	}
+
+
+
+
 	
 	
 //	public static String near_type() {
@@ -114,7 +125,7 @@ public class DAO {
 //		return str;
 //	}
 //	
-}
+	}
 
 
 

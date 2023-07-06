@@ -40,8 +40,6 @@ public class TimeTable extends JPanel {
     JTextField date;
     String date2;
     
-    
-    
     public TimeTable(Admin_main main) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(Color.WHITE);
@@ -49,6 +47,7 @@ public class TimeTable extends JPanel {
 
         this.main = main;
         this.cardLayout = main.cardlayout;
+        this.vo = main.vo;
 
         JPanel north = new JPanel(new BorderLayout());
         north.setBackground(Color.WHITE);
@@ -85,6 +84,7 @@ public class TimeTable extends JPanel {
         date.setText(date2);
         north2.add(date);
         
+       
         
     	String month = date2.substring(5, 7);
     	String day = date2.substring(8, 10);
@@ -127,40 +127,28 @@ public class TimeTable extends JPanel {
                 cardLayout.show(main.pg1, "classEdit");
             }
         });
-        
-        
+           
         
     }
     
-
-//    public void Date() {
-//    	
-//    	this.vo = main.vo;
-    	
-////    	
-////    	
-//    	try {
-//    	
-//    	
-//    	Protocol p = new Protocol();
-//    	vo.setClass_date(date2);
-//    	p.setCmd(1002);
-//    	p.setVo(vo);
-//		main.out.writeObject(p);
-//		main.out.flush();
-//		
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	
-//    	
-//    	
-//    	
-//    }
     
-
+    public void Date() {
+    	try {
+    		Protocol p = new Protocol();
+    		p.setCmd(1002);
+    		p.setVo(vo);
+    		main.out.writeObject(p);
+    		main.out.flush();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+    
+    
 }
+
+
 
 class ButtonRenderer extends DefaultTableCellRenderer {
     @Override
