@@ -10,11 +10,13 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,11 +36,13 @@ public class Schedule extends JPanel {
 	int calYear;
 	int calMonth;
 	int calDayOfMon;
+	int day_i;
 	final int calLastDateOfMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
 	public Schedule_bottom sb;
+	String mon;
 	
 	JPanel calOpPanel;
 	JButton todayBut;
@@ -302,40 +306,49 @@ public class Schedule extends JPanel {
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			JButton jb = (JButton) e.getSource();
-			String str =jb.getText().trim();
-			 String day = str.replaceAll("\\D+", "");
+			
+			 
+			
+			 try {
+				JButton jb = (JButton) e.getSource();
+				String str =jb.getText().trim();
+				String day = str.replaceAll("\\D+", "");
+			 
+			  String day_s="";
+			
+				 try {
+					 
+				 if((calMonth+1)<10) {
+					 mon = ("0"+(calMonth+1));
+				 }else {
+					 mon=(""+(calMonth+1));
+				 } 
+				 day_i = Integer.parseInt(day);
+				 if(day_i<10) {
+					 day_s = ("0"+day);
+				 }
+					   
+				    
+				} catch (NumberFormatException e2) {
+				   
+				}
 			 
 			 
-			 String mon="",day_s;
-			 if((calMonth+1)<10) {
-				 mon = "0"+(calMonth+1);
-			 }else {
-				 mon=""+(calMonth+1);
-			 }
-			 System.out.println(Integer.parseInt(day));
-			 if((Integer.parseInt(day))<10) {
-				 day_s = "0"+day;
-			 }else {
-				 day_s=""+day;
-			 }
+			 
+			 
 			 
 			 String indate= calYear+mon+day_s;
-			 
-			 
-			 System.out.println(indate);
-			 
+			System.out.println(indate);
 			 Protocol p = new Protocol();
 			 vo = main.vo;
 			 vo.setClass_date(indate);
 			 p.setCmd(2302);
 			 p.setVo(vo);
-			 try {
 				main.out.writeObject(p);
 				main.out.flush();
-			} catch (IOException e1) {
+			} catch (IOException e2) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e2.printStackTrace();
 			}
 			 
 
@@ -368,6 +381,6 @@ public class Schedule extends JPanel {
 		}
 	}
 	public void refresh() {
-		System.out.println("스케쥴에서 re프레쉬실행됨썌~");
+		
 	}
 }

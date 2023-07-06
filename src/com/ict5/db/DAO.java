@@ -79,7 +79,7 @@ public class DAO {
 	}
 	public static List<VO> sel_date_class(VO vo){
 		List<VO> list = null;
-		list = getSession().selectList("sel_date_class");
+		list = getSession().selectList("sel_date_class",vo);
 		return list;
 	}
 

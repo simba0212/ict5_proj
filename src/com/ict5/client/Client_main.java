@@ -154,11 +154,15 @@ public class Client_main extends JFrame implements Runnable {
 					case 2301:
 						 list = p.getList();
 						// 초기화 메서드
-//						 tab.schedule.sb.refresh();
+						 tab.schedule.sb.refresh();
 						break;
-					case 2302:
+					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
-						 System.out.println(list.get(0).getClass_room());
+						 System.out.println("클라메인2302");
+						 
+						
+						 tab.schedule.sb.refresh();
+						 System.out.println("클라메인2302");
 						break;
 					}
 				}

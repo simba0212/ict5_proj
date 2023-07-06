@@ -70,13 +70,9 @@ public class CP_Client extends Thread {
 
 						break;
 					case 2302:
-						System.out.println("카피클라0");
 						list = null;
 						vo = p.getVo();
-						System.out.println("카피클라1");
 						list = DAO.sel_date_class(vo);
-						
-						System.out.println(list.get(0).getClass_room()+"카피클라3");
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
@@ -87,6 +83,7 @@ public class CP_Client extends Thread {
 						list = new ArrayList<>();
 						list = DAO.getCoachList();
 						p.setList(list);
+						
 						out.writeObject(p);
 						out.flush();
 					

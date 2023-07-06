@@ -31,7 +31,7 @@
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
 		select *
    	 	from class c, teacher t
-    	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyymmdd')
+    	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
 	</select>
 	
 	<select id="getCoachList" resultType="com.ict5.db.VO">
