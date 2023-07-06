@@ -4,16 +4,20 @@ import javax.swing.*;
 
 import com.ict5.client.Client_Login;
 import com.ict5.client.Client_main;
+import com.ict5.db.VO;
 
 import java.awt.*;
 
 public class ChargeP3 extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
+	
+	VO vo;
 
 	public ChargeP3(Client_main main) {
 		this.main = main;
 		this.cardlayout = main.cardlayout;
+		this.vo = main.vo; // vo 동기화
 		setLayout(new BorderLayout());
 
 		// 이미지 레이블 추가
