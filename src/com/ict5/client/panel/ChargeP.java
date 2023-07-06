@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.VO;
 
 public class ChargeP extends JPanel {
     Client_main main;
@@ -24,10 +25,13 @@ public class ChargeP extends JPanel {
     int selectedPoints;
     JButton bot_btn;
     JLabel selectedPointsLabel;
+    
+    VO vo;
 
     public ChargeP(Client_main main) {
         this.main = main;
         this.cardlayout = main.cardlayout;
+        this.vo = main.vo; // vo 동기화
 
         JPanel top = new JPanel(new BorderLayout());
         JLabel top1 = new JLabel("   포인트 충전");
@@ -130,10 +134,10 @@ public class ChargeP extends JPanel {
                 bot_btn.setEnabled(true);
             }
         });
-
+        //다음
         bot_btn.addActionListener(e -> {
         	String str = selectedPoints+"";
-        	main.chargeP2.selectedPointsLabel.setText(str);
+        	main.cp2.selectedPointsLabel.setText(str);
             main.cardlayout.show(main.pg1, "chargeP2");
         });
     }
@@ -146,4 +150,8 @@ public class ChargeP extends JPanel {
     public int getSelectedPoints() {
         return selectedPoints;
     }
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

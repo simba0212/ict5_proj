@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -100,7 +101,9 @@ public class Client_Login extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				id_tf.setText("");
 				id_tf.setEditable(true); // 편집 가능하도록 설정
-				id_tf.requestFocus(); // 커서 포커스 설정
+				//id_tf.requestFocus(); // 커서 포커스 설정
+				SwingUtilities.invokeLater(() -> id_tf.requestFocus());
+				System.out.println("Is id_tf focused? " + id_tf.isFocusOwner());
 			}
 		});
 		// 마우스 클릭 이벤트 처리
@@ -109,7 +112,9 @@ public class Client_Login extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				pw_tf.setText("");
 				pw_tf.setEditable(true); // 편집 가능하도록 설정
-				pw_tf.requestFocus(); // 커서 포커스 설정
+				//pw_tf.requestFocus(); // 커서 포커스 설정
+				SwingUtilities.invokeLater(() -> pw_tf.requestFocus());
+				System.out.println("Is pw_tf focused? " + pw_tf.isFocusOwner());
 			}
 		});
 		// 로그인 버튼->홈으로
@@ -133,7 +138,7 @@ public class Client_Login extends JPanel {
 		});
 	}
 	@Override 
-    public void setVisible(boolean visible) { //돌아왔을때 화면 아이디 비번 복구
+    public void setVisible(boolean visible) { //화면리셋
         super.setVisible(visible);
         if (visible) {
             id_tf.setText("        ID를 입력해주세요.       ");
@@ -142,5 +147,6 @@ public class Client_Login extends JPanel {
             pw_tf.setEditable(false);
         }
     }
+	
 }
 
