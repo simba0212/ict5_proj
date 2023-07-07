@@ -36,14 +36,12 @@ public class CoMgmt4 extends JPanel {
 
 	Admin_main main;
 	String filePath;
-	
 
 	public CoMgmt4(Admin_main main) {
 		this.main = main;
-		
+
 		setLayout(new BorderLayout());
-		
-		
+
 		// 상단 패널 생성
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout());
@@ -60,15 +58,14 @@ public class CoMgmt4 extends JPanel {
 		teacherManagementPanel.setPreferredSize(new Dimension(200, 30)); // 원하는 크기로 지정
 		topPanel.add(teacherManagementPanel, BorderLayout.WEST);
 
-
 		// "강사 등록" 라벨과 "강사 목록" 라벨을 포함하는 패널을 생성하여 오른쪽에 추가
 		JPanel labelsPanel = new JPanel();
 		labelsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		JLabel registerLabel = new JLabel("강사 등록");
-		registerLabel.setFont(registerLabel.getFont().deriveFont(Font.BOLD,17f));
+		registerLabel.setFont(registerLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(registerLabel);
 		JLabel listLabel = new JLabel("강사 목록");
-		listLabel.setFont(listLabel.getFont().deriveFont(Font.BOLD,17f));
+		listLabel.setFont(listLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(listLabel);
 		listLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 20, 20));
 		labelsPanel.setBackground(Color.lightGray); // 배경색을 회색으로 설정
@@ -83,7 +80,6 @@ public class CoMgmt4 extends JPanel {
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); // BoxLayout으로 변경
 		centerPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // 왼쪽 정렬 설정
 		centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 10, 80));
-		
 
 		// "수업 종류" 라디오 버튼 그룹을 포함한 패널 생성
 		JPanel coursePanel = new JPanel();
@@ -164,12 +160,11 @@ public class CoMgmt4 extends JPanel {
 		JPanel experiencePanel = new JPanel();
 		experiencePanel.setLayout(new BorderLayout());
 		experiencePanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 80, 50));
-		
 
 		// "경력사항" 레이블 생성
 		JLabel experienceLabel = new JLabel("경력사항");
-		experienceLabel.setFont(experienceLabel.getFont().deriveFont(Font.BOLD,17f));
-		
+		experienceLabel.setFont(experienceLabel.getFont().deriveFont(Font.BOLD, 17f));
+
 		// "경력사항" 텍스트 영역 생성
 		JTextArea experienceTextArea = new JTextArea(5, 20);
 		experienceTextArea.setLineWrap(true);
@@ -193,18 +188,17 @@ public class CoMgmt4 extends JPanel {
 		// 이미지 레이블 생성
 		JLabel imageLabel = new JLabel();
 		ImageIcon imageIcon = new ImageIcon(imagePath);
-		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);  // 원하는 크기로 조정
+		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT); // 원하는 크기로 조정
 		imageLabel.setIcon(new ImageIcon(image));
-		
 
 		// 이미지 패널 생성
 		JPanel imagePanel = new JPanel();
 		imagePanel.setLayout(new BorderLayout());
-		
+
 		imagePanel.add(imageLabel, BorderLayout.CENTER);
 		add(imagePanel, BorderLayout.WEST);
 		imagePanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 10));
-		
+
 		// "사진 첨부" 버튼 생성
 		JButton attachButton = new JButton("사진 첨부");
 		attachButton.setFont(attachButton.getFont().deriveFont(17f));
@@ -214,11 +208,10 @@ public class CoMgmt4 extends JPanel {
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		buttonPanel.add(attachButton);
 		imagePanel.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		// 이미지 레이블을 이미지 패널의 가운데에 추가
 		imagePanel.add(imageLabel, BorderLayout.CENTER);
 		add(imagePanel, BorderLayout.WEST);
-
 
 		// 하단 패널 생성
 		JPanel bottomPanel = new JPanel();
@@ -227,7 +220,7 @@ public class CoMgmt4 extends JPanel {
 		// "등록" 버튼 생성
 		JButton addButton = new JButton("등록");
 		addButton.setFont(addButton.getFont().deriveFont(17f));
-		
+
 		// "수정" 버튼 생성
 		JButton editButton = new JButton("수정");
 		editButton.setFont(editButton.getFont().deriveFont(17f));
@@ -240,92 +233,90 @@ public class CoMgmt4 extends JPanel {
 
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
-		
+
 		addButton.addActionListener(new ActionListener() {
-			//*****버튼 눌렀을때 등록완료 라는 창 하나 띄우기==> 이걸로 확인하기
-			
-			
+			// *****버튼 눌렀을때 등록완료 라는 창 하나 띄우기==> 이걸로 확인하기
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String gender="" ;
+				String gender = "";
 				try {
-				VO vo = new VO();
-				vo.setTeacher_name(nameField.getText().trim());//이름
-				vo.setTeacher_phone(phoneField.getText().trim());//전화번호
-				vo.setTeacher_addr(addressField.getText().trim());//주소
-				vo.setTeacher_career(experienceTextArea.getText()); //경력사항
-				System.out.println("experienceTextArea;;;;"+vo.getTeacher_career());
-				if (maleRadioButton.isSelected()) {
-					gender = maleRadioButton.getText(); // "남"
-				}else if(femaleRadioButton.isSelected()) {
-					gender = femaleRadioButton.getText();// "여"
-				}
-				vo.setTeacher_gen(gender);//성별
-				
-				String type="1"; // 숫자 정해주
-				if(radioButton1.isSelected()) {
-					type= "1";
-				}else if(radioButton2.isSelected()) {
-					type= "2";
-				}else if(radioButton3.isSelected()) {
-					type= "3";
-				}else if(radioButton4.isSelected()) {
-					type= "4";
-				}
-				vo.setTeacher_type(type);
-				System.out.println("type;;;;"+type);
-					
-					Protocol p = new Protocol();
-					System.out.println("여기까지는온다0");
-					p.setCmd(1318);
-					p.setVo(vo); //위에서 다 담은 vo정보를 p의 vo에 저장
-					main.out.writeObject(p);// p프로토콜 내보내
-					main.out.flush();// 끝내 => cp클라이언트로 가 
-					System.out.println("여기까지는온다1");
-				} catch (Exception e2) {
-					System.out.println("여기까지는온다2");
-				}
-				
-				
-			}
-		});
-		attachButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					//버튼 누르면 파일창 뜨기
-					//파일창에서 그림 클릭하면
-					//그림 불러오기
 					VO vo = new VO();
-					JFileChooser fileChooser = new JFileChooser();
-	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
-	                if (option == JFileChooser.APPROVE_OPTION) {
-	                	 File selectedFile = fileChooser.getSelectedFile();
-	                     filePath = selectedFile.getAbsolutePath();
-	                	
-	                  // 이미지를 삽입하는 로직
-	                     ImageIcon imageIcon = new ImageIcon(filePath);
-        
-	                     Image image = imageIcon.getImage();
-	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
-	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-	                     imageLabel.setIcon(scaledImageIcon);
-	                     
-	                     
-	                    // imageLabel.setIcon(imageIcon);
-	               	  if (filePath != null) {
-		                    // 이미지 파일의 경로를 DB에 저장하는 로직
-						  vo.setTeacher_img(filePath);
-					  }   
-		              System.out.println("filepath:" + vo.getTeacher_img());     
-	                    
-	                }
+					Protocol p = new Protocol();
+					vo.setTeacher_name(nameField.getText().trim());// 이름
+					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+					vo.setTeacher_addr(addressField.getText().trim());// 주소
+					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
+					System.out.println("experienceTextArea;;;;" + vo.getTeacher_career());
+					if (maleRadioButton.isSelected()) {
+						gender = maleRadioButton.getText(); // "남"
+					} else if (femaleRadioButton.isSelected()) {
+						gender = femaleRadioButton.getText();// "여"
+					}
+					vo.setTeacher_gen(gender);// 성별
+
+					String type = "1"; // 숫자 정해주
+					if (radioButton1.isSelected()) {
+						type = "1";
+					} else if (radioButton2.isSelected()) {
+						type = "2";
+					} else if (radioButton3.isSelected()) {
+						type = "3";
+					} else if (radioButton4.isSelected()) {
+						type = "4";
+					}
+					vo.setTeacher_type(type);
+					System.out.println("type;;;;" + type);
+
+					p.setVo(vo); // 위에서 다 담은 vo정보를 p의 vo에 저장
+					p.setCmd(1318);
+					main.out.writeObject(p);// p프로토콜 내보내
+					main.out.flush();// 끝내 => cp클라이언트로 가
+					System.out.println("정보담기완료");
 				} catch (Exception e2) {
-					
+					System.out.println("정보담기실패");
 				}
 			}
+			
 		});
-		
-    }
+
+//		attachButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					//버튼 누르면 파일창 뜨기
+//					//파일창에서 그림 클릭하면
+//					//그림 불러오기
+//					VO vo = new VO();
+//					JFileChooser fileChooser = new JFileChooser();
+//	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
+//	                if (option == JFileChooser.APPROVE_OPTION) {
+//	                	 File selectedFile = fileChooser.getSelectedFile();
+//	                     filePath = selectedFile.getAbsolutePath();
+//	                	
+//	                  // 이미지를 삽입하는 로직
+//	                     ImageIcon imageIcon = new ImageIcon(filePath);
+//        
+//	                     Image image = imageIcon.getImage();
+//	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+//	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+//	                     imageLabel.setIcon(scaledImageIcon);
+//	                     
+//	                     
+//	                    // imageLabel.setIcon(imageIcon);
+//	               	  if (filePath != null) {
+//		                    // 이미지 파일의 경로를 DB에 저장하는 로직
+//						  vo.setTeacher_img(filePath);
+//					  }   
+//		              System.out.println("filepath:" + vo.getTeacher_img());     
+//	                    
+//	                }
+//				} catch (Exception e2) {
+//					
+//				}
+//			}
+//		});
+
+	}
 }

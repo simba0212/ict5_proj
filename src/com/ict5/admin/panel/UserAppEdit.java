@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class UserAppEdit extends JPanel {
     Admin_main main;
@@ -58,7 +62,7 @@ public class UserAppEdit extends JPanel {
         JTextArea announcementTextArea = new JTextArea(annoText);
         announcementTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         announcementTextArea.setPreferredSize(new Dimension(600, 300));
-        announcementTextArea.setEditable(false);
+        announcementTextArea.setEditable(true);
         rightPanel.add(announcementTextArea, BorderLayout.CENTER);
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 100));
         add(rightPanel, BorderLayout.EAST);
@@ -73,5 +77,25 @@ public class UserAppEdit extends JPanel {
         bottomPanel.add(cancelButton);
         add(bottomPanel, BorderLayout.SOUTH);
         bottomPanel.setPreferredSize(new Dimension(200, 70));
+        
+        
+        registerButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					VO vo = new VO();
+					Protocol p = new Protocol();
+					vo.setNotice_text(announcementTextArea.getText());
+					p.setVo(vo);
+					p.setCmd(1320);
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+			}
+		});
     }
 }

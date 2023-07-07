@@ -69,10 +69,17 @@ public class DAO {
 	}
 
 	
-	public static int getInsert(VO vo) {
+	public static VO getInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();
-		return result;
+		return vo;
+	}
+	
+	public static VO setNotice(VO vo) {
+		int res = getSession().insert("inNotice", vo);
+		ss.commit();
+		return vo;
+		
 	}
 
 	public static VO setInsertJoinFields(VO vo) {

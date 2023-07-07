@@ -11,9 +11,16 @@ private String class_num, class_time, class_date, class_res, class_max, class_po
 			teacher_num, teacher_name;
 	private String admin_num, admin_id, admin_pw; // 
 	private String teacher_phone,teacher_addr,teacher_gen,teacher_career,teacher_img,teacher_type;
+	private String notice_text;
 	
 	
+	public String getNotice_text() {
+		return notice_text;
+	}
 	
+	public void setNotice_text(String notice_text) {
+		this.notice_text = notice_text;
+	}
 	public String getTeacher_phone() {
 		return teacher_phone;
 

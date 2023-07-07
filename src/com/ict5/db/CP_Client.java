@@ -60,23 +60,21 @@ public class CP_Client extends Thread {
 
 						
 					case 1318 :
-				
+						vo = new VO();
 						vo = p.getVo(); //set으로 보낸거 get으로 받아옴
-						int result = DAO.getInsert(vo); //받아온 vo를 dao를 통해서 디비에 넣어주기
-					
-						//성공 실패를 알려줘야 하니까
-						if(result>0) { //db에서 추가되면 1열 추가니까 데이터가 추가되면 무조건 1이상
-							System.out.println("성공");
-						
+						if (vo != null) {
+							System.out.println("cp옴");
+						 DAO.getInsert(vo); //받아온 vo를 dao를 통해서 디비에 넣어주기
+							System.out.println("dao통해서 디비에 넣어줌");
 						}else {
-							System.out.print("실패");
+							System.out.print("cp실패");
 						}
+						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
 						break;
 
 
-					
 					case 1301:  // 강사목록 불러오기
 						list = new ArrayList<>();
 						list = DAO.getCoachList();
@@ -84,6 +82,15 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						
+
+					case 1320:
+						vo = new VO();
+						vo = p.getVo(); 
+						DAO.setNotice(vo); 
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
 						
 					case 2101: // 가입
 						vo = new VO();
