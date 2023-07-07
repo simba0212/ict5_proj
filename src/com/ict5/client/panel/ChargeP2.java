@@ -2,6 +2,7 @@ package com.ict5.client.panel;
 import javax.swing.*;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.VO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,14 +10,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
+
 public class ChargeP2 extends JPanel {
 	//ChargeP selectedPoints;
 	int selectedPoints;
 	JLabel selectedPointsLabel;
-	
 	JCheckBox agreementCheckbox;
 	JButton paymentButton;
+	Client_main main;
+	CardLayout cardlayout;
+	
+	VO vo;
+	
     public ChargeP2(Client_main main) {
+    	
+    	this.main = main;
+		this.cardlayout = main.cardlayout;
+		this.vo = main.vo; // vo 동기화
+		
         setLayout(new BorderLayout());
         // 탑 패널
         JPanel topPanel = new JPanel(new BorderLayout());

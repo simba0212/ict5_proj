@@ -8,9 +8,11 @@
 		select * from MEMBER_T
 	</select>
 
-	<select id="loginChk" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+	<select id="loginChk" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
 		select * from
-		MEMBER_T where member_id = #{member_id} and member_pw=#{member_pw}
+		MEMBER_T where member_id = #{member_id} and
+		member_pw=#{member_pw}
 	</select>
 
 	<select id="getNotice" resultType="com.ict5.db.VO">
@@ -22,9 +24,12 @@
 		select * from class order
 		by notice_num desc
 	</select>
-	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
-		select * from bookedclass where member_num = #{member_num} and rownum = 1
+	<select id="mostclose" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from bookedclass where member_num = #{member_num}
+		and rownum = 1
 	</select>
+
 	<select id="t_bookclass" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		 select * from class where class_num in (select class_num from book where member_num =1) and class_date = TRUNC(SYSDATE)
 	</select>
@@ -34,6 +39,7 @@
     	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
 	</select>
 	
+
 	<select id="getCoachList" resultType="com.ict5.db.VO">
 		select * from teacher order by teacher_num
 	</select>
@@ -42,4 +48,15 @@
 		insert into book (book_num,book_date,class_num,member_num)
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>
+	<insert id="insertMember" parameterType="com.ict5.db.VO">
+ 		 insert into MEMBER_T (
+  		 	member_num, member_id, member_name, member_gen, member_birth,
+    		member_signup_date, member_addr, member_pw, member_mail,
+    		member_point, member_chargep, member_usep, member_phone)
+  		values (
+   	 		member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
+   	 		TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{member_signup_date}, 'YYYY-MM-DD HH24:MI:SS'),
+    		#{member_addr}, #{member_pw}, #{member_mail}, 50000, null, null, #{member_phone})
+	</insert>
+
 </mapper>
