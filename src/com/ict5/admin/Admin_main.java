@@ -80,7 +80,7 @@ public class Admin_main extends JFrame implements Runnable{
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "coMg3");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -92,7 +92,7 @@ public class Admin_main extends JFrame implements Runnable{
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("192.168.0.93", 7780);
+			s = new Socket("localhost", 7780);//내가 혼자서 할때는 커넥트 메서드에 있는 소켓 받는것을 내 ip로 하고서 내가 직접 실행해본다!!!!!!!!!@!!!!!!!!!!!!!
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();

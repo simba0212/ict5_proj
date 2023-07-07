@@ -9,12 +9,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -23,13 +27,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class CoMgmt4 extends JPanel {
 	CardLayout cardlayout;
 	JPanel pg1;
 
 	Admin_main main;
-	
+	String filePath;
 	
 
 	public CoMgmt4(Admin_main main) {
@@ -235,10 +241,91 @@ public class CoMgmt4 extends JPanel {
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
 		
-		
+		addButton.addActionListener(new ActionListener() {
+			//*****버튼 눌렀을때 등록완료 라는 창 하나 띄우기==> 이걸로 확인하기
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String gender="" ;
+				try {
+				VO vo = new VO();
+				vo.setTeacher_name(nameField.getText().trim());//이름
+				vo.setTeacher_phone(phoneField.getText().trim());//전화번호
+				vo.setTeacher_addr(addressField.getText().trim());//주소
+				vo.setTeacher_career(experienceTextArea.getText()); //경력사항
+				System.out.println("experienceTextArea;;;;"+vo.getTeacher_career());
+				if (maleRadioButton.isSelected()) {
+					gender = maleRadioButton.getText(); // "남"
+				}else if(femaleRadioButton.isSelected()) {
+					gender = femaleRadioButton.getText();// "여"
+				}
+				vo.setTeacher_gen(gender);//성별
+				
+				String type="1"; // 숫자 정해주
+				if(radioButton1.isSelected()) {
+					type= "1";
+				}else if(radioButton2.isSelected()) {
+					type= "2";
+				}else if(radioButton3.isSelected()) {
+					type= "3";
+				}else if(radioButton4.isSelected()) {
+					type= "4";
+				}
+				vo.setTeacher_type(type);
+				System.out.println("type;;;;"+type);
+					
+					Protocol p = new Protocol();
+					System.out.println("여기까지는온다0");
+					p.setCmd(1318);
+					p.setVo(vo); //위에서 다 담은 vo정보를 p의 vo에 저장
+					main.out.writeObject(p);// p프로토콜 내보내
+					main.out.flush();// 끝내 => cp클라이언트로 가 
+					System.out.println("여기까지는온다1");
+				} catch (Exception e2) {
+					System.out.println("여기까지는온다2");
+				}
+				
+				
+			}
+		});
+		attachButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//버튼 누르면 파일창 뜨기
+					//파일창에서 그림 클릭하면
+					//그림 불러오기
+					VO vo = new VO();
+					JFileChooser fileChooser = new JFileChooser();
+	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
+	                if (option == JFileChooser.APPROVE_OPTION) {
+	                	 File selectedFile = fileChooser.getSelectedFile();
+	                     filePath = selectedFile.getAbsolutePath();
+	                	
+	                  // 이미지를 삽입하는 로직
+	                     ImageIcon imageIcon = new ImageIcon(filePath);
+        
+	                     Image image = imageIcon.getImage();
+	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+	                     imageLabel.setIcon(scaledImageIcon);
+	                     
+	                     
+	                    // imageLabel.setIcon(imageIcon);
+	               	  if (filePath != null) {
+		                    // 이미지 파일의 경로를 DB에 저장하는 로직
+						  vo.setTeacher_img(filePath);
+					  }   
+		              System.out.println("filepath:" + vo.getTeacher_img());     
+	                    
+	                }
+				} catch (Exception e2) {
+					
+				}
+			}
+		});
 		
     }
-
-	
-
 }

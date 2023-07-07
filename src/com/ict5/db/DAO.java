@@ -2,7 +2,10 @@ package com.ict5.db;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
+
+
 
 // DB처리하는 메서드들을 가지고 있는 클래스
 public class DAO {
@@ -63,6 +66,12 @@ public class DAO {
 	public static VO getNearClasstime(VO vo) {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
+	}
+	
+	public static int getInsert(VO vo) {
+		int result = getSession().insert("teacherIns", vo);
+		ss.commit();
+		return result;
 	}
 //	public static String near_type() {
 //		List<VO> list = null;

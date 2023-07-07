@@ -25,5 +25,12 @@
 	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num} and rownum = 1
 	</select>
+
+	<insert id="teacherIns" parameterType="com.ict5.db.VO">
+		insert into teacher(teacher_num,teacher_name,teacher_phone,teacher_addr,teacher_gen,
+		teacher_career,teacher_img,teacher_type)
+		values(teacher_seq.nextval,#{teacher_name},#{teacher_phone},#{teacher_addr},
+		#{teacher_gen},#{teacher_career},#{teacher_img},#{teacher_type})
+	</insert>
 	
 </mapper>
