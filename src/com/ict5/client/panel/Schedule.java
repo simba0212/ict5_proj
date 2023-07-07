@@ -1,45 +1,49 @@
 package com.ict5.client.panel;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Schedule extends JPanel {
 	Client_main main;
-
+	VO vo;
 	static final int CAL_WIDTH = 7;
 	final static int CAL_HEIGHT = 6;
 	int calDates[][] = new int[CAL_HEIGHT][CAL_WIDTH];
 	int calYear;
 	int calMonth;
 	int calDayOfMon;
+	int day_i;
 	final int calLastDateOfMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
-
+	public Schedule_bottom sb;
+	String mon;
+	
 	JPanel calOpPanel;
 	JButton todayBut;
 	JLabel todayLab;
@@ -171,7 +175,7 @@ public class Schedule extends JPanel {
 		// 수업패널
 		frameBottomPanel = new JPanel();
 		frameBottomPanel.setPreferredSize(new Dimension(500, 400));
-		Schedule_bottom sb = new Schedule_bottom(main);
+		sb = new Schedule_bottom(main);
 		frameBottomPanel.add(sb);
 
 		
@@ -301,6 +305,54 @@ public class Schedule extends JPanel {
 
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			
+			
+			 
+			
+			 try {
+				JButton jb = (JButton) e.getSource();
+				String str =jb.getText().trim();
+				String day = str.replaceAll("\\D+", "");
+			 
+			  String day_s="";
+			  day_s=day;
+				 try {
+					 
+				 if((calMonth+1)<10) {
+					 mon = ("0"+(calMonth+1));
+				 }else {
+					 mon=(""+(calMonth+1));
+				 } 
+				 day_i = Integer.parseInt(day);
+				 if(day_i<10) {
+					 day_s = ("0"+day);
+				 }
+					   
+				    
+				} catch (NumberFormatException e2) {
+				   
+				}
+			 
+			 
+			 
+			 
+			 
+			 String indate= calYear+mon+day_s;
+			System.out.println(indate);
+			 Protocol p = new Protocol();
+			 vo = main.vo;
+			 vo.setClass_date(indate);
+			 p.setCmd(2302);
+			 p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			 
+
+			
 			int k = 0, l = 0;
 			for (int i = 0; i < CAL_HEIGHT; i++) {
 				for (int j = 0; j < CAL_WIDTH; j++) {
@@ -327,5 +379,8 @@ public class Schedule extends JPanel {
 				dDayString = "D+" + (dDay) * (-1);
 
 		}
+	}
+	public void refresh() {
+		
 	}
 }

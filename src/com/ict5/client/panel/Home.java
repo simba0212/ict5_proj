@@ -26,7 +26,6 @@ import com.ict5.db.VO;
 public class Home extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
-	TabPage tab;
 	JLabel label2, label3, label4, label5, label6;
 	JTextArea notice;
 
@@ -113,15 +112,14 @@ public class Home extends JPanel {
 		});
 		// 수업예약 클릭 이벤트
 		book_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
+			
+			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
 		attend_bt.addActionListener(e -> {
-			TabPage tab = new TabPage(main);
-			main.pg1.add("tab", tab);
+			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(1);
 		});
@@ -147,10 +145,6 @@ public class Home extends JPanel {
 		notice.setText(noti);
 		this.vo = main.vo; // 중요!
 
-		System.out.print("refresh()내부의 vo정보 : ");
-		System.out.println(vo.getMember_id());
-		System.out.println(vo.getMember_pw());
-		System.out.println(vo.getMember_num());
 		// 가까운 수업
 		vo = DAO.getNearClasstime(vo);
 		if (vo == null) {
@@ -160,10 +154,6 @@ public class Home extends JPanel {
 			label5.setText("");
 			label6.setText("");
 		} else {
-			System.out.print("최근수업 vo : ");
-			System.out.println(vo.getClass_type());
-			System.out.println(vo.getTeacher_name());
-			System.out.println(vo.getClass_date());
 
 			label3.setText(vo.getClass_room());
 
@@ -241,7 +231,6 @@ public class Home extends JPanel {
 			String date = month + "-" + day + " / " + near_classtime;
 
 			label6.setText(date);
-
 		}
 
 	}

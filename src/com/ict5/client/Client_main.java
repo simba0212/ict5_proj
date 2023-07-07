@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import com.ict5.client.panel.Mypoint;
 import com.ict5.client.panel.Notice;
 import com.ict5.client.panel.PassChange;
 import com.ict5.client.panel.TabPage;
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -26,6 +29,7 @@ public class Client_main extends JFrame implements Runnable {
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
 	public VO vo;
+	public List<VO> list;
 	
 	public Client_Login login;
 	public Client_CreateId createId;
@@ -43,8 +47,8 @@ public class Client_main extends JFrame implements Runnable {
 	public Client_ChargeP3 chargeP3;
 	public CardLayout cardlayout;
 	public JPanel pg1;
-
 	
+	public String usernum;
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -52,6 +56,7 @@ public class Client_main extends JFrame implements Runnable {
 		cardlayout = new CardLayout();
 		pg1 = new JPanel(cardlayout);
 		vo = new VO();
+		list = new ArrayList<>();
 
 //		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		login = new Client_Login(this);
@@ -123,6 +128,7 @@ public class Client_main extends JFrame implements Runnable {
 			s.close();
 			System.exit(0);
 		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 
@@ -134,6 +140,7 @@ public class Client_main extends JFrame implements Runnable {
 				if (obj != null) {
 					Protocol p = (Protocol) obj;
 					vo = p.getVo();
+					list = null;
 					
 					switch (p.getCmd()) {
 					case 0:
@@ -141,11 +148,25 @@ public class Client_main extends JFrame implements Runnable {
 					case 1:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-							home.usertop.refresh();
-							home.home.refresh();
+							refreshAll();
+							usernum=vo.getMember_num();
+							System.out.println("메인 usernum"+usernum);
 						} else {
 							System.out.println("실패");
 						}
+						break;
+						
+					case 2301:
+						 list = p.getList();
+						// 초기화 메서드
+						 tab.schedule.sb.refresh();
+						break;
+					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
+						 list = p.getList();
+						 tab.schedule.sb.refresh();
+						break;
+					case 2303:
+						System.out.println("예약 추가됐음");
 						break;
 					case 2101:
 						if (p.getResult() == 1) {
@@ -167,10 +188,23 @@ public class Client_main extends JFrame implements Runnable {
 				
 				}
 			} catch (Exception e) {
+				
 			}
 		}
 		closed();
 	}
+	
+	
+	
+	public void refreshAll() {
+		home.usertop.refresh();
+		tab.usertop.refresh();
+		home.home.refresh();
+		tab.reservation.rb.refresh();
+		
+		
+	}
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

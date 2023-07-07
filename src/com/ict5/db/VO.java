@@ -7,11 +7,40 @@ public class VO implements Serializable {
 	private String member_num, member_id, member_name, member_gen, member_addr,
 			member_pw, member_mail, member_phone,member_point, member_chargep, member_usep, member_birth, member_signup_date;
 	private String notice_num, notice_content;
-	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
+	
 	private String admin_num, admin_id, admin_pw;
 	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img, teacher_type;
 	
-	public String getTeacher_phone() {
+	
+	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
+
+	private String book_num, book_date,attend_date;
+	
+	public String getBook_num() {
+		return book_num;
+	}
+
+	public void setBook_num(String book_num) {
+		this.book_num = book_num;
+	}
+
+	public String getBook_date() {
+		return book_date;
+	}
+
+	public void setBook_date(String book_date) {
+		this.book_date = book_date;
+	}
+
+	public String getAttend_date() {
+		return attend_date;
+	}
+
+	public void setAttend_date(String attend_date) {
+		this.attend_date = attend_date;
+	}
+
+public String getTeacher_phone() {
 		return teacher_phone;
 	}
 
