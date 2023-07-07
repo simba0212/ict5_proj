@@ -4,13 +4,16 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict5.db.DAO">
 
-	<select id="memberlist" resultType="com.ict5.db.VO">
+	<select id="getMemberList" resultType="com.ict5.db.VO">
 		select * from MEMBER_T
+		order by member_num desc
 	</select>
 
-	<select id="loginChk" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+	<select id="loginChk" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
 		select * from
-		MEMBER_T where member_id = #{member_id} and member_pw=#{member_pw}
+		MEMBER_T where member_id = #{member_id} and
+		member_pw=#{member_pw}
 	</select>
 
 	<select id="getNotice" resultType="com.ict5.db.VO">
@@ -22,11 +25,28 @@
 		select * from class order
 		by notice_num desc
 	</select>
-	<select id="mostclose" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
-		select * from bookedclass where member_num = #{member_num} and rownum = 1
+	<select id="mostclose" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from bookedclass where member_num = #{member_num}
+		and rownum = 1
 	</select>
 	<select id="getCoachList" resultType="com.ict5.db.VO">
-		select * from teacher order by teacher_num
+		select * from teacher order
+		by teacher_num
+	</select>
+
+	<select id="getPoint" resultType="com.ict5.db.VO">
+		select * from point order by
+		point_num
+	</select>
+
+	<select id="getMemberSearch" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_name =#{member_name}
 	</select>
 	
+	<select id="getMemberOne" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_num =#{member_num}
+	</select>
 </mapper>

@@ -85,7 +85,7 @@ public class Client_main extends JFrame implements Runnable {
 
 		cardlayout.show(pg1, "login");
 //		pg1.add("페이지명",객체이름);
-
+		
 		add(pg1);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -158,6 +158,7 @@ public class Client_main extends JFrame implements Runnable {
 					UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 					Client_main frame = new Client_main();
 					frame.setVisible(true);
+					frame.requestFocusInWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

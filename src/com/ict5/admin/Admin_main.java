@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -126,7 +127,13 @@ public class Admin_main extends JFrame implements Runnable {
 					switch (p.getCmd()) {
 					case 1101:
 						break esc;
-					case 1301:
+					case 1201: // 회원목록 불러오기
+						member.memberv.refresh();
+						break;
+					case 1202: // 한명 검색하기
+						member.memberv.refresh();
+						break;
+					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;
 

@@ -43,10 +43,8 @@ public class DAO {
 		
 		vo = getSession().selectOne("loginChk", vo);
 		if(vo != null) {
-			System.out.println("검색결과 있음");
 			return vo;
 		}else {
-			System.out.println("검색결과 없음");
 			return null;
 		}
 	}
@@ -55,7 +53,7 @@ public class DAO {
 		List<VO> list = null;
 		list = getSession().selectList("getNotice");
 		VO vo = list.get(0);
-		String str = vo.getNotice_content();
+		String str = vo.getNotice_text();
 		
 		return str;
 	}
@@ -71,6 +69,32 @@ public class DAO {
 		list = getSession().selectList("getCoachList");
 		return list;
 	}
+
+	public static List<VO> getMemberList() {
+		List<VO> list = null;
+		list = getSession().selectList("getMemberList");
+		return list;
+	}
+
+	public static List<VO> getPoint() {
+		List<VO> list = null;
+		list = getSession().selectList("getPoint");
+		
+		return list;
+	}
+
+	public static List<VO> getMemberSearch(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("getMemberSearch", vo);
+		return list;
+	}
+	
+	public static VO getMemberOne(VO vo) {
+		vo = getSession().selectOne("getMemberOne", vo);
+		
+		return vo;
+	}
+	
 }
 
 

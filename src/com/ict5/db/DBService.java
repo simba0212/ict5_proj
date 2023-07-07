@@ -28,10 +28,3 @@ public class DBService {
 	}
 }
 
-
-
-
-
-
-
-

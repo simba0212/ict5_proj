@@ -128,6 +128,7 @@ public class CoTable1 extends JPanel {
 		model.setRowCount(0);
 		List<VO> list = main.list;
 		for (VO k : list) {
+			
 			Vector<Object> rowData = new Vector<>();
 			rowData.add(k.getTeacher_num());
 			rowData.add(k.getTeacher_name());
@@ -136,6 +137,8 @@ public class CoTable1 extends JPanel {
 			rowData.add(k.getTeacher_gen());
 			rowData.add(k.getTeacher_career());
 			rowData.add(k.getTeacher_img());
+			
+			
 			switch (Integer.parseInt(k.getTeacher_type())) {
 			case 1:
 				rowData.add("수영");
