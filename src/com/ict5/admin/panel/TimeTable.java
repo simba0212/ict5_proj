@@ -102,7 +102,7 @@ public class TimeTable extends JPanel {
         add(north, BorderLayout.NORTH);
         
         
-       
+        
 
 
         Object[][] data = { { "09:00", "", "", "", "" }, { "10:00", "", "수업1", "수업1", "수업1" }, { "11:00", "", "", "수업2", "" },

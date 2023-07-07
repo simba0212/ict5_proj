@@ -28,9 +28,9 @@ public class CP_Client extends Thread {
 			try {
 				Object obj = in.readObject();
 				if (obj != null) {
-
 					Protocol p = (Protocol) obj;
 					switch (p.getCmd()) {
+					
 					case 0:
 						out.writeObject(p);
 						out.flush();
@@ -71,15 +71,16 @@ public class CP_Client extends Thread {
 
 					case 1002:
 						List<VO> list = new ArrayList<>();
-					    vo = p.getVo();
 					    list = DAO.getToday();
-						p.setVo(vo);
 						p.setList(list);
-						
+
+						out.writeObject(p);
+						out.flush();
 						
 						if(p.getList() != null) {
 							p.setResult(1);
 							System.out.println("테이블 성공");
+							
 						}else {
 							System.out.println("테이블 실패");
 						}

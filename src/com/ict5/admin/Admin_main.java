@@ -6,12 +6,12 @@ import java.awt.EventQueue;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.ict5.client.panel.Home;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -130,19 +130,20 @@ public class Admin_main extends JFrame implements Runnable{
 							System.out.println("실패");
 							break esc;
 						}
-					case 1002:
-						home.timetable.Date();
-						if(p.getResult() == 1) {
-							System.out.println("테이블 성공 2");
-						}else {
-							System.out.println("테이블 실패 2");
-							
-						}
-						break;
 						
+					case 1002:
+						if(p.getResult() == 1) {
+					    	home.timetable.Date();
+					        System.out.println("테이블 성공 111");
+					    } else {
+					        System.out.println("테이블 실패 222");
+					        break;
+					    }
+
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		closed();
