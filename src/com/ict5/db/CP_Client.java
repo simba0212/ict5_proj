@@ -11,7 +11,11 @@ public class CP_Client extends Thread {
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
+	private List<VO> list;
 	
+	public List<VO> getList() {
+        return list;
+    }
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -71,12 +75,12 @@ public class CP_Client extends Thread {
 						break;
 
 					case 1002:
-						List<VO> list = new ArrayList<>();
 					    list = DAO.getToday();
 						p.setList(list);
-
+						
 						out.writeObject(p);
 						out.flush();
+						
 						
 						if(p.getList() != null) {
 							p.setResult(1);
