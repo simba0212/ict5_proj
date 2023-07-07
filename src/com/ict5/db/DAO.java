@@ -90,7 +90,12 @@ public class DAO {
 		list = getSession().selectList("getCoachList");
 		return list;
 	}
-
+	public static int getInsert(VO vo) {
+		getSession().insert("insert_book", vo);
+		ss.commit();
+	
+		return 0;
+	}
 }
 
 

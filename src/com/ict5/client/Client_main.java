@@ -46,7 +46,7 @@ public class Client_main extends JFrame implements Runnable {
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	
-	
+	public String usernum;
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -145,7 +145,8 @@ public class Client_main extends JFrame implements Runnable {
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
 							refreshAll();
-							
+							usernum=vo.getMember_num();
+							System.out.println("메인 usernum"+usernum);
 						} else {
 							System.out.println("실패");
 						}
@@ -158,11 +159,10 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
-						 System.out.println("클라메인2302");
-						 
-						
 						 tab.schedule.sb.refresh();
-						 System.out.println("클라메인2302");
+						break;
+					case 2303:
+						System.out.println("예약 추가됐음");
 						break;
 					}
 				}
@@ -180,7 +180,8 @@ public class Client_main extends JFrame implements Runnable {
 		tab.usertop.refresh();
 		home.home.refresh();
 		tab.reservation.rb.refresh();
-		tab.schedule.sb.refresh();
+		
+		
 	}
 	
 

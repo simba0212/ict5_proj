@@ -32,16 +32,16 @@ public class CP_Client extends Thread {
 				if (obj != null) {
 					List<VO> list = new ArrayList<>();
 					Protocol p = (Protocol) obj;
+					VO vo = new VO();
+					vo = p.getVo();
+					list = p.getList();
 					switch (p.getCmd()) {
 					case 0:
 						out.writeObject(p);
 						out.flush();
 						break;
 					case 1: // 로그인
-						VO vo = new VO();
-						vo = p.getVo(); // id, pw를 가지고 왔어요 어디서? 로그인창에있는 jtf에 있는 text를 get으로 가져온상태.
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
-
 						p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 						if (vo != null) {
 							// 로그인 성공
@@ -60,25 +60,27 @@ public class CP_Client extends Thread {
 
 						break;
 					case 2301:
-						 list = null;
-						vo = p.getVo();
 						list = DAO.t_bookclass(vo);
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
-						
-
 						break;
 					case 2302:
-						list = null;
-						vo = p.getVo();
 						list = DAO.sel_date_class(vo);
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
-
 						break;
-					
+					case 2303:
+						int result = DAO.getInsert(vo);
+						System.out.println("123");
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+						
+						
+						
 					case 1301:  // 강사목록 불러오기
 						list = new ArrayList<>();
 						list = DAO.getCoachList();

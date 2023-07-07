@@ -10,6 +10,32 @@ public class VO implements Serializable {
 
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
 
+	private String book_num, book_date,attend_date;
+	
+	public String getBook_num() {
+		return book_num;
+	}
+
+	public void setBook_num(String book_num) {
+		this.book_num = book_num;
+	}
+
+	public String getBook_date() {
+		return book_date;
+	}
+
+	public void setBook_date(String book_date) {
+		this.book_date = book_date;
+	}
+
+	public String getAttend_date() {
+		return attend_date;
+	}
+
+	public void setAttend_date(String attend_date) {
+		this.attend_date = attend_date;
+	}
+
 	public String getTeacher_phone() {
 		return teacher_phone;
 	}

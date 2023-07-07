@@ -145,10 +145,6 @@ public class Home extends JPanel {
 		notice.setText(noti);
 		this.vo = main.vo; // 중요!
 
-		System.out.print("refresh()내부의 vo정보 : ");
-		System.out.println(vo.getMember_id());
-		System.out.println(vo.getMember_pw());
-		System.out.println(vo.getMember_num());
 		// 가까운 수업
 		vo = DAO.getNearClasstime(vo);
 		if (vo == null) {
@@ -158,10 +154,6 @@ public class Home extends JPanel {
 			label5.setText("");
 			label6.setText("");
 		} else {
-			System.out.print("최근수업 vo : ");
-			System.out.println(vo.getClass_type());
-			System.out.println(vo.getTeacher_name());
-			System.out.println(vo.getClass_date());
 
 			label3.setText(vo.getClass_room());
 
@@ -239,7 +231,6 @@ public class Home extends JPanel {
 			String date = month + "-" + day + " / " + near_classtime;
 
 			label6.setText(date);
-
 		}
 
 	}

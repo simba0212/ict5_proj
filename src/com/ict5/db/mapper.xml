@@ -38,4 +38,8 @@
 		select * from teacher order by teacher_num
 	</select>
 	
+	<insert id="insert_book" parameterType="com.ict5.db.VO">
+		insert into book (book_num,book_date,class_num,member_num)
+		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
+	</insert>
 </mapper>

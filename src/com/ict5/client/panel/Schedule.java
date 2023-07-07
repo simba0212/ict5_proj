@@ -315,7 +315,7 @@ public class Schedule extends JPanel {
 				String day = str.replaceAll("\\D+", "");
 			 
 			  String day_s="";
-			
+			  day_s=day;
 				 try {
 					 
 				 if((calMonth+1)<10) {
