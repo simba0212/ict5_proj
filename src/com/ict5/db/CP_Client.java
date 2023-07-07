@@ -11,6 +11,7 @@ public class CP_Client extends Thread {
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
+	
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -86,8 +87,6 @@ public class CP_Client extends Thread {
 						}
 						
 					    break;
-
-
 
 					}
 				}
