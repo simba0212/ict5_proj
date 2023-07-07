@@ -76,6 +76,7 @@ public class CP_Client extends Thread {
 						p.setVo(vo);
 						p.setList(list);
 						
+						
 						if(p.getList() != null) {
 							p.setResult(1);
 							System.out.println("테이블 성공");

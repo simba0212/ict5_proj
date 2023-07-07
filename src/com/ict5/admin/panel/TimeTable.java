@@ -9,8 +9,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -29,6 +32,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.DAO;
+import com.ict5.db.DB_Server;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -84,8 +89,6 @@ public class TimeTable extends JPanel {
         date.setText(date2);
         north2.add(date);
         
-       
-        
     	String month = date2.substring(5, 7);
     	String day = date2.substring(8, 10);
     	String date2 = month + "월" + day + "일";
@@ -97,6 +100,10 @@ public class TimeTable extends JPanel {
         north.add(north2, BorderLayout.SOUTH);
 
         add(north, BorderLayout.NORTH);
+        
+        
+       
+
 
         Object[][] data = { { "09:00", "", "", "", "" }, { "10:00", "", "수업1", "수업1", "수업1" }, { "11:00", "", "", "수업2", "" },
                 { "12:00", "", "", "", "" }, { "13:00", "", "", "수업1", "" }, { "14:00", "", "", "", "" },
@@ -132,19 +139,34 @@ public class TimeTable extends JPanel {
     }
     
     
-    public void Date() {
-    	try {
-    		Protocol p = new Protocol();
-    		p.setCmd(1002);
-    		p.setVo(vo);
-    		main.out.writeObject(p);
-    		main.out.flush();
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    	
-    }
+//    public void Date() {
+//    	try {
+//    		Protocol p = new Protocol();
+//    		p.setCmd(1002);
+//    		p.setVo(vo);
+//    		main.out.writeObject(p);
+//    		main.out.flush();
+//    	} catch (IOException e) {
+//    		e.printStackTrace();
+//    	}
+//    	
+//    }
     
+   
+    
+    public void Date() {
+        try {
+            Protocol p = new Protocol();
+            p.setCmd(1002);
+            p.setVo(vo);
+            main.out.writeObject(p);
+            main.out.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     
 }
 
