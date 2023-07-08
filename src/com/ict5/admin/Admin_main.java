@@ -12,16 +12,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.db.CP_Client;
+import com.ict5.db.DB_Server;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
-public class Admin_main extends JFrame implements Runnable{
+public class Admin_main extends JFrame implements Runnable {
 	public Socket s;
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
 	public VO vo;
-	
-	
+
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	public Admin_Home home;
@@ -44,7 +45,7 @@ public class Admin_main extends JFrame implements Runnable{
 		pg1 = new JPanel();
 		pg1.setLayout(cardlayout);
 
-		//	클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
+		// 클래스명 변수명 = new 클래스명(this); 이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		home = new Admin_Home(this);
 		login = new Admin_Login(this);
 		checkagain = new Admin_CheckAgain(this);
@@ -62,7 +63,7 @@ public class Admin_main extends JFrame implements Runnable{
 		// 클래스명 변수명 = new 클래스명(this);
 		// 클래스명 변수명 = new 클래스명(this);
 
-		// pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
+		// pg1.add("페이지명",객체이름); 각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 
 		pg1.add("home", home); // 홈
 		pg1.add("login", login); // 로그인
@@ -88,8 +89,9 @@ public class Admin_main extends JFrame implements Runnable{
 		setSize(1280, 840);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+
 	}
-	
+
 	// 접속
 	public void connected() {
 		try {
@@ -101,7 +103,7 @@ public class Admin_main extends JFrame implements Runnable{
 			System.out.println(e);
 		}
 	}
-	
+
 	// 끝내기
 	public void closed() {
 		try {
@@ -112,7 +114,7 @@ public class Admin_main extends JFrame implements Runnable{
 		} catch (Exception e) {
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		esc: while (true) {
@@ -121,24 +123,24 @@ public class Admin_main extends JFrame implements Runnable{
 				if (obj != null) {
 					Protocol p = (Protocol) obj;
 					vo = p.getVo();
-					
+
 					switch (p.getCmd()) {
 					case 1001:
-						if(p.getResult() == 1) {
+						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-						}else {
+						} else {
 							System.out.println("실패");
 							break esc;
 						}
-						
+
 					case 1002:
-						if(p.getResult() == 1) {
-					    	home.timetable.Date();
-					        System.out.println("테이블 성공 111");
-					    } else {
-					        System.out.println("테이블 실패 222");
-					        break;
-					    }
+						if (p.getResult() == 1) {
+							home.timetable.Date();
+							System.out.println("테이블 성공 111");
+						} else {
+							System.out.println("테이블 실패 222");
+							break;
+						}
 
 					}
 				}
@@ -148,8 +150,6 @@ public class Admin_main extends JFrame implements Runnable{
 		}
 		closed();
 	}
-	
-	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

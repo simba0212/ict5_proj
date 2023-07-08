@@ -6,16 +6,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ict5.admin.Admin_main;
+import com.ict5.admin.panel.TimeTable;
+
 public class CP_Client extends Thread {
 	Socket s;
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
-	private List<VO> list;
 	
-	public List<VO> getList() {
-        return list;
-    }
+	
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -75,21 +75,30 @@ public class CP_Client extends Thread {
 						break;
 
 					case 1002:
-					    list = DAO.getToday();
-						p.setList(list);
 						
-						out.writeObject(p);
-						out.flush();
+						List<VO> list = new ArrayList<>();
 						
-						
-						if(p.getList() != null) {
-							p.setResult(1);
-							System.out.println("테이블 성공");
-							
-						}else {
-							System.out.println("테이블 실패");
-						}
-						
+						list = DAO.getToday();
+					    p.setList(list);
+					    
+					    out.writeObject(p);
+					    out.flush();
+					    
+					    for (VO vo1 : list) {
+					        System.out.println(vo1.getClass_type());
+					    }
+					    for (VO vo1 : list) {
+					        System.out.println(vo1.getClass_time());
+					    }
+
+					    if (p.getList() != null) {
+					        p.setResult(1);
+					        System.out.println("테이블 성공");
+
+					    } else {
+					        System.out.println("테이블 실패");
+					    }
+
 					    break;
 
 					}
