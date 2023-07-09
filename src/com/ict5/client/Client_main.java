@@ -36,9 +36,11 @@ public class Client_main extends JFrame implements Runnable {
 	public Mypage myPg;
 	public Mypoint myPo;
 	public PassChange pwChan;
-	public ChargeP2 chargeP2;
-	public ChargeP3 chargeP3;
+	public ChargeP2 cp2;
+	public ChargeP3 cp3;
 	public Client_ChargeP chargeP;
+	public Client_ChargeP2 chargeP2;
+	public Client_ChargeP3 chargeP3;
 	public CardLayout cardlayout;
 	public JPanel pg1;
 
@@ -58,8 +60,10 @@ public class Client_main extends JFrame implements Runnable {
 		tab = new TabPage(this);
 		createId2 = new CreateId_2(this);
 		chargeP = new Client_ChargeP(this);
-		chargeP2 = new ChargeP2(this);
-		chargeP3 = new ChargeP3(this);
+		chargeP2 = new Client_ChargeP2(this);
+		chargeP3 = new Client_ChargeP3(this);
+		cp2 = new ChargeP2(this);
+		cp3 = new ChargeP3(this);
 		noti = new Notice(this);
 		myPg = new Mypage(this);
 		myPo = new Mypoint(this);
@@ -143,7 +147,24 @@ public class Client_main extends JFrame implements Runnable {
 							System.out.println("실패");
 						}
 						break;
+					case 2101:
+						if (p.getResult() == 1) {
+							System.out.println("회원가입 완료");
+						} else {
+							System.out.println("실패");
+						}
+						break;
+					case 2102:
+						if (p.getResult() == 1) {
+							cardlayout.show(pg1, "chargeP");
+							chargeP.usertop.refresh();
+							chargeP.cp.refresh();
+						} else {
+							System.out.println("실패");
+						}
+						break;	
 					}
+				
 				}
 			} catch (Exception e) {
 			}

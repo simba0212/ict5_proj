@@ -10,13 +10,15 @@ import com.ict5.client.panel.UserTop;
 
 public class Client_ChargeP3 extends JPanel {
     Client_main main;
-
+    ChargeP3 cp3;
+    UserTop usertop;
     public Client_ChargeP3(Client_main main) {
         this.main = main;
-
+        cp3 = new ChargeP3(main);
+        usertop = new UserTop(main, true);
         setLayout(new BorderLayout());
-		add(new UserTop(main, true),BorderLayout.NORTH);
-		add(new ChargeP3(main),BorderLayout.CENTER);
+		add(usertop,BorderLayout.NORTH);
+		add(cp3,BorderLayout.CENTER);
 	
     }
 }

@@ -13,14 +13,7 @@ public class VO implements Serializable {
 	private String admin_num, admin_id, admin_pw;
 	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img,
 			teacher_type;
-	
-	
-	
-	
-	
-	
-	
-	
+	private String book_date, attend_date, book_type;
 	
 	
 	public String getMember_num() {
@@ -287,6 +280,24 @@ public class VO implements Serializable {
 	public void setTeacher_type(String teacher_type) {
 		this.teacher_type = teacher_type;
 	}
+	public String getBook_date() {
+		return book_date;
+	}
+	public void setBook_date(String book_date) {
+		this.book_date = book_date;
+	}
+	public String getAttend_date() {
+		return attend_date;
+	}
+	public void setAttend_date(String attend_date) {
+		this.attend_date = attend_date;
+	}
+	public String getBook_type() {
+		return book_type;
+	}
+	public void setBook_type(String book_type) {
+		this.book_type = book_type;
+	}
 	
 	
 	
@@ -296,7 +307,5 @@ public class VO implements Serializable {
 	
 	
 	
-	
-	
-	
+
 }
