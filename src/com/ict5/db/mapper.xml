@@ -4,8 +4,9 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict5.db.DAO">
 
-	<select id="memberlist" resultType="com.ict5.db.VO">
+	<select id="getMemberList" resultType="com.ict5.db.VO">
 		select * from MEMBER_T
+		order by member_num desc
 	</select>
 
 	<select id="loginChk" parameterType="com.ict5.db.VO"
@@ -41,13 +42,29 @@
 	
 
 	<select id="getCoachList" resultType="com.ict5.db.VO">
-		select * from teacher order by teacher_num
+		select * from teacher order
+		by teacher_num
+	</select>
+
+	<select id="getPoint" resultType="com.ict5.db.VO">
+		select * from point order by
+		point_num
+	</select>
+
+	<select id="getMemberSearch" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_name =#{member_name}
 	</select>
 	
 	<insert id="insert_book" parameterType="com.ict5.db.VO">
 		insert into book (book_num,book_date,class_num,member_num)
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>
+	<select id="getMemberOne" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_num =#{member_num}
+	</select>
+	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
  		 insert into MEMBER_T (
   		 	member_num, member_id, member_name, member_gen, member_birth,
