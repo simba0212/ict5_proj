@@ -124,7 +124,7 @@ public class Member_view extends JPanel {
 				try {
 					Protocol p = new Protocol();
 					VO vo = new VO();
-					p.setCmd(ABORT);
+					p.setCmd(1203);
 					int row = table.getSelectedRow();
 					Object value = table.getValueAt(row, 0); // 클릭된 데이터의 회원번호
 					String member_num = value.toString();
@@ -138,7 +138,6 @@ public class Member_view extends JPanel {
 			}
 		});
 
-		
 		jtfMember.addActionListener(new ActionListener() { // 검색창 엔터
 
 			@Override
@@ -286,33 +285,37 @@ public class Member_view extends JPanel {
 
 	public void search() {
 		model.setRowCount(0);
-		VO vo = main.vo;
-		Vector<Object> rowData = new Vector<>();
-		rowData.add(vo.getMember_num());
-		rowData.add(vo.getMember_name());
-		rowData.add(vo.getMember_id());
-		rowData.add(vo.getMember_phone());
-		rowData.add(vo.getMember_mail());
-		rowData.add(vo.getMember_gen());
-		if (vo.getMember_birth() != null) {
-			rowData.add(vo.getMember_birth().substring(0, 10));
-		} else
-			rowData.add(vo.getMember_birth());
-		rowData.add(vo.getMember_addr());
-		rowData.add(vo.getMember_point());
-		if (vo.getMember_signup_date() != null) {
-			rowData.add(vo.getMember_signup_date().substring(0, 10));
-		} else
-			rowData.add(vo.getMember_signup_date());
-		if (vo.getAttendent_date() != null) {
-			rowData.add(vo.getAttendent_date().substring(0, 10));
-		} else
-			rowData.add(vo.getAttendent_date());
-		rowData.add(vo.getAttendent_month());
-		rowData.add(vo.getMember_usep());
-		rowData.add(vo.getMember_chargep());
-		rowData.add(vo.getMember_totaluse());
-		rowData.add(vo.getMember_totalcharge());
-		model.addRow(rowData);
+		List<VO> list = main.list;
+		for (VO k : list) {
+
+			Vector<Object> rowData = new Vector<>();
+			rowData.add(k.getMember_num());
+			rowData.add(k.getMember_name());
+			rowData.add(k.getMember_id());
+			rowData.add(k.getMember_phone());
+			rowData.add(k.getMember_mail());
+			rowData.add(k.getMember_gen());
+			if (k.getMember_birth() != null) {
+				rowData.add(k.getMember_birth().substring(0, 10));
+			} else
+				rowData.add(k.getMember_birth());
+			rowData.add(k.getMember_addr());
+			rowData.add(k.getMember_point());
+			if (k.getMember_signup_date() != null) {
+				rowData.add(k.getMember_signup_date().substring(0, 10));
+			} else
+				rowData.add(k.getMember_signup_date());
+			if (k.getAttendent_date() != null) {
+				rowData.add(k.getAttendent_date().substring(0, 10));
+			} else
+				rowData.add(k.getAttendent_date());
+			rowData.add(k.getAttendent_month());
+			rowData.add(k.getMember_usep());
+			rowData.add(k.getMember_chargep());
+			rowData.add(k.getMember_totaluse());
+			rowData.add(k.getMember_totalcharge());
+
+			model.addRow(rowData);
+		}
 	}
 }

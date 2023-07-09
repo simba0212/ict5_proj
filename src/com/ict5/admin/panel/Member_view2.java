@@ -54,18 +54,15 @@ public class Member_view2 extends JPanel {
 		jp1.setPreferredSize(new Dimension(1280, 60));
 
 		// 열 제목 지정
-		String[][] data = {
-
-				{ "이름", "변수2" }, { "ID", "변수3" }, { "전화번호", "변수4" }, { "이메일", "변수5" }, { "성별", "변수6" },
-				{ "생년월일", "변수7" }, { "최근예약", "변수8" }, { "주소", "변수9" }, { "보유포인트", "변수10" }, { "등록 날짜", "변수11" },
-				{ "최근 출석일", "변수12" }, { "출석일수", "변수13" }, { "사용포인트(달)", "변수14" }, { "충전포인트(달)", "변수15" },
-				{ "누적사용포인트", "변수16" }, { "누적충전포인트", "변수17" },
-				// 추가할 데이터
-		};
 		String[] columnNames = { "항목", "내용" };
-
+		
+		String[][] data = {{"회원번호",null},
+				{ "이름", null }, { "ID",null}, { "전화번호", null }, { "이메일",null }, { "성별", null },
+				{ "생년월일", null }, { "주소", null }, { "보유포인트", null }, { "등록 날짜", null },
+				{ "최근 출석일",null}, { "출석일수", null }, { "사용포인트(달)", null }, { "충전포인트(달)", null },
+				{ "누적사용포인트",null }, { "누적충전포인트",null }};
 		// 테이블 모델 생성
-		model = new DefaultTableModel(columnNames, 0);
+		model = new DefaultTableModel(data,columnNames);
 		Vector<Object> rowData2 = new Vector<>();
 		rowData2.add("이름");
 		rowData2.add("홍길동");
@@ -170,9 +167,34 @@ public class Member_view2 extends JPanel {
 	}
 
 	public void refresh() { // 한명정보 불러오기
-
+		VO vo = main.vo;
+		Vector<Object> rowData = new Vector<>();
+		String[] columnNames = { "항목", "내용" };
+		String[][] data = {{"회원번호",vo.getMember_num()},
+				{ "이름", vo.getMember_name() }, { "ID", vo.getMember_id() }, { "전화번호", vo.getMember_phone() }, { "이메일", vo.getMember_mail() }, { "성별", "변수6" },
+				{ "생년월일", vo.getMember_birth().substring(0, 10) }, { "주소", vo.getMember_addr() }, { "보유포인트", vo.getMember_point() }, { "등록 날짜", vo.getMember_signup_date() },
+				{ "최근 출석일",vo.getAttendent_date() }, { "출석일수", vo.getAttendent_month() }, { "사용포인트(달)", vo.getMember_usep() }, { "충전포인트(달)", vo.getMember_chargep() },
+				{ "누적사용포인트", vo.getMember_totaluse() }, { "누적충전포인트", vo.getMember_totalcharge() }
+		};
+		// 추가할 데이터
+		model.setValueAt(vo.getMember_num(), 0, 1);
+		model.setValueAt(vo.getMember_name(), 1, 1);
+		model.setValueAt(vo.getMember_id(), 2, 1);
+		model.setValueAt(vo.getMember_phone(), 3, 1);
+		model.setValueAt(vo.getMember_mail(), 4, 1);
+		model.setValueAt(vo.getMember_gen(), 5, 1);
+		model.setValueAt(vo.getMember_birth(), 6, 1);
+		model.setValueAt(vo.getMember_addr(), 7, 1);
+		model.setValueAt(vo.getMember_point(), 8, 1);
+		model.setValueAt(vo.getMember_signup_date(), 9, 1);
+		model.setValueAt(vo.getAttendent_date(), 10, 1);
+		model.setValueAt(vo.getAttendent_month(), 11, 1);
+		model.setValueAt(vo.getMember_usep(), 12, 1);
+		model.setValueAt(vo.getMember_chargep(), 13, 1);
+		model.setValueAt(vo.getMember_totaluse(), 14, 1);
+		model.setValueAt(vo.getMember_totalcharge(), 15, 1);
 	}
-
+	
 	// 테이블 속 텍스트를 가운데정렬하기 위한 클래스
 	public class CenterTableCellRenderer implements TableCellRenderer {
 		@Override
@@ -184,4 +206,6 @@ public class Member_view2 extends JPanel {
 		}
 	}
 
+
 }
+

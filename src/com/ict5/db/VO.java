@@ -17,8 +17,6 @@ public class VO implements Serializable {
 	private String book_date, attend_date, book_type;
 	
 	
-	
-	
 	public String getMember_num() {
 		return member_num;
 	}

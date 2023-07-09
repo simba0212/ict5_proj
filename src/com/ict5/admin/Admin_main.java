@@ -94,7 +94,7 @@ public class Admin_main extends JFrame implements Runnable {
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("192.168.0.93", 7780);
+			s = new Socket("localhost", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -131,7 +131,10 @@ public class Admin_main extends JFrame implements Runnable {
 						member.memberv.refresh();
 						break;
 					case 1202: // 한명 검색하기
-						member.memberv.refresh();
+						member.memberv.search();
+						break;
+					case 1203: // 회원 세부정보 보기
+						member2.memberv2.refresh();
 						break;
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
