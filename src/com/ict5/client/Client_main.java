@@ -145,7 +145,7 @@ public class Client_main extends JFrame implements Runnable {
 					switch (p.getCmd()) {
 					case 0:
 						break esc;
-					case 1:
+					case 2001:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
 							refreshAll();
@@ -156,17 +156,16 @@ public class Client_main extends JFrame implements Runnable {
 						}
 						break;
 						
-					case 2301:
-						 list = p.getList();
-						// 초기화 메서드
-						 tab.schedule.sb.refresh();
-						break;
+//					case 2301:
+//						 list = p.getList();
+//						// 초기화 메서드
+//						 tab.schedule.sb.refresh();
+//						break;
 					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
 						 tab.schedule.sb.refresh();
 						break;
 					case 2303:
-						System.out.println("예약 추가됐음");
 						break;
 					case 2101:
 						if (p.getResult() == 1) {

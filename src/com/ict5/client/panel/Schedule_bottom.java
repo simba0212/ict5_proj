@@ -96,10 +96,7 @@ public class Schedule_bottom extends JPanel {
 					System.out.println(main.usernum);
 					vo = main.vo;
 					 vo.setClass_num(list.get(i).getClass_num());
-					 System.out.println(vo.getClass_num());
 					 vo.setMember_num(main.usernum);
-					 System.out.println(vo.getMember_num());
-					 System.out.println("확인버튼 눌럿을때_프로토콜설정전");
 					p.setCmd(2303);
 					p.setVo(vo);
 					main.out.writeObject(p);
@@ -134,7 +131,6 @@ public class Schedule_bottom extends JPanel {
 		else {
 			removeAll();
 			
-			System.out.println("스케줄하단 리플레쉬 리스트가있을떄");
 			JPanel bt = new JPanel();
 			bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
 			// 패널 배열 생성
@@ -152,7 +148,6 @@ public class Schedule_bottom extends JPanel {
 				jsp.setPreferredSize(new Dimension(480, 350));
 				add(new JLabel("<html><h3>수업 "+main.tab.schedule.mon+"월"+ main.tab.schedule.day_i+"일 </h2></html>"), BorderLayout.NORTH);
 				add(jsp);
-				System.out.println("refresh");
 		}
 
 	}

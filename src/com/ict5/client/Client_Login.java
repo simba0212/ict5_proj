@@ -36,6 +36,7 @@ public class Client_Login extends JPanel {
 	JLabel img;
 	JTextField id_tf, pw_tf;
 
+
 	public Client_Login(Client_main main) {
 		setLayout(new BorderLayout());
 		this.main = main;
@@ -124,7 +125,7 @@ public class Client_Login extends JPanel {
 				Protocol p = new Protocol();
 				vo.setMember_id(id_tf.getText());
 				vo.setMember_pw(pw_tf.getText());
-				p.setCmd(1);
+				p.setCmd(2001);
 				p.setVo(vo);
 				main.out.writeObject(p);
 				main.out.flush();

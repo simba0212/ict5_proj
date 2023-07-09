@@ -40,7 +40,7 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 1: // 로그인
+					case 2001: // 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
 						p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 						if (vo != null) {
@@ -59,12 +59,13 @@ public class CP_Client extends Thread {
 					case 1001: // 관리자 로그인
 
 						break;
-					case 2301:
-						list = DAO.t_bookclass(vo);
-						p.setList(list);
-						out.writeObject(p);
-						out.flush();
-						break;
+//					case 2301:
+//				
+//						list = DAO.t_bookclass(vo);
+//						p.setList(list);
+//						out.writeObject(p);
+//						out.flush();
+//						break;
 					case 2302:
 						list = DAO.sel_date_class(vo);
 						p.setList(list);
@@ -72,8 +73,8 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 2303:
+						
 						int result = DAO.getInsert(vo);
-						System.out.println("123");
 						out.writeObject(p);
 						out.flush();
 						break;
