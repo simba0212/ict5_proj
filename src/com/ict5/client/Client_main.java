@@ -97,8 +97,6 @@ public class Client_main extends JFrame implements Runnable {
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		// 여기부터 서버연동 및 기능구현
-		// 접속
 		
 
 	}
@@ -138,7 +136,7 @@ public class Client_main extends JFrame implements Runnable {
 					switch (p.getCmd()) {
 					case 0:
 						break esc;
-					case 1:
+					case 2001:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
 							home.usertop.refresh();

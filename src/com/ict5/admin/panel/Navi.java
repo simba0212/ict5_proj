@@ -71,7 +71,7 @@ public class Navi extends JPanel {
 		navSW.setBackground(Color.white);
 		JButton bt_back = new JButton(new ImageIcon("src/images/back.png"));
 		JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
-		JTextField jtfMember = new JTextField(" 회원관리", 20);
+		JTextField jtfMember = new JTextField(" 회원검색", 20);
 		jtfMember.setEditable(false);
 		JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
 		bt_back.setPreferredSize(new Dimension(80, 40));
@@ -206,15 +206,6 @@ public class Navi extends JPanel {
 			}
 		});
 
-		dropdown2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown2.getSelectedItem();
-				if (selected.equals("회원관리")) {
-//					cardLayout.show(main.pg1, "member2");
-				}
-			}
-		});
 
 		dropdown2.addActionListener(new ActionListener() {
 			@Override
