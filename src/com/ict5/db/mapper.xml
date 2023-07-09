@@ -35,10 +35,24 @@
 	</select>
 
 	<insert id="teacherIns" parameterType="com.ict5.db.VO">
-		insert into teacher(teacher_num,teacher_name,teacher_phone,teacher_addr,teacher_gen,
-		teacher_career,teacher_img,teacher_type)
-		values(teacher_seq.nextval,#{teacher_name},#{teacher_phone},#{teacher_addr},
-		#{teacher_gen},#{teacher_career},#{teacher_img},#{teacher_type})
+		insert into teacher(
+							teacher_num,
+							teacher_name,
+							teacher_phone,
+							teacher_addr,
+							teacher_gen,
+							teacher_career,
+							teacher_img,
+							teacher_type)
+		values(
+							teacher_seq.nextval,
+							#{teacher_name},
+							#{teacher_phone},
+							#{teacher_addr},
+							#{teacher_gen},
+							#{teacher_career},
+							#{teacher_img},
+							#{teacher_type})
 	</insert>
 	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">

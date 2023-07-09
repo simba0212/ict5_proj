@@ -87,6 +87,7 @@ public class UserAppEdit extends JPanel {
 					VO vo = new VO();
 					Protocol p = new Protocol();
 					vo.setNotice_text(announcementTextArea.getText());
+					System.out.println("getnotice;;;;"+ vo.getNotice_text());
 					p.setVo(vo);
 					p.setCmd(1320);
 					main.out.writeObject(p);

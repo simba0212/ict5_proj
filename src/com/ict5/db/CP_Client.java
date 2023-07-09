@@ -62,16 +62,21 @@ public class CP_Client extends Thread {
 					case 1318 :
 						vo = new VO();
 						vo = p.getVo(); //set으로 보낸거 get으로 받아옴
-						if (vo != null) {
-							System.out.println("cp옴");
-						 DAO.getInsert(vo); //받아온 vo를 dao를 통해서 디비에 넣어주기
-							System.out.println("dao통해서 디비에 넣어줌");
-						}else {
-							System.out.print("cp실패");
+						try {
+							if (vo != null) {
+								System.out.println("cp옴");
+								DAO.getInsert(vo); //받아온 vo를 dao를 통해서 디비에 넣어주기
+								System.out.println("dao통해서 디비에 넣어줌");
+							}else {
+								System.out.print("cp실패");
+							}
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						}catch(Exception e){
+							System.out.println(e.getMessage());
+							e.printStackTrace();
 						}
-						p.setVo(vo);
-						out.writeObject(p);
-						out.flush();
 						break;
 
 
@@ -86,6 +91,7 @@ public class CP_Client extends Thread {
 					case 1320:
 						vo = new VO();
 						vo = p.getVo(); 
+						System.out.println("cp왔음;;;"+ vo.getNotice_text());
 						DAO.setNotice(vo); 
 						p.setVo(vo);
 						out.writeObject(p);

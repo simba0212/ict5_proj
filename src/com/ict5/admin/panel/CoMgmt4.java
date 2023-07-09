@@ -233,6 +233,46 @@ public class CoMgmt4 extends JPanel {
 
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
+		
+		VO vo = new VO();
+		attachButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//버튼 누르면 파일창 뜨기
+					//파일창에서 그림 클릭하면
+					//그림 불러오기
+					JFileChooser fileChooser = new JFileChooser();
+	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
+	                if (option == JFileChooser.APPROVE_OPTION) {
+	                	 File selectedFile = fileChooser.getSelectedFile();
+	                     filePath = selectedFile.getAbsolutePath();
+	                	
+	                  // 이미지를 삽입하는 로직
+	                     ImageIcon imageIcon = new ImageIcon(filePath);
+        
+	                     Image image = imageIcon.getImage();
+	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+	                     imageLabel.setIcon(scaledImageIcon);
+	                     
+	                     
+	                    // imageLabel.setIcon(imageIcon);
+	               	  if (filePath != null) {
+		                    // 이미지 파일의 경로를 DB에 저장하는 로직
+						  vo.setTeacher_img(filePath);
+					  }   
+		              System.out.println("filepath:" + vo.getTeacher_img());     
+	                    
+	                }
+				} catch (Exception e2) {
+					
+				}
+				
+				System.out.println("사진등록 끝");
+			}
+		});
 
 		addButton.addActionListener(new ActionListener() {
 			// *****버튼 눌렀을때 등록완료 라는 창 하나 띄우기==> 이걸로 확인하기
@@ -240,20 +280,26 @@ public class CoMgmt4 extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String gender = "";
+				System.out.println("등록버튼눌렸다");
 				try {
-					VO vo = new VO();
+					//VO vo = new VO();
 					Protocol p = new Protocol();
 					vo.setTeacher_name(nameField.getText().trim());// 이름
+					System.out.println("이름;;;" + vo.getTeacher_name());
 					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+					System.out.println("전화번호;;;" + vo.getTeacher_phone());
 					vo.setTeacher_addr(addressField.getText().trim());// 주소
+					System.out.println("주소;;;" + vo.getTeacher_addr());
 					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
-					System.out.println("experienceTextArea;;;;" + vo.getTeacher_career());
-					if (maleRadioButton.isSelected()) {
-						gender = maleRadioButton.getText(); // "남"
-					} else if (femaleRadioButton.isSelected()) {
-						gender = femaleRadioButton.getText();// "여"
-					}
+					System.out.println("경력사항;;;" + vo.getTeacher_career());
+						if (maleRadioButton.isSelected()) {
+							gender = maleRadioButton.getText(); // "남"
+						} else if (femaleRadioButton.isSelected()) {
+							gender = femaleRadioButton.getText();// "여"
+						}
 					vo.setTeacher_gen(gender);// 성별
+					System.out.println("성별;;;" + vo.getTeacher_name());
+					
 
 					String type = "1"; // 숫자 정해주
 					if (radioButton1.isSelected()) {
@@ -266,13 +312,19 @@ public class CoMgmt4 extends JPanel {
 						type = "4";
 					}
 					vo.setTeacher_type(type);
+					System.out.println("운동종목;;;" + vo.getTeacher_type());
 					System.out.println("type;;;;" + type);
+					//vo.setTeacher_img("imagePath");
+					System.out.println("사진경로;;;" + vo.getTeacher_img());
+					
 
 					p.setVo(vo); // 위에서 다 담은 vo정보를 p의 vo에 저장
 					p.setCmd(1318);
 					main.out.writeObject(p);// p프로토콜 내보내
 					main.out.flush();// 끝내 => cp클라이언트로 가
 					System.out.println("정보담기완료");
+					main.cardlayout.show(main.pg1, "coMg1");//강사목록으로 가
+					System.out.println("페이지이동성공");
 				} catch (Exception e2) {
 					System.out.println("정보담기실패");
 				}
@@ -280,43 +332,7 @@ public class CoMgmt4 extends JPanel {
 			
 		});
 
-//		attachButton.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					//버튼 누르면 파일창 뜨기
-//					//파일창에서 그림 클릭하면
-//					//그림 불러오기
-//					VO vo = new VO();
-//					JFileChooser fileChooser = new JFileChooser();
-//	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
-//	                if (option == JFileChooser.APPROVE_OPTION) {
-//	                	 File selectedFile = fileChooser.getSelectedFile();
-//	                     filePath = selectedFile.getAbsolutePath();
-//	                	
-//	                  // 이미지를 삽입하는 로직
-//	                     ImageIcon imageIcon = new ImageIcon(filePath);
-//        
-//	                     Image image = imageIcon.getImage();
-//	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
-//	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-//	                     imageLabel.setIcon(scaledImageIcon);
-//	                     
-//	                     
-//	                    // imageLabel.setIcon(imageIcon);
-//	               	  if (filePath != null) {
-//		                    // 이미지 파일의 경로를 DB에 저장하는 로직
-//						  vo.setTeacher_img(filePath);
-//					  }   
-//		              System.out.println("filepath:" + vo.getTeacher_img());     
-//	                    
-//	                }
-//				} catch (Exception e2) {
-//					
-//				}
-//			}
-//		});
+
 
 	}
 }
