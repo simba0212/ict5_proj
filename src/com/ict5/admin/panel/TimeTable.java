@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
@@ -140,12 +141,15 @@ public class TimeTable extends JPanel {
 				LocalDate previousDate = currentDate.minusDays(1);
 				date2 = previousDate.toString();
 				date.setText(date2);
+				
+
 			}
 		});
 
 	}
 
 	public void Date() {
+
 		try {
 			main.cardlayout.show(main.pg1, "home");
 			// 응답 받은 후 list를 확인
@@ -161,51 +165,63 @@ public class TimeTable extends JPanel {
 						switch (vo.getClass_time()) {
 						case "1":
 //							classType = "수영 1";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 0, 1);
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									0, 1);
 							break;
 						case "2":
 //							classType = "수영 2";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 1, 1);
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									1, 1);
 							break;
 						case "3":
-							//classType = "수영 3";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 2, 1);
+							// classType = "수영 3";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									2, 1);
 							break;
 						case "4":
-							//classType = "수영 4";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 3, 1);
+							// classType = "수영 4";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									3, 1);
 							break;
 						case "5":
-							//classType = "수영 5";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 4, 1);
+							// classType = "수영 5";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									4, 1);
 							break;
 						case "6":
-							//classType = "수영 6";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 5, 1);
+							// classType = "수영 6";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									5, 1);
 							break;
 						case "7":
-							//classType = "수영 7";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 6, 1);
+							// classType = "수영 7";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									6, 1);
 							break;
 						case "8":
-							//classType = "수영 8";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 7, 1);
+							// classType = "수영 8";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									7, 1);
 							break;
 						case "9":
-							//classType = "수영 9";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 8, 1);
+							// classType = "수영 9";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									8, 1);
 							break;
 						case "10":
-							//classType = "수영 10";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 9, 1);
+							// classType = "수영 10";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									9, 1);
 							break;
 						case "11":
-							//classType = "수영 11";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 10, 1);
+							// classType = "수영 11";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									10, 1);
 							break;
 						case "12":
-							//classType = "수영 12";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 11, 1);
+							// classType = "수영 12";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									11, 1);
 							break;
 
 						default:
@@ -217,52 +233,64 @@ public class TimeTable extends JPanel {
 					case "2":
 						switch (vo.getClass_time()) {
 						case "1":
-							//classType = "헬스 1";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 0, 2);
+							// classType = "헬스 1";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									0, 2);
 							break;
 						case "2":
-							//classType = "헬스 2";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 1, 2);
+							// classType = "헬스 2";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									1, 2);
 							break;
 						case "3":
-							//classType = "헬스 3";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 2, 2);
+							// classType = "헬스 3";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									2, 2);
 							break;
 						case "4":
-							//classType = "헬스 4";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 3, 2);
+							// classType = "헬스 4";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									3, 2);
 							break;
 						case "5":
-							//classType = "헬스 5";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 4, 2);
+							// classType = "헬스 5";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									4, 2);
 							break;
 						case "6":
-							//classType = "헬스 6";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 5, 2);
+							// classType = "헬스 6";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									5, 2);
 							break;
 						case "7":
-							//classType = "헬스 7";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 6, 2);
+							// classType = "헬스 7";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									6, 2);
 							break;
 						case "8":
-							//classType = "헬스 8";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 7, 2);
+							// classType = "헬스 8";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									7, 2);
 							break;
 						case "9":
-							//classType = "헬스 9";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 8, 2);
+							// classType = "헬스 9";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									8, 2);
 							break;
 						case "10":
-							//classType = "헬스 20";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 9, 2);
+							// classType = "헬스 20";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									9, 2);
 							break;
 						case "11":
-							//classType = "헬스 11";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 10, 2);
+							// classType = "헬스 11";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									10, 2);
 							break;
 						case "12":
-							//classType = "헬스 12";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 11, 2);
+							// classType = "헬스 12";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									11, 2);
 							break;
 
 						default:
@@ -274,52 +302,64 @@ public class TimeTable extends JPanel {
 					case "3":
 						switch (vo.getClass_time()) {
 						case "1":
-							//classType = "요가 1";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 0, 3);
+							// classType = "요가 1";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									0, 3);
 							break;
 						case "2":
-							//classType = "요가 2";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 1, 3);
+							// classType = "요가 2";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									1, 3);
 							break;
 						case "3":
-							//classType = "요가 3";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 2, 3);
+							// classType = "요가 3";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									2, 3);
 							break;
 						case "4":
-							//classType = "요가 4";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 3, 3);
+							// classType = "요가 4";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									3, 3);
 							break;
 						case "5":
-							//classType = "요가 5";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 4, 3);
+							// classType = "요가 5";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									4, 3);
 							break;
 						case "6":
-							//classType = "요가 6";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 5, 3);
+							// classType = "요가 6";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									5, 3);
 							break;
 						case "7":
-							//classType = "요가 7";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 6, 3);
+							// classType = "요가 7";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									6, 3);
 							break;
 						case "8":
-							//classType = "요가 8";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 7, 3);
+							// classType = "요가 8";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									7, 3);
 							break;
 						case "9":
-							//classType = "요가 9";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 8, 3);
+							// classType = "요가 9";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									8, 3);
 							break;
 						case "10":
-							//classType = "요가 10";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 9, 3);
+							// classType = "요가 10";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									9, 3);
 							break;
 						case "11":
-							//classType = "요가 11";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 10, 3);
+							// classType = "요가 11";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									10, 3);
 							break;
 						case "12":
-							//classType = "요가 12";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 11, 3);
+							// classType = "요가 12";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									11, 3);
 							break;
 
 						default:
@@ -330,52 +370,64 @@ public class TimeTable extends JPanel {
 					case "4":
 						switch (vo.getClass_time()) {
 						case "1":
-							//classType = "필라테스 1";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 0, 4);
+							// classType = "필라테스 1";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									0, 4);
 							break;
 						case "2":
-							//classType = "필라테스 2";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 1, 4);
+							// classType = "필라테스 2";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									1, 4);
 							break;
 						case "3":
-							//classType = "필라테스 3";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 2, 4);
+							// classType = "필라테스 3";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									2, 4);
 							break;
 						case "4":
-							//classType = "필라테스 4";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 3, 4);
+							// classType = "필라테스 4";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									3, 4);
 							break;
 						case "5":
-							//classType = "필라테스 5";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 4, 4);
+							// classType = "필라테스 5";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									4, 4);
 							break;
 						case "6":
-							//classType = "필라테스 6";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 5, 4);
+							// classType = "필라테스 6";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									5, 4);
 							break;
 						case "7":
-							//classType = "필라테스 7";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 6, 4);
+							// classType = "필라테스 7";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									6, 4);
 							break;
 						case "8":
-							//classType = "필라테스 8";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 7, 4);
+							// classType = "필라테스 8";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									7, 4);
 							break;
 						case "9":
-							//classType = "필라테스 9";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 8, 4);
+							// classType = "필라테스 9";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									8, 4);
 							break;
 						case "10":
-							//classType = "필라테스 10";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 9, 4);
+							// classType = "필라테스 10";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									9, 4);
 							break;
 						case "11":
-							//classType = "필라테스 11";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 10, 4);
+							// classType = "필라테스 11";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									10, 4);
 							break;
 						case "12":
-							//classType = "필라테스 12";
-							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>", 11, 4);
+							// classType = "필라테스 12";
+							table.setValueAt("<html><div style='text-align: center;'>" + teacherName + "</div></html>",
+									11, 4);
 							break;
 
 						default:
@@ -397,7 +449,7 @@ public class TimeTable extends JPanel {
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 //		Protocol p = new Protocol();
 //		p.setCmd(1003);
 //		main.out.writeObject(p);
