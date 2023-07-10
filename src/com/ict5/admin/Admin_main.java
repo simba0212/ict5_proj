@@ -125,12 +125,17 @@ public class Admin_main extends JFrame implements Runnable {
 					vo = p.getVo();
 
 					switch (p.getCmd()) {
+					case 0:
+						break esc;
 					case 1001:
 						if (p.getResult() == 1) {
-							cardlayout.show(pg1, "home");
+							
+							p.setCmd(1002);
+							out.writeObject(p);
+							out.flush();
 						} else {
 							System.out.println("실패");
-							break esc;
+							break ;
 						}
 
 					case 1002:
