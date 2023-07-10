@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -94,7 +95,7 @@ public class Admin_main extends JFrame implements Runnable {
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("localhost", 7780);//내가 혼자서 할때는 커넥트 메서드에 있는 소켓 받는것을 내 ip로 하고서 내가 직접 실행해본다!!!!!!!!!@!!!!!!!!!!!!!
+			s = new Socket("localhost", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -127,7 +128,16 @@ public class Admin_main extends JFrame implements Runnable {
 					switch (p.getCmd()) {
 					case 1101:
 						break esc;
-					case 1301:
+					case 1201: // 회원목록 불러오기
+						member.memberv.refresh();
+						break;
+					case 1202: // 한명 검색하기
+						member.memberv.search();
+						break;
+					case 1203: // 회원 세부정보 보기
+						member2.memberv2.refresh();
+						break;
+					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;
 					case 1320:

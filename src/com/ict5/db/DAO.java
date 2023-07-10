@@ -46,10 +46,8 @@ public class DAO {
 
 		vo = getSession().selectOne("loginChk", vo);
 		if (vo != null) {
-			System.out.println("검색결과 있음");
 			return vo;
 		} else {
-			System.out.println("검색결과 없음");
 			return null;
 		}
 	}
@@ -58,8 +56,7 @@ public class DAO {
 		List<VO> list = null;
 		list = getSession().selectList("getNotice");
 		VO vo = list.get(0);
-		String str = vo.getNotice_content();
-
+		String str = vo.getNotice_text();
 		return str;
 	}
 
@@ -67,9 +64,8 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
-
 	
-	public static VO getInsert(VO vo) {
+	public static VO getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();
 		return vo;
@@ -82,25 +78,7 @@ public class DAO {
 		
 	}
 
-	public static VO setInsertJoinFields(VO vo) {
-	    try {
-	    	System.out.println(vo.getMember_birth());
-	        System.out.println(" 여기는 온다");
-	        int res = getSession().insert("insertMember", vo);
-	        if (res > 0) {
-	        	ss.commit();
-	            System.out.println("insert 성공");
-	        } else {
-	            System.out.println("insert 실패");
-	        }
-	    } catch (Exception e) {
-	        System.out.println("오류 발생: " + e.getMessage());
-	        e.printStackTrace();
-	        // 오류 처리를 위한 추가 작업 수행
-	    }
-	    return vo;
-
-	}
+	
 //	public static String near_type() {
 //		List<VO> list = null;
 //		list = getSession().selectList("mostclose");
@@ -138,6 +116,38 @@ public class DAO {
 //	}
 //	
 
+	public static List<VO> t_bookclass(VO vo) {
+		List<VO> list = null;
+		// selectList() : 결과가 하나이상일때
+		// selectOne() : 반드시 결과가 하나일때
+		// 파라미터가 있는 메서드와 파라미터가 없는메서드로 나눈다.
+		// 파라미터가 있는 메서드 : selectList("mepper의 id",파라미터);
+		// 파라미터가 없는 메서드 : selectList("mepper의 id")
+		list = getSession().selectList("t_bookclass");
+		return list;
+	}
+
+	public static List<VO> sel_date_class(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("sel_date_class", vo);
+		return list;
+	}
+
+	public static VO setInsertJoinFields(VO vo) {
+		try {
+			System.out.println(vo.getMember_birth());
+			int res = getSession().insert("insertMember", vo);
+			if (res > 0) {
+				ss.commit();
+			} else {
+			}
+		} catch (Exception e) {
+			System.out.println("오류 발생: " + e.getMessage());
+			e.printStackTrace();
+			// 오류 처리를 위한 추가 작업 수행
+		}
+		return vo;
+	}
 
 	public static List<VO> getCoachList() {
 		List<VO> list = null;
@@ -145,4 +155,35 @@ public class DAO {
 		return list;
 	}
 
+	public static int getInsert(VO vo) {
+		getSession().insert("insert_book", vo);
+		ss.commit();
+
+		return 0;
+	}
+
+	public static List<VO> getMemberList() {
+		List<VO> list = null;
+		list = getSession().selectList("getMemberList");
+		return list;
+	}
+
+	public static List<VO> getPoint() {
+		List<VO> list = null;
+		list = getSession().selectList("getPoint");
+
+		return list;
+	}
+
+	public static List<VO> getMemberSearch(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("getMemberSearch", vo);
+		return list;
+	}
+
+	public static VO getMemberOne(VO vo) {
+		vo = getSession().selectOne("getMemberOne", vo);
+
+		return vo;
+	}
 }

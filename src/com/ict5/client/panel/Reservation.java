@@ -39,7 +39,8 @@ public class Reservation extends JPanel {
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
-
+	public Reservation_bottom rb;
+	
 	JPanel calOpPanel;
 	JButton todayBut;
 	JLabel todayLab;
@@ -172,7 +173,7 @@ public class Reservation extends JPanel {
 		// 수업패널
 		frameBottomPanel = new JPanel();
 		frameBottomPanel.setPreferredSize(new Dimension(500, 400));
-		Reservation_bottom rb = new Reservation_bottom(main);
+		rb = new Reservation_bottom(main);
 		frameBottomPanel.add(rb);
 
 		
