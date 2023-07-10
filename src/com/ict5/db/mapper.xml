@@ -47,11 +47,11 @@
 	
 	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2304 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		SELECT c.class_num, c.class_date, c.class_type, t.teacher_name
+		SELECT *
 		FROM class c
 		INNER JOIN teacher t ON c.teacher_num = t.teacher_num
 		WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
-		AND c.class_num IN (SELECT class_num FROM book WHERE member_num = #{member_num});
+		AND c.class_num IN (SELECT class_num FROM book WHERE member_num = #{member_num})
 	</select>
 	
 	<!-- 작성중인 쿼리
@@ -60,8 +60,11 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	선택된 날짜와 선택한 사용자의 member_num을 통해서 검색
 	검색할 항목 : t.name / c.class_type / c.class_time / c.res / c.max / c.class_room / 
 	 -->
-	
-	<insert id="insert_book" parameterType="com.ict5.db.VO"><!-- cmd : 2303 / 회원이 수업을 예약하기 위한 구문 -->
+	 
+	<insert id="getInsert_attenedent" parameterType="com.ict5.db.VO">
+		insert into ATTENDENT values(ATTENDENT_SEQ.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
+	</insert>
+	<insert id="getInsert_book" parameterType="com.ict5.db.VO"><!-- cmd : 2303 / 회원이 수업을 예약하기 위한 구문 -->
 		insert into book (book_num,book_date,class_num,member_num)
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>

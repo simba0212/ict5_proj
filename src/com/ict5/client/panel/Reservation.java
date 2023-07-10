@@ -338,7 +338,9 @@ public class Reservation extends JPanel {
 				 Protocol p = new Protocol();
 				 vo = main.vo;
 				 vo.setClass_date(indate);
+				 System.out.println(vo.getClass_date());
 				 vo.setMember_num(main.usernum);
+				 System.out.println(vo.getMember_num());
 				 p.setCmd(2304);
 				 p.setVo(vo);
 					main.out.writeObject(p);

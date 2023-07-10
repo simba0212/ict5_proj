@@ -74,17 +74,23 @@ public class CP_Client extends Thread {
 						break;
 					case 2303:
 						
-						int result = DAO.getInsert(vo);
+						int result = DAO.getInsert_book(vo);
 						out.writeObject(p);
 						out.flush();
 						break;
 					case 2304:
-						list = DAO.sel_date_class(vo);
+						
+						list = DAO.sel_book_class(vo);
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
 						break;	
-					
+					case 2305:
+						
+						result = DAO.getInsert_attenedent(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
 						
 						
 					case 1301:  // 강사목록 불러오기
