@@ -47,9 +47,11 @@
 	
 	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2304 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		select *
-   	 	from class c, teacher t
-    	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
+		SELECT c.class_num, c.class_date, c.class_type, t.teacher_name
+		FROM class c
+		INNER JOIN teacher t ON c.teacher_num = t.teacher_num
+		WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
+		AND c.class_num IN (SELECT class_num FROM book WHERE member_num = #{member_num});
 	</select>
 	
 	<!-- 작성중인 쿼리

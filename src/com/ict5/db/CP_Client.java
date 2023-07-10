@@ -78,8 +78,13 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-						
-						
+					case 2304:
+						list = DAO.sel_date_class(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					
 						
 						
 					case 1301:  // 강사목록 불러오기
