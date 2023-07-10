@@ -136,5 +136,11 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 			notice_seq.nextval, 
 			#{notice_text})
 	</insert>
+	
+	<select id="getApproveList" resultType="com.ict5.db.VO">
+		select m.member_num, m.member_name, m.member_id, m.member_phone, m.member_point, a.point_money, a.point_signup_date, a.point_charge_date
+		from member_t m,  pointapprove a
+		where m.member_num = a.member_num
+	</select>
 
 </mapper>

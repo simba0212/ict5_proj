@@ -21,6 +21,7 @@ public class Admin_main extends JFrame implements Runnable {
 	public ObjectInputStream in;
 	public VO vo;
 	public List<VO> list;
+	public String admin_id;
 
 	public CardLayout cardlayout;
 	public JPanel pg1;
@@ -82,7 +83,7 @@ public class Admin_main extends JFrame implements Runnable {
 		add(pg1);
 
 
-		cardlayout.show(pg1, "coMg3");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -118,7 +119,6 @@ public class Admin_main extends JFrame implements Runnable {
 	public void run() {
 		esc: while (true) {
 			try {
-				System.out.println("여기까지성공11");
 				Object obj = in.readObject();
 				if (obj != null) {
 					Protocol p = (Protocol) obj;
@@ -142,7 +142,12 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1205: // 회원 세부정보 => 포인트이력
 						member2.memberv2.refresh3();// 포인트 이력
 						break;
-						
+//					case 1206: // 포인트관리 이동전 체크
+//						member2.memberv2.refresh3();
+//						break;
+					case 1207: // 포인트 승인페이지이동
+						point_Mgmt.sub.refresh(); // 포인트불러오기
+						break;
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;

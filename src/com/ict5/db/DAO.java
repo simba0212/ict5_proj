@@ -160,4 +160,9 @@ public class DAO {
 		List<VO> list = getSession().selectList("getPointList",vo);
 		return list;
 	}
+
+	public static List<VO> getApproveList() { // 포인트 승인내역 테이블
+		List<VO> list = getSession().selectList("getApproveList");
+		return list;
+	}
 }

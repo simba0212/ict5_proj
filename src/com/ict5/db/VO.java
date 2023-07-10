@@ -10,7 +10,8 @@ public class VO implements Serializable {
 	attendent_month, member_totalcharge, member_totaluse;
 	private String notice_num, notice_text;
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
-	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date,point_name;
+	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date,point_name,point_money;
+	private String point_signup_date,charge_num,point_approve,point_charge_date;
 	private String admin_num, admin_id, admin_pw;
 	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img,
 			teacher_type;
@@ -298,6 +299,36 @@ public class VO implements Serializable {
 	}
 	public void setPoint_name(String point_name) {
 		this.point_name = point_name;
+	}
+	public String getPoint_money() {
+		return point_money;
+	}
+	public void setPoint_money(String point_money) {
+		this.point_money = point_money;
+	}
+	public String getPoint_signup_date() {
+		return point_signup_date;
+	}
+	public void setPoint_signup_date(String point_signup_date) {
+		this.point_signup_date = point_signup_date;
+	}
+	public String getCharge_num() {
+		return charge_num;
+	}
+	public void setCharge_num(String charge_num) {
+		this.charge_num = charge_num;
+	}
+	public String getPoint_approve() {
+		return point_approve;
+	}
+	public void setPoint_approve(String point_approve) {
+		this.point_approve = point_approve;
+	}
+	public String getPoint_charge_date() {
+		return point_charge_date;
+	}
+	public void setPoint_charge_date(String point_charge_date) {
+		this.point_charge_date = point_charge_date;
 	}
 	
 	

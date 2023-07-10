@@ -283,7 +283,7 @@ public class Member_view extends JPanel {
 		}
 	}
 
-	public void search() {
+	public void search() { // 검색
 		model.setRowCount(0);
 		List<VO> list = main.list;
 		for (VO k : list) {

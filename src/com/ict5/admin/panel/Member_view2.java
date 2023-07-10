@@ -104,7 +104,6 @@ public class Member_view2 extends JPanel {
 		scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane2.setPreferredSize(new Dimension(640, 235));
 		classlabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-//        scrollPane2.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 50));
 		TableColumnModel columnModel3 = table2.getColumnModel();
 		int columnCount = columnModel3.getColumnCount();
 		for (int i = 0; i < columnCount; i++) {
@@ -123,7 +122,6 @@ public class Member_view2 extends JPanel {
 		String[] columnNames3 = { "포인트변동번호", "변동내용", "변동날짜", "사용내역", "변동포인트", "출석여부" };
 		// 테이블 모델 생성
 		model3 = new UnmodifiableTableModel(columnNames3, 0);
-		int rowCount2 = 25;
 		// 데이터 추가
 
 		JTable table3 = new JTable(model3);

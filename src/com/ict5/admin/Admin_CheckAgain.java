@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ict5.admin.panel.Navi;
+import com.ict5.db.Protocol;
 
 public class Admin_CheckAgain extends JPanel{
 	Admin_main main;
@@ -70,8 +71,6 @@ public class Admin_CheckAgain extends JPanel{
 	
 	JPanel jp1 =new JPanel(new BorderLayout());
 	JPanel jp1_1 =new JPanel(new BorderLayout());
-	JPanel jp2 =new JPanel(new BorderLayout());
-	JPanel jp2_1 =new JPanel(new BorderLayout());
 	 
 
 	JLabel jl1 = new JLabel("회원관리");
@@ -108,7 +107,15 @@ public class Admin_CheckAgain extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			cardLayout.show(main.pg1, "point_Mgmt");
+			try {
+				Protocol p = new Protocol();
+				p.setCmd(1207);
+				main.out.writeObject(p);
+				main.out.flush();
+				cardLayout.show(main.pg1, "point_Mgmt");
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 		}
 	});
 	
