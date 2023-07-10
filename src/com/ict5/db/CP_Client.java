@@ -1,6 +1,7 @@
 package com.ict5.db;
 
 import java.io.ObjectInputStream;
+
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -30,22 +31,80 @@ public class CP_Client extends Thread {
 			try {
 				Object obj = in.readObject();
 				if (obj != null) {
-					List<VO> list = new ArrayList<>();
 					Protocol p = (Protocol) obj;
 					VO vo = new VO();
 					vo = p.getVo();
+					List<VO> list = new ArrayList<>();
 					list = p.getList();
+
+
 					switch (p.getCmd()) {
 					case 0:
 						out.writeObject(p);
 						out.flush();
 						break;
-					case 2001: // 로그인
+
+					case 1001: // 관리자 로그인
+						break;
+
+					case 1201: // 회원목록 불러오기
+						list = DAO.getMemberList();
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1202: // 이름으로 회원검색/중복이름가능
+						list = DAO.getMemberSearch(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1203: // 회원상세정보 보기
+						vo = DAO.getMemberOne(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+
+					case 1301: // 강사목록 불러오기
+						list = DAO.getCoachList();
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+              
+           case 1318 :
+						vo = p.getVo(); 
+							if (vo != null) {
+								System.out.println("cp옴");
+								DAO.getTeacherInsert(vo); 
+								System.out.println("dao통해서 디비에 넣어줌");
+							}else {
+								System.out.print("cp실패");
+							}
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						break;
+              
+            case 1320:
+						vo = p.getVo(); 
+						DAO.setNotice(vo);
+						p.setVo(vo);
+						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 2001: // 클라이언트 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
-						p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
+
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
+							vo.setNotice_text(DAO.getNotice());
+							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 							p.setResult(1);
 						} else {
 							System.out.println("로그인실패");
@@ -55,54 +114,8 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-
-					case 1001: // 관리자 로그인
-
-						break;
-//					case 2301:
-//				
-//						list = DAO.t_bookclass(vo);
-//						p.setList(list);
-//						out.writeObject(p);
-//						out.flush();
-//						break;
-					case 2302:
-						list = DAO.sel_date_class(vo);
-						p.setList(list);
-						out.writeObject(p);
-						out.flush();
-						break;
-					case 2303:
-						
-						int result = DAO.getInsert_book(vo);
-						out.writeObject(p);
-						out.flush();
-						break;
-					case 2304:
-						
-						list = DAO.sel_book_class(vo);
-						p.setList(list);
-						out.writeObject(p);
-						out.flush();
-						break;	
-					case 2305:
-						
-						result = DAO.getInsert_attenedent(vo);
-						out.writeObject(p);
-						out.flush();
-						break;
-						
-						
-					case 1301:  // 강사목록 불러오기
-						list = new ArrayList<>();
-						list = DAO.getCoachList();
-						p.setList(list);
-						
-						out.writeObject(p);
-						out.flush();
-						
-						
-					case 2101: // 가입
+              
+            case 2101: // 가입
 						vo = new VO();
 						vo = p.getVo(); // 가입창의 정보를 가져옴
 						if (vo != null) {
@@ -118,6 +131,38 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
+					case 2301:
+						list = DAO.t_bookclass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+            break;
+
+					case 2302:
+						list = DAO.sel_date_class(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 2303:
+						int result = DAO.getInsert_book(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 2304:
+						list = DAO.sel_book_class(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					case 2305:
+						result = DAO.getInsert_attenedent(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+			
 					
 					}
 
@@ -128,4 +173,5 @@ public class CP_Client extends Thread {
 		}
 
 	}
+
 }

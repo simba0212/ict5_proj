@@ -141,9 +141,8 @@ public class Home extends JPanel {
 
 	public void refresh() {
 		// 공지사항 최신화
-		String noti = DAO.getNotice();
-		notice.setText(noti);
 		this.vo = main.vo; // 중요!
+		notice.setText(vo.getNotice_text());
 
 		// 가까운 수업
 		vo = DAO.getNearClasstime(vo);

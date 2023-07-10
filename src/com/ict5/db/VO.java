@@ -4,90 +4,19 @@ import java.io.Serializable;
 
 // Member 테이블의 컬럼명과 일치 시키자. 
 public class VO implements Serializable {
-	private String member_num, member_id, member_name, member_gen, member_addr,
-			member_pw, member_mail, member_phone,member_point, member_chargep, member_usep, member_birth, member_signup_date;
-	private String notice_num, notice_content;
-	
-	private String admin_num, admin_id, admin_pw;
-	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img, teacher_type;
-	
-	
+
+	private String member_num, member_id, member_name, member_gen, member_birth, member_signup_date, member_addr,
+	member_pw, member_mail, member_point, member_chargep, member_usep, member_phone, attendent_date,
+	attendent_month, member_totalcharge, member_totaluse;
+	private String notice_num, notice_text;
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
+	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date;
+	private String admin_num, admin_id, admin_pw;
+	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img,
+	teacher_type;
+	private String book_date, attend_date, book_type;
 
-	private String book_num, book_date,attend_date;
 	
-	public String getBook_num() {
-		return book_num;
-	}
-
-	public void setBook_num(String book_num) {
-		this.book_num = book_num;
-	}
-
-	public String getBook_date() {
-		return book_date;
-	}
-
-	public void setBook_date(String book_date) {
-		this.book_date = book_date;
-	}
-
-	public String getAttend_date() {
-		return attend_date;
-	}
-
-	public void setAttend_date(String attend_date) {
-		this.attend_date = attend_date;
-	}
-
-public String getTeacher_phone() {
-		return teacher_phone;
-	}
-
-	public void setTeacher_phone(String teacher_phone) {
-		this.teacher_phone = teacher_phone;
-	}
-
-	public String getTeacher_addr() {
-		return teacher_addr;
-	}
-
-	public void setTeacher_addr(String teacher_addr) {
-		this.teacher_addr = teacher_addr;
-	}
-
-	public String getTeacher_gen() {
-		return teacher_gen;
-	}
-
-	public void setTeacher_gen(String teacher_gen) {
-		this.teacher_gen = teacher_gen;
-	}
-
-	public String getTeacher_career() {
-		return teacher_career;
-	}
-
-	public void setTeacher_career(String teacher_career) {
-		this.teacher_career = teacher_career;
-	}
-
-	public String getTeacher_img() {
-		return teacher_img;
-	}
-
-	public void setTeacher_img(String teacher_img) {
-		this.teacher_img = teacher_img;
-	}
-
-	public String getTeacher_type() {
-		return teacher_type;
-	}
-
-	public void setTeacher_type(String teacher_type) {
-		this.teacher_type = teacher_type;
-	}
-
 	public String getMember_num() {
 		return member_num;
 	}
@@ -112,6 +41,18 @@ public String getTeacher_phone() {
 	public void setMember_gen(String member_gen) {
 		this.member_gen = member_gen;
 	}
+	public String getMember_birth() {
+		return member_birth;
+	}
+	public void setMember_birth(String member_birth) {
+		this.member_birth = member_birth;
+	}
+	public String getMember_signup_date() {
+		return member_signup_date;
+	}
+	public void setMember_signup_date(String member_signup_date) {
+		this.member_signup_date = member_signup_date;
+	}
 	public String getMember_addr() {
 		return member_addr;
 	}
@@ -129,12 +70,6 @@ public String getTeacher_phone() {
 	}
 	public void setMember_mail(String member_mail) {
 		this.member_mail = member_mail;
-	}
-	public String getMember_phone() {
-		return member_phone;
-	}
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
 	}
 	public String getMember_point() {
 		return member_point;
@@ -154,17 +89,35 @@ public String getTeacher_phone() {
 	public void setMember_usep(String member_usep) {
 		this.member_usep = member_usep;
 	}
-	public String getMember_birth() {
-		return member_birth;
+	public String getMember_phone() {
+		return member_phone;
 	}
-	public void setMember_birth(String member_birth) {
-		this.member_birth = member_birth;
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
 	}
-	public String getMember_signup_date() {
-		return member_signup_date;
+	public String getAttendent_date() {
+		return attendent_date;
 	}
-	public void setMember_signup_date(String member_signup_date) {
-		this.member_signup_date = member_signup_date;
+	public void setAttendent_date(String attendent_date) {
+		this.attendent_date = attendent_date;
+	}
+	public String getAttendent_month() {
+		return attendent_month;
+	}
+	public void setAttendent_month(String attendent_month) {
+		this.attendent_month = attendent_month;
+	}
+	public String getMember_totalcharge() {
+		return member_totalcharge;
+	}
+	public void setMember_totalcharge(String member_totalcharge) {
+		this.member_totalcharge = member_totalcharge;
+	}
+	public String getMember_totaluse() {
+		return member_totaluse;
+	}
+	public void setMember_totaluse(String member_totaluse) {
+		this.member_totaluse = member_totaluse;
 	}
 	public String getNotice_num() {
 		return notice_num;
@@ -172,11 +125,11 @@ public String getTeacher_phone() {
 	public void setNotice_num(String notice_num) {
 		this.notice_num = notice_num;
 	}
-	public String getNotice_content() {
-		return notice_content;
+	public String getNotice_text() {
+		return notice_text;
 	}
-	public void setNotice_content(String notice_content) {
-		this.notice_content = notice_content;
+	public void setNotice_text(String notice_text) {
+		this.notice_text = notice_text;
 	}
 	public String getClass_num() {
 		return class_num;
@@ -226,17 +179,41 @@ public String getTeacher_phone() {
 	public void setClass_type(String class_type) {
 		this.class_type = class_type;
 	}
-	public String getTeacher_num() {
-		return teacher_num;
+	public String getAttendent_num() {
+		return attendent_num;
 	}
-	public void setTeacher_num(String teacher_num) {
-		this.teacher_num = teacher_num;
+	public void setAttendent_num(String attendent_num) {
+		this.attendent_num = attendent_num;
 	}
-	public String getTeacher_name() {
-		return teacher_name;
+	public String getAttendent_time() {
+		return attendent_time;
 	}
-	public void setTeacher_name(String teacher_name) {
-		this.teacher_name = teacher_name;
+	public void setAttendent_time(String attendent_time) {
+		this.attendent_time = attendent_time;
+	}
+	public String getPoint_num() {
+		return point_num;
+	}
+	public void setPoint_num(String point_num) {
+		this.point_num = point_num;
+	}
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
+	public String getPoint_type() {
+		return point_type;
+	}
+	public void setPoint_type(String point_type) {
+		this.point_type = point_type;
+	}
+	public String getPoint_change_date() {
+		return point_change_date;
+	}
+	public void setPoint_change_date(String point_change_date) {
+		this.point_change_date = point_change_date;
 	}
 	public String getAdmin_num() {
 		return admin_num;
@@ -256,5 +233,83 @@ public String getTeacher_phone() {
 	public void setAdmin_pw(String admin_pw) {
 		this.admin_pw = admin_pw;
 	}
-}
+	public String getTeacher_num() {
+		return teacher_num;
+	}
+	public void setTeacher_num(String teacher_num) {
+		this.teacher_num = teacher_num;
+	}
+	public String getTeacher_name() {
+		return teacher_name;
+	}
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
+	}
+	public String getTeacher_phone() {
+		return teacher_phone;
+	}
+	public void setTeacher_phone(String teacher_phone) {
+		this.teacher_phone = teacher_phone;
+	}
+	public String getTeacher_addr() {
+		return teacher_addr;
+	}
+	public void setTeacher_addr(String teacher_addr) {
+		this.teacher_addr = teacher_addr;
+	}
+	public String getTeacher_gen() {
+		return teacher_gen;
+	}
+	public void setTeacher_gen(String teacher_gen) {
+		this.teacher_gen = teacher_gen;
+	}
+	public String getTeacher_career() {
+		return teacher_career;
+	}
+	public void setTeacher_career(String teacher_career) {
+		this.teacher_career = teacher_career;
+	}
+	public String getTeacher_img() {
+		return teacher_img;
+	}
+	public void setTeacher_img(String teacher_img) {
+		this.teacher_img = teacher_img;
+	}
+	public String getTeacher_type() {
+		return teacher_type;
+	}
+	public void setTeacher_type(String teacher_type) {
+		this.teacher_type = teacher_type;
+	}
+	public String getBook_date() {
+		return book_date;
+	}
+	public void setBook_date(String book_date) {
+		this.book_date = book_date;
+	}
+	public String getAttend_date() {
+		return attend_date;
+	}
+	public void setAttend_date(String attend_date) {
+		this.attend_date = attend_date;
+	}
+	public String getBook_type() {
+		return book_type;
+	}
+	public void setBook_type(String book_type) {
+		this.book_type = book_type;
+	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

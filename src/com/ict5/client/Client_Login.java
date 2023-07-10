@@ -2,9 +2,12 @@ package com.ict5.client;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -45,29 +48,26 @@ public class Client_Login extends JPanel {
 		this.out = main.out;
 		this.in = main.in;
 
-		JPanel jp1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		jp1.setPreferredSize(new Dimension(500, 300));
-		jp1.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 130));
-		JPanel jp1_1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel jp1_2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel jp1 = new JPanel();
+		jp1.setPreferredSize(new Dimension(200, 200));
+		jp1.setBackground(Color.white);
+		JPanel jp1_1 = new JPanel();
+		JPanel jp1_2 = new JPanel();
 
 		ImageIcon imageIcon = new ImageIcon("src/images/gym.png"); // 이미지 경로 수정
 		JLabel imageLabel = new JLabel(imageIcon);
 		imageLabel.setPreferredSize(new Dimension(300, 400));
 
 		jp1_1.add(new JLabel("아이디 : "));
-
 		id_tf = new JTextField(20);
-		String id = "        ID를 입력해주세요.       ";
-		id_tf = new JTextField(id);
-		id_tf.setEditable(false); // 편집 불가능하도록 설정
-
+		String id = "ID를 입력해주세요.";
+		id_tf.setText(id);
 		jp1_1.add(id_tf);
 
 		jp1_2.add(new JLabel("비밀번호 : "));
 		String pw = "Password를 입력해주세요.";
-		pw_tf = new JTextField(pw);
-		pw_tf.setEditable(false);
+		pw_tf = new JTextField(20);
+		pw_tf.setText(pw);
 
 		jp1_2.add(pw_tf);
 
@@ -86,36 +86,38 @@ public class Client_Login extends JPanel {
 		JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jp3.setPreferredSize(new Dimension(200, 70));
 
+		JPanel jp4 = new JPanel(new BorderLayout());
+
 		jp1.add(jp1_1);
 		jp1.add(jp1_2);
 		jp2.add(jp2_1);
 		jp2.add(jp2_2);
 		jp2.add(jp3);
 
+		jp4.add(jp1, BorderLayout.NORTH);
+		jp4.add(jp2, BorderLayout.SOUTH);
+
 		add(imageLabel, BorderLayout.NORTH);
-		add(jp1, BorderLayout.EAST);
-		add(jp2, BorderLayout.SOUTH);
+		add(jp4, BorderLayout.SOUTH);
 
 		// 마우스 클릭 이벤트 처리
-		id_tf.addMouseListener(new MouseAdapter() {
+		id_tf.addFocusListener(new FocusListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void focusLost(FocusEvent e) {
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
 				id_tf.setText("");
-				id_tf.setEditable(true); // 편집 가능하도록 설정
-				//id_tf.requestFocus(); // 커서 포커스 설정
-				SwingUtilities.invokeLater(() -> id_tf.requestFocus());
-				System.out.println("Is id_tf focused? " + id_tf.isFocusOwner());
 			}
 		});
 		// 마우스 클릭 이벤트 처리
-		pw_tf.addMouseListener(new MouseAdapter() {
+		pw_tf.addFocusListener(new FocusListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void focusLost(FocusEvent e) {
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
 				pw_tf.setText("");
-				pw_tf.setEditable(true); // 편집 가능하도록 설정
-				//pw_tf.requestFocus(); // 커서 포커스 설정
-				SwingUtilities.invokeLater(() -> pw_tf.requestFocus());
-				System.out.println("Is pw_tf focused? " + pw_tf.isFocusOwner());
 			}
 		});
 		// 로그인 버튼->홈으로
@@ -138,16 +140,13 @@ public class Client_Login extends JPanel {
 			main.cardlayout.show(main.pg1, "createId");
 		});
 	}
-	@Override 
-    public void setVisible(boolean visible) { //화면리셋
-        super.setVisible(visible);
-        if (visible) {
-            id_tf.setText("        ID를 입력해주세요.       ");
-            id_tf.setEditable(false);
-            pw_tf.setText("Password를 입력해주세요.");
-            pw_tf.setEditable(false);
-        }
-    }
-	
-}
 
+	@Override
+	public void setVisible(boolean visible) { // 돌아왔을때 화면 아이디 비번 복구
+		super.setVisible(visible);
+		if (visible) {
+			id_tf.setText("ID를 입력해주세요.");
+			pw_tf.setText("Password를 입력해주세요.");
+		}
+	}
+}
