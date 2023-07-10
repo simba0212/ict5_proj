@@ -83,7 +83,7 @@ public class Admin_main extends JFrame implements Runnable {
 		add(pg1);
 
 
-		cardlayout.show(pg1, "userMg");
+		cardlayout.show(pg1, "coMg3");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -140,7 +140,10 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;
-					case 1320:
+					case 1318: // 강사 등록하기
+						p.setCmd(1301);
+						out.writeObject(p);
+					case 1320: // 공지사항 등록하기
 						if (p.getResult() == 1) {
 							System.out.println("공지등록완료");
 						} else {

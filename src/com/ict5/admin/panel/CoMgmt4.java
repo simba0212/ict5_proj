@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.ict5.admin.Admin_CoMgmt1;
 import com.ict5.admin.Admin_main;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -37,6 +38,10 @@ public class CoMgmt4 extends JPanel {
 
 	Admin_main main;
 	String filePath;
+	JTextField[] getTeacherFields;
+	CoTable1 coTable1;
+	Admin_CoMgmt1 coMg1;
+
 
 	public CoMgmt4(Admin_main main) {
 		this.main = main;
@@ -184,7 +189,7 @@ public class CoMgmt4 extends JPanel {
 		add(rightPanel, BorderLayout.EAST);
 
 		// 이미지 경로
-		String imagePath = "src/images/complete.png";
+		String imagePath = "src/images/photo.jpg";
 
 		// 이미지 레이블 생성
 		JLabel imageLabel = new JLabel();
@@ -235,16 +240,15 @@ public class CoMgmt4 extends JPanel {
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
 		
+		//텍스트필드 모음
+		getTeacherFields= new JTextField[] {nameField,phoneField,addressField};
+		
 		VO vo = new VO();
+		// 이미지 첨부하는 버튼
 		attachButton.addActionListener(new ActionListener() {
-			
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//버튼 누르면 파일창 뜨기
-					//파일창에서 그림 클릭하면
-					//그림 불러오기
 					JFileChooser fileChooser = new JFileChooser();
 	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
 	                if (option == JFileChooser.APPROVE_OPTION) {
@@ -253,59 +257,67 @@ public class CoMgmt4 extends JPanel {
 	                	
 	                  // 이미지를 삽입하는 로직
 	                     ImageIcon imageIcon = new ImageIcon(filePath);
-        
 	                     Image image = imageIcon.getImage();
 	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
 	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
 	                     imageLabel.setIcon(scaledImageIcon);
 	                     
-	                     
-	                    // imageLabel.setIcon(imageIcon);
 	               	  if (filePath != null) {
-		                    // 이미지 파일의 경로를 DB에 저장하는 로직
 						  vo.setTeacher_img(filePath);
-					  }   
-		              System.out.println("filepath:" + vo.getTeacher_img());     
-	                    
+					  }  
 	                }
-				} catch (Exception e2) {
-					
+				} catch (Exception e2) {	
 				}
-				
-				System.out.println("사진등록 끝");
 			}
 		});
-
-		addButton.addActionListener(new ActionListener() {
-			// *****버튼 눌렀을때 등록완료 라는 창 하나 띄우기==> 이걸로 확인하기
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "에러 메시지", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+		
+		//등록하는 버튼
+		addButton.addActionListener(e -> {
+			 boolean allTeacherFilled = true;
+				 for (JTextField textField : getTeacherFields) {
+				        if (textField.getText().trim().isEmpty()) {
+				        	allTeacherFilled = false;
+				            break;
+				        }
+				    }
+				  if (!allTeacherFilled) {
+				        JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				    }
+				  if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected() && !radioButton4.isSelected()) {
+					  JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					  return;
+				  }
+				  if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+				        JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				    }
+				  if (filePath == null) {
+					  JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				  }
+				  if (experienceTextArea.getText().isEmpty()) {
+					  JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				  }
+				JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
 				
 				String gender = "";
-				System.out.println("등록버튼눌렸다");
 				try {
-					//VO vo = new VO();
 					Protocol p = new Protocol();
 					vo.setTeacher_name(nameField.getText().trim());// 이름
-					System.out.println("이름;;;" + vo.getTeacher_name());
 					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
-					System.out.println("전화번호;;;" + vo.getTeacher_phone());
-					vo.setTeacher_addr(addressField.getText().trim());// 주소
-					System.out.println("주소;;;" + vo.getTeacher_addr());
+					vo.setTeacher_addr(addressField.getText().trim());// 주소		
 					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
-					System.out.println("경력사항;;;" + vo.getTeacher_career());
 						if (maleRadioButton.isSelected()) {
-							gender = maleRadioButton.getText(); // "남"
+							gender = maleRadioButton.getText();
 						} else if (femaleRadioButton.isSelected()) {
-							gender = femaleRadioButton.getText();// "여"
+							gender = femaleRadioButton.getText();
 						}
 					vo.setTeacher_gen(gender);// 성별
-					System.out.println("성별;;;" + vo.getTeacher_name());
-					
 
-					String type = "1"; // 숫자 정해주
+					// 수업종류 숫자로 나타냄
+					String type = "1"; 
 					if (radioButton1.isSelected()) {
 						type = "1";
 					} else if (radioButton2.isSelected()) {
@@ -316,29 +328,14 @@ public class CoMgmt4 extends JPanel {
 						type = "4";
 					}
 					vo.setTeacher_type(type);
-					System.out.println("운동종목;;;" + vo.getTeacher_type());
-					System.out.println("type;;;;" + type);
-					//vo.setTeacher_img("imagePath");
-					System.out.println("사진경로;;;" + vo.getTeacher_img());
-					
 
-					p.setVo(vo); // 위에서 다 담은 vo정보를 p의 vo에 저장
+					p.setVo(vo); 
 					p.setCmd(1318);
-					main.out.writeObject(p);// p프로토콜 내보내
-					main.out.flush();// 끝내 => cp클라이언트로 가
-					System.out.println("정보담기완료");
-					main.cardlayout.show(main.pg1, "coMg1");//강사목록으로 가
-					System.out.println("페이지이동성공");
-					
-					
+					main.out.writeObject(p);
+					main.out.flush();
+					main.cardlayout.show(main.pg1, "coMg1");	
 				} catch (Exception e2) {
-					System.out.println("정보담기실패");
-				}
-			}
-			
+				}		
 		});
-
-
-
 	}
 }
