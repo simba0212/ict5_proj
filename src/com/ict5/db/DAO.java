@@ -2,7 +2,10 @@ package com.ict5.db;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
+
+
 
 // DB처리하는 메서드들을 가지고 있는 클래스
 public class DAO {
@@ -61,6 +64,22 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
+	
+	public static VO getTeacherInsert(VO vo) {
+		int result = getSession().insert("teacherIns", vo);
+		ss.commit();
+		return vo;
+	}
+	
+	public static VO setNotice(VO vo) {
+		int res = getSession().insert("inNotice", vo);
+		ss.commit();
+		return vo;
+		
+	}
+
+	
+
 
 	public static List<VO> t_bookclass(VO vo) {
 		List<VO> list = null;
@@ -70,7 +89,6 @@ public class DAO {
 		// 파라미터가 있는 메서드 : selectList("mepper의 id",파라미터);
 		// 파라미터가 없는 메서드 : selectList("mepper의 id")
 		list = getSession().selectList("t_bookclass");
-
 		return list;
 	}
 

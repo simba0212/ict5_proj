@@ -9,7 +9,7 @@ import com.ict5.admin.panel.Navi;
 
 public class Admin_CoMgmt1 extends JPanel {
 	Admin_main main;
-	CoTable1 coTable1;
+	public CoTable1 coTable1;
 	public Admin_CoMgmt1(Admin_main main) {
 		this.main = main;
 		
