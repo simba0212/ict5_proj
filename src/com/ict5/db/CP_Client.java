@@ -44,7 +44,6 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 
-
 					case 1001: // 관리자 로그인
 						break;
 
@@ -74,6 +73,29 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+              
+           case 1318 :
+						vo = p.getVo(); 
+							if (vo != null) {
+								System.out.println("cp옴");
+								DAO.getTeacherInsert(vo); 
+								System.out.println("dao통해서 디비에 넣어줌");
+							}else {
+								System.out.print("cp실패");
+							}
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						break;
+              
+            case 1320:
+						vo = p.getVo(); 
+						DAO.setNotice(vo);
+						p.setVo(vo);
+						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
+						break;
 						
 					case 2001: // 클라이언트 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
@@ -92,67 +114,8 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-
-						
-					case 1318 :
-						vo = new VO();
-						vo = p.getVo(); 
-						try {
-							if (vo != null) {
-								System.out.println("cp옴");
-								DAO.getTeacherInsert(vo); 
-								System.out.println("dao통해서 디비에 넣어줌");
-							}else {
-								System.out.print("cp실패");
-							}
-							p.setVo(vo);
-							out.writeObject(p);
-							out.flush();
-						}catch(Exception e){
-							System.out.println(e.getMessage());
-							e.printStackTrace();
-						}
-						break;
-
-
-
-					case 2301:
-						list = DAO.t_bookclass(vo);
-						p.setList(list);
-						out.writeObject(p);
-						out.flush();
-
-						
-
-					case 1320:
-					try {
-						vo = new VO();
-						vo = p.getVo(); 
-						DAO.setNotice(vo);
-						p.setVo(vo);
-						p.setResult(1);
-						out.writeObject(p);
-						out.flush();
-						break;
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-						
-					case 2302:
-						list = DAO.sel_date_class(vo);
-						p.setList(list);
-						out.writeObject(p);
-						out.flush();
-						break;
-					case 2303:
-						int result = DAO.getInsert(vo);
-						System.out.println("123");
-
-						out.writeObject(p);
-						out.flush();
-						break;
-						
-					case 2101: // 가입
+              
+            case 2101: // 가입
 						vo = new VO();
 						vo = p.getVo(); // 가입창의 정보를 가져옴
 						if (vo != null) {
@@ -168,6 +131,38 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
+					case 2301:
+						list = DAO.t_bookclass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+            break;
+
+					case 2302:
+						list = DAO.sel_date_class(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 2303:
+						int result = DAO.getInsert_book(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 2304:
+						list = DAO.sel_book_class(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					case 2305:
+						result = DAO.getInsert_attenedent(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+			
 					
 					}
 

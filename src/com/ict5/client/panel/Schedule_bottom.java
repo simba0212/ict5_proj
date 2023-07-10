@@ -43,7 +43,7 @@ public class Schedule_bottom extends JPanel {
 	private JPanel createPanel(List<VO> list,int i) {
 
 		JPanel panel = new JPanel(new GridLayout(3, 3));
-
+		
 		panel.setPreferredSize(new Dimension(300, 80));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -74,6 +74,21 @@ public class Schedule_bottom extends JPanel {
 		jb.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	switch (list.get(i).getClass_time()) {
+	    		case "1":str="09:00~09:50";	break;
+	    		case "2":str="10:00~10:50";break;
+	    		case "3":str="11:00~11:50";break;
+	    		case "4":str="12:00~12:50";break;
+	    		case "5":str="13:00~13:50";	break;
+	    		case "6":str="14:00~14:50";break;
+	    		case "7":str="15:00~15:50";break;
+	    		case "8":str="16:00~16:50";	break;
+	    		case "9":str="17:00~17:50";break;
+	    		case "10":str="18:00~18:50";break;
+	    		case "11":str="19:00~19:50";break;
+	    		case "12":str="20:00~20:50";break;
+	    	
+	    		}
 	        	Object ob = str+"\n"+list.get(i).getClass_room()+"\n"+list.get(i).getTeacher_name()+"\n"+"예약하시겠습니까?"
 	        			+"\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
 	        	
@@ -152,7 +167,6 @@ public class Schedule_bottom extends JPanel {
 				jsp.setPreferredSize(new Dimension(480, 350));
 				add(new JLabel("<html><h3>수업 "+main.tab.schedule.mon+"월"+ main.tab.schedule.day_i+"일 </h2></html>"), BorderLayout.NORTH);
 				add(jsp);
-				System.out.println("refresh");
 		}
 
 	}

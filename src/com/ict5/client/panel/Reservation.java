@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -25,21 +26,26 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Reservation extends JPanel {
 	Client_main main;
-
+	VO vo;
 	static final int CAL_WIDTH = 7;
 	final static int CAL_HEIGHT = 6;
 	int calDates[][] = new int[CAL_HEIGHT][CAL_WIDTH];
 	int calYear;
 	int calMonth;
 	int calDayOfMon;
+	int day_i;
+	
 	final int calLastDateOfMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
 	Calendar cal;
 	public Reservation_bottom rb;
+	String mon;
 	
 	JPanel calOpPanel;
 	JButton todayBut;
@@ -303,6 +309,48 @@ public class Reservation extends JPanel {
 
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+		
+			 try {
+					JButton jb = (JButton) e.getSource();
+					String str =jb.getText().trim();
+					String day = str.replaceAll("\\D+", "");
+				 
+				  String day_s="";
+				  day_s=day;
+					 try {
+						 
+					 if((calMonth+1)<10) {
+						 mon = ("0"+(calMonth+1));
+					 }else {
+						 mon=(""+(calMonth+1));
+					 } 
+					 day_i = Integer.parseInt(day);
+					 if(day_i<10) {
+						 day_s = ("0"+day);
+					 }
+					    
+					} catch (NumberFormatException e2) {
+						e2.printStackTrace();
+					}
+				 
+				 String indate= calYear+mon+day_s;
+				System.out.println(indate);
+				 Protocol p = new Protocol();
+				 vo = main.vo;
+				 vo.setClass_date(indate);
+				 System.out.println(vo.getClass_date());
+				 vo.setMember_num(main.usernum);
+				 System.out.println(vo.getMember_num());
+				 p.setCmd(2304);
+				 p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				 
+			
 			int k = 0, l = 0;
 			for (int i = 0; i < CAL_HEIGHT; i++) {
 				for (int j = 0; j < CAL_WIDTH; j++) {
