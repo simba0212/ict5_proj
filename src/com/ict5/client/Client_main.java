@@ -92,7 +92,7 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("myPo", myPo); // 포인트이력
 		pg1.add("pwChan", pwChan); // 비밀번호 변경
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 //		pg1.add("페이지명",객체이름);
 		
 		add(pg1);
@@ -154,18 +154,23 @@ public class Client_main extends JFrame implements Runnable {
 						}
 						break;
 						
-					case 2301:
-						 list = p.getList();
-						// 초기화 메서드
-						 tab.schedule.sb.refresh();
-						break;
+//					case 2301:
+//						 list = p.getList();
+//						// 초기화 메서드
+//						 tab.schedule.sb.refresh();
+//						break;
 					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
 						 tab.schedule.sb.refresh();
 						break;
 					case 2303:
-						System.out.println("예약 추가됐음");
+						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
 						break;
+					case 2304: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
+						 list = p.getList();
+						 tab.reservation.rb.refresh();
+						break;
+						
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");
@@ -198,9 +203,7 @@ public class Client_main extends JFrame implements Runnable {
 		home.usertop.refresh();
 		tab.usertop.refresh();
 		home.home.refresh();
-		tab.reservation.rb.refresh();
-		
-		
+		tab.noti.refresh();
 	}
 	
 

@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 // Member 테이블의 컬럼명과 일치 시키자. 
 public class VO implements Serializable {
-	
+
 	private String member_num, member_id, member_name, member_gen, member_birth, member_signup_date, member_addr,
-			member_pw, member_mail, member_point, member_chargep, member_usep, member_phone, attendent_date,
-			attendent_month, member_totalcharge, member_totaluse;
+	member_pw, member_mail, member_point, member_chargep, member_usep, member_phone, attendent_date,
+	attendent_month, member_totalcharge, member_totaluse;
 	private String notice_num, notice_text;
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
 	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date,point_name;
