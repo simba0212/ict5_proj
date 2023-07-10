@@ -84,9 +84,7 @@ public class CP_Client extends Thread {
 					    out.writeObject(p);
 					    out.flush();
 					    
-					    for (VO vo1 : list) {
-					        System.out.println(vo1.getClass_type());
-					    }
+					    
 					    for (VO vo1 : list) {
 					        System.out.println(vo1.getClass_time());
 					    }

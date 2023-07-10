@@ -9,11 +9,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
@@ -33,9 +29,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
-import com.ict5.db.CP_Client;
-import com.ict5.db.DAO;
-import com.ict5.db.DB_Server;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -136,6 +129,7 @@ public class TimeTable extends JPanel {
 				LocalDate nextDate = currentDate.plusDays(1);
 				date2 = nextDate.toString();
 				date.setText(date2);
+				
 			}
 		});
 
