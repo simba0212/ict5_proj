@@ -133,4 +133,14 @@ public class DAO {
 
 		return vo;
 	}
+
+	public static List<VO> getBookedClass(VO vo) {
+		List<VO> list = getSession().selectList("getBookedClass",vo);
+		return list;
+	}
+
+	public static List<VO> getPointList(VO vo) {
+		List<VO> list = getSession().selectList("getPointList",vo);
+		return list;
+	}
 }

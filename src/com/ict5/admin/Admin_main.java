@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -134,8 +133,15 @@ public class Admin_main extends JFrame implements Runnable {
 						member.memberv.search();
 						break;
 					case 1203: // 회원 세부정보 보기
-						member2.memberv2.refresh();
+						member2.memberv2.refresh1();// 왼쪽테이블
 						break;
+					case 1204: // 회원 세부정보 => 수업예약내역
+						member2.memberv2.refresh2();// 예약내역
+						break;
+					case 1205: // 회원 세부정보 => 포인트이력
+						member2.memberv2.refresh3();// 포인트 이력
+						break;
+						
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;

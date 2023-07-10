@@ -10,11 +10,11 @@ public class VO implements Serializable {
 			attendent_month, member_totalcharge, member_totaluse;
 	private String notice_num, notice_text;
 	private String class_num, class_time, class_date, class_res, class_max, class_point, class_room, class_type;
-	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date;
+	private String attendent_num, attendent_time, point_num, point, point_type, point_change_date,point_name;
 	private String admin_num, admin_id, admin_pw;
 	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img,
 			teacher_type;
-	private String book_date, attend_date, book_type;
+	private String book_date, book_type;
 	
 	
 	public String getMember_num() {
@@ -287,17 +287,17 @@ public class VO implements Serializable {
 	public void setBook_date(String book_date) {
 		this.book_date = book_date;
 	}
-	public String getAttend_date() {
-		return attend_date;
-	}
-	public void setAttend_date(String attend_date) {
-		this.attend_date = attend_date;
-	}
 	public String getBook_type() {
 		return book_type;
 	}
 	public void setBook_type(String book_type) {
 		this.book_type = book_type;
+	}
+	public String getPoint_name() {
+		return point_name;
+	}
+	public void setPoint_name(String point_name) {
+		this.point_name = point_name;
 	}
 	
 	

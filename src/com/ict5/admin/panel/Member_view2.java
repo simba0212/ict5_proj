@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -20,13 +21,14 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Member_view2 extends JPanel {
 	Admin_main main;
-	DefaultTableModel model;
-	DefaultTableModel model2;
-	DefaultTableModel model3;
+	UnmodifiableTableModel model;
+	UnmodifiableTableModel model2;
+	UnmodifiableTableModel model3;
 
 	public Member_view2(Admin_main main) {
 		this.main = main;
@@ -55,19 +57,14 @@ public class Member_view2 extends JPanel {
 
 		// 열 제목 지정
 		String[] columnNames = { "항목", "내용" };
-		
-		String[][] data = {{"회원번호",null},
-				{ "이름", null }, { "ID",null}, { "전화번호", null }, { "이메일",null }, { "성별", null },
-				{ "생년월일", null }, { "주소", null }, { "보유포인트", null }, { "등록 날짜", null },
-				{ "최근 출석일",null}, { "출석일수", null }, { "사용포인트(달)", null }, { "충전포인트(달)", null },
-				{ "누적사용포인트",null }, { "누적충전포인트",null }};
-		// 테이블 모델 생성
-		model = new DefaultTableModel(data,columnNames);
-		Vector<Object> rowData2 = new Vector<>();
-		rowData2.add("이름");
-		rowData2.add("홍길동");
-		model.addRow(rowData2);
 
+		String[][] data = { { "회원번호", null }, { "이름", null }, { "ID", null }, { "전화번호", null }, { "이메일", null },
+				{ "성별", null }, { "생년월일", null }, { "주소", null }, { "보유포인트", null }, { "등록 날짜", null },
+				{ "최근 출석일", null }, { "출석일수", null }, { "사용포인트(달)", null }, { "충전포인트(달)", null }, { "누적사용포인트", null },
+				{ "누적충전포인트", null } };
+		// 테이블 모델 생성
+		model = new UnmodifiableTableModel(data, columnNames);
+		model.isCellEditable(0, 0);
 		// 테이블 생성 및 모델 설정
 		JTable table = new JTable(model);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -82,8 +79,7 @@ public class Member_view2 extends JPanel {
 		column.setCellRenderer(new CenterTableCellRenderer());
 		column2.setCellRenderer(new CenterTableCellRenderer());
 
-		table.setFont(new Font("돋움", Font.BOLD, 25));
-		table.setRowHeight(37); // 각 셀의 높이를 30으로 설정
+		table.setRowHeight(30); // 각 셀의 높이를 30으로 설정
 		JPanel jp2 = new JPanel();
 		jp2.add(scrollPane);
 
@@ -95,16 +91,12 @@ public class Member_view2 extends JPanel {
 		JPanel jp3_1 = new JPanel(new BorderLayout());
 		JLabel classlabel = new JLabel("수업 예약 내역");
 		classlabel.setFont(classlabel.getFont().deriveFont(Font.BOLD, 20f));
+
 		String[] columnNames2 = { "수업 번호", "종류", "예약날짜", "수강날짜", "강사이름", "출석여부" };
 		// 테이블 모델 생성
-		DefaultTableModel model2 = new DefaultTableModel(columnNames2, 0);
-		int rowCount = 25;
-		// 데이터 추가
-		for (int i = 1; i <= rowCount; i++) {
-			Object[] rowData = { i, "abc", "2000-00-00", "2000-00-00", "노종문", "출석완료" };
 
-			model2.addRow(rowData);
-		}
+		model2 = new UnmodifiableTableModel(columnNames2, 0);
+
 		JTable table2 = new JTable(model2);
 		table2.getTableHeader().setReorderingAllowed(false);
 
@@ -128,16 +120,12 @@ public class Member_view2 extends JPanel {
 		pointlabel.setFont(pointlabel.getFont().deriveFont(Font.BOLD, 20f));
 		pointlabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
-		String[] columnNames3 = { "수업 번호", "종류", "예약날짜", "수강날짜", "강사이름", "출석여부" };
+		String[] columnNames3 = { "포인트변동번호", "변동내용", "변동날짜", "사용내역", "변동포인트", "출석여부" };
 		// 테이블 모델 생성
-		DefaultTableModel model3 = new DefaultTableModel(columnNames3, 0);
+		model3 = new UnmodifiableTableModel(columnNames3, 0);
 		int rowCount2 = 25;
 		// 데이터 추가
-		for (int i = 1; i <= rowCount2; i++) {
-			Object[] rowData = { i, "abc", "2000-00-00", "2000-00-00", "노종문", "출석완료" };
 
-			model3.addRow(rowData);
-		}
 		JTable table3 = new JTable(model3);
 		table3.getTableHeader().setReorderingAllowed(false);
 
@@ -157,7 +145,6 @@ public class Member_view2 extends JPanel {
 
 		jp3.add(jp3_1, BorderLayout.NORTH);
 		jp3.add(jp3_2, BorderLayout.WEST);
-//		 String[] columnNames = {"회원번호", "이름", "ID","전화번호","이메일","성별","생년월일","최근예약","주소","보유 포인트","등록 날짜","최근 출석일","이번달출석","사용포인트","충전포인트(달)","누적사용포인트","누적충전포인트"};
 
 		jp.add(jp1, BorderLayout.NORTH);
 		jp.add(jp2, BorderLayout.WEST);
@@ -166,16 +153,9 @@ public class Member_view2 extends JPanel {
 
 	}
 
-	public void refresh() { // 한명정보 불러오기
+	public void refresh1() { // 한명정보 불러오기
+		// 왼쪽테이블 (회원상세정보)
 		VO vo = main.vo;
-		Vector<Object> rowData = new Vector<>();
-		String[] columnNames = { "항목", "내용" };
-		String[][] data = {{"회원번호",vo.getMember_num()},
-				{ "이름", vo.getMember_name() }, { "ID", vo.getMember_id() }, { "전화번호", vo.getMember_phone() }, { "이메일", vo.getMember_mail() }, { "성별", "변수6" },
-				{ "생년월일", vo.getMember_birth().substring(0, 10) }, { "주소", vo.getMember_addr() }, { "보유포인트", vo.getMember_point() }, { "등록 날짜", vo.getMember_signup_date() },
-				{ "최근 출석일",vo.getAttendent_date() }, { "출석일수", vo.getAttendent_month() }, { "사용포인트(달)", vo.getMember_usep() }, { "충전포인트(달)", vo.getMember_chargep() },
-				{ "누적사용포인트", vo.getMember_totaluse() }, { "누적충전포인트", vo.getMember_totalcharge() }
-		};
 		// 추가할 데이터
 		model.setValueAt(vo.getMember_num(), 0, 1);
 		model.setValueAt(vo.getMember_name(), 1, 1);
@@ -193,8 +173,93 @@ public class Member_view2 extends JPanel {
 		model.setValueAt(vo.getMember_chargep(), 13, 1);
 		model.setValueAt(vo.getMember_totaluse(), 14, 1);
 		model.setValueAt(vo.getMember_totalcharge(), 15, 1);
+
+		// 오른쪽 테이블 불러오기
+		try {
+			Protocol p = new Protocol();
+			p.setVo(vo);
+			p.setCmd(1204);
+			main.out.writeObject(p);
+			main.out.flush();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
-	
+
+	public void refresh2() { // 오른쪽 테이블 예약목록
+		model2.setRowCount(0);
+		List<VO> list = main.list;
+		for (VO k : list) {
+			switch (k.getClass_type()) {
+			case "1":
+				k.setClass_time("헬스");
+				break;
+			case "2":
+				k.setClass_time("요가");
+				break;
+			case "3":
+				k.setClass_time("수영");
+				break;
+			case "4":
+				k.setClass_time("필라테스");
+				break;
+
+			default:
+				break;
+			}
+			if (k.getAttendent_time() != null) {
+				k.setAttendent_time("출석완료");
+			} else {
+				k.setAttendent_time("출석전");
+			}
+			if (k.getBook_date() != null) {
+				k.setBook_date(k.getBook_date().substring(0, 10));
+			}
+			if (k.getClass_date() != null) {
+				k.setClass_date(k.getClass_date().substring(0, 10));
+			}
+			Object[] rowData = { k.getClass_num(), k.getClass_time(), k.getBook_date(), k.getClass_date(),
+					k.getTeacher_name(), k.getAttendent_time() };
+			model2.addRow(rowData);
+		}
+
+		// 포인트충전 / 사용내역 불러오기
+		try {
+			Protocol p = new Protocol();
+			VO vo = main.vo;
+			p.setVo(vo);
+			p.setCmd(1205);
+			main.out.writeObject(p);
+			main.out.flush();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public void refresh3() {
+		model3.setRowCount(0);
+		List<VO> list = main.list;
+		
+		for (VO k : list) {
+			if(k.getPoint_change_date()!=null) {
+				k.setPoint_change_date(k.getPoint_change_date().substring(0,10));
+			}
+			if(k.getPoint_type().equals("사용")) {
+				k.setPoint("<html><p style=\"color: red;\">-"+k.getPoint()+"</p>");
+			}else {
+				k.setPoint("<html><p style=\"color: blue;\">+"+k.getPoint()+"</p>");
+			}
+			Object[] rowData = { k.getPoint_num(), k.getPoint_type(), k.getPoint_change_date(), k.getPoint_name(), k.getPoint() };
+			model3.addRow(rowData);
+
+		}
+
+	}
+
 	// 테이블 속 텍스트를 가운데정렬하기 위한 클래스
 	public class CenterTableCellRenderer implements TableCellRenderer {
 		@Override
@@ -206,6 +271,20 @@ public class Member_view2 extends JPanel {
 		}
 	}
 
+	@SuppressWarnings("serial")
+	public class UnmodifiableTableModel extends DefaultTableModel {
+		public UnmodifiableTableModel(String[][] data, String[] columnNames) {
+			super(data, columnNames);
+		}
+
+		public UnmodifiableTableModel(String[] columnNames2, int i) {
+			super(columnNames2, i);
+		}
+
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	}
 
 }
-

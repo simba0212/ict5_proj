@@ -25,6 +25,13 @@
 		select * from class order
 		by notice_num desc
 	</select>
+	
+	<select id="getBookedClass" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from bookedclass where member_num = #{member_num}
+		order by book_date desc
+	</select>
+	
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num}
@@ -34,13 +41,17 @@
 	<select id="t_bookclass" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		 select * from class where class_num in (select class_num from book where member_num =1) and class_date = TRUNC(SYSDATE)
 	</select>
+	
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
 		select *
    	 	from class c, teacher t
     	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
 	</select>
 	
-
+	<select id="getPointList" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from point where member_num = #{member_num}
+	</select>
+		
 	<select id="getCoachList" resultType="com.ict5.db.VO">
 		select * from teacher order
 		by teacher_num
@@ -60,6 +71,7 @@
 		insert into book (book_num,book_date,class_num,member_num)
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>
+	
 	<select id="getMemberOne" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from MEMBER_T where member_num =#{member_num}

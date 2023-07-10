@@ -64,6 +64,19 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+					case 1204: // 회원상세정보 =>수업예약내역
+						list = DAO.getBookedClass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1205: // 회원상세정보 =>포인트 이력
+						list = DAO.getPointList(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
 
 					case 1301: // 강사목록 불러오기
 						list = DAO.getCoachList();
