@@ -125,13 +125,19 @@ public class CP_Client extends Thread {
 						
 
 					case 1320:
+					try {
 						vo = new VO();
 						vo = p.getVo(); 
-						System.out.println("cp왔음;;;"+ vo.getNotice_text());
-						DAO.setNotice(vo); 
+						DAO.setNotice(vo);
 						p.setVo(vo);
-
+						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
 						break;
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+						
 					case 2302:
 						list = DAO.sel_date_class(vo);
 						p.setList(list);

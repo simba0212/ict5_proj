@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -237,6 +238,7 @@ public class CoMgmt4 extends JPanel {
 		VO vo = new VO();
 		attachButton.addActionListener(new ActionListener() {
 			
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -279,6 +281,8 @@ public class CoMgmt4 extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "에러 메시지", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+				
 				String gender = "";
 				System.out.println("등록버튼눌렸다");
 				try {
@@ -325,6 +329,8 @@ public class CoMgmt4 extends JPanel {
 					System.out.println("정보담기완료");
 					main.cardlayout.show(main.pg1, "coMg1");//강사목록으로 가
 					System.out.println("페이지이동성공");
+					
+					
 				} catch (Exception e2) {
 					System.out.println("정보담기실패");
 				}

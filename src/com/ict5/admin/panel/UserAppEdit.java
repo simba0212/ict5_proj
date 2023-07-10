@@ -7,10 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -79,22 +83,41 @@ public class UserAppEdit extends JPanel {
         bottomPanel.setPreferredSize(new Dimension(200, 70));
         
         
+        
+        announcementTextArea.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+                // 마우스 클릭 시
+        		announcementTextArea.setText("");
+            }
+        	
+		});
+        
+        
         registerButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "등록되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
+				announcementTextArea.setText("");
+				
 				try {
 					VO vo = new VO();
 					Protocol p = new Protocol();
 					vo.setNotice_text(announcementTextArea.getText());
-					System.out.println("getnotice;;;;"+ vo.getNotice_text());
 					p.setVo(vo);
 					p.setCmd(1320);
 					main.out.writeObject(p);
 					main.out.flush();
 				} catch (Exception e2) {
-					// TODO: handle exception
+					e2.printStackTrace();
 				}
+			}
+		});
+        
+        cancelButton.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "취소 완료", "취소", JOptionPane.PLAIN_MESSAGE);
+				announcementTextArea.setText("");
 				
 			}
 		});

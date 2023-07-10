@@ -98,8 +98,12 @@
 	</insert>
 
 	<insert  id="inNotice" parameterType="com.ict5.db.VO">
-	insert into notice(notice_num,notice_text)
-	values(notice_seq.nextval, #{notice_text})
+	insert into notice(
+						notice_num,
+						notice_text)
+	values(
+			notice_seq.nextval, 
+			#{notice_text})
 	</insert>
 
 </mapper>

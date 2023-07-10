@@ -119,12 +119,12 @@ public class Admin_main extends JFrame implements Runnable {
 	public void run() {
 		esc: while (true) {
 			try {
+				System.out.println("여기까지성공11");
 				Object obj = in.readObject();
 				if (obj != null) {
 					Protocol p = (Protocol) obj;
 					list = p.getList();
 					vo = p.getVo();
-
 					switch (p.getCmd()) {
 					case 1101:
 						break esc;
@@ -150,6 +150,7 @@ public class Admin_main extends JFrame implements Runnable {
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		closed();
