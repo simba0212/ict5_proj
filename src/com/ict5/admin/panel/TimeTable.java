@@ -104,7 +104,7 @@ public class TimeTable extends JPanel {
 				{ "15:00", "", "", "", "" }, { "16:00", "", "", "", "" }, { "17:00", "", "", "", "" },
 				{ "18:00", "", "", "", "" }, { "19:00", "", "", "", "" }, { "20:00", "", "", "", "" },
 				{ "21:00", "", "", "", "" } };
-		String[] columnNames = { date2, "P.T", "요가", "수영", "필라테스" };
+		String[] columnNames = { date2, "수영", "헬스", "요가", "필라테스" };
 
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
@@ -129,6 +129,26 @@ public class TimeTable extends JPanel {
 			}
 		});
 
+		// 날짜 다음 날
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LocalDate currentDate = LocalDate.parse(date2);
+				LocalDate nextDate = currentDate.plusDays(1);
+				date2 = nextDate.toString();
+				date.setText(date2);
+			}
+		});
+
+		// 날짜 전 날
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LocalDate currentDate = LocalDate.parse(date2);
+				LocalDate previousDate = currentDate.minusDays(1);
+				date2 = previousDate.toString();
+				date.setText(date2);
+			}
+		});
+
 	}
 
 	public void Date() {
@@ -145,172 +165,176 @@ public class TimeTable extends JPanel {
 			if (list != null) {
 				for (VO vo : list) {
 					String classType = "";
+					String teacherName = vo.getTeacher_name();
+
 					switch (vo.getClass_type()) {
 					case "1":
 						switch (vo.getClass_time()) {
 						case "1":
-							classType = "헬스 1";
+							classType = "수영 1";
 							table.setValueAt(classType, 1, 1);
 							break;
 						case "2":
-							classType = "헬스 2";
+							classType = "수영 2";
 							table.setValueAt(classType, 2, 1);
 							break;
 						case "3":
-							classType = "헬스 3"+"\n강사이름";
-							table.setValueAt(classType, 4, 1);
-							break;
-						case "4":
-							classType = "헬스 4";
-							table.setValueAt(classType, 5, 1);
-							break;
-						case "5":
-							classType = "헬스 5";
-							table.setValueAt(classType, 6, 1);
-							break;
-						case "6":
-							classType = "헬스 6";
-							table.setValueAt(classType, 7, 1);
-							break;
-						case "7":
-							classType = "헬스 7";
-							table.setValueAt(classType, 8, 1);
-							break;
-						case "8":
-							classType = "헬스 8";
-							table.setValueAt(classType, 9, 1);
-							break;
-						case "9":
-							classType = "헬스 9";
-							table.setValueAt(classType, 10, 1);
-							break;
-						case "10":
-							classType = "헬스 10";
-							table.setValueAt(classType, 11, 1);
-							break;
-						case "11":
-							classType = "헬스 11";
-							table.setValueAt(classType, 12, 1);
-							break;
-						case "12":
-							classType = "헬스 12";
-							table.setValueAt(classType, 13, 1);
-							break;
-							
-						default:
-							classType = "알 수 없는 타입";
-							break;
-						}
-						break;
-						
-					case "2":
-						switch (vo.getClass_time()) {
-						case "1":
-							classType = "요가 1";
-							table.setValueAt(classType, 1, 2);
-							break;
-						case "2":
-							classType = "요가 2";
-							table.setValueAt(classType, 2, 2);
-							break;
-						case "3":
-							classType = "요가 3";
-							table.setValueAt(classType, 4, 2);
-							break;
-						case "4":
-							classType = "요가 4";
-							table.setValueAt(classType, 5, 2);
-							break;
-						case "5":
-							classType = "요가 5";
-							table.setValueAt(classType, 6, 2);
-							break;
-						case "6":
-							classType = "요가 6";
-							table.setValueAt(classType, 7, 2);
-							break;
-						case "7":
-							classType = "요가 7";
-							table.setValueAt(classType, 8, 2);
-							break;
-						case "8":
-							classType = "요가 8";
-							table.setValueAt(classType, 9, 2);
-							break;
-						case "9":
-							classType = "요가 9";
-							table.setValueAt(classType, 10, 2);
-							break;
-						case "10":
-							classType = "요가 20";
-							table.setValueAt(classType, 11, 2);
-							break;
-						case "11":
-							classType = "요가 11";
-							table.setValueAt(classType, 12, 2);
-							break;
-						case "12":
-							classType = "요가 12";
-							table.setValueAt(classType, 13, 2);
-							break;
-						
-						default:
-							classType = "알 수 없는 타입";
-							break;
-						}
-						break;
-						
-					case "3":
-						switch (vo.getClass_time()) {
-						case "1":
-							classType = "수영 1";
-							table.setValueAt(classType, 1, 3);
-							break;
-						case "2":
-							classType = "수영 2";
-							table.setValueAt(classType, 2, 3);
-							break;
-						case "3":
 							classType = "수영 3";
-							table.setValueAt(classType, 4, 3);
+							table.setValueAt("<html><div style='text-align: center;'>" + classType + "<br>"
+									+ teacherName + "</div></html>", 4, 1);
 							break;
 						case "4":
 							classType = "수영 4";
-							table.setValueAt(classType, 5, 3);
+							table.setValueAt(classType, 5, 1);
 							break;
 						case "5":
 							classType = "수영 5";
-							table.setValueAt(classType, 6, 3);
+							table.setValueAt(classType, 6, 1);
 							break;
 						case "6":
 							classType = "수영 6";
-							table.setValueAt(classType, 7, 3);
+							table.setValueAt(classType, 7, 1);
 							break;
 						case "7":
 							classType = "수영 7";
-							table.setValueAt(classType, 8, 3);
+							table.setValueAt(classType, 8, 1);
 							break;
 						case "8":
 							classType = "수영 8";
-							table.setValueAt(classType, 9, 3);
+							table.setValueAt(classType, 9, 1);
 							break;
 						case "9":
 							classType = "수영 9";
-							table.setValueAt(classType, 10, 3);
+							table.setValueAt(classType, 10, 1);
 							break;
 						case "10":
 							classType = "수영 10";
-							table.setValueAt(classType, 11, 3);
+							table.setValueAt(classType, 11, 1);
 							break;
 						case "11":
 							classType = "수영 11";
-							table.setValueAt(classType, 12, 3);
+							table.setValueAt(classType, 12, 1);
 							break;
 						case "12":
 							classType = "수영 12";
+							table.setValueAt(classType, 13, 1);
+							break;
+
+						default:
+							classType = "알 수 없는 타입";
+							break;
+						}
+						break;
+
+					case "2":
+						switch (vo.getClass_time()) {
+						case "1":
+							classType = "헬스 1";
+							table.setValueAt(classType, 1, 2);
+							break;
+						case "2":
+							classType = "헬스 2";
+							table.setValueAt(classType, 2, 2);
+							break;
+						case "3":
+							classType = "헬스 3";
+							table.setValueAt(classType, 4, 2);
+							break;
+						case "4":
+							classType = "헬스 4";
+							table.setValueAt(classType, 5, 2);
+							break;
+						case "5":
+							classType = "헬스 5";
+							table.setValueAt(classType, 6, 2);
+							break;
+						case "6":
+							classType = "헬스 6";
+							table.setValueAt("<html><div style='text-align: center;'>" + classType + "<br>"
+									+ teacherName + "</div></html>", 7, 2);
+							break;
+						case "7":
+							classType = "헬스 7";
+							table.setValueAt(classType, 8, 2);
+							break;
+						case "8":
+							classType = "헬스 8";
+							table.setValueAt(classType, 9, 2);
+							break;
+						case "9":
+							classType = "헬스 9";
+							table.setValueAt(classType, 10, 2);
+							break;
+						case "10":
+							classType = "헬스 20";
+							table.setValueAt(classType, 11, 2);
+							break;
+						case "11":
+							classType = "헬스 11";
+							table.setValueAt(classType, 12, 2);
+							break;
+						case "12":
+							classType = "헬스 12";
+							table.setValueAt(classType, 13, 2);
+							break;
+
+						default:
+							classType = "알 수 없는 타입";
+							break;
+						}
+						break;
+
+					case "3":
+						switch (vo.getClass_time()) {
+						case "1":
+							classType = "요가 1";
+							table.setValueAt(classType, 1, 3);
+							break;
+						case "2":
+							classType = "요가 2";
+							table.setValueAt(classType, 2, 3);
+							break;
+						case "3":
+							classType = "요가 3";
+							table.setValueAt(classType, 4, 3);
+							break;
+						case "4":
+							classType = "요가 4";
+							table.setValueAt(classType, 5, 3);
+							break;
+						case "5":
+							classType = "요가 5";
+							table.setValueAt(classType, 6, 3);
+							break;
+						case "6":
+							classType = "요가 6";
+							table.setValueAt(classType, 7, 3);
+							break;
+						case "7":
+							classType = "요가 7";
+							table.setValueAt(classType, 8, 3);
+							break;
+						case "8":
+							classType = "요가 8";
+							table.setValueAt(classType, 9, 3);
+							break;
+						case "9":
+							classType = "요가 9";
+							table.setValueAt(classType, 10, 3);
+							break;
+						case "10":
+							classType = "요가 10";
+							table.setValueAt(classType, 11, 3);
+							break;
+						case "11":
+							classType = "요가 11";
+							table.setValueAt(classType, 12, 3);
+							break;
+						case "12":
+							classType = "요가 12";
 							table.setValueAt(classType, 13, 3);
 							break;
-							
+
 						default:
 							classType = "알 수 없는 타입";
 							break;
@@ -366,15 +390,13 @@ public class TimeTable extends JPanel {
 							classType = "필라테스 12";
 							table.setValueAt(classType, 13, 4);
 							break;
-							
+
 						default:
 							classType = "알 수 없는 타입";
 							break;
 						}
 						break;
-						
-						
-					
+
 					default:
 						classType = "알 수 없는 타입";
 						break;

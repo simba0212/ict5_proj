@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="todayclass" resultType="com.ict5.db.VO">
-		SELECT * FROM class WHERE class_date = TRUNC(SYSDATE)
+		select * from TODAY_TEACHER
 	</select>
 	
 		
