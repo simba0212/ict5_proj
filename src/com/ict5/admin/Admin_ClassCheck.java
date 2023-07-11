@@ -10,24 +10,33 @@ import com.ict5.admin.panel.TimeTable;
 
 public class Admin_ClassCheck extends JPanel {
     Admin_main main;
+    TimeTable timetable;
+    ClassCheck classCheck;
+    ClassCheck2 classCheck2;
 
     public Admin_ClassCheck(Admin_main main) {
         this.main = main;
+        classCheck = new ClassCheck(main);
+        classCheck2 = new ClassCheck2(main);
 
         setLayout(new BorderLayout());
 
         add(new Navi(main), BorderLayout.NORTH);
-        add(new TimeTable(main), BorderLayout.WEST);
+
+        timetable = new TimeTable(main); // timetable 객체 생성
+        add(timetable, BorderLayout.WEST); // timetable 추가
 
         // Create a new panel to hold ClassCheck and ClassCheck2
         JPanel centerPanel = new JPanel(new BorderLayout());
-
-        ClassCheck classCheck = new ClassCheck(main);
-        ClassCheck2 classCheck2 = new ClassCheck2(main);
 
         centerPanel.add(classCheck, BorderLayout.CENTER);
         centerPanel.add(classCheck2, BorderLayout.SOUTH);
 
         add(centerPanel, BorderLayout.CENTER);
+    }
+
+    public void refreshData() {
+        // timetable을 갱신하기 위해 refreshData() 메서드 호출
+        timetable.refreshData();
     }
 }

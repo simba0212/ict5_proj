@@ -8,8 +8,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
@@ -23,14 +23,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import com.ict5.admin.Admin_ClassCheck;
 import com.ict5.admin.Admin_main;
-import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class TimeTable extends JPanel {
@@ -40,6 +39,14 @@ public class TimeTable extends JPanel {
 	VO vo;
 	JTextField date;
 	String date2;
+	LocalDate currentDate;
+	String dateOnly,voDate,teacherName,classType,classTime;
+	
+	public void refreshData() {
+		clearTableData();
+		Date();
+		System.out.println("실행");
+    }
 
 	public TimeTable(Admin_main main) {
 		setBorder(BorderFactory.createLineBorder(Color.black));
@@ -84,6 +91,10 @@ public class TimeTable extends JPanel {
 		date.setPreferredSize(new Dimension(100, 50));
 		date.setText(date2);
 		north2.add(date);
+		
+		currentDate = LocalDate.now();
+        date2 = currentDate.toString();
+        
 
 		JButton btnNewButton_1 = new JButton(">>");
 		btnNewButton_1.setPreferredSize(new Dimension(50, 30));
@@ -103,7 +114,7 @@ public class TimeTable extends JPanel {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
 		TableCellRenderer buttonRenderer = new ButtonRenderer();
-		TableCellEditor buttonEditor = new ButtonEditor();
+		TableCellEditor buttonEditor = new ButtonEditor(main, this);
 
 		table = new JTable(model);
 		table.setRowHeight(40);
@@ -126,10 +137,11 @@ public class TimeTable extends JPanel {
 		// 날짜 다음 날
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LocalDate currentDate = LocalDate.parse(date2);
-				LocalDate nextDate = currentDate.plusDays(1);
-				date2 = nextDate.toString();
+				currentDate = currentDate.plusDays(1);
+				date2 = currentDate.toString();
 				date.setText(date2);
+				// 이전 데이터를 지우기 위해 테이블 초기화
+				clearTableData();
 				Date();
 			}
 		});
@@ -137,34 +149,34 @@ public class TimeTable extends JPanel {
 		// 날짜 전 날
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LocalDate currentDate = LocalDate.parse(date2);
-				LocalDate previousDate = currentDate.minusDays(1);
-				date2 = previousDate.toString();
+				currentDate = currentDate.minusDays(1);
+				date2 = currentDate.toString();
 				date.setText(date2);
+				// 이전 데이터를 지우기 위해 테이블 초기화
+				clearTableData();
 				Date();
 			}
 		});
-
+		
+		
+		
 	}
 
 	public void Date() {
-		// 이전 데이터를 지우기 위해 테이블 초기화
-		clearTableData();
-
+		
 		try {
-			main.cardlayout.show(main.pg1, "home");
 			// 응답 받은 후 list를 확인
 			List<VO> list = main.list;
 			if (list != null) {
 				for (VO vo : list) {
 
-					String voDate = vo.getClass_date();
-					String dateOnly = voDate.split(" ")[0];
+					voDate = vo.getClass_date();
+					dateOnly = voDate.split(" ")[0];
 
 					// vo의 날짜 정보가 date2와 일치하는 경우에만 처리
 					if (dateOnly.equals(date2)) {
-						String teacherName = vo.getTeacher_name();
-						String classType = vo.getClass_type();
+						teacherName = vo.getTeacher_name();
+						classType = vo.getClass_type();
 						int classTime = Integer.parseInt(vo.getClass_time());
 
 						switch (vo.getClass_type()) {
@@ -448,7 +460,6 @@ public class TimeTable extends JPanel {
 							break;
 						}
 
-						System.out.println(vo.getClass_type() + vo.getClass_time());
 					}
 				}
 			} else {
@@ -464,67 +475,75 @@ public class TimeTable extends JPanel {
 //		main.out.flush();
 	}
 
-//테이블 데이터 초기화 메서드
-	private void clearTableData() {
+	//테이블 데이터 초기화 메서드
+	public void clearTableData() {
 		for (int row = 0; row < table.getRowCount(); row++) {
 			for (int column = 1; column < table.getColumnCount(); column++) {
 				table.setValueAt("", row, column);
+				}
 			}
 		}
 	}
-}
 
 class ButtonRenderer extends DefaultTableCellRenderer {
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column) {
+        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-		// 특정 열과 조건을 만족하는 경우에만 버튼 생성
-		if (column >= 1 && !value.toString().equals("")) {
-			JButton button = new JButton(value.toString());
-			button.setBackground(null);
-			return button;
-		} else {
-			return component;
-		}
-	}
+        if (column >= 1 && !value.toString().equals("")) {
+            JButton button = new JButton(value.toString());
+            button.setBackground(null);
+            return button;
+        } else {
+            return component;
+        }
+    }
 }
 
+
 class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
-	private JButton button;
+    private JButton button;
+    Admin_main main;
+    CardLayout cardLayout;
+    TimeTable timeTable;
 
-	public ButtonEditor() {
-		button = new JButton();
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 버튼 클릭 시 동작을 수행할 수 있도록 구현
-				System.out.println("Button clicked");
-				JOptionPane.showMessageDialog(button, "눌러");
-				fireEditingStopped();
-			}
-		});
-	}
+    public ButtonEditor(Admin_main main, TimeTable timeTable) {
+        this.main = main;
+        this.cardLayout = main.cardlayout;
+        this.timeTable = timeTable;
 
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		// Edit the specific cells in the desired columns using the button editor
-		if (column >= 1 && !value.toString().equals("")) {
-			button.setText(value.toString());
-			return button;
-		} else {
-			// 해당 셀이 아닌 경우, 기본 편집 컴포넌트를 반환
-			return null;
-		}
-	}
+        button = new JButton();
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // 버튼 클릭 시 동작을 수행할 수 있도록 구현
+                System.out.println("Button clicked");
+                JOptionPane.showMessageDialog(button, "강의 페이지로 이동");
+                main.cardlayout.show(main.pg1, "classcheck"); // "classcheck" 페이지로 이동
+                timeTable.refreshData(); // TimeTable의 refreshData() 메서드 호출
+            }
+        });
+    }
 
-	public Object getCellEditorValue() {
-		return button.getText();
-	}
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        // Edit the specific cells in the desired columns using the button editor
+        if (column >= 1 && !value.toString().equals("")) {
+            button.setText(value.toString());
+            return button;
+        } else {
+            // 해당 셀이 아닌 경우, 기본 편집 컴포넌트를 반환
+            return null;
+        }
+    }
 
-	public boolean stopCellEditing() {
-		// 셀 편집이 중지될 때 호출되는 메서드
-		// 필요한 경우 추가적인 작업을 수행할 수 있습니다.
-		return super.stopCellEditing();
-	}
+    public Object getCellEditorValue() {
+        return button.getText();
+    }
 
+    public boolean stopCellEditing() {
+        // 셀 편집이 중지될 때 호출되는 메서드
+        // 필요한 경우 추가적인 작업을 수행할 수 있습니다.
+        fireEditingStopped();
+        return super.stopCellEditing();
+    }
 }

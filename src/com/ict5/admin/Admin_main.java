@@ -147,6 +147,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 					case 1002:
 						if (p.getResult() == 1) {
+							cardlayout.show(pg1, "home");
 							home.timetable.Date();
 							System.out.println("테이블 성공 111");
 						} else {
