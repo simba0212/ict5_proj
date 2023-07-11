@@ -182,4 +182,26 @@ public class DAO {
 		List<VO> list = getSession().selectList("getApproveList");
 		return list;
 	}
+	
+	public static List<VO> getMemberPw(VO vo) {//비밀번호 가져오기
+		List<VO> list = null;
+		list = getSession().selectList("checkMemberPw", vo);
+		return list;
+	}
+
+	public static VO setMemberPw(VO vo) {//비밀번호 변경
+	    try {
+	        int res = getSession().update("updatePassword", vo);
+	        if (res > 0) {
+	        	ss.commit();
+	        } else {
+	        }
+	    } catch (Exception e) {
+	        System.out.println("오류 발생: " + e.getMessage());
+	        e.printStackTrace();
+	        // 오류 처리를 위한 추가 작업 수행
+	    }
+	    return vo;
+	}
+
 }

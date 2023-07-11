@@ -9,9 +9,9 @@ import com.ict5.client.panel.UserTop;
 
 
 public class Client_ChargeP3 extends JPanel {
-    Client_main main;
-    ChargeP3 cp3;
-    UserTop usertop;
+	public Client_main main;
+	public ChargeP3 cp3;
+    public UserTop usertop;
     public Client_ChargeP3(Client_main main) {
         this.main = main;
         cp3 = new ChargeP3(main);

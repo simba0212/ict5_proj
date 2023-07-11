@@ -109,6 +109,7 @@ public class Home extends JPanel {
 			Client_ChargeP chargeP = new Client_ChargeP(main);
 			main.pg1.add("chargeP", chargeP);
 			main.cardlayout.show(main.pg1, "chargeP");
+			main.chargeP.usertop.refresh();
 		});
 		// 수업예약 클릭 이벤트
 		book_bt.addActionListener(e -> {

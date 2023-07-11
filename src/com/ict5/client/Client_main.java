@@ -30,6 +30,7 @@ public class Client_main extends JFrame implements Runnable {
 	public ObjectInputStream in;
 	public VO vo;
 	public List<VO> list;
+	public String username;
 	
 	public Client_Login login;
 	public Client_CreateId createId;
@@ -38,8 +39,10 @@ public class Client_main extends JFrame implements Runnable {
 	public CreateId_2 createId2;
 	public Notice noti;
 	public Mypage myPg;
-	public Mypoint myPo;
-	public PassChange pwChan;
+	public Client_MyPoint myPo;
+	public Mypoint po;
+	public Client_PassChange pwChan;
+	public PassChange pwchan;
 	public ChargeP2 cp2;
 	public ChargeP3 cp3;
 	public Client_ChargeP chargeP;
@@ -71,8 +74,10 @@ public class Client_main extends JFrame implements Runnable {
 		cp3 = new ChargeP3(this);
 		noti = new Notice(this);
 		myPg = new Mypage(this);
-		myPo = new Mypoint(this);
-		pwChan = new PassChange(this);
+		po = new Mypoint(this);
+		myPo = new Client_MyPoint(this);
+		pwChan = new Client_PassChange(this);
+		pwchan = new PassChange(this);
 
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -92,7 +97,7 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("myPo", myPo); // 포인트이력
 		pg1.add("pwChan", pwChan); // 비밀번호 변경
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 //		pg1.add("페이지명",객체이름);
 		
 		add(pg1);
@@ -146,8 +151,9 @@ public class Client_main extends JFrame implements Runnable {
 					case 2001:
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
-							refreshAll();
+							username=vo.getMember_name();
 							usernum=vo.getMember_num();
+							refreshAll();
 							System.out.println("메인 usernum"+usernum);
 						} else {
 							System.out.println("실패");
@@ -174,18 +180,32 @@ public class Client_main extends JFrame implements Runnable {
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");
+						
 						} else {
 							System.out.println("실패");
 						}
+						
 						break;
 					case 2102:
 						if (p.getResult() == 1) {
-							cardlayout.show(pg1, "chargeP");
-							chargeP.usertop.refresh();
-							chargeP.cp.refresh();
+							username=vo.getMember_name();
+							usernum=vo.getMember_num();
+							refreshAll();
+							System.out.println("메인 username"+username);
 						} else {
 							System.out.println("실패");
 						}
+						
+						break;	
+					case 2103:
+						if (p.getResult() == 1) {
+							username=vo.getMember_name();
+							usernum=vo.getMember_num();
+							refreshAll();
+						} else {
+							System.out.println("실패");
+						}
+						
 						break;	
 					}
 				
@@ -202,8 +222,18 @@ public class Client_main extends JFrame implements Runnable {
 	public void refreshAll() {
 		home.usertop.refresh();
 		tab.usertop.refresh();
+		chargeP.usertop.refresh();
+		chargeP2.usertop.refresh();
+		chargeP3.usertop.refresh();
+		pwChan.usertop.refresh();
+		myPo.usertop.refresh();
 		home.home.refresh();
 		tab.noti.refresh();
+		chargeP.cp.refresh();
+		chargeP2.cp2.refresh();
+		chargeP3.cp3.refresh();
+		pwChan.pwchan.refresh();
+		myPo.po.refresh();
 	}
 	
 

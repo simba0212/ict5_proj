@@ -69,7 +69,6 @@ public class UserTop extends JPanel {
 	}
 
 	public void refresh() {
-		vo = main.vo;
-		customerLabel.setText(vo.getMember_name() + "고객님");
+		customerLabel.setText(main.username + "고객님");
 	}
 }

@@ -141,17 +141,11 @@ public class ChargeP extends JPanel {
             main.cardlayout.show(main.pg1, "chargeP2");
         });
     }
- // selectedPoints 변수에 값을 설정하는 메서드
-    public void setSelectedPoints(int points) {
-        this.selectedPoints = points;
-    }
-
     // selectedPoints 변수의 값을 반환하는 메서드
     public int getSelectedPoints() {
         return selectedPoints;
     }
 	public void refresh() {
-		// TODO Auto-generated method stub
 		
 	}
 }

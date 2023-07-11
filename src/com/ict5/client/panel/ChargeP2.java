@@ -12,7 +12,6 @@ import java.awt.event.AdjustmentListener;
 
 
 public class ChargeP2 extends JPanel {
-	//ChargeP selectedPoints;
 	int selectedPoints;
 	JLabel selectedPointsLabel;
 	JCheckBox agreementCheckbox;
@@ -204,5 +203,9 @@ public class ChargeP2 extends JPanel {
         JOptionPane.showMessageDialog(this, scrollPane, "약관", JOptionPane.PLAIN_MESSAGE);
         
     }
+
+	public void refresh() {
+		
+	}
 }
 

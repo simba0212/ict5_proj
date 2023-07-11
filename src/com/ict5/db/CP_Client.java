@@ -185,17 +185,30 @@ public class CP_Client extends Thread {
 
 					case 2101: // 가입
 						vo = new VO();
-						vo = p.getVo(); // 가입창의 정보를 가져옴
+						vo = p.getVo();
 						if (vo != null) {
-							System.out.println("cp옴");
-							DAO.setInsertJoinFields(vo); // 가입 정보를 DB에 삽입
-							System.out.println("정보가져옴");
+							DAO.setInsertJoinFields(vo);
+							//System.out.println("정보가져옴");
 						} else {
 							System.out.println("정보못가져옴");
 						}
-						p.setVo(vo); // 업데이트된 VO를 프로토콜 객체에 설정
+						p.setVo(vo);
 						p.setResult(1);
-						System.out.println("정보넘김");
+						out.writeObject(p);
+						out.flush();
+						break;		
+					case 2103: // 비번 번경
+						vo = new VO();
+						vo = p.getVo();
+						if (vo != null) {
+							System.out.println("cp-vo:"+vo);
+							DAO.setMemberPw(vo);
+							//System.out.println("정보가져옴");
+						} else {
+							System.out.println("정보 못 가져옴");
+						}
+						p.setVo(vo);
+						p.setResult(1);
 						out.writeObject(p);
 						out.flush();
 						break;

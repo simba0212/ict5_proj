@@ -9,14 +9,16 @@ import com.ict5.client.panel.UserTop;
 
 
 public class Client_PassChange extends JPanel {
-    Client_main main;
-
+	public Client_main main;
+    public PassChange pwchan;
+    public UserTop usertop;
     public Client_PassChange(Client_main main) {
         this.main = main;
-
+        pwchan = new PassChange(main);
+        usertop = new UserTop(main, true);
         setLayout(new BorderLayout());
-		add(new UserTop(main, true),BorderLayout.NORTH);
-		add(new PassChange(main),BorderLayout.CENTER);
+        add(usertop, BorderLayout.NORTH);//
+        add(pwchan, BorderLayout.CENTER);
 	
     }
 }

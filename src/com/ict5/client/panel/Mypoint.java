@@ -89,4 +89,6 @@ private static JPanel createPanel() {
 
 	return panel;
 }
+public void refresh() {	
+}
 }

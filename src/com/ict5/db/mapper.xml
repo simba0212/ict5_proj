@@ -152,4 +152,13 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		where m.member_num = a.member_num
 	</select>
 
+	<select id="checkCurrentPassword" parameterType="com.ict5.db.VO">
+		select COUNT(*) from MEMBER_T where member_pw = #{member_pw}
+	</select>
+
+	<update id="updatePassword" parameterType="com.ict5.db.VO">
+    UPDATE MEMBER_T SET member_pw = #{new_pw} WHERE member_id = #{member_id} AND member_pw = #{old_pw}
+	</update>
+
+   
 </mapper>

@@ -57,4 +57,7 @@ public class ChargeP3 extends JPanel {
 		});
 
 	}
+
+	public void refresh() {	
+	}
 }
