@@ -155,8 +155,19 @@ public class TimeTable extends JPanel {
 			List<VO> list = main.list;
 			if (list != null) {
 				for (VO vo : list) {
+					
+					String voDate = vo.getClass_date();
+					String dateOnly = voDate.split(" ")[0];
+					
+	                // vo의 날짜 정보가 date2와 일치하는 경우에만 처리
+	                if (dateOnly.equals(date2)) {
+	                    String teacherName = vo.getTeacher_name();
+	                    String classType = vo.getClass_type();
+	                    int classTime = Integer.parseInt(vo.getClass_time());
+
+					
 //					String classType = "";
-					String teacherName = vo.getTeacher_name();
+//					String teacherName = vo.getTeacher_name();
 
 					switch (vo.getClass_type()) {
 					case "1":
@@ -440,6 +451,7 @@ public class TimeTable extends JPanel {
 					}
 
 					System.out.println(vo.getClass_type() + vo.getClass_time());
+	                }
 				}
 			} else {
 				System.out.println("테이블 실패");
