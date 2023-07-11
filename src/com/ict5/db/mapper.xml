@@ -154,7 +154,8 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	
 	<select id="sel_class_noice" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 	SELECT * FROM class c INNER JOIN book b on c.class_num=b.class_num
-	WHERE c.class_date <![CDATA[>=]]> TRUNC(SYSDATE) AND c.class_date <![CDATA[<]]> TRUNC(SYSDATE) + 8 And b.member_num=#{member_num}
+	WHERE c.class_date <![CDATA[>=]]> TRUNC(SYSDATE) AND c.class_date <![CDATA[<]]> TRUNC(SYSDATE) + 8 And b.member_num=#{member_num} 
+	ORDER BY c.class_date, c.class_time
 	</select>
 
 </mapper>
