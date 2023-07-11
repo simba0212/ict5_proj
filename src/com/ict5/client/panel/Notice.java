@@ -37,20 +37,14 @@ public class Notice extends JPanel {
 	private static JPanel createPanel(int i,List<VO> list) {
 		String str= "";
 		LocalDate currentDate = LocalDate.now();
-		
+		String str3="";
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 2,10,5));
 		panel.setMaximumSize(new Dimension(500,100));
 		panel.setPreferredSize(new Dimension(100, 100));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-        if(currentDate.toString().equals(list.get(i).getClass_date().substring(0,10))) {
-//        	str 에 수업 남은시간 표시LocalDateTime currentDateTime = LocalDateTime.now();
-	        LocalTime currentTime = LocalTime.now();
-	        String str2 = String.valueOf(currentTime).substring(0,5);
-	        System.out.println(str2);
-	        switch (list.get(i).getClass_time()) {
+		switch (list.get(i).getClass_time()) {
     		case "1":str="09:00";	break;
     		case "2":str="10:00";break;
     		case "3":str="11:00";break;
@@ -63,8 +57,17 @@ public class Notice extends JPanel {
     		case "10":str="18:00";break;
     		case "11":str="19:00";break;
     		case "12":str="20:00";break;
-    	
     		}
+        if(currentDate.toString().equals(list.get(i).getClass_date().substring(0,10))) {
+//        	str 에 수업 남은시간 표시LocalDateTime currentDateTime = LocalDateTime.now();
+	        LocalTime currentTime = LocalTime.now();
+	        String str2 = String.valueOf(currentTime).substring(0,5);
+	        System.out.println(str2);
+	        
+    	
+    		
+	        
+	        
 	        // 시간 문자열을 LocalTime으로 파싱
 	        LocalTime localTime1 = LocalTime.parse(str2);
 	        LocalTime localTime2 = LocalTime.parse(str);
@@ -90,15 +93,15 @@ public class Notice extends JPanel {
         	LocalDate compareDate = LocalDate.parse(list.get(i).getClass_date().substring(0,10));
         	long daysDifference = ChronoUnit.DAYS.between(currentDate, compareDate);
         	
-        	str= String.valueOf(daysDifference);
-        	panel.add(new JLabel(str+"일 후 수업입니다",JLabel.LEFT));
+        	str3= String.valueOf(daysDifference);
+        	panel.add(new JLabel(str3+"일 후 수업입니다",JLabel.LEFT));
         }
 		
 		panel.add(new JLabel("",JLabel.RIGHT));
-		panel.add(new JLabel(" 늦지 않도록 도착하세요~",JLabel.LEFT));
+		panel.add(new JLabel(list.get(i).getTeacher_name(),JLabel.LEFT));
 		panel.add(new JLabel());
-		panel.add(new JLabel());
-		panel.add(new JLabel(list.get(i).getClass_date().substring(0,10) ,JLabel.RIGHT));
+		panel.add(new JLabel(list.get(i).getClass_room()));
+		panel.add(new JLabel(list.get(i).getClass_date().substring(0,10)+"     "+str+"시 수업" ,JLabel.RIGHT));
 		
 		return panel;
 	}
