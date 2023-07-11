@@ -110,7 +110,7 @@ public class Reservation_bottom extends JPanel {
 						vo = main.vo;
 						vo.setClass_num(list.get(i).getClass_num());
 						vo.setMember_num(main.usernum);
-						p.setCmd(2305);
+						p.setCmd(2901);
 						p.setVo(vo);
 						main.out.writeObject(p);
 						main.out.flush();

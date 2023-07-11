@@ -129,6 +129,8 @@ public class Client_Login extends JPanel {
 				vo.setMember_pw(pw_tf.getText());
 				p.setCmd(2001);
 				p.setVo(vo);
+				
+				
 				main.out.writeObject(p);
 				main.out.flush();
 			} catch (IOException e1) {

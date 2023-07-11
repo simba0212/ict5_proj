@@ -13,6 +13,7 @@ import com.ict5.admin.panel.TimeTable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CP_Client extends Thread {
 	Socket s;
 	DB_Server server;
@@ -165,7 +166,6 @@ public class CP_Client extends Thread {
 
 					case 2001: // 클라이언트 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
-
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
@@ -225,6 +225,13 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 2305:
+						list = DAO.sel_class_noice(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 2901:
 						result = DAO.getInsert_attenedent(vo);
 						out.writeObject(p);
 						out.flush();

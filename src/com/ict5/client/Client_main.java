@@ -92,7 +92,7 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("myPo", myPo); // 포인트이력
 		pg1.add("pwChan", pwChan); // 비밀번호 변경
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 //		pg1.add("페이지명",객체이름);
 		
 		add(pg1);
@@ -145,9 +145,10 @@ public class Client_main extends JFrame implements Runnable {
 						break esc;
 					case 2001:
 						if (p.getResult() == 1) {
+							
 							cardlayout.show(pg1, "home");
-							refreshAll();
 							usernum=vo.getMember_num();
+							refreshAll();
 						} else {
 							System.out.println("실패");
 						}
@@ -169,7 +170,12 @@ public class Client_main extends JFrame implements Runnable {
 						 list = p.getList();
 						 tab.reservation.rb.refresh();
 						break;
-						
+					case 2305: // 알림 탭에 표시할 수업정보 가져오기
+						 list = p.getList();
+						 tab.noti.refresh(1);
+						 
+						break;
+					
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");
@@ -186,6 +192,9 @@ public class Client_main extends JFrame implements Runnable {
 							System.out.println("실패");
 						}
 						break;	
+						
+					case 2901: // 출헉살때 사용한 insert가 완료됏을때
+						//작성필요 
 					}
 				
 				}
@@ -202,7 +211,7 @@ public class Client_main extends JFrame implements Runnable {
 		home.usertop.refresh();
 		tab.usertop.refresh();
 		home.home.refresh();
-		tab.noti.refresh();
+		tab.noti.refresh(0);
 	}
 	
 

@@ -182,4 +182,9 @@ public class DAO {
 		List<VO> list = getSession().selectList("getApproveList");
 		return list;
 	}
+	public static List<VO> sel_class_noice(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_class_noice",vo);
+		return list;
+	}
+	
 }
