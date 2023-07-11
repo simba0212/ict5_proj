@@ -92,7 +92,7 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("myPo", myPo); // 포인트이력
 		pg1.add("pwChan", pwChan); // 비밀번호 변경
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 //		pg1.add("페이지명",객체이름);
 		
 		add(pg1);

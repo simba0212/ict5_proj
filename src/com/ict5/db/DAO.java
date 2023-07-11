@@ -182,4 +182,9 @@ public class DAO {
 		List<VO> list = getSession().selectList("getApproveList");
 		return list;
 	}
+
+	public static int setApprove(VO vo) {
+		int result = getSession().update("setApprove",vo);
+		return result;
+	}
 }

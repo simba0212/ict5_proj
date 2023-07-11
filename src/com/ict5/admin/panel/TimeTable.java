@@ -130,7 +130,7 @@ public class TimeTable extends JPanel {
 				LocalDate nextDate = currentDate.plusDays(1);
 				date2 = nextDate.toString();
 				date.setText(date2);
-				
+
 			}
 		});
 
@@ -141,7 +141,6 @@ public class TimeTable extends JPanel {
 				LocalDate previousDate = currentDate.minusDays(1);
 				date2 = previousDate.toString();
 				date.setText(date2);
-				
 
 			}
 		});
@@ -149,12 +148,9 @@ public class TimeTable extends JPanel {
 	}
 
 	public void Date() {
-
 		try {
-			main.cardlayout.show(main.pg1, "home");
 			// 응답 받은 후 list를 확인
-			Protocol response = (Protocol) main.in.readObject();
-			List<VO> list = response.getList();
+			List<VO> list = main.list;
 			if (list != null) {
 				for (VO vo : list) {
 //					String classType = "";
@@ -440,22 +436,14 @@ public class TimeTable extends JPanel {
 						teacherName = "알 수 없는 타입";
 						break;
 					}
-
-					System.out.println(vo.getClass_type() + vo.getClass_time());
 				}
 			} else {
-				System.out.println("테이블 실패");
 			}
-		} catch (IOException | ClassNotFoundException e) {
+			main.cardlayout.show(main.pg1, "home");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-//		Protocol p = new Protocol();
-//		p.setCmd(1003);
-//		main.out.writeObject(p);
-//		main.out.flush();
 	}
-
 }
 
 class ButtonRenderer extends DefaultTableCellRenderer {

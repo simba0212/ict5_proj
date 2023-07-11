@@ -147,9 +147,13 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	</insert>
 	
 	<select id="getApproveList" resultType="com.ict5.db.VO">
-		select m.member_num, m.member_name, m.member_id, m.member_phone, m.member_point, a.point_money, a.point_signup_date, a.point_charge_date
+		select m.member_num, m.member_name, m.member_id, m.member_phone, m.member_point,a.charge_num, a.point_approve, a.point_money, a.point_signup_date, a.point_charge_date
 		from member_t m,  pointapprove a
 		where m.member_num = a.member_num
 	</select>
+	
+	<update id="setApprove" parameterType="com.ict5.db.VO">
+		update pointapprove SET point_approve = TRUNC (sysdate) where charge_num = #{charge_num}
+	</update>
 
 </mapper>
