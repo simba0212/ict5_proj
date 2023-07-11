@@ -52,9 +52,10 @@ public class DAO {
 			return null;
 		}
 	}
+	
 	public static VO getLoginChk_Admin(VO vo) {
-		
 		vo = getSession().selectOne("loginChk_Admin", vo);
+		
 		if(vo != null) {
 			return vo;
 		}else {

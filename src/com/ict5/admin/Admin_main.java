@@ -87,7 +87,7 @@ public class Admin_main extends JFrame implements Runnable {
 		add(pg1);
 
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -151,8 +151,8 @@ public class Admin_main extends JFrame implements Runnable {
 							System.out.println("테이블 성공 111");
 						} else {
 							System.out.println("테이블 실패 222");
-							break;
 						}
+						break;
 
 
 					case 1201: // 회원목록 불러오기

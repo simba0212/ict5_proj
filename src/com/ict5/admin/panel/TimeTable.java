@@ -130,7 +130,7 @@ public class TimeTable extends JPanel {
 				LocalDate nextDate = currentDate.plusDays(1);
 				date2 = nextDate.toString();
 				date.setText(date2);
-				
+				Date();
 			}
 		});
 
@@ -141,8 +141,7 @@ public class TimeTable extends JPanel {
 				LocalDate previousDate = currentDate.minusDays(1);
 				date2 = previousDate.toString();
 				date.setText(date2);
-				
-
+				Date();
 			}
 		});
 
@@ -153,8 +152,7 @@ public class TimeTable extends JPanel {
 		try {
 			main.cardlayout.show(main.pg1, "home");
 			// 응답 받은 후 list를 확인
-			Protocol response = (Protocol) main.in.readObject();
-			List<VO> list = response.getList();
+			List<VO> list = main.list;
 			if (list != null) {
 				for (VO vo : list) {
 //					String classType = "";
@@ -446,7 +444,7 @@ public class TimeTable extends JPanel {
 			} else {
 				System.out.println("테이블 실패");
 			}
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

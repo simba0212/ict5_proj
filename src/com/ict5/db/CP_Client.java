@@ -59,8 +59,11 @@ public class CP_Client extends Thread {
 							// 로그인 성공
 							p.setResult(1);
 							System.out.println("로그인성공!");
+							
 						} else {
+							p.setResult(0);
 							System.out.println("로그인실패");
+							
 						}
 						out.writeObject(p);
 						out.flush();
@@ -70,23 +73,23 @@ public class CP_Client extends Thread {
 						list = DAO.getToday();
 					    p.setList(list);
 					    
+					     if (p.getList() != null) {
+					        p.setResult(1);
+					        System.out.println("테이블 성공");
+					      
+					    } else {
+					    	p.setResult(0);
+					        System.out.println("테이블 실패");
+					    }
 					    out.writeObject(p);
 					    out.flush();
 					    
-					    
-					    for (VO vo1 : list) {
-					        System.out.println(vo1.getClass_time());
-					    }
-
-					    if (p.getList() != null) {
-					        p.setResult(1);
-					        System.out.println("테이블 성공");
-
-					    } else {
-					        System.out.println("테이블 실패");
-					    }
-
 					    break;
+					    
+					  
+
+					   
+
 
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
