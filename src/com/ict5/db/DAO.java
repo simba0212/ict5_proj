@@ -1,5 +1,6 @@
 package com.ict5.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,6 +52,15 @@ public class DAO {
 			return null;
 		}
 	}
+	public static VO getLoginChk_Admin(VO vo) {
+		
+		vo = getSession().selectOne("loginChk_Admin", vo);
+		if(vo != null) {
+			return vo;
+		}else {
+			return null;
+		}
+	}
 
 	public static String getNotice() {
 		List<VO> list = null;
@@ -65,6 +75,13 @@ public class DAO {
 		return vo;
 	}
 	
+	public static List<VO> getToday() {
+		List<VO> list = null;
+		list = getSession().selectList("todayclass");
+		
+		return list;
+	}
+
 	public static VO getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();

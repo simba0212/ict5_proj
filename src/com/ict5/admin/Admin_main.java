@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.db.CP_Client;
+import com.ict5.db.DB_Server;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -20,8 +22,10 @@ public class Admin_main extends JFrame implements Runnable {
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
 	public VO vo;
+
 	public List<VO> list;
 	public String admin_id;
+
 
 	public CardLayout cardlayout;
 	public JPanel pg1;
@@ -90,6 +94,7 @@ public class Admin_main extends JFrame implements Runnable {
 		setSize(1280, 840);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+
 	}
 
 	// 접속
@@ -124,9 +129,32 @@ public class Admin_main extends JFrame implements Runnable {
 					Protocol p = (Protocol) obj;
 					list = p.getList();
 					vo = p.getVo();
+
 					switch (p.getCmd()) {
-					case 1101:
+					case 0:
 						break esc;
+
+					case 1001:
+						if (p.getResult() == 1) {
+							
+							p.setCmd(1002);
+							out.writeObject(p);
+							out.flush();
+						} else {
+							System.out.println("실패");
+							break ;
+						}
+
+					case 1002:
+						if (p.getResult() == 1) {
+							home.timetable.Date();
+							System.out.println("테이블 성공 111");
+						} else {
+							System.out.println("테이블 실패 222");
+							break;
+						}
+
+
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();
 						break;
@@ -161,6 +189,7 @@ public class Admin_main extends JFrame implements Runnable {
 							System.out.println("공지등록실패");
 						}
 						break;
+
 					}
 				}
 			} catch (Exception e) {

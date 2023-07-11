@@ -31,7 +31,16 @@
 		select * from bookedclass where member_num = #{member_num}
 		order by book_date desc
 	</select>
+	<select id="loginChk_Admin" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from
+		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
+	</select>
 	
+	<select id="todayclass" resultType="com.ict5.db.VO">
+		SELECT * FROM CLASS_TEACHER WHERE class_date = TRUNC(SYSDATE)
+	</select>
+	
+		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num}

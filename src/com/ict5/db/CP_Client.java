@@ -4,6 +4,11 @@ import java.io.ObjectInputStream;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ict5.admin.Admin_main;
+import com.ict5.admin.panel.TimeTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,8 @@ public class CP_Client extends Thread {
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
+	
+	
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -38,13 +45,48 @@ public class CP_Client extends Thread {
 					list = p.getList();
 
 					switch (p.getCmd()) {
+					
 					case 0:
 						out.writeObject(p);
 						out.flush();
 						break;
 
 					case 1001: // 관리자 로그인
+						vo = p.getVo();
+						vo = DAO.getLoginChk_Admin(vo);
+						p.setVo(vo);
+						if (vo != null) {
+							// 로그인 성공
+							p.setResult(1);
+							System.out.println("로그인성공!");
+						} else {
+							System.out.println("로그인실패");
+						}
+						out.writeObject(p);
+						out.flush();
 						break;
+
+					case 1002:
+						list = DAO.getToday();
+					    p.setList(list);
+					    
+					    out.writeObject(p);
+					    out.flush();
+					    
+					    
+					    for (VO vo1 : list) {
+					        System.out.println(vo1.getClass_time());
+					    }
+
+					    if (p.getList() != null) {
+					        p.setResult(1);
+					        System.out.println("테이블 성공");
+
+					    } else {
+					        System.out.println("테이블 실패");
+					    }
+
+					    break;
 
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
@@ -139,6 +181,8 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 
+				
+
 					case 2101: // 가입
 						vo = new VO();
 						vo = p.getVo(); // 가입창의 정보를 가져옴
@@ -185,6 +229,10 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
+
+
+						
 
 					}
 
