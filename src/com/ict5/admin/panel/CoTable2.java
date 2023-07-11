@@ -43,6 +43,7 @@ public class CoTable2 extends JPanel {
     JComboBox<Integer> resultsComboBox;
     DefaultTableModel model;
     DefaultTableModel model1;
+    JLabel classLabel;
     
 
     public CoTable2(Admin_main main) {
@@ -118,7 +119,7 @@ public class CoTable2 extends JPanel {
             // 필요하면 더하기
         };
 
-        Object[] columnNames = {"이름", "전화번호", "성별", "담당운동", "삭제버튼"};
+        Object[] columnNames = {"번호", "이름", "전화번호", "성별", "담당운동", "삭제버튼"};
         model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -145,7 +146,7 @@ public class CoTable2 extends JPanel {
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel classLabel = new JLabel("OOO 선생님 담당 수업");
+    	classLabel = new JLabel("OOO 선생님 담당 수업");
         classLabel.setFont(classLabel.getFont().deriveFont(Font.BOLD, 20f));
         rightPanel.add(classLabel, BorderLayout.NORTH);
 
@@ -181,22 +182,27 @@ public class CoTable2 extends JPanel {
     	
     	public void refresh1() {// 선생님 한명정보 불러오기
     		VO vo = main.vo;
+    		System.out.println("테이블리스"+vo.getTeacher_num());
     		//String type="";
-    		model.setValueAt(vo.getTeacher_name(),0,0);
-    		model.setValueAt(vo.getTeacher_phone(), 0, 1);
-    		model.setValueAt(vo.getTeacher_gen(), 0, 2);
+    		
+    		classLabel.setText(vo.getTeacher_name()+ " 선생님 담당 수업");
+    		
+    		model.setValueAt(vo.getTeacher_num(),0,0);
+    		model.setValueAt(vo.getTeacher_name(),0,1);
+    		model.setValueAt(vo.getTeacher_phone(), 0, 2);
+    		model.setValueAt(vo.getTeacher_gen(), 0, 3);
     		switch (Integer.parseInt(vo.getTeacher_type())) {
 			case 1:
-				model.setValueAt("헬스", 0, 3);
+				model.setValueAt("헬스", 0, 4);
 				break;
 			case 2:
-				model.setValueAt("요가", 0, 3);
+				model.setValueAt("요가", 0, 4);
 				break;
 			case 3:
-				model.setValueAt("수영", 0, 3);
+				model.setValueAt("수영", 0, 4);
 				break;
 			case 4:
-				model.setValueAt("필라테스", 0, 3);
+				model.setValueAt("필라테스", 0, 4);
 				break;
 			}
     		
@@ -293,10 +299,12 @@ public class CoTable2 extends JPanel {
             button.setOpaque(true);
             button.addActionListener(e -> fireEditingStopped());
             
-            button.addMouseListener(new MouseAdapter() {
-            	@Override
-            	public void mouseClicked(MouseEvent e) {
+            button.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
             		try {
+            			System.out.println("삭제버튼 눌렀어욤");
             			Protocol p = new Protocol();
     					VO vo = new VO();
     					p.setCmd(1310);

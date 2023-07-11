@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -234,7 +235,7 @@ public class CoTable1 extends JPanel {
 	
 	public void refresh() { // 테이블 최신화
 		model.setRowCount(0);
-		List<VO> list = main.list;
+		List<VO> list = DAO.getCoachList();
 		for (VO k : list) {
 			
 			Vector<Object> rowData = new Vector<>();

@@ -198,8 +198,19 @@ public class DAO {
 		List<VO> list = getSession().selectList("getTeacherClass",vo);
 		return list;
 	}
-	public static List<VO> getdeleteteacher(VO vo) {
-		List<VO> list = getSession().selectList("getdeleteteacher",vo);
-		return list;
+	public static int getDeleteTeacher(VO vo) {
+//		String resultStr = "success";
+//		try {
+//			int result = getSession().update("getDeleteTeacher",vo);
+//			System.out.println("삭제 건수 : " + result);
+//			
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			resultStr = e.getMessage();
+//			
+//		}
+//		return resultStr;
+		return getSession().update("getDeleteTeacher",vo);
 	}
 }

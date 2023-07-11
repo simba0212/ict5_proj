@@ -62,8 +62,9 @@
 	</select>
 		
 	<select id="getCoachList" resultType="com.ict5.db.VO">
-		select * from teacher order
-		by teacher_num
+		select * from teacher 
+	 	where use_yn = 'Y'
+		order by teacher_num 
 	</select>
 
 	<select id="getPoint" resultType="com.ict5.db.VO">
@@ -114,7 +115,8 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 							teacher_gen,
 							teacher_career,
 							teacher_img,
-							teacher_type)
+							teacher_type,
+							use_yn)
 		values(
 							teacher_seq.nextval,
 							#{teacher_name},
@@ -123,7 +125,8 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 							#{teacher_gen},
 							#{teacher_career},
 							#{teacher_img},
-							#{teacher_type})
+							#{teacher_type},
+							'Y')
 	</insert>
 	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
@@ -167,7 +170,9 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		select class_res,class_room,class_date,class_time from class where teacher_num =#{teacher_num};
 	</select>
 	
-	<delete id="getdeleteteacher" parameterType="com.ict5.db.VO">
-	delete
-	</delete>
+	<update id="getDeleteTeacher" parameterType="com.ict5.db.VO">
+	update teacher 
+	set  use_yn = 'N'
+	where teacher_num=#{teacher_num}
+	</update>
 </mapper>

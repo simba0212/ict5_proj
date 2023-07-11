@@ -154,8 +154,11 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 1310: // 강사 삭제
-						list= DAO.getdeleteteacher(vo);
-						p.setList(list);
+						System.out.println("CP옴 강사 클라이언삭제"+vo.getTeacher_num());
+						int deleteTeacherResult = DAO.getDeleteTeacher(vo);
+						
+						System.out.println("delete 결과 :: " + deleteTeacherResult);
+						p.setResult(deleteTeacherResult);
 						out.writeObject(p);
 						out.flush();
 						break;

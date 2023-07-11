@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import com.ict5.db.CP_Client;
+import com.ict5.db.DAO;
 import com.ict5.db.DB_Server;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -87,7 +88,7 @@ public class Admin_main extends JFrame implements Runnable {
 		add(pg1);
 
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -187,6 +188,14 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 					case 1304: // 회원 세부정보 => 수업예약내역
 						coMg2.coTable2.refresh2();// 예약내역
+						break;
+					case 1310:
+						System.out.println("작업하고옴  " + p.getResult());
+
+						if (p.getResult() == 1) {
+							//리스트 재조회
+							coMg1.coTable1.refresh();
+						}
 						break;
 					case 1318: // 강사 등록하기
 						p.setCmd(1301);
