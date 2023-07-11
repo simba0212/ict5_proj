@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Protocol implements Serializable{
 	// 1.로그인
+	// 1318.강사등록
 	public int cmd;
 	public int result ;
 	public List<VO> list;

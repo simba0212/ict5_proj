@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -26,11 +27,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.VO;
 
 public class Point_MgmtSub extends JPanel {
 	Admin_main main;
 	CardLayout cardLayout;
-	
+	DefaultTableModel model;
+
 	public Point_MgmtSub(Admin_main main) {
 		this.main = main;
 
@@ -40,25 +43,25 @@ public class Point_MgmtSub extends JPanel {
 		JPanel jp2_1 = new JPanel(new BorderLayout());
 
 		JLabel jl1 = new JLabel("회원관리");
-		jl1.setFont(jl1.getFont().deriveFont(Font.BOLD,17f));
+		jl1.setFont(jl1.getFont().deriveFont(Font.BOLD, 17f));
 		jl1.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
 		jp1_1.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		// "포인트관리" 버튼 생성
-		JLabel pointManagementLabel = new JLabel("회원검색");
-		pointManagementLabel.setFont(pointManagementLabel.getFont().deriveFont(Font.BOLD,17f));
-		pointManagementLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		jp1_1.add(pointManagementLabel);
-		
-		// Create the "회원검색" button
-		JLabel memberSearchLabel = new JLabel("포인트관리");
-		memberSearchLabel.setFont(memberSearchLabel.getFont().deriveFont(Font.BOLD,17f));
+		JLabel memberSearchLabel = new JLabel("회원검색");
+		memberSearchLabel.setFont(memberSearchLabel.getFont().deriveFont(Font.BOLD, 17f));
 		memberSearchLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		jp1_1.add(memberSearchLabel);
 
+		// Create the "회원검색" button
+		JLabel pointManagementLabel = new JLabel("포인트관리");
+		pointManagementLabel.setFont(pointManagementLabel.getFont().deriveFont(Font.BOLD, 17f));
+		pointManagementLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jp1_1.add(pointManagementLabel);
+
 		// JPanel에 "회원검색" 버튼 추가
-		jp1_1.add(pointManagementLabel, BorderLayout.EAST);
 		jp1_1.add(memberSearchLabel, BorderLayout.EAST);
+		jp1_1.add(pointManagementLabel, BorderLayout.EAST);
 
 		jp1.add(jl1, BorderLayout.WEST);
 
@@ -78,16 +81,12 @@ public class Point_MgmtSub extends JPanel {
 		String[] columnNames = { "회원번호", "이름", "ID", "전화번호", "보유 포인트", "신청 포인트", "신청 날짜", "입금상태", "승인 여부" };
 
 		// 테이블 모델 생성
-		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-		// 데이터 추가
-		for (int i = 1; i <= rowCount; i++) {
-			Object[] rowData = { i, "노종문씨", "idsmsrlftneh", "010-1234-1234", "12345", "45678", "1999-12-34", "입금",
-					"승인" };
-
-			model.addRow(rowData);
-		}
-
+		model = new DefaultTableModel(columnNames, 0);
+		Object[] rowData = { "test","test","test","test","test","test","test","test","test"};
+		model.addRow(rowData);
+		model.addRow(rowData);
+		model.addRow(rowData);
+		model.addRow(rowData);
 		// 버튼을 렌더링하는 TableCellRenderer 구현
 		class ButtonRenderer extends JButton implements TableCellRenderer {
 			public ButtonRenderer() {
@@ -96,6 +95,10 @@ public class Point_MgmtSub extends JPanel {
 
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
+				
+				if(value.toString().equals("")||value==null) {
+					return null;
+				}
 				setText(value.toString());
 				return this;
 			}
@@ -103,6 +106,7 @@ public class Point_MgmtSub extends JPanel {
 
 		// 버튼을 편집하는 TableCellEditor 구현
 		class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
+			
 			private JButton button;
 
 			public ButtonEditor() {
@@ -117,6 +121,9 @@ public class Point_MgmtSub extends JPanel {
 			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
 					int column) {
 				button.setText(value.toString());
+				if(value.toString().equals("")||value==null) {
+					return null;
+				}
 				return button;
 			}
 
@@ -150,7 +157,7 @@ public class Point_MgmtSub extends JPanel {
 
 		// 테이블을 담을 스크롤 패널 생성
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setPreferredSize(new Dimension(table.getPreferredSize().width, table.getPreferredSize().height));
+		scrollPane.setPreferredSize(new Dimension(700,500));
 
 		// 프레임 생성 및 테이블 스크롤 패널 추가
 		add(jp1);
@@ -158,52 +165,69 @@ public class Point_MgmtSub extends JPanel {
 		add(scrollPane);
 
 		// 데이터 클릭 이벤트 리스너 등록
-		table.addMouseListener(new MouseAdapter() {
+//		table.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				int row = table.getSelectedRow();
+//				int column = table.getSelectedColumn();
+//				if (column == 8) {
+//					// "승인 여부" 열의 버튼 클릭 동작 수행
+//					System.out.println("승인 여부 버튼 클릭됨");
+//					// 추가 동작 수행
+//				}
+//			}
+//		});
+
+		pointManagementLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = table.getSelectedRow();
-				int column = table.getSelectedColumn();
-				if (column == 8) {
-					// "승인 여부" 열의 버튼 클릭 동작 수행
-					System.out.println("승인 여부 버튼 클릭됨");
-					// 추가 동작 수행
-				}
+			public void mouseEntered(MouseEvent e) {
+				pointManagementLabel.setForeground(Color.red);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				pointManagementLabel.setForeground(Color.black);
 			}
 		});
-		
-		memberSearchLabel.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        memberSearchLabel.setForeground(Color.red);
-		    }
-		    
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        memberSearchLabel.setForeground(Color.black);
-		    }
-		});
-		
-		
-		
+
 		jl1.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		    	jl1.setForeground(Color.red);
-		    }
-		    
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		    	jl1.setForeground(Color.black);
-		    }
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				jl1.setForeground(Color.red);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				jl1.setForeground(Color.black);
+			}
 		});
-		
+
 		jl1.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
-		    }
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+			}
 		});
-		
-		
+	}
+
+	public void refresh() {
+		// 데이터 추가
+		model.setRowCount(0);
+		List<VO> list = main.list;
+		for (VO k : list) {
+			String approve="";
+			if(k.getPoint_charge_date()!=null) {
+				approve="승인";
+				k.setPoint_charge_date(k.getPoint_charge_date().substring(0,10));
+			}else {
+			}
+			if(k.getPoint_signup_date()!=null) {
+				k.setPoint_signup_date(k.getPoint_signup_date().substring(0,10));
+			}
+			Object[] rowData = { k.getMember_num(), k.getMember_name(), k.getMember_id(),k.getMember_phone(), k.getMember_point(),
+					k.getPoint_money(), k.getPoint_signup_date(), k.getPoint_charge_date(),	approve };
+			model.addRow(rowData);
+
+		}
 	}
 }

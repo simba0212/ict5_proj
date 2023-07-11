@@ -4,8 +4,9 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ict5.db.DAO">
 
-	<select id="memberlist" resultType="com.ict5.db.VO">
+	<select id="getMemberList" resultType="com.ict5.db.VO">
 		select * from MEMBER_T
+		order by member_num desc
 	</select>
 
 	<select id="loginChk" parameterType="com.ict5.db.VO"
@@ -24,6 +25,22 @@
 		select * from class order
 		by notice_num desc
 	</select>
+	
+	<select id="getBookedClass" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from bookedclass where member_num = #{member_num}
+		order by book_date desc
+	</select>
+	<select id="loginChk_Admin" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from
+		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
+	</select>
+	
+	<select id="todayclass" resultType="com.ict5.db.VO">
+		SELECT * FROM CLASS_TEACHER WHERE class_date = TRUNC(SYSDATE)
+	</select>
+	
+		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from bookedclass where member_num = #{member_num}
@@ -40,9 +57,23 @@
     	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
 	</select>
 	
-	
+	<select id="getPointList" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from point where member_num = #{member_num}
+	</select>
+		
 	<select id="getCoachList" resultType="com.ict5.db.VO">
-		select * from teacher order by teacher_num
+		select * from teacher order
+		by teacher_num
+	</select>
+
+	<select id="getPoint" resultType="com.ict5.db.VO">
+		select * from point order by
+		point_num
+	</select>
+
+	<select id="getMemberSearch" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_name =#{member_name}
 	</select>
 	
 	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2304 / 
@@ -68,6 +99,33 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		insert into book (book_num,book_date,class_num,member_num)
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>
+	
+	<select id="getMemberOne" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from MEMBER_T where member_num =#{member_num}
+	</select>
+
+	<insert id="teacherIns" parameterType="com.ict5.db.VO">
+		insert into teacher(
+							teacher_num,
+							teacher_name,
+							teacher_phone,
+							teacher_addr,
+							teacher_gen,
+							teacher_career,
+							teacher_img,
+							teacher_type)
+		values(
+							teacher_seq.nextval,
+							#{teacher_name},
+							#{teacher_phone},
+							#{teacher_addr},
+							#{teacher_gen},
+							#{teacher_career},
+							#{teacher_img},
+							#{teacher_type})
+	</insert>
+	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
  		 insert into MEMBER_T (
   		 	member_num, member_id, member_name, member_gen, member_birth,
@@ -78,5 +136,20 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
    	 		TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{member_signup_date}, 'YYYY-MM-DD HH24:MI:SS'),
     		#{member_addr}, #{member_pw}, #{member_mail}, 50000, null, null, #{member_phone})
 	</insert>
+
+	<insert  id="inNotice" parameterType="com.ict5.db.VO">
+	insert into notice(
+						notice_num,
+						notice_text)
+	values(
+			notice_seq.nextval, 
+			#{notice_text})
+	</insert>
+	
+	<select id="getApproveList" resultType="com.ict5.db.VO">
+		select m.member_num, m.member_name, m.member_id, m.member_phone, m.member_point, a.point_money, a.point_signup_date, a.point_charge_date
+		from member_t m,  pointapprove a
+		where m.member_num = a.member_num
+	</select>
 
 </mapper>

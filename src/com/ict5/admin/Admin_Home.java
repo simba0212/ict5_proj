@@ -14,13 +14,13 @@ import com.ict5.admin.panel.TimeTable;
 
 public class Admin_Home extends JPanel {
     Admin_main main;
-
+    TimeTable timetable;
     public Admin_Home(Admin_main main) {
         this.main = main;
-
+        timetable = new TimeTable(main);
         setLayout(new BorderLayout());
         add(new Navi(main), BorderLayout.NORTH);
-        add(new TimeTable(main), BorderLayout.WEST);
+        add(timetable, BorderLayout.WEST);
 
         JPanel jp_east = new JPanel(new BorderLayout());
         jp_east.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 0)); // 패널의 테두리 설정

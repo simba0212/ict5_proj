@@ -9,35 +9,45 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.ict5.admin.Admin_CoMgmt1;
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class CoMgmt4 extends JPanel {
 	CardLayout cardlayout;
 	JPanel pg1;
 
 	Admin_main main;
-	
-	
+	String filePath;
+	JTextField[] getTeacherFields;
+	CoTable1 coTable1;
+	Admin_CoMgmt1 coMg1;
+
 
 	public CoMgmt4(Admin_main main) {
 		this.main = main;
-		
+
 		setLayout(new BorderLayout());
-		
-		
+
 		// 상단 패널 생성
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout());
@@ -54,15 +64,14 @@ public class CoMgmt4 extends JPanel {
 		teacherManagementPanel.setPreferredSize(new Dimension(200, 30)); // 원하는 크기로 지정
 		topPanel.add(teacherManagementPanel, BorderLayout.WEST);
 
-
 		// "강사 등록" 라벨과 "강사 목록" 라벨을 포함하는 패널을 생성하여 오른쪽에 추가
 		JPanel labelsPanel = new JPanel();
 		labelsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		JLabel registerLabel = new JLabel("강사 등록");
-		registerLabel.setFont(registerLabel.getFont().deriveFont(Font.BOLD,17f));
+		registerLabel.setFont(registerLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(registerLabel);
 		JLabel listLabel = new JLabel("강사 목록");
-		listLabel.setFont(listLabel.getFont().deriveFont(Font.BOLD,17f));
+		listLabel.setFont(listLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(listLabel);
 		listLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 20, 20));
 		labelsPanel.setBackground(Color.lightGray); // 배경색을 회색으로 설정
@@ -77,7 +86,6 @@ public class CoMgmt4 extends JPanel {
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); // BoxLayout으로 변경
 		centerPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // 왼쪽 정렬 설정
 		centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 10, 80));
-		
 
 		// "수업 종류" 라디오 버튼 그룹을 포함한 패널 생성
 		JPanel coursePanel = new JPanel();
@@ -158,12 +166,11 @@ public class CoMgmt4 extends JPanel {
 		JPanel experiencePanel = new JPanel();
 		experiencePanel.setLayout(new BorderLayout());
 		experiencePanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 80, 50));
-		
 
 		// "경력사항" 레이블 생성
 		JLabel experienceLabel = new JLabel("경력사항");
-		experienceLabel.setFont(experienceLabel.getFont().deriveFont(Font.BOLD,17f));
-		
+		experienceLabel.setFont(experienceLabel.getFont().deriveFont(Font.BOLD, 17f));
+
 		// "경력사항" 텍스트 영역 생성
 		JTextArea experienceTextArea = new JTextArea(5, 20);
 		experienceTextArea.setLineWrap(true);
@@ -182,23 +189,22 @@ public class CoMgmt4 extends JPanel {
 		add(rightPanel, BorderLayout.EAST);
 
 		// 이미지 경로
-		String imagePath = "src/images/complete.png";
+		String imagePath = "src/images/photo.jpg";
 
 		// 이미지 레이블 생성
 		JLabel imageLabel = new JLabel();
 		ImageIcon imageIcon = new ImageIcon(imagePath);
-		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);  // 원하는 크기로 조정
+		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT); // 원하는 크기로 조정
 		imageLabel.setIcon(new ImageIcon(image));
-		
 
 		// 이미지 패널 생성
 		JPanel imagePanel = new JPanel();
 		imagePanel.setLayout(new BorderLayout());
-		
+
 		imagePanel.add(imageLabel, BorderLayout.CENTER);
 		add(imagePanel, BorderLayout.WEST);
 		imagePanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 10));
-		
+
 		// "사진 첨부" 버튼 생성
 		JButton attachButton = new JButton("사진 첨부");
 		attachButton.setFont(attachButton.getFont().deriveFont(17f));
@@ -208,11 +214,10 @@ public class CoMgmt4 extends JPanel {
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		buttonPanel.add(attachButton);
 		imagePanel.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		// 이미지 레이블을 이미지 패널의 가운데에 추가
 		imagePanel.add(imageLabel, BorderLayout.CENTER);
 		add(imagePanel, BorderLayout.WEST);
-
 
 		// 하단 패널 생성
 		JPanel bottomPanel = new JPanel();
@@ -221,7 +226,7 @@ public class CoMgmt4 extends JPanel {
 		// "등록" 버튼 생성
 		JButton addButton = new JButton("등록");
 		addButton.setFont(addButton.getFont().deriveFont(17f));
-		
+
 		// "수정" 버튼 생성
 		JButton editButton = new JButton("수정");
 		editButton.setFont(editButton.getFont().deriveFont(17f));
@@ -235,10 +240,102 @@ public class CoMgmt4 extends JPanel {
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
 		
+		//텍스트필드 모음
+		getTeacherFields= new JTextField[] {nameField,phoneField,addressField};
 		
+		VO vo = new VO();
+		// 이미지 첨부하는 버튼
+		attachButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JFileChooser fileChooser = new JFileChooser();
+	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
+	                if (option == JFileChooser.APPROVE_OPTION) {
+	                	 File selectedFile = fileChooser.getSelectedFile();
+	                     filePath = selectedFile.getAbsolutePath();
+	                	
+	                  // 이미지를 삽입하는 로직
+	                     ImageIcon imageIcon = new ImageIcon(filePath);
+	                     Image image = imageIcon.getImage();
+	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+	                     imageLabel.setIcon(scaledImageIcon);
+	                     
+	               	  if (filePath != null) {
+						  vo.setTeacher_img(filePath);
+					  }  
+	                }
+				} catch (Exception e2) {	
+				}
+			}
+		});
 		
-    }
+		//등록하는 버튼
+		addButton.addActionListener(e -> {
+			 boolean allTeacherFilled = true;
+				 for (JTextField textField : getTeacherFields) {
+				        if (textField.getText().trim().isEmpty()) {
+				        	allTeacherFilled = false;
+				            break;
+				        }
+				    }
+				  if (!allTeacherFilled) {
+				        JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				    }
+				  if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected() && !radioButton4.isSelected()) {
+					  JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					  return;
+				  }
+				  if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+				        JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				    }
+				  if (filePath == null) {
+					  JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				  }
+				  if (experienceTextArea.getText().isEmpty()) {
+					  JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				        return;
+				  }
+				JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
+				
+				String gender = "";
+				try {
+					Protocol p = new Protocol();
+					vo.setTeacher_name(nameField.getText().trim());// 이름
+					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+					vo.setTeacher_addr(addressField.getText().trim());// 주소		
+					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
+						if (maleRadioButton.isSelected()) {
+							gender = maleRadioButton.getText();
+						} else if (femaleRadioButton.isSelected()) {
+							gender = femaleRadioButton.getText();
+						}
+					vo.setTeacher_gen(gender);// 성별
 
-	
+					// 수업종류 숫자로 나타냄
+					String type = "1"; 
+					if (radioButton1.isSelected()) {
+						type = "1";
+					} else if (radioButton2.isSelected()) {
+						type = "2";
+					} else if (radioButton3.isSelected()) {
+						type = "3";
+					} else if (radioButton4.isSelected()) {
+						type = "4";
+					}
+					vo.setTeacher_type(type);
 
+					p.setVo(vo); 
+					p.setCmd(1318);
+					main.out.writeObject(p);
+					main.out.flush();
+					main.cardlayout.show(main.pg1, "coMg1");	
+				} catch (Exception e2) {
+				}		
+		});
+	}
 }

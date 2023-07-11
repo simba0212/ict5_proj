@@ -25,19 +25,16 @@ import com.ict5.db.Protocol;
 
 public class Navi extends JPanel {
 	Admin_main main;
-	CardLayout cardLayout;
 
 	// 새로고침, 회원검색 기능 추가해야됨
 
 	public Navi(Admin_main main) {
 		this.main = main;
-		this.cardLayout = main.cardlayout;
 		JPanel nav = new JPanel(new BorderLayout()); // 내비게이션패널
 		nav.setPreferredSize(new Dimension(1280, 120));
 		nav.setBackground(Color.white);
 
 		JPanel navN = new JPanel(new BorderLayout()); // 내비 첫줄
-//		navN.setPreferredSize(new Dimension(1280, 60));
 		navN.setBackground(Color.white);
 
 		// 내비게이션 위/왼쪽 NorthWest
@@ -130,7 +127,7 @@ public class Navi extends JPanel {
 		bt_back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "home"); // 이전 페이지로 전환
+				main.cardlayout.show(main.pg1, "home"); // 홈으로 이동
 			}
 		});
 
@@ -138,7 +135,7 @@ public class Navi extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "login");
+				main.cardlayout.show(main.pg1, "login");
 			}
 		});
 
@@ -146,7 +143,7 @@ public class Navi extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "classEdit");
+				main.cardlayout.show(main.pg1, "classEdit");
 			}
 		});
 
@@ -154,7 +151,7 @@ public class Navi extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "member");
+				main.cardlayout.show(main.pg1, "member");
 			}
 		});
 
@@ -162,7 +159,7 @@ public class Navi extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "checkagain");
+				main.cardlayout.show(main.pg1, "checkagain");
 			}
 		});
 
@@ -175,32 +172,16 @@ public class Navi extends JPanel {
 						Protocol p = new Protocol();
 						p.setCmd(1301);
 						main.out.writeObject(p);
-						cardLayout.show(main.pg1, "coMg1");
+						main.cardlayout.show(main.pg1, "coMg1");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-				}
-			}
-		});
 
-		dropdown3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown3.getSelectedItem();
-				if (selected.equals("강사스케줄")) {
-					cardLayout.show(main.pg1, "coMg2");
-				}
-			}
-		});
-
-		dropdown3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown3.getSelectedItem();
-				if (selected.equals("강사등록")) {
-					cardLayout.show(main.pg1, "coMg3");
+				} else if (selected.equals("강사스케줄")) {
+					main.cardlayout.show(main.pg1, "coMg2");
+				} else if (selected.equals("강사등록")) {
+					main.cardlayout.show(main.pg1, "coMg3");
 				}
 			}
 		});
@@ -210,27 +191,28 @@ public class Navi extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) dropdown2.getSelectedItem();
 				if (selected.equals("회원목록")) {
-					cardLayout.show(main.pg1, "member");
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1201);
+						main.out.writeObject(p);
+						main.out.flush();
+						main.cardlayout.show(main.pg1, "member");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+					
 				}
 			}
 		});
 
-		dropdown2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown2.getSelectedItem();
-				if (selected.equals("회원관리")) {
-					cardLayout.show(main.pg1, "member2");
-				}
-			}
-		});
 
 		dropdown2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) dropdown2.getSelectedItem();
 				if (selected.equals("포인트관리")) {
-					cardLayout.show(main.pg1, "checkagain");
+					main.cardlayout.show(main.pg1, "checkagain");
 				}
 			}
 		});
@@ -240,7 +222,7 @@ public class Navi extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) dropdown1.getSelectedItem();
 				if (selected.equals("수업등록 / 수정")) {
-					cardLayout.show(main.pg1, "classEdit");
+					main.cardlayout.show(main.pg1, "classEdit");
 				}
 			}
 		});
@@ -250,7 +232,7 @@ public class Navi extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) dropdown1.getSelectedItem();
 				if (selected.equals("수업확인")) {
-					cardLayout.show(main.pg1, "classcheck");
+					main.cardlayout.show(main.pg1, "classcheck");
 				}
 			}
 		});
