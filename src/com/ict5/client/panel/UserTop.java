@@ -16,7 +16,7 @@ public class UserTop extends JPanel {
 	Client_main main;
 	TabPage tab;
 	JLabel customerLabel;
-
+	VO vo;
 	public UserTop(Client_main main, boolean showBackButton) {
 		this.main = main;//
 
@@ -69,7 +69,7 @@ public class UserTop extends JPanel {
 	}
 
 	public void refresh() {
-		VO vo = main.vo;
+		vo = main.vo;
 		customerLabel.setText(vo.getMember_name() + "고객님");
 	}
 }

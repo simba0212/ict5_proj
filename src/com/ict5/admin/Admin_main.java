@@ -23,6 +23,10 @@ public class Admin_main extends JFrame implements Runnable {
 	public ObjectInputStream in;
 	public VO vo;
 
+	public List<VO> list;
+	public String admin_id;
+
+
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	public Admin_Home home;
@@ -82,7 +86,8 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -122,11 +127,13 @@ public class Admin_main extends JFrame implements Runnable {
 				Object obj = in.readObject();
 				if (obj != null) {
 					Protocol p = (Protocol) obj;
+					list = p.getList();
 					vo = p.getVo();
 
 					switch (p.getCmd()) {
 					case 0:
 						break esc;
+
 					case 1001:
 						if (p.getResult() == 1) {
 							
@@ -146,6 +153,42 @@ public class Admin_main extends JFrame implements Runnable {
 							System.out.println("테이블 실패 222");
 							break;
 						}
+
+
+					case 1201: // 회원목록 불러오기
+						member.memberv.refresh();
+						break;
+					case 1202: // 한명 검색하기
+						member.memberv.search();
+						break;
+					case 1203: // 회원 세부정보 보기
+						member2.memberv2.refresh1();// 왼쪽테이블
+						break;
+					case 1204: // 회원 세부정보 => 수업예약내역
+						member2.memberv2.refresh2();// 예약내역
+						break;
+					case 1205: // 회원 세부정보 => 포인트이력
+						member2.memberv2.refresh3();// 포인트 이력
+						break;
+//					case 1206: // 포인트관리 이동전 체크
+//						member2.memberv2.refresh3();
+//						break;
+					case 1207: // 포인트 승인페이지이동
+						point_Mgmt.sub.refresh(); // 포인트불러오기
+						break;
+					case 1301: // 강사목록 불러오기
+						coMg1.coTable1.refresh();
+						break;
+					case 1318: // 강사 등록하기
+						p.setCmd(1301);
+						out.writeObject(p);
+					case 1320: // 공지사항 등록하기
+						if (p.getResult() == 1) {
+							System.out.println("공지등록완료");
+						} else {
+							System.out.println("공지등록실패");
+						}
+						break;
 
 					}
 				}

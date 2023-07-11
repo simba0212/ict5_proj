@@ -9,13 +9,14 @@ import com.ict5.admin.panel.Navi;
 
 public class Admin_CoMgmt1 extends JPanel {
 	Admin_main main;
-	
+	public CoTable1 coTable1;
 	public Admin_CoMgmt1(Admin_main main) {
 		this.main = main;
 		
 	setLayout(new BorderLayout());
+		coTable1 = new CoTable1(main);
 		add(new Navi(main),BorderLayout.NORTH);
-		add(new CoTable1(main),BorderLayout.CENTER);
+		add(coTable1,BorderLayout.CENTER);
 		
 		
 		
