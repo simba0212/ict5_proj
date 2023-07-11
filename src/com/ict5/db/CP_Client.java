@@ -1,15 +1,8 @@
 package com.ict5.db;
 
 import java.io.ObjectInputStream;
-
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ict5.admin.Admin_main;
-import com.ict5.admin.panel.TimeTable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +81,7 @@ public class CP_Client extends Thread {
 
 					    break;
 
-					case 1201: // 회원목록 불러오기
+					case 1201: // 회원목록 불러오기 
 						list = DAO.getMemberList();
 						p.setList(list);
 						out.writeObject(p);
@@ -135,6 +128,33 @@ public class CP_Client extends Thread {
 
 					case 1301: // 강사목록 불러오기
 						list = DAO.getCoachList();
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1302: // 이름으로 강사검색
+						list = DAO.getTeacherSearch(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 1303: // 회원상세정보 보기
+						vo = DAO.getTeacherOne(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 1304: // 강사상세정보 =>강사수업내용
+						list = DAO.getTeacherClass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1310: // 강사 삭제
+						list= DAO.getdeleteteacher(vo);
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();

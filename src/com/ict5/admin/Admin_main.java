@@ -87,7 +87,7 @@ public class Admin_main extends JFrame implements Runnable {
 		add(pg1);
 
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -178,6 +178,15 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
+						break;
+					case 1302: // 한명 검색하기
+						coMg1.coTable1.search();
+						break;
+					case 1303: // 강사 세부정보 보기
+						coMg2.coTable2.refresh1();// 왼쪽테이블
+						break;
+					case 1304: // 회원 세부정보 => 수업예약내역
+						coMg2.coTable2.refresh2();// 예약내역
 						break;
 					case 1318: // 강사 등록하기
 						p.setCmd(1301);

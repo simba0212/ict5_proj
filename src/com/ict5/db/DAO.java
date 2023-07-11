@@ -182,4 +182,24 @@ public class DAO {
 		List<VO> list = getSession().selectList("getApproveList");
 		return list;
 	}
+	
+	public static VO getTeacherOne(VO vo){
+		vo = getSession().selectOne("getTeacherOne", vo);
+		return vo;
+	}
+	
+	public static List<VO> getTeacherSearch(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("getTeacherSearch", vo);
+		return list;
+	}
+	
+	public static List<VO> getTeacherClass(VO vo) {
+		List<VO> list = getSession().selectList("getTeacherClass",vo);
+		return list;
+	}
+	public static List<VO> getdeleteteacher(VO vo) {
+		List<VO> list = getSession().selectList("getdeleteteacher",vo);
+		return list;
+	}
 }

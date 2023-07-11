@@ -151,5 +151,23 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		from member_t m,  pointapprove a
 		where m.member_num = a.member_num
 	</select>
-
+	
+	<select id="getTeacherOne" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from Teacher where teacher_num =#{teacher_num}
+	</select>
+	
+	<select id="getTeacherSearch" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from teacher where teacher_name =#{teacher_name}
+	</select>
+	
+	<select id="getTeacherClass" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select class_res,class_room,class_date,class_time from class where teacher_num =#{teacher_num};
+	</select>
+	
+	<delete id="getdeleteteacher" parameterType="com.ict5.db.VO">
+	delete
+	</delete>
 </mapper>
