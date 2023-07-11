@@ -338,7 +338,6 @@ public class Schedule extends JPanel {
 			 
 			 
 			 String indate= calYear+mon+day_s;
-			System.out.println(indate);
 			 Protocol p = new Protocol();
 			 vo = main.vo;
 			 vo.setClass_date(indate);

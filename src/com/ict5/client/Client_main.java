@@ -150,7 +150,6 @@ public class Client_main extends JFrame implements Runnable {
 							cardlayout.show(pg1, "home");
 							refreshAll();
 							usernum=vo.getMember_num();
-							System.out.println("메인 usernum"+usernum);
 						} else {
 							System.out.println("실패");
 						}
