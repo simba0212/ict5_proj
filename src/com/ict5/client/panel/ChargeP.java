@@ -20,11 +20,11 @@ import com.ict5.client.Client_main;
 import com.ict5.db.VO;
 
 public class ChargeP extends JPanel {
-    Client_main main;
-    CardLayout cardlayout;
-    int selectedPoints;
-    JButton bot_btn;
-    JLabel selectedPointsLabel;
+	Client_main main;
+	CardLayout cardlayout;
+	public String selectedPoints; // Change data type to String
+	JButton bot_btn;
+	JLabel selectedPointsLabel;
     
     VO vo;
 
@@ -105,53 +105,49 @@ public class ChargeP extends JPanel {
         // 다음 버튼-> 결제
         radioButton1.addActionListener(e -> {
             if (radioButton1.isSelected()) {
-                selectedPoints = 500000;
-                selectedPointsLabel.setText(String.valueOf(selectedPoints) + " 포인트");
+                selectedPoints = "500000"; // Update selectedPoints as a string
+                selectedPointsLabel.setText(selectedPoints + " 포인트"); // Update label text
                 bot_btn.setEnabled(true);
             }
         });
 
         radioButton2.addActionListener(e -> {
             if (radioButton2.isSelected()) {
-                selectedPoints = 100000;
-                selectedPointsLabel.setText(String.valueOf(selectedPoints) + " 포인트");
+                selectedPoints = "100000"; // Update selectedPoints as a string
+                selectedPointsLabel.setText(selectedPoints + " 포인트"); // Update label text
                 bot_btn.setEnabled(true);
             }
         });
 
         radioButton3.addActionListener(e -> {
             if (radioButton3.isSelected()) {
-                selectedPoints = 50000;
-                selectedPointsLabel.setText(String.valueOf(selectedPoints) + " 포인트");
+                selectedPoints = "50000"; // Update selectedPoints as a string
+                selectedPointsLabel.setText(selectedPoints + " 포인트"); // Update label text
                 bot_btn.setEnabled(true);
             }
         });
 
         radioButton4.addActionListener(e -> {
             if (radioButton4.isSelected()) {
-                selectedPoints = 10000;
-                selectedPointsLabel.setText(String.valueOf(selectedPoints) + " 포인트");
+                selectedPoints = "10000"; // Update selectedPoints as a string
+                selectedPointsLabel.setText(selectedPoints + " 포인트"); // Update label text
                 bot_btn.setEnabled(true);
             }
         });
-        //다음
         bot_btn.addActionListener(e -> {
-        	String str = selectedPoints+"";
-        	main.cp2.selectedPointsLabel.setText(str);
+            main.chargeP2.cp2.refresh();
             main.cardlayout.show(main.pg1, "chargeP2");
         });
+
     }
- // selectedPoints 변수에 값을 설정하는 메서드
-    public void setSelectedPoints(int points) {
-        this.selectedPoints = points;
-    }
+    
 
     // selectedPoints 변수의 값을 반환하는 메서드
-    public int getSelectedPoints() {
+    public String getSelectedPoints() { // Change return type to String
         return selectedPoints;
     }
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
+
+    public void refresh() {
+
+    }
 }
