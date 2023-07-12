@@ -151,6 +151,7 @@ public class Client_main extends JFrame implements Runnable {
 							usernum=vo.getMember_num();
 							usergoal=vo.getMember_goal();
 							refreshAll();
+							
 						} else {
 							System.out.println("실패");
 						}
@@ -224,6 +225,18 @@ public class Client_main extends JFrame implements Runnable {
 		tab.usertop.refresh();
 		home.home.refresh();
 		tab.mypage.refresh();
+		try {
+			Protocol p;
+			p = new Protocol();
+			
+			vo.setMember_num(usernum);
+			p.setCmd(2305);
+			p.setVo(vo);
+			out.writeObject(p);
+			out.flush();
+		} catch (Exception e2) {
+			// TODO: handle exception
+		}
 	}
 	
 
