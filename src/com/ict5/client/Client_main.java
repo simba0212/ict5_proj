@@ -29,7 +29,9 @@ public class Client_main extends JFrame implements Runnable {
 	public ObjectOutputStream out;
 	public ObjectInputStream in;
 	public VO vo;
-	public List<VO> list;
+	public List<VO> list,list2;
+	
+	public int st;
 	
 	public Client_Login login;
 	public Client_CreateId createId;
@@ -168,12 +170,18 @@ public class Client_main extends JFrame implements Runnable {
 						tab.schedule.sb.refresh();
 						break;
 					case 2304: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
+						 st=1;
 						 list = p.getList();
 						 tab.reservation.rb.refresh();
 						break;
 					case 2305: // 알림 탭에 표시할 수업정보 가져오기
 						 list = p.getList();
 						 tab.noti.refresh(); 
+						break;
+					case 2306: // 알림 탭에 표시할 수업정보 가져오기
+						System.out.println("2306 maib");
+						 list2 = p.getList();
+						 
 						break;
 					
 					case 2101:
@@ -194,7 +202,6 @@ public class Client_main extends JFrame implements Runnable {
 						break;	
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문
-						System.out.println("update댐");
 						usergoal=vo.getMember_goal();
 						tab.mypage.refresh();
 						break;	

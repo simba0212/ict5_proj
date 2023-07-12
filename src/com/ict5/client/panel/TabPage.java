@@ -114,7 +114,8 @@ public class TabPage extends JPanel {
         			} catch (Exception e2) {
         				// TODO: handle exception
         			}
-                	
+
+//            		main.tab = new TabPage(main);
                 }
                 
             }

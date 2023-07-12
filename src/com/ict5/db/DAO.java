@@ -194,4 +194,8 @@ public class DAO {
 		ss.commit();
 		return result;
 	}
+	public static List<VO> sel_already_book(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_already_book",vo);
+		return list;
+	}
 }

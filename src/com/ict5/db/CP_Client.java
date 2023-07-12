@@ -229,6 +229,12 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;	
+					case 2306:
+						list = DAO.sel_already_book(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;		
 						
 					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
 						System.out.println(vo.getMember_goal()+"dao실행전");

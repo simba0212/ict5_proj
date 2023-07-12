@@ -330,7 +330,7 @@ public class Reservation extends JPanel {
 					 }
 					    
 					} catch (NumberFormatException e2) {
-						e2.printStackTrace();
+						
 					}
 				 
 				 String indate= calYear+mon+day_s;

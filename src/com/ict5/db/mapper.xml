@@ -52,9 +52,12 @@
 	</select>-->
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2302 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		select *
-   	 	from class c, teacher t
-    	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
+		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name, c.class_res, c.class_max, c.class_time,
+    CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = 1)
+         THEN 1 ELSE 0 END AS admin_num
+	FROM class c
+	INNER JOIN teacher t ON c.teacher_num = t.teacher_num
+	WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
 	</select>
 	
 	<select id="getPointList" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
@@ -76,8 +79,8 @@
 		select * from MEMBER_T where member_name =#{member_name}
 	</select>
 	
-	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2304 / 
-	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
+	<!-- cmd :2304 / 선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
+	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
 		SELECT *
 		FROM class c
 		INNER JOIN teacher t ON c.teacher_num = t.teacher_num
@@ -161,5 +164,8 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	<update id="update_goal" parameterType="com.ict5.db.VO" >
 		 update member_t set member_goal = #{member_goal} where member_num = #{member_num}
 	</update>
-	
+	<select id="sel_already_book" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from book b INNER JOIN class c ON c.class_date = #{class_date}
+	where b.class_num =#{class_num} and b.member_num=#{member_num}
+	</select>
 </mapper>

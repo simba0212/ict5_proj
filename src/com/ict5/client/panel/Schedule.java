@@ -37,6 +37,7 @@ public class Schedule extends JPanel {
 	int calMonth;
 	int calDayOfMon;
 	int day_i;
+	String indate;
 	final int calLastDateOfMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int calLastDate;
 	Calendar today = Calendar.getInstance();
@@ -337,7 +338,7 @@ public class Schedule extends JPanel {
 			 
 			 
 			 
-			 String indate= calYear+mon+day_s;
+			indate= calYear+mon+day_s;
 			 Protocol p = new Protocol();
 			 vo = main.vo;
 			 vo.setClass_date(indate);
