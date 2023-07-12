@@ -21,7 +21,7 @@ public class TabPage extends JPanel {
     Client_main main;
     CardLayout cardlayout;
     public UserTop usertop;
-    static JTabbedPane tabbedPane;
+    public static JTabbedPane tabbedPane;
     public Schedule schedule;
     public Reservation reservation;
     public Notice noti;
@@ -104,7 +104,7 @@ public class TabPage extends JPanel {
                 if(selectedIndex==2) {
                 	//알림이 선택됐을떄
                 	
-                	noti.refresh(0);
+                	
                 	try {
         				Protocol p = new Protocol();
         				VO vo= main.vo;
@@ -117,6 +117,7 @@ public class TabPage extends JPanel {
         			} catch (Exception e2) {
         				// TODO: handle exception
         			}
+                	
                 }
                 
             }

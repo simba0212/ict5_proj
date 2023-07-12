@@ -172,8 +172,8 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2305: // 알림 탭에 표시할 수업정보 가져오기
 						 list = p.getList();
-						 tab.noti.refresh(1);
-						 
+						 tab.noti.refresh(); tab.noti.refresh();
+						 TabPage.tabbedPane.setSelectedIndex(2);
 						break;
 					
 					case 2101:

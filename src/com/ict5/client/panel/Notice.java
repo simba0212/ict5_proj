@@ -99,23 +99,9 @@ public class Notice extends JPanel {
 		
 		return panel;
 	}
-	public void refresh(int ii) {
+	public void refresh() {
 			
-		if(ii==0) {
-			try {
-				Protocol p = new Protocol();
-				VO vo= main.vo;
-				vo.setMember_num(main.usernum);
-				p.setCmd(2305);
-				p.setVo(vo);
-				
-				main.out.writeObject(p);
-				main.out.flush();
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
 		
-		}else if(ii==1) {
 		list = main.list;
 		JPanel noti = new JPanel();
 		noti.setLayout(new BoxLayout(noti, BoxLayout.Y_AXIS)); // 박스
@@ -132,5 +118,5 @@ public class Notice extends JPanel {
 		add(jsp);
 		TabPage.tabbedPane.setSelectedIndex(2);
 		}
-	}
+	
 }
