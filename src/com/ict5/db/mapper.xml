@@ -159,7 +159,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	</select>
 	
 	<update id="update_goal" parameterType="com.ict5.db.VO" >
-		 update member_t set member_goal = '${member_goal}' where member_num = 1
+		 update member_t set member_goal = #{member_goal} where member_num = #{member_num}
 	</update>
 	
 </mapper>
