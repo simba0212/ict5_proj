@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,16 +20,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Mypage extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
 	TabPage tab;
-
+	JTextArea jta;
 public Mypage(Client_main main) {
 	this.main = main;
 	this.cardlayout = main.cardlayout;
-	  JTextArea jta = new JTextArea(8, 35); // 10행 20열의 JTextArea 생성
+	  jta = new JTextArea(8, 35); // 10행 20열의 JTextArea 생성
 	  jta.setLineWrap(true);
 	  JScrollPane jsp = new JScrollPane(jta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -154,9 +157,36 @@ public Mypage(Client_main main) {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			 jta.setEditable(true);
 		}
 	});
-
+	jb2.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			jta.setEditable(false);
+			
+			
+			
+			try {
+				VO vo = new VO();
+				Protocol p = new Protocol();
+				vo.setMember_id(main.usernum);  
+				vo.setMember_goal(jta.getText());
+				p.setCmd(2501);
+				p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	});
+	
+	
+	}
+	public void refresh(){
+		jta.setText(main.usergoal);
 	}
 }

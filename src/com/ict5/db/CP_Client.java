@@ -169,14 +169,13 @@ public class CP_Client extends Thread {
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
-							vo.setNotice_text(DAO.getNotice());
+							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성 -> 알림버튼 누르면으로 변경하려면 ?
 							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 							p.setResult(1);
 						} else {
 							System.out.println("로그인실패");
 						}
-						System.out.print("카피 vo.num : ");
-						System.out.println(p.vo.getMember_num());
+						System.out.print("카피 vo.num : "+p.vo.getMember_num());
 						out.writeObject(p);
 						out.flush();
 						break;
@@ -227,6 +226,14 @@ public class CP_Client extends Thread {
 					case 2305:
 						list = DAO.sel_class_noice(vo);
 						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 2501:
+						System.out.println(vo.getMember_goal()+"dao실행전");
+						DAO.update_goal(vo);
+						System.out.println("dao실행");
 						out.writeObject(p);
 						out.flush();
 						break;	

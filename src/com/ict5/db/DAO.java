@@ -186,5 +186,9 @@ public class DAO {
 		List<VO> list = getSession().selectList("sel_class_noice",vo);
 		return list;
 	}
-	
+	public static int update_goal(VO vo) {
+		int result = getSession().update("update_goal", vo);
+		ss.commit();
+		return result;
+	}
 }

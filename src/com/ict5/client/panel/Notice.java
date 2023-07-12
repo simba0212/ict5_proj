@@ -62,11 +62,6 @@ public class Notice extends JPanel {
 //        	str 에 수업 남은시간 표시LocalDateTime currentDateTime = LocalDateTime.now();
 	        LocalTime currentTime = LocalTime.now();
 	        String str2 = String.valueOf(currentTime).substring(0,5);
-	        System.out.println(str2);
-	        
-    	
-    		
-	        
 	        
 	        // 시간 문자열을 LocalTime으로 파싱
 	        LocalTime localTime1 = LocalTime.parse(str2);
@@ -79,13 +74,12 @@ public class Notice extends JPanel {
 	        long hours = duration.toHours();
 	        long minutes = duration.toMinutes() % 60;
 	        
-	        System.out.println("두 시간의 차이: " + hours + "시간 " + minutes + "분");
 	        if(hours<0) {
 	        	panel.add(new JLabel("시간이 지난 수업입니다",JLabel.LEFT));
 	        	
 	        }
 	        else {
-	        	 panel.add(new JLabel(str+"수업입니다",JLabel.LEFT));
+	        	 panel.add(new JLabel(hours + "시간 " + minutes + "분"+" 남았습니다.",JLabel.LEFT));
 	        }
 	       
         }else {
@@ -98,7 +92,7 @@ public class Notice extends JPanel {
         }
 		
 		panel.add(new JLabel("",JLabel.RIGHT));
-		panel.add(new JLabel(list.get(i).getTeacher_name(),JLabel.LEFT));
+		panel.add(new JLabel(list.get(i).getTeacher_name()+"선생님",JLabel.LEFT));
 		panel.add(new JLabel());
 		panel.add(new JLabel(list.get(i).getClass_room()));
 		panel.add(new JLabel(list.get(i).getClass_date().substring(0,10)+"     "+str+"시 수업" ,JLabel.RIGHT));
