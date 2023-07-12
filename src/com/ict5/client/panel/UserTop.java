@@ -59,18 +59,6 @@ public class UserTop extends JPanel {
 
 		// 알람 버튼 클릭 이벤트
 		alarmButton.addActionListener(e -> {
-			try {
-				Protocol p = new Protocol();
-				VO vo= main.vo;
-				vo.setMember_num(main.usernum);
-				p.setCmd(2305);
-				p.setVo(vo);
-				
-				main.out.writeObject(p);
-				main.out.flush();
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
 			main.cardlayout.show(main.pg1, "tab");
 			TabPage.tabbedPane.setSelectedIndex(2);
 		});

@@ -103,15 +103,12 @@ public class TabPage extends JPanel {
                 int selectedIndex = tabbedPane.getSelectedIndex();
                 if(selectedIndex==2) {
                 	//알림이 선택됐을떄
-                	
-                	
                 	try {
         				Protocol p = new Protocol();
         				VO vo= main.vo;
         				vo.setMember_num(main.usernum);
         				p.setCmd(2305);
         				p.setVo(vo);
-        				
         				main.out.writeObject(p);
         				main.out.flush();
         			} catch (Exception e2) {

@@ -165,6 +165,7 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2303:
 						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
+						tab.schedule.sb.refresh();
 						break;
 					case 2304: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 list = p.getList();
@@ -172,8 +173,7 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2305: // 알림 탭에 표시할 수업정보 가져오기
 						 list = p.getList();
-						 tab.noti.refresh(); tab.noti.refresh();
-						 TabPage.tabbedPane.setSelectedIndex(2);
+						 tab.noti.refresh(); 
 						break;
 					
 					case 2101:
