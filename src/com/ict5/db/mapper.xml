@@ -160,19 +160,31 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		select * from Teacher where teacher_num =#{teacher_num}
 	</select>
 	
-	<select id="getTeacherSearch" parameterType="com.ict5.db.VO"
+	<select id="searchTeacherName" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from teacher where teacher_name =#{teacher_name}
 	</select>
 	
 	<select id="getTeacherClass" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
-		select class_res,class_room,class_date,class_time from class where teacher_num =#{teacher_num};
+		select class_res,class_room,class_date,class_time from class where teacher_num = #{teacher_num}
 	</select>
 	
 	<update id="getDeleteTeacher" parameterType="com.ict5.db.VO">
-	update teacher 
-	set  use_yn = 'N'
-	where teacher_num=#{teacher_num}
+		update teacher 
+		set  use_yn = 'N'
+		where teacher_num=#{teacher_num}
+	</update>
+	
+	<update id="getTeacherEdit" parameterType="com.ict5.db.VO">
+		update teacher
+		set teacher_name =#{teacher_name},
+    		teacher_phone=#{teacher_phone},
+    		teacher_addr=#{teacher_addr},
+    		teacher_gen=#{teacher_gen},
+    		teacher_career=#{teacher_career},
+    		teacher_img=#{teacher_img},
+    		teacher_type=#{teacher_type},
+		where teacher_num=#{teacher_num}
 	</update>
 </mapper>

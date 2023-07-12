@@ -188,9 +188,9 @@ public class DAO {
 		return vo;
 	}
 	
-	public static List<VO> getTeacherSearch(VO vo) {
+	public static List<VO> searchTeacherName(VO vo) {
 		List<VO> list = null;
-		list = getSession().selectList("getTeacherSearch", vo);
+		list = getSession().selectList("searchTeacherName", vo);
 		return list;
 	}
 	
@@ -211,6 +211,14 @@ public class DAO {
 //			
 //		}
 //		return resultStr;
-		return getSession().update("getDeleteTeacher",vo);
+		getSession().update("getDeleteTeacher",vo);
+		ss.commit();
+		return 0;
+	}
+	
+	public static int getTeacherEdit(VO vo) {
+		getSession().update("getTeacherEdit",vo);
+		ss.commit();
+		return 0;
 	}
 }

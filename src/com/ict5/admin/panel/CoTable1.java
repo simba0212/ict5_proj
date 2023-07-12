@@ -89,22 +89,22 @@ public class CoTable1 extends JPanel {
 		headerPanel.add(instrLabel, BorderLayout.NORTH);
 
 		// 검색결과:
-		JLabel resultsLabel = new JLabel("검색결과: nn 명");
-		headerPanel.add(resultsLabel, BorderLayout.CENTER);
+//		JLabel resultsLabel = new JLabel("거구맨 선생님들");
+//		headerPanel.add(resultsLabel, BorderLayout.CENTER);
 
-		// 콤보박스
-		JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-		Integer[] options = { 10, 20, 50 };
-		resultsComboBox = new JComboBox<>(options);
-		resultsComboBox.setPreferredSize(new Dimension(80, 30));
-		resultsComboBox.setSelectedIndex(0);
-		comboPanel.add(resultsComboBox);
-
-		comboPanel.add(new JLabel("개씩 보기"));
-
-		headerPanel.add(comboPanel, BorderLayout.EAST);
-
+//		// 콤보박스
+//		JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//
+//		Integer[] options = { 10, 20, 50 };
+//		resultsComboBox = new JComboBox<>(options);
+//		resultsComboBox.setPreferredSize(new Dimension(80, 30));
+//		resultsComboBox.setSelectedIndex(0);
+//		comboPanel.add(resultsComboBox);
+//
+//		comboPanel.add(new JLabel("개씩 보기"));
+//
+//		headerPanel.add(comboPanel, BorderLayout.EAST);
+//
 		centerPanel.add(headerPanel, BorderLayout.NORTH);
 
 		Object[] columnNames = { "강사 번호", "이름", "전화 번호", "주소", "성별", "경력사항", "사진", "담당 운동" };
@@ -235,7 +235,7 @@ public class CoTable1 extends JPanel {
 	
 	public void refresh() { // 테이블 최신화
 		model.setRowCount(0);
-		List<VO> list = DAO.getCoachList();
+		List<VO> list = main.list;
 		for (VO k : list) {
 			
 			Vector<Object> rowData = new Vector<>();

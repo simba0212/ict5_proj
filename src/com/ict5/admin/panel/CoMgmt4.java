@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -41,7 +42,17 @@ public class CoMgmt4 extends JPanel {
 	JTextField[] getTeacherFields;
 	CoTable1 coTable1;
 	Admin_CoMgmt1 coMg1;
+	JTextField nameField,phoneField,addressField;
+	ButtonGroup genderGroup;
+	JTextArea experienceTextArea ;
+	ImageIcon imageIcon;
+	JRadioButton maleRadioButton, femaleRadioButton,
+	radioButton1,radioButton2,radioButton3,radioButton4; 
+	String imagePath;
+	Image image;
+	JLabel imageLabel;
 
+	
 
 	public CoMgmt4(Admin_main main) {
 		this.main = main;
@@ -95,10 +106,10 @@ public class CoMgmt4 extends JPanel {
 
 		// 라디오 버튼 그룹 생성
 		ButtonGroup courseGroup = new ButtonGroup();
-		JRadioButton radioButton1 = new JRadioButton("헬스");
-		JRadioButton radioButton2 = new JRadioButton("요가");
-		JRadioButton radioButton3 = new JRadioButton("수영");
-		JRadioButton radioButton4 = new JRadioButton("필라테스");
+		radioButton1 = new JRadioButton("헬스");
+		radioButton2 = new JRadioButton("요가");
+		radioButton3 = new JRadioButton("수영");
+		radioButton4 = new JRadioButton("필라테스");
 		courseGroup.add(radioButton1);
 		courseGroup.add(radioButton2);
 		courseGroup.add(radioButton3);
@@ -114,7 +125,7 @@ public class CoMgmt4 extends JPanel {
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // 가운데 정렬로 변경
 		JLabel nameLabel = new JLabel("이름: ");
-		JTextField nameField = new JTextField(20);
+		nameField = new JTextField(20);
 		namePanel.add(nameLabel);
 		namePanel.add(nameField);
 
@@ -124,7 +135,7 @@ public class CoMgmt4 extends JPanel {
 		JPanel phonePanel = new JPanel();
 		phonePanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // 가운데 정렬로 변경
 		JLabel phoneLabel = new JLabel("전화번호: ");
-		JTextField phoneField = new JTextField(20);
+		phoneField = new JTextField(20);
 		phonePanel.add(phoneLabel);
 		phonePanel.add(phoneField);
 
@@ -134,7 +145,7 @@ public class CoMgmt4 extends JPanel {
 		JPanel addressPanel = new JPanel();
 		addressPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // 가운데 정렬로 변경
 		JLabel addressLabel = new JLabel("주소: ");
-		JTextField addressField = new JTextField(20);
+		addressField = new JTextField(20);
 		addressPanel.add(addressLabel);
 		addressPanel.add(addressField);
 
@@ -144,9 +155,9 @@ public class CoMgmt4 extends JPanel {
 		JPanel genderPanel = new JPanel();
 		genderPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // 가운데 정렬로 변경
 		JLabel genderLabel = new JLabel("성별: ");
-		JRadioButton maleRadioButton = new JRadioButton("남");
-		JRadioButton femaleRadioButton = new JRadioButton("여");
-		ButtonGroup genderGroup = new ButtonGroup();
+		maleRadioButton = new JRadioButton("남");
+		femaleRadioButton = new JRadioButton("여");
+		genderGroup = new ButtonGroup();
 		genderGroup.add(maleRadioButton);
 		genderGroup.add(femaleRadioButton);
 		genderPanel.add(genderLabel);
@@ -172,7 +183,7 @@ public class CoMgmt4 extends JPanel {
 		experienceLabel.setFont(experienceLabel.getFont().deriveFont(Font.BOLD, 17f));
 
 		// "경력사항" 텍스트 영역 생성
-		JTextArea experienceTextArea = new JTextArea(5, 20);
+		experienceTextArea = new JTextArea(5, 20);
 		experienceTextArea.setLineWrap(true);
 
 		// 텍스트 영역을 포함한 스크롤 패널 생성
@@ -189,12 +200,12 @@ public class CoMgmt4 extends JPanel {
 		add(rightPanel, BorderLayout.EAST);
 
 		// 이미지 경로
-		String imagePath = "src/images/photo.jpg";
+		imagePath = "src/images/photo.jpg";
 
 		// 이미지 레이블 생성
-		JLabel imageLabel = new JLabel();
-		ImageIcon imageIcon = new ImageIcon(imagePath);
-		Image image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT); // 원하는 크기로 조정
+		imageLabel = new JLabel();
+		imageIcon = new ImageIcon(imagePath);
+		image = imageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT); // 원하는 크기로 조정
 		imageLabel.setIcon(new ImageIcon(image));
 
 		// 이미지 패널 생성
@@ -336,6 +347,167 @@ public class CoMgmt4 extends JPanel {
 					main.cardlayout.show(main.pg1, "coMg1");	
 				} catch (Exception e2) {
 				}		
+		});	
+		
+		// 수정 한 내용 update하기
+		editButton.addActionListener(e -> {
+			 boolean allTeacherFilled = true;
+			 for (JTextField textField : getTeacherFields) {
+			        if (textField.getText().trim().isEmpty()) {
+			        	allTeacherFilled = false;
+			            break;
+			        }
+			    }
+			  if (!allTeacherFilled) {
+			        JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			        return;
+			    }
+			  if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected() && !radioButton4.isSelected()) {
+				  JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				  return;
+			  }
+			  if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+			        JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			        return;
+			    }
+			  if (filePath == null) {
+				  JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			        return;
+			  }
+			  if (experienceTextArea.getText().isEmpty()) {
+				  JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			        return;
+			  }
+			JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
+			
+			String gender = "";
+			try {
+				Protocol p = new Protocol();
+				vo.setTeacher_name(nameField.getText().trim());// 이름
+				vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+				vo.setTeacher_addr(addressField.getText().trim());// 주소		
+				vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
+					if (maleRadioButton.isSelected()) {
+						gender = maleRadioButton.getText();
+					} else if (femaleRadioButton.isSelected()) {
+						gender = femaleRadioButton.getText();
+					}
+				vo.setTeacher_gen(gender);// 성별
+
+				// 수업종류 숫자로 나타냄
+				String type = "1"; 
+				if (radioButton1.isSelected()) {
+					type = "1";
+				} else if (radioButton2.isSelected()) {
+					type = "2";
+				} else if (radioButton3.isSelected()) {
+					type = "3";
+				} else if (radioButton4.isSelected()) {
+					type = "4";
+				}
+				vo.setTeacher_type(type);
+
+				p.setVo(vo); 
+				p.setCmd(1317);
+				main.out.writeObject(p);
+				main.out.flush();
+				main.cardlayout.show(main.pg1, "coMg1");	
+			} catch (Exception e2) {
+			}		
+			
+			
 		});
+		
+	}
+	
+			//강사 내용 수정하기
+			public void fix() {
+				try {
+					
+					System.out.println("픽스메서드로왔다");
+					// 재등록 하기=UPDATE 정보
+					VO vo =main.vo;
+					System.out.println("vo값을 알아보자"+vo);
+					imagePath = vo.getTeacher_img();		
+					imageIcon = new ImageIcon(imagePath);
+					image = imageIcon.getImage();
+				
+//					 // 이미지 경로를 가져옴 (디비에서 가져오는 방법에 따라 다를 수 있음)
+//			        String imagePath = filePath;
+//			        // 이미지를 표시할 JLabel 생성
+//			        JLabel imageLabel = new JLabel();
+//
+//			        // 이미지 아이콘 설정
+//			        ImageIcon imageIcon = new ImageIcon(imagePath);
+//			        Image image = imageIcon.getImage();
+//			        //vo.getTeacher_img(filePath);
+					
+			       
+			        
+			        
+			        
+			        
+					nameField.setText(vo.getTeacher_name());
+					phoneField.setText(vo.getTeacher_phone());
+					addressField.setText(vo.getTeacher_addr());
+					experienceTextArea.setText(vo.getTeacher_career());
+					System.out.println("수정이름내용;;;"+vo.getTeacher_name());
+					System.out.println("수정전번내용;;;"+vo.getTeacher_phone());
+					System.out.println("수정주소내용;;;"+vo.getTeacher_addr());
+					System.out.println("수정경력내용;;;"+vo.getTeacher_career());
+					System.out.println("수정성별내용;;;"+vo.getTeacher_gen()); //여
+					System.out.println("수정타입내용;;;"+vo.getTeacher_type());
+					
+					String gen = vo.getTeacher_gen();
+					String type = vo.getTeacher_type();
+					if(gen.equals("남")) {
+						maleRadioButton.setSelected(true);
+						System.out.println("1");
+					}else if(gen.equals("여")){
+						femaleRadioButton.setSelected(true);
+						System.out.println("2");
+
+					}
+					
+					switch (type) {
+					case "1":
+						radioButton1.setSelected(true);
+						System.out.println("111111");
+						break;
+					case "2":
+						radioButton2.setSelected(true);
+						System.out.println("222222222");
+						break;
+					case "3":
+						radioButton3.setSelected(true);
+						System.out.println("333333333");
+						break;
+					case "4":
+						radioButton4.setSelected(true);
+						System.out.println("44444");
+						break;
+					}
+					
+					
+					System.out.println("이미지내용;;;"+vo.getTeacher_img());
+					main.cardlayout.show(main.pg1, "coMg3");
+					
+					
+			
+					
+					
+					//세팅해준 값들을 보여주는 페이지!!
+					
+			
+					//main.cardlayout.show(main.pg1, "coMg3");
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+
+				
+				
+				
 	}
 }

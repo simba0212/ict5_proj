@@ -134,13 +134,13 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 1302: // 이름으로 강사검색
-						list = DAO.getTeacherSearch(vo);
+						list = DAO.searchTeacherName(vo);
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
 						break;	
 						
-					case 1303: // 회원상세정보 보기
+					case 1303: // 강사상세정보 보기
 						vo = DAO.getTeacherOne(vo);
 						p.setVo(vo);
 						out.writeObject(p);
@@ -153,25 +153,31 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+					case 1309: // 강사 수정하기
+						vo = DAO.getTeacherOne(vo);
+						System.out.println("강사수정하기디비다녀옴;;;"+vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
 					case 1310: // 강사 삭제
-						System.out.println("CP옴 강사 클라이언삭제"+vo.getTeacher_num());
 						int deleteTeacherResult = DAO.getDeleteTeacher(vo);
-						
-						System.out.println("delete 결과 :: " + deleteTeacherResult);
 						p.setResult(deleteTeacherResult);
 						out.writeObject(p);
 						out.flush();
 						break;
-
-					case 1318:
+						
+					case 1317: // 수정 후 재등록
 						vo = p.getVo();
-						if (vo != null) {
-							System.out.println("cp옴");
-							DAO.getTeacherInsert(vo);
-							System.out.println("dao통해서 디비에 넣어줌");
-						} else {
-							System.out.print("cp실패");
-						}
+						DAO.getTeacherEdit(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1318: //강사 등록
+						vo = p.getVo();
+						DAO.getTeacherInsert(vo);
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();

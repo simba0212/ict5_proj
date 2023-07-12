@@ -19,6 +19,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -44,6 +45,9 @@ public class CoTable2 extends JPanel {
     DefaultTableModel model;
     DefaultTableModel model1;
     JLabel classLabel;
+    JButton fix;
+    JPanel bottom;
+    String teanum;
     
 
     public CoTable2(Admin_main main) {
@@ -89,24 +93,24 @@ public class CoTable2 extends JPanel {
         // 중앙 헤더 위치조정
         JPanel headerPanel = new JPanel(new BorderLayout());
 
-        JLabel instrLabel = new JLabel("강사 목록");
+        JLabel instrLabel = new JLabel("검색 결과");
         instrLabel.setFont(instrLabel.getFont().deriveFont(Font.BOLD, 20f));
         headerPanel.add(instrLabel, BorderLayout.NORTH);
 
         // 검색 결과:
-        JLabel resultsLabel = new JLabel("검색결과: nn 명");
+        JLabel resultsLabel = new JLabel(" ");
         headerPanel.add(resultsLabel, BorderLayout.CENTER);
 
         // 콤보박스
         JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        Integer[] options = {10, 20, 50};
-        resultsComboBox = new JComboBox<>(options);
-        resultsComboBox.setPreferredSize(new Dimension(80, 30));
-        resultsComboBox.setSelectedIndex(0);
-        comboPanel.add(resultsComboBox);
-
-        comboPanel.add(new JLabel("개씩 보기"));
+//        Integer[] options = {10, 20, 50};
+//        resultsComboBox = new JComboBox<>(options);
+//        resultsComboBox.setPreferredSize(new Dimension(80, 30));
+//        resultsComboBox.setSelectedIndex(0);
+//        comboPanel.add(resultsComboBox);
+//
+//        comboPanel.add(new JLabel("개씩 보기"));
 
         headerPanel.add(comboPanel, BorderLayout.EAST);
 
@@ -156,34 +160,56 @@ public class CoTable2 extends JPanel {
 //            {"9/10", "2층 211호", "2023-06-03", "08:00 ~ 08:50"}
 //        };
 
-        Object[] classColumnNames = {"인원", "장소", "날짜", "시간"};
-        model1 = new DefaultTableModel(classColumnNames,0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
-                return column == classColumnNames.length;
-            }
-        };
+        String[] classColumnNames = {"인원", "장소", "날짜", "시간"};
+        model1 = new DefaultTableModel(classColumnNames,0); 
+        
         classTable = new JTable(model1);
         classTable.getTableHeader().setReorderingAllowed(false);
+        
         JScrollPane classScrollPane = new JScrollPane(classTable);
+        
+        bottom= new JPanel();
+        fix = new JButton("수정");
+        fix.setPreferredSize(new Dimension(400, 30));
+        bottom.add(fix);
+        rightPanel.add(bottom,BorderLayout.SOUTH);
         rightPanel.add(classScrollPane, BorderLayout.CENTER);
 
-        //셀내용 가운데 정렬
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        classTable.setDefaultRenderer(Object.class, centerRenderer);
-        instrTable.setDefaultRenderer(Object.class, centerRenderer);
+//        //셀내용 가운데 정렬
+//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+//        classTable.setDefaultRenderer(Object.class, centerRenderer);
+//        instrTable.setDefaultRenderer(Object.class, centerRenderer);
 
         centerPanel.add(rightPanel, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
+        
+        // 수정버튼 클릭 시 화면 이동
+        fix.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Protocol p = new Protocol();
+					VO vo = new VO();
+					p.setCmd(1309); // 수정하는 프로토콜
+					vo.setTeacher_num(teanum);
+					System.out.println("선생님번호담기;;;;"+teanum);
+					p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+			}
+		});
     }
     	
     	public void refresh1() {// 선생님 한명정보 불러오기
     		VO vo = main.vo;
-    		System.out.println("테이블리스"+vo.getTeacher_num());
-    		//String type="";
+    		teanum = vo.getTeacher_num();
     		
     		classLabel.setText(vo.getTeacher_name()+ " 선생님 담당 수업");
     		
@@ -266,9 +292,8 @@ public class CoTable2 extends JPanel {
     			default:
     				break;
     			}
-    			Object[] rowData = { k.getClass_res(),k.getClass_room(),k.getClass_date(),k.getClass_time()};
+    			Object[] rowData = { k.getClass_res(),k.getClass_room(),k.getClass_date().substring(0, 10),k.getClass_time()};
     			model1.addRow(rowData);
-    			System.out.println(rowData);
     		}
     		
     	}
@@ -321,6 +346,10 @@ public class CoTable2 extends JPanel {
 					}
             	}
 			});
+            
+            
+            
+            
         }
 
         @Override
