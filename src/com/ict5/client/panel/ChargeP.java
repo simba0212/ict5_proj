@@ -22,7 +22,7 @@ import com.ict5.db.VO;
 public class ChargeP extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
-	public String selectedPoints; // Change data type to String
+	public String selectedPoints; 
 	JButton bot_btn;
 	JLabel selectedPointsLabel;
     
