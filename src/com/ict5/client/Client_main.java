@@ -216,7 +216,6 @@ public class Client_main extends JFrame implements Runnable {
 		home.usertop.refresh();
 		tab.usertop.refresh();
 		home.home.refresh();
-		tab.noti.refresh(0);
 		tab.mypage.refresh();
 	}
 	

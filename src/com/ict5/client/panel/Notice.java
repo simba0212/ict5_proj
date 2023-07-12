@@ -130,6 +130,7 @@ public class Notice extends JPanel {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setPreferredSize(new Dimension(480, 700));
 		add(jsp);
+		TabPage.tabbedPane.setSelectedIndex(2);
 		}
 	}
 }

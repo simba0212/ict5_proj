@@ -1,12 +1,21 @@
 package com.ict5.client.panel;
 
-import javax.swing.*;
-
-import com.ict5.client.Client_main;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class TabPage extends JPanel {
     Client_main main;
@@ -82,6 +91,36 @@ public class TabPage extends JPanel {
 //        logoutButton.addActionListener(e -> {
 //        	main.cardlayout.show(main.pg1, "login");
 //        });
-
+//        noti.addMouseListener(new MouseAdapter() {
+//        	@Override
+//        	public void mouseClicked(MouseEvent e) {
+//        		System.out.println("노티클릭됨");
+//        	}
+//        });
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int selectedIndex = tabbedPane.getSelectedIndex();
+                if(selectedIndex==2) {
+                	//알림이 선택됐을떄
+                	
+                	noti.refresh(0);
+                	try {
+        				Protocol p = new Protocol();
+        				VO vo= main.vo;
+        				vo.setMember_num(main.usernum);
+        				p.setCmd(2305);
+        				p.setVo(vo);
+        				
+        				main.out.writeObject(p);
+        				main.out.flush();
+        			} catch (Exception e2) {
+        				// TODO: handle exception
+        			}
+                }
+                
+            }
+        });
+        
     }
 }
