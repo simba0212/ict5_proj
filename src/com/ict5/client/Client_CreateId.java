@@ -262,7 +262,6 @@ public class Client_CreateId extends JPanel {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String signupDate = formatter.format(now);
 				vo.setMember_signup_date(signupDate);
-				System.out.println(signupDate);
 				
 			    //성별 선택
 				String gender = null;

@@ -106,8 +106,7 @@ public class Home extends JPanel {
 
 		// 포인트충전 버튼
 		point_bt.addActionListener(e -> {
-			Client_ChargeP chargeP = new Client_ChargeP(main);
-			main.pg1.add("chargeP", chargeP);
+			main.chargeP.cp.refresh();
 			main.cardlayout.show(main.pg1, "chargeP");
 		});
 		// 수업예약 클릭 이벤트
