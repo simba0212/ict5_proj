@@ -94,6 +94,15 @@ public class CP_Client extends Thread {
 						out.flush();
 						    
 						break;
+						
+					case 1004:
+						list = DAO.getPointApprove();
+						p.setList(list);
+						
+						out.writeObject(p);
+						out.flush();
+						
+						break;
 
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();

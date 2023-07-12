@@ -40,7 +40,7 @@ public class Member_new extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         columnNames = new String[] { "이름", "전화번호", "성별", "생년월일", "등록날짜", "주소" };
-        data = new Object[8][6];
+        data = new Object[1][6];
         
         model = new DefaultTableModel(data, columnNames) {
             @Override
@@ -104,6 +104,15 @@ public class Member_new extends JPanel {
             
             
         }
+        
+        try {
+			Protocol p = new Protocol();
+			p.setCmd(1004);
+			main.out.writeObject(p);
+			main.out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         
     }
 

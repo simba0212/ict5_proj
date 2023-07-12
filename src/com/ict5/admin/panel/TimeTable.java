@@ -40,13 +40,13 @@ public class TimeTable extends JPanel {
 	JTextField date;
 	String date2;
 	LocalDate currentDate;
-	String dateOnly,voDate,teacherName,classType,classTime;
-	
+	String dateOnly, voDate, teacherName, classType, classTime;
+
 	public void refreshData() {
 		clearTableData();
 		Date();
 		System.out.println("실행");
-    }
+	}
 
 	public TimeTable(Admin_main main) {
 		setBorder(BorderFactory.createLineBorder(Color.black));
@@ -91,10 +91,9 @@ public class TimeTable extends JPanel {
 		date.setPreferredSize(new Dimension(100, 50));
 		date.setText(date2);
 		north2.add(date);
-		
+
 		currentDate = LocalDate.now();
-        date2 = currentDate.toString();
-        
+		date2 = currentDate.toString();
 
 		JButton btnNewButton_1 = new JButton(">>");
 		btnNewButton_1.setPreferredSize(new Dimension(50, 30));
@@ -140,6 +139,18 @@ public class TimeTable extends JPanel {
 				currentDate = currentDate.plusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+
+				try {
+					Protocol p = new Protocol();
+					p.setCmd(1002);
+					main.out.writeObject(p);
+					main.out.flush();
+					System.out.println();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 				Date();
@@ -152,29 +163,38 @@ public class TimeTable extends JPanel {
 				currentDate = currentDate.minusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				
+				try {
+					Protocol p = new Protocol();
+					p.setCmd(1002);
+					main.out.writeObject(p);
+					main.out.flush();
+					System.out.println();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 				Date();
 			}
 		});
-		
-		
-		
+
 	}
 
 	public void Date() {
-		
+
 		try {
 			// 응답 받은 후 list를 확인
 			List<VO> list = main.list;
 			if (list != null) {
 				for (VO vo : list) {
 
-					voDate = vo.getClass_date();
-					dateOnly = voDate.split(" ")[0];
+					voDate = vo.getClass_date().substring(0,10);
 
 					// vo의 날짜 정보가 date2와 일치하는 경우에만 처리
-					if (dateOnly.equals(date2)) {
+					if (voDate.equals(date2)) {
 						teacherName = vo.getTeacher_name();
 						classType = vo.getClass_type();
 						int classTime = Integer.parseInt(vo.getClass_time());
@@ -470,86 +490,85 @@ public class TimeTable extends JPanel {
 		}
 
 		try {
-		Protocol p = new Protocol();
-		p.setCmd(1003);
-		main.out.writeObject(p);
-		main.out.flush();
-		System.out.println();
+			Protocol p = new Protocol();
+			p.setCmd(1003);
+			main.out.writeObject(p);
+			main.out.flush();
+			System.out.println();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	//테이블 데이터 초기화 메서드
+	// 테이블 데이터 초기화 메서드
 	public void clearTableData() {
 		for (int row = 0; row < table.getRowCount(); row++) {
 			for (int column = 1; column < table.getColumnCount(); column++) {
 				table.setValueAt("", row, column);
-				}
 			}
 		}
 	}
-
-class ButtonRenderer extends DefaultTableCellRenderer {
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-            int row, int column) {
-        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        if (column >= 1 && !value.toString().equals("")) {
-            JButton button = new JButton(value.toString());
-            button.setBackground(null);
-            return button;
-        } else {
-            return component;
-        }
-    }
 }
 
+class ButtonRenderer extends DefaultTableCellRenderer {
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+		if (column >= 1 && !value.toString().equals("")) {
+			JButton button = new JButton(value.toString());
+			button.setBackground(null);
+			return button;
+		} else {
+			return component;
+		}
+	}
+}
 
 class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
-    private JButton button;
-    Admin_main main;
-    CardLayout cardLayout;
-    TimeTable timeTable;
+	private JButton button;
+	Admin_main main;
+	CardLayout cardLayout;
+	TimeTable timeTable;
 
-    public ButtonEditor(Admin_main main, TimeTable timeTable) {
-        this.main = main;
-        this.cardLayout = main.cardlayout;
-        this.timeTable = timeTable;
+	public ButtonEditor(Admin_main main, TimeTable timeTable) {
+		this.main = main;
+		this.cardLayout = main.cardlayout;
+		this.timeTable = timeTable;
 
-        button = new JButton();
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // 버튼 클릭 시 동작을 수행할 수 있도록 구현
-                System.out.println("Button clicked");
-                JOptionPane.showMessageDialog(button, "강의 페이지로 이동");
-                main.cardlayout.show(main.pg1, "classcheck"); // "classcheck" 페이지로 이동
-                timeTable.refreshData(); // TimeTable의 refreshData() 메서드 호출
-            }
-        });
-    }
+		button = new JButton();
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 버튼 클릭 시 동작을 수행할 수 있도록 구현
+				System.out.println("Button clicked");
+				JOptionPane.showMessageDialog(button, "강의 페이지로 이동");
+				main.cardlayout.show(main.pg1, "classcheck"); // "classcheck" 페이지로 이동
+				timeTable.Date();
+			}
+		});
+	}
 
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        // Edit the specific cells in the desired columns using the button editor
-        if (column >= 1 && !value.toString().equals("")) {
-            button.setText(value.toString());
-            return button;
-        } else {
-            // 해당 셀이 아닌 경우, 기본 편집 컴포넌트를 반환
-            return null;
-        }
-    }
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+		// Edit the specific cells in the desired columns using the button editor
+		if (column >= 1 && !value.toString().equals("")) {
+			button.setText(value.toString());
+			return button;
+		} else {
+			// 해당 셀이 아닌 경우, 기본 편집 컴포넌트를 반환
+			return null;
+		}
+	}
 
-    public Object getCellEditorValue() {
-        return button.getText();
-    }
+	public Object getCellEditorValue() {
+		return button.getText();
+	}
 
-    public boolean stopCellEditing() {
-        // 셀 편집이 중지될 때 호출되는 메서드
-        // 필요한 경우 추가적인 작업을 수행할 수 있습니다.
-        fireEditingStopped();
-        return super.stopCellEditing();
-    }
+	public boolean stopCellEditing() {
+		// 셀 편집이 중지될 때 호출되는 메서드
+		// 필요한 경우 추가적인 작업을 수행할 수 있습니다.
+		fireEditingStopped();
+		return super.stopCellEditing();
+	}
 }

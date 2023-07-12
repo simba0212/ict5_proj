@@ -18,12 +18,12 @@ public class Admin_ClassCheck extends JPanel {
         this.main = main;
         classCheck = new ClassCheck(main);
         classCheck2 = new ClassCheck2(main);
+        timetable = new TimeTable(main); // timetable 객체 생성
 
         setLayout(new BorderLayout());
 
         add(new Navi(main), BorderLayout.NORTH);
 
-        timetable = new TimeTable(main); // timetable 객체 생성
         add(timetable, BorderLayout.WEST); // timetable 추가
 
         // Create a new panel to hold ClassCheck and ClassCheck2

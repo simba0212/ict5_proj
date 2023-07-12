@@ -46,6 +46,12 @@
 		FROM MEMBER_T
 		WHERE MEMBER_SIGNUP_DATE <![CDATA[>=]]> TRUNC(SYSDATE) <![CDATA[-]]> 30 AND MEMBER_SIGNUP_DATE <![CDATA[<]]> TRUNC(SYSDATE)
 	</select>
+	
+	<select id="PointApprove" resultType="com.ict5.db.VO">
+		SELECT P.*, M.MEMBER_NAME
+		FROM POINTAPPROVE P
+		JOIN MEMBER_T M ON P.MEMBER_NUM = M.MEMBER_NUM
+	</select>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">

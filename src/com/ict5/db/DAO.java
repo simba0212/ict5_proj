@@ -90,6 +90,13 @@ public class DAO {
 		return list;
 	}
 	
+	public static List<VO> getPointApprove(){
+		List<VO> list = null;
+		list = getSession().selectList("PointApprove");
+		
+		return list;
+	}
+	
 
 	public static VO getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);

@@ -17,11 +17,14 @@ public class Admin_Home extends JPanel {
     TimeTable timetable;
     Admin_ClassCheck classCheck;
     Member_new member_new;
+    Point_new point_new;
     
     public Admin_Home(Admin_main main) {
         this.main = main;
         timetable = new TimeTable(main);
         member_new = new Member_new(main);
+        point_new = new Point_new(main);
+        
         setLayout(new BorderLayout());
         add(new Navi(main), BorderLayout.NORTH);
         add(timetable, BorderLayout.WEST);
@@ -30,7 +33,7 @@ public class Admin_Home extends JPanel {
         jp_east.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 0)); // 패널의 테두리 설정
 
         // Point_new 패널의 테두리 설정
-        JPanel pointPanel = new Point_new();
+        JPanel pointPanel = point_new;
         Border pointBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // 테두리 스타일 설정
         pointPanel.setBorder(pointBorder);
         jp_east.add(pointPanel, BorderLayout.NORTH);
