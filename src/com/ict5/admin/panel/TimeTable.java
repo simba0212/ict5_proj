@@ -8,8 +8,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
@@ -28,8 +28,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import com.ict5.admin.Admin_ClassCheck;
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class TimeTable extends JPanel {
@@ -469,10 +469,16 @@ public class TimeTable extends JPanel {
 			e.printStackTrace();
 		}
 
-//		Protocol p = new Protocol();
-//		p.setCmd(1003);
-//		main.out.writeObject(p);
-//		main.out.flush();
+		try {
+		Protocol p = new Protocol();
+		p.setCmd(1003);
+		main.out.writeObject(p);
+		main.out.flush();
+		System.out.println();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//테이블 데이터 초기화 메서드

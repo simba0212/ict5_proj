@@ -154,7 +154,11 @@ public class Admin_main extends JFrame implements Runnable {
 							System.out.println("테이블 실패 222");
 						}
 						break;
-
+					
+					case 1003:
+						home.member_new.Member();
+						
+						break;
 
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();

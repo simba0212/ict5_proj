@@ -82,6 +82,14 @@ public class DAO {
 		
 		return list;
 	}
+	
+	public static List<VO> getNewMember(){
+		List<VO> list = null;
+		list = getSession().selectList("NweMember");
+		
+		return list;
+	}
+	
 
 	public static VO getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);

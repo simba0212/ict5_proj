@@ -41,6 +41,11 @@
 		SELECT * FROM CLASS_TEACHER
 	</select>
 	
+	<select id="NweMember" resultType="com.ict5.db.VO">
+		SELECT MEMBER_NAME, MEMBER_GEN, MEMBER_PHONE, MEMBER_ADDR, MEMBER_BIRTH, MEMBER_SIGNUP_DATE
+		FROM MEMBER_T
+		WHERE MEMBER_SIGNUP_DATE <![CDATA[>=]]> TRUNC(SYSDATE) <![CDATA[-]]> 30 AND MEMBER_SIGNUP_DATE <![CDATA[<]]> TRUNC(SYSDATE)
+	</select>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
