@@ -161,19 +161,18 @@ public Mypage(Client_main main) {
 		}
 	});
 	jb2.addActionListener(new ActionListener() {
-		
+		//  jb2 --> 목표 작성후 저장버튼
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			jta.setEditable(false);
-			
-			
-			
+			jta.setEditable(false); // 저장을 누르면 수정버튼 누르기 전에는 수정 불가능하게 변경
 			try {
 				VO vo = new VO();
 				Protocol p = new Protocol();
-				vo.setMember_id(main.usernum);  
+				vo.setMember_num(main.usernum);  
+				System.out.println("jb2버튼 누르고 vo에 member_num 담은 후"+vo.getMember_num());
 				vo.setMember_goal(jta.getText());
+				System.out.println("jb2버튼 누르고 vo에 member_goal담은 후"+vo.getMember_goal());
 				p.setCmd(2501);
 				p.setVo(vo);
 				main.out.writeObject(p);

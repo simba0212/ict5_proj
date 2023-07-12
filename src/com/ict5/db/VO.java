@@ -6,7 +6,6 @@ import java.io.Serializable;
 public class VO implements Serializable {
 
 	private String member_num, member_id, member_name, member_gen, member_birth, member_signup_date, member_addr, member_goal,
-
 	member_pw, member_mail, member_point, member_chargep, member_usep, member_phone, attendent_date,
 	attendent_month, member_totalcharge, member_totaluse;
 	private String notice_num, notice_text;

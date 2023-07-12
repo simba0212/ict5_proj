@@ -157,10 +157,9 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	WHERE c.class_date <![CDATA[>=]]> TRUNC(SYSDATE) AND c.class_date <![CDATA[<]]> TRUNC(SYSDATE) + 8 And b.member_num=#{member_num} 
 	ORDER BY c.class_date, c.class_time
 	</select>
-	<update id="update_goal" parameterType="com.ict5.db.VO">
-		 UPDATE member_t
- 		 SET member_goal = #{member_goal}
- 		 WHERE member_num = #{member_num}
+	
+	<update id="update_goal" parameterType="com.ict5.db.VO" >
+		 update member_t set member_goal = '${member_goal}' where member_num = 1
 	</update>
 	
 </mapper>

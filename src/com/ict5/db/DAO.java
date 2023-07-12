@@ -187,7 +187,10 @@ public class DAO {
 		return list;
 	}
 	public static int update_goal(VO vo) {
-		int result = getSession().update("update_goal", vo);
+		System.out.println(vo.getMember_num());
+		System.out.println(vo.getMember_goal());
+		
+		int result =getSession().update("update_goal",vo);
 		ss.commit();
 		return result;
 	}

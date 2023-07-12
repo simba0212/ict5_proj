@@ -230,10 +230,11 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;	
 						
-					case 2501:
+					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
 						System.out.println(vo.getMember_goal()+"dao실행전");
-						DAO.update_goal(vo);
-						System.out.println("dao실행");
+						System.out.println(vo.getMember_num()+"dao실행전");
+						int result2 = DAO.update_goal(vo);
+						System.out.println("dao실행 후");
 						out.writeObject(p);
 						out.flush();
 						break;	

@@ -195,6 +195,8 @@ public class Client_main extends JFrame implements Runnable {
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문
 						System.out.println("update댐");
+						usergoal=vo.getMember_goal();
+						tab.mypage.refresh();
 						break;	
 					case 2901: // 출헉살때 사용한 insert가 완료됏을때
 						//작성필요 
