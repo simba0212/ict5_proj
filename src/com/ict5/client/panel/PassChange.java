@@ -25,7 +25,6 @@ public class PassChange extends JPanel {
         this.main = main;
         this.cardlayout = main.cardlayout;
         this.vo = main.vo;
-        System.out.println(vo.getMember_id());
         // 상단 제목 라벨
         JLabel titleLabel = new JLabel("비밀번호 변경");
         titleLabel.setFont(new Font("굴림", Font.BOLD, 16));
@@ -89,9 +88,6 @@ public class PassChange extends JPanel {
 
             // 비밀번호 변경 함수 호출
             boolean passwordChanged = changePassword(nowPwText, changePwText, changePwConText);
-            System.out.println(nowPwText);
-            System.out.println(changePwText);
-            System.out.println(changePwConText);
             // 비밀번호 변경 결과 대화상자로 출력
             if (passwordChanged) {
                 JOptionPane.showMessageDialog(this, "비밀번호가 성공적으로 변경되었습니다.");
@@ -159,9 +155,6 @@ public class PassChange extends JPanel {
                     vo.setNew_pw(changePw);
                     vo.getMember_id();
                     p.setVo(vo);
-                    System.out.println(vo.getOld_pw());
-                    System.out.println(vo.getNew_pw());
-                    System.out.println(vo.getMember_id());
                     p.setCmd(2103); // 변경 필요
                     main.out.writeObject(p);
                     main.out.flush();
