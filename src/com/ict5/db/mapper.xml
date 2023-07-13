@@ -184,7 +184,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
     		teacher_gen=#{teacher_gen},
     		teacher_career=#{teacher_career},
     		teacher_img=#{teacher_img},
-    		teacher_type=#{teacher_type},
+    		teacher_type=#{teacher_type}
 		where teacher_num=#{teacher_num}
 	</update>
 </mapper>

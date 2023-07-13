@@ -190,20 +190,12 @@ public class Admin_main extends JFrame implements Runnable {
 						coMg2.coTable2.refresh2();// 예약내역
 						break;
 					case 1309:
-						System.out.println("픽스메서드전까지옴");
 						coMg3.coMgmt4.fix(); // 수정내용
 						break;
 					case 1310: //삭제 
 						p.setCmd(1301);
 						out.writeObject(p);
 						out.flush();
-						
-//						System.out.println("작업하고옴  " + p.getResult());
-//
-//						if (p.getResult() == 1) {
-//							//리스트 재조회
-//							coMg1.coTable1.refresh();
-//						}
 						break;
 					case 1317: // 강사 수정후 재등록
 						p.setCmd(1301);
@@ -214,12 +206,8 @@ public class Admin_main extends JFrame implements Runnable {
 						p.setCmd(1301);
 						out.writeObject(p);
 						out.flush();
+						break;
 					case 1320: // 공지사항 등록하기
-						if (p.getResult() == 1) {
-							System.out.println("공지등록완료");
-						} else {
-							System.out.println("공지등록실패");
-						}
 						break;
 
 					}

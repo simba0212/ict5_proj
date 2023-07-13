@@ -42,18 +42,16 @@ public class CoMgmt4 extends JPanel {
 	JTextField[] getTeacherFields;
 	CoTable1 coTable1;
 	Admin_CoMgmt1 coMg1;
-	JTextField nameField,phoneField,addressField;
-	ButtonGroup genderGroup;
-	JTextArea experienceTextArea ;
+	JTextField nameField, phoneField, addressField;
+	ButtonGroup genderGroup, courseGroup;
+	JTextArea experienceTextArea;
 	ImageIcon imageIcon;
-	JRadioButton maleRadioButton, femaleRadioButton,
-	radioButton1,radioButton2,radioButton3,radioButton4; 
+	JRadioButton maleRadioButton, femaleRadioButton, radioButton1, radioButton2, radioButton3, radioButton4;
 	String imagePath;
 	Image image;
 	JLabel imageLabel;
 
-	
-
+	VO vo;
 	public CoMgmt4(Admin_main main) {
 		this.main = main;
 
@@ -105,7 +103,7 @@ public class CoMgmt4 extends JPanel {
 		coursePanel.add(courseLabel);
 
 		// 라디오 버튼 그룹 생성
-		ButtonGroup courseGroup = new ButtonGroup();
+		courseGroup = new ButtonGroup();
 		radioButton1 = new JRadioButton("헬스");
 		radioButton2 = new JRadioButton("요가");
 		radioButton3 = new JRadioButton("수영");
@@ -248,154 +246,90 @@ public class CoMgmt4 extends JPanel {
 		bottomPanel.add(editButton);
 		bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 40, 10));
 
+		vo = new VO();
 		// 하단 패널을 BorderLayout의 SOUTH 위치에 배치
 		add(bottomPanel, BorderLayout.SOUTH);
+
+		// 텍스트필드 모음
+		getTeacherFields = new JTextField[] { nameField, phoneField, addressField };
+
 		
-		//텍스트필드 모음
-		getTeacherFields= new JTextField[] {nameField,phoneField,addressField};
-		
-		VO vo = new VO();
 		// 이미지 첨부하는 버튼
 		attachButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					JFileChooser fileChooser = new JFileChooser();
-	                int option = fileChooser.showOpenDialog(CoMgmt4.this);
-	                if (option == JFileChooser.APPROVE_OPTION) {
-	                	 File selectedFile = fileChooser.getSelectedFile();
-	                     filePath = selectedFile.getAbsolutePath();
-	                	
-	                  // 이미지를 삽입하는 로직
-	                     ImageIcon imageIcon = new ImageIcon(filePath);
-	                     Image image = imageIcon.getImage();
-	                     Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
-	                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-	                     imageLabel.setIcon(scaledImageIcon);
-	                     
-	               	  if (filePath != null) {
-						  vo.setTeacher_img(filePath);
-					  }  
-	                }
-				} catch (Exception e2) {	
+					int option = fileChooser.showOpenDialog(CoMgmt4.this);
+					if (option == JFileChooser.APPROVE_OPTION) {
+						File selectedFile = fileChooser.getSelectedFile();
+						filePath = selectedFile.getAbsolutePath();
+               	
+               
+						// 이미지를 삽입하는 로직
+						imageIcon = new ImageIcon(filePath);
+						image = imageIcon.getImage();
+						Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+						ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+						imageLabel.setIcon(scaledImageIcon);
+
+						if (filePath != null) {
+							vo.setTeacher_img(filePath);
+						}
+					}
+				} catch (Exception e2) {
 				}
 			}
 		});
-		
-		//등록하는 버튼
+
+		// 등록하는 버튼
 		addButton.addActionListener(e -> {
-			 boolean allTeacherFilled = true;
-				 for (JTextField textField : getTeacherFields) {
-				        if (textField.getText().trim().isEmpty()) {
-				        	allTeacherFilled = false;
-				            break;
-				        }
-				    }
-				  if (!allTeacherFilled) {
-				        JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				        return;
-				    }
-				  if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected() && !radioButton4.isSelected()) {
-					  JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-					  return;
-				  }
-				  if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
-				        JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				        return;
-				    }
-				  if (filePath == null) {
-					  JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				        return;
-				  }
-				  if (experienceTextArea.getText().isEmpty()) {
-					  JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				        return;
-				  }
-				JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
-				
-				String gender = "";
-				try {
-					Protocol p = new Protocol();
-					vo.setTeacher_name(nameField.getText().trim());// 이름
-					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
-					vo.setTeacher_addr(addressField.getText().trim());// 주소		
-					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
-						if (maleRadioButton.isSelected()) {
-							gender = maleRadioButton.getText();
-						} else if (femaleRadioButton.isSelected()) {
-							gender = femaleRadioButton.getText();
-						}
-					vo.setTeacher_gen(gender);// 성별
-
-					// 수업종류 숫자로 나타냄
-					String type = "1"; 
-					if (radioButton1.isSelected()) {
-						type = "1";
-					} else if (radioButton2.isSelected()) {
-						type = "2";
-					} else if (radioButton3.isSelected()) {
-						type = "3";
-					} else if (radioButton4.isSelected()) {
-						type = "4";
-					}
-					vo.setTeacher_type(type);
-
-					p.setVo(vo); 
-					p.setCmd(1318);
-					main.out.writeObject(p);
-					main.out.flush();
-					main.cardlayout.show(main.pg1, "coMg1");	
-				} catch (Exception e2) {
-				}		
-		});	
-		
-		// 수정 한 내용 update하기
-		editButton.addActionListener(e -> {
-			 boolean allTeacherFilled = true;
-			 for (JTextField textField : getTeacherFields) {
-			        if (textField.getText().trim().isEmpty()) {
-			        	allTeacherFilled = false;
-			            break;
-			        }
-			    }
-			  if (!allTeacherFilled) {
-			        JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-			        return;
-			    }
-			  if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected() && !radioButton4.isSelected()) {
-				  JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				  return;
-			  }
-			  if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
-			        JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-			        return;
-			    }
-			  if (filePath == null) {
-				  JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-			        return;
-			  }
-			  if (experienceTextArea.getText().isEmpty()) {
-				  JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-			        return;
-			  }
+			boolean allTeacherFilled = true;
+			for (JTextField textField : getTeacherFields) {
+				if (textField.getText().trim().isEmpty()) {
+					allTeacherFilled = false;
+					break;
+				}
+			}
+			if (!allTeacherFilled) {
+				JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected()
+					&& !radioButton4.isSelected()) {
+				JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+				JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (filePath == null) {
+				JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (experienceTextArea.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
-			
+
 			String gender = "";
 			try {
 				Protocol p = new Protocol();
 				vo.setTeacher_name(nameField.getText().trim());// 이름
 				vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
-				vo.setTeacher_addr(addressField.getText().trim());// 주소		
+				vo.setTeacher_addr(addressField.getText().trim());// 주소
 				vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
-					if (maleRadioButton.isSelected()) {
-						gender = maleRadioButton.getText();
-					} else if (femaleRadioButton.isSelected()) {
-						gender = femaleRadioButton.getText();
-					}
+				if (maleRadioButton.isSelected()) {
+					gender = maleRadioButton.getText();
+				} else if (femaleRadioButton.isSelected()) {
+					gender = femaleRadioButton.getText();
+				}
 				vo.setTeacher_gen(gender);// 성별
 
 				// 수업종류 숫자로 나타냄
-				String type = "1"; 
+				String type = "1";
 				if (radioButton1.isSelected()) {
 					type = "1";
 				} else if (radioButton2.isSelected()) {
@@ -407,107 +341,183 @@ public class CoMgmt4 extends JPanel {
 				}
 				vo.setTeacher_type(type);
 
-				p.setVo(vo); 
-				p.setCmd(1317);
+				p.setVo(vo);
+				p.setCmd(1318);
 				main.out.writeObject(p);
 				main.out.flush();
-				main.cardlayout.show(main.pg1, "coMg1");	
+				addButton.setEnabled(true);
+				main.cardlayout.show(main.pg1, "coMg1");
+				
+				//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+				
+				nameField.setText("");
+				phoneField.setText("");
+				addressField.setText("");
+				experienceTextArea.setText("");
+				//imagePath = "src/images/photo.jpg";
+				imageIcon = new ImageIcon("src/images/photo.jpg");
+				imageLabel.setIcon(imageIcon);
+				
+				
+				genderGroup.clearSelection();
+				courseGroup.clearSelection();
+				
+				
+				
 			} catch (Exception e2) {
-			}		
-			
-			
+			}
 		});
-		
-	}
-	
-			//강사 내용 수정하기
-			public void fix() {
-				try {
-					
-					System.out.println("픽스메서드로왔다");
-					// 재등록 하기=UPDATE 정보
-					VO vo =main.vo;
-					System.out.println("vo값을 알아보자"+vo);
-					imagePath = vo.getTeacher_img();		
-					imageIcon = new ImageIcon(imagePath);
-					image = imageIcon.getImage();
-				
-//					 // 이미지 경로를 가져옴 (디비에서 가져오는 방법에 따라 다를 수 있음)
-//			        String imagePath = filePath;
-//			        // 이미지를 표시할 JLabel 생성
-//			        JLabel imageLabel = new JLabel();
-//
-//			        // 이미지 아이콘 설정
-//			        ImageIcon imageIcon = new ImageIcon(imagePath);
-//			        Image image = imageIcon.getImage();
-//			        //vo.getTeacher_img(filePath);
-					
-			       
-			        
-			        
-			        
-			        
-					nameField.setText(vo.getTeacher_name());
-					phoneField.setText(vo.getTeacher_phone());
-					addressField.setText(vo.getTeacher_addr());
-					experienceTextArea.setText(vo.getTeacher_career());
-					System.out.println("수정이름내용;;;"+vo.getTeacher_name());
-					System.out.println("수정전번내용;;;"+vo.getTeacher_phone());
-					System.out.println("수정주소내용;;;"+vo.getTeacher_addr());
-					System.out.println("수정경력내용;;;"+vo.getTeacher_career());
-					System.out.println("수정성별내용;;;"+vo.getTeacher_gen()); //여
-					System.out.println("수정타입내용;;;"+vo.getTeacher_type());
-					
-					String gen = vo.getTeacher_gen();
-					String type = vo.getTeacher_type();
-					if(gen.equals("남")) {
-						maleRadioButton.setSelected(true);
-						System.out.println("1");
-					}else if(gen.equals("여")){
-						femaleRadioButton.setSelected(true);
-						System.out.println("2");
 
-					}
-					
-					switch (type) {
-					case "1":
-						radioButton1.setSelected(true);
-						System.out.println("111111");
-						break;
-					case "2":
-						radioButton2.setSelected(true);
-						System.out.println("222222222");
-						break;
-					case "3":
-						radioButton3.setSelected(true);
-						System.out.println("333333333");
-						break;
-					case "4":
-						radioButton4.setSelected(true);
-						System.out.println("44444");
+		// 수정 update 버튼
+		editButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vo = main.vo;
+
+				boolean allTeacherFilled = true;
+				for (JTextField textField : getTeacherFields) {
+					if (textField.getText().trim().isEmpty()) {
+						allTeacherFilled = false;
 						break;
 					}
-					
-					
-					System.out.println("이미지내용;;;"+vo.getTeacher_img());
-					main.cardlayout.show(main.pg1, "coMg3");
-					
-					
-			
-					
-					
-					//세팅해준 값들을 보여주는 페이지!!
-					
-			
-					//main.cardlayout.show(main.pg1, "coMg3");
-					
-				} catch (Exception e) {
-					// TODO: handle exception
 				}
-				
+				if (!allTeacherFilled) {
+					JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected()
+						&& !radioButton4.isSelected()) {
+					JOptionPane.showMessageDialog(null, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+					JOptionPane.showMessageDialog(null, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (filePath == null) {
+					JOptionPane.showMessageDialog(null, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (experienceTextArea.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			
+				int result = JOptionPane.showConfirmDialog(null, "수정 되었습니다", "수정", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+				if (result == JOptionPane.OK_OPTION) {
+					// 확인 버튼을 눌렀을 때 처리할 동작 추가
+					String gender = "";
+					try {
+						Protocol p = new Protocol();
+						filePath = vo.getTeacher_img();
+						vo.setTeacher_name(nameField.getText().trim());// 이름
+						vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+						vo.setTeacher_addr(addressField.getText().trim());// 주소
+						vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
+						if (maleRadioButton.isSelected()) {
+							gender = maleRadioButton.getText();
+						} else if (femaleRadioButton.isSelected()) {
+							gender = femaleRadioButton.getText();
+						}
+						vo.setTeacher_gen(gender);// 성별
 
-				
-				
-				
+						// 수업종류 숫자로 나타냄
+						String type = "1";
+						if (radioButton1.isSelected()) {
+							type = "1";
+						} else if (radioButton2.isSelected()) {
+							type = "2";
+						} else if (radioButton3.isSelected()) {
+							type = "3";
+						} else if (radioButton4.isSelected()) {
+							type = "4";
+						}
+						vo.setTeacher_type(type);
+						
+	
+						
+						p.setVo(vo);
+						p.setCmd(1317);
+						main.out.writeObject(p);
+						main.out.flush();
+						main.cardlayout.show(main.pg1, "coMg1"); 
+
+						nameField.setText("");
+						phoneField.setText("");
+						addressField.setText("");
+						experienceTextArea.setText("");
+						imagePath = "src/images/photo.jpg";
+						imageIcon = new ImageIcon(imagePath);
+						imageLabel.setIcon(new ImageIcon(image));
+						
+						
+						genderGroup.clearSelection();
+						courseGroup.clearSelection();
+
+					} catch (Exception e2) {
+					}
+
+				} else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {
+					vo.setTeacher_name(nameField.getText().trim());// 이름
+					vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
+					vo.setTeacher_addr(addressField.getText().trim());// 주소
+					vo.setTeacher_career(experienceTextArea.getText()); // 경력사항
+				}
+			}
+
+		});
+
+	}
+
+	// 수정할 강사 내용 불러오기
+	public void fix() {
+		try {
+			vo = main.vo;
+
+			filePath = vo.getTeacher_img();
+			String imagepath = vo.getTeacher_img();
+			ImageIcon imageIcon = new ImageIcon(imagepath);
+			Image image = imageIcon.getImage();
+			Image scaledImage = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+			ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+			imageLabel.setIcon(scaledImageIcon);
+
+			nameField.setText(vo.getTeacher_name());
+			phoneField.setText(vo.getTeacher_phone());
+			addressField.setText(vo.getTeacher_addr());
+			experienceTextArea.setText(vo.getTeacher_career());
+		
+			String gen = vo.getTeacher_gen();
+			String type = vo.getTeacher_type();
+			if (gen.equals("남")) {
+				maleRadioButton.setSelected(true);
+			} else if (gen.equals("여")) {
+				femaleRadioButton.setSelected(true);
+			}
+
+			switch (type) {
+			case "1":
+				radioButton1.setSelected(true);
+				break;
+			case "2":
+				radioButton2.setSelected(true);
+				break;
+			case "3":
+				radioButton3.setSelected(true);
+				break;
+			case "4":
+				radioButton4.setSelected(true);
+				break;
+			}
+
+			
+			main.cardlayout.show(main.pg1, "coMg3");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 }

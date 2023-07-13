@@ -175,12 +175,6 @@ public class CoTable2 extends JPanel {
         rightPanel.add(bottom,BorderLayout.SOUTH);
         rightPanel.add(classScrollPane, BorderLayout.CENTER);
 
-//        //셀내용 가운데 정렬
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-//        classTable.setDefaultRenderer(Object.class, centerRenderer);
-//        instrTable.setDefaultRenderer(Object.class, centerRenderer);
-
         centerPanel.add(rightPanel, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
@@ -194,7 +188,6 @@ public class CoTable2 extends JPanel {
 					VO vo = new VO();
 					p.setCmd(1309); // 수정하는 프로토콜
 					vo.setTeacher_num(teanum);
-					System.out.println("선생님번호담기;;;;"+teanum);
 					p.setVo(vo);
 					main.out.writeObject(p);
 					main.out.flush();
@@ -329,7 +322,6 @@ public class CoTable2 extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
             		try {
-            			System.out.println("삭제버튼 눌렀어욤");
             			Protocol p = new Protocol();
     					VO vo = new VO();
     					p.setCmd(1310);

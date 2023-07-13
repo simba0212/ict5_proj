@@ -219,6 +219,6 @@ public class DAO {
 	public static int getTeacherEdit(VO vo) {
 		getSession().update("getTeacherEdit",vo);
 		ss.commit();
-		return 0;
+		return 1;
 	}
 }

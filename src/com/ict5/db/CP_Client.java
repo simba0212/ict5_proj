@@ -155,7 +155,6 @@ public class CP_Client extends Thread {
 						break;
 					case 1309: // 강사 수정하기
 						vo = DAO.getTeacherOne(vo);
-						System.out.println("강사수정하기디비다녀옴;;;"+vo);
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
@@ -168,7 +167,6 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 1317: // 수정 후 재등록
-						vo = p.getVo();
 						DAO.getTeacherEdit(vo);
 						p.setVo(vo);
 						out.writeObject(p);
@@ -176,7 +174,6 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 1318: //강사 등록
-						vo = p.getVo();
 						DAO.getTeacherInsert(vo);
 						p.setVo(vo);
 						out.writeObject(p);
@@ -184,7 +181,6 @@ public class CP_Client extends Thread {
 						break;
 
 					case 1320:
-						vo = p.getVo();
 						DAO.setNotice(vo);
 						p.setVo(vo);
 						p.setResult(1);

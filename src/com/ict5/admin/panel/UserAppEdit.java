@@ -97,7 +97,7 @@ public class UserAppEdit extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "등록되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
-				announcementTextArea.setText("");
+			
 				
 				try {
 					VO vo = new VO();
@@ -110,6 +110,7 @@ public class UserAppEdit extends JPanel {
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
+				announcementTextArea.setText("");
 			}
 		});
         
