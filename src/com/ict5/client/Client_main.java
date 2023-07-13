@@ -138,7 +138,6 @@ public class Client_main extends JFrame implements Runnable {
 					case 0:
 						break esc;
 					case 2001:
-						System.out.println(p.getResult());
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
 							username=vo.getMember_name();
@@ -164,9 +163,6 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2303:
 						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
-						System.out.println(vo.getClass_point());
-						System.out.println(vo.getMember_num());
-						System.out.println(vo.getClass_num());
 						
 						try {
 							p.setCmd(2701);
@@ -203,10 +199,7 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2308: // 예약취소 후 포인트테이블 insert
 						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
-						System.out.println(vo.getClass_point());
-						System.out.println(vo.getMember_num());
-						System.out.println(vo.getClass_num());
-						
+					
 						try {
 							p.setCmd(2702);
 							p.setVo(vo);

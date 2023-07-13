@@ -156,7 +156,7 @@ public class DAO {
 		return 0;
 	}
 	public static int book_can_point(VO vo) {
-		getSession().insert("book_point", vo);
+		getSession().insert("book_can_point", vo);
 		ss.commit();
 		return 0;
 	}
@@ -202,7 +202,7 @@ public class DAO {
 	}
 
 	public static List<VO> sel_class_noice(VO vo) { // 알림표시할 클래스 정보 불러오기
-		List<VO> list = getSession().selectList("sel_class_noice",vo);
+		List<VO> list =getSession().selectList("sel_class_noice",vo);
 		return list;
 	}
 	public static int update_goal(VO vo) {

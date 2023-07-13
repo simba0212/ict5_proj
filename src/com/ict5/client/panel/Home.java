@@ -116,6 +116,7 @@ public class Home extends JPanel {
 			
 			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
+			
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
@@ -132,6 +133,9 @@ public class Home extends JPanel {
 					JOptionPane.showMessageDialog(null, "예약된 클래스가 없습니다", "알림", JOptionPane.WARNING_MESSAGE);
 				} else {
 					main.cardlayout.show(main.pg1, "tab");
+					main.tab.reservation.mon=vo.getClass_date().substring(5,7);
+					main.tab.reservation.day_i= Integer.parseInt(vo.getClass_date().substring(8,10));
+					main.tab.reservation.rb.refresh();
 					TabPage.tabbedPane.setSelectedIndex(1);
 					// 최근 강의시간으로 가야함
 				}
