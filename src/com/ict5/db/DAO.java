@@ -210,6 +210,7 @@ public class DAO {
 
 	public static int setApprove(VO vo) {
 		int result = getSession().update("setApprove",vo);
+		ss.commit();
 		return result;
 	}
 }

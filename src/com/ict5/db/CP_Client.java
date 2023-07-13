@@ -114,7 +114,6 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					
-
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
 						p.setList(list);

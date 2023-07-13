@@ -5,14 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.List;
 
-import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,10 +16,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.ict5.admin.Admin_main;
 import com.ict5.db.Protocol;
@@ -38,7 +37,9 @@ public class Point_new extends JPanel {
 
     public Point_new(Admin_main main) {
         this.main = main;
-        this.table = new JTable(model); // Initialize the 'table' variable
+        
+        // 테이블을 초기화합니다.
+        table = new JTable();
 
         setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("최근 포인트 신청");
@@ -52,12 +53,11 @@ public class Point_new extends JPanel {
         data = new Object[1][7];
 
         model = new DefaultTableModel(data, columnNames) {
-        	@Override
-			public boolean isCellEditable(int row, int column) {
-				// "승인 여부" 열은 수정할 수 없도록 설정
-				return column == 5;
-			}
-           
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // "승인 여부" 열은 수정할 수 없도록 설정
+                return column == 5;
+            }
         };
 
         // Create a custom cell renderer for the "지급하기" column
@@ -73,19 +73,28 @@ public class Point_new extends JPanel {
             }
         };
 
-
-
-        table = new JTable(model);
+        table.setModel(model);
         table.setRowHeight(30);
-        table.getColumn("신청날짜").setPreferredWidth(200);
-        table.getColumn("신청포인트").setPreferredWidth(100);
-        table.getColumn("지급하기").setCellRenderer(buttonRenderer); // Set the custom cell renderer for the button column
+        table.getColumnModel().getColumn(6).setPreferredWidth(200);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(5).setCellRenderer(buttonRenderer); // Set the custom cell renderer for the button column
         table.getTableHeader().setReorderingAllowed(false);
 
         JScrollPane jsp = new JScrollPane(table);
         jsp.setPreferredSize(new Dimension(600, 300));
         add(jsp, BorderLayout.SOUTH);
         
+        // 테이블에 대한 TableRowSorter를 생성합니다.
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        
+        // 정렬 순서를 정의합니다.
+        sorter.setSortKeys(List.of(
+            new RowSorter.SortKey(5, SortOrder.DESCENDING)   // "지급상태" 열의 인덱스 4, 내림차순 정렬
+        ));
+
+        // 테이블에 TableRowSorter를 설정합니다.
+        table.setRowSorter(sorter);
+
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -104,20 +113,20 @@ public class Point_new extends JPanel {
                             VO vo = new VO();
 
                             vo.setCharge_num(charge_num);
+                            
                             p.setVo(vo);
                             p.setCmd(1005);
                             main.out.writeObject(p);
                             main.out.flush();
-
+                            
                         }
                     }
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
+                } catch (Exception e2) {
+                    // TODO: handle exception
+                }
 
-			}
-		});
-        
+            }
+        });
     }
 
     public void PointApprove() {
@@ -156,10 +165,10 @@ public class Point_new extends JPanel {
                 model.setValueAt(charge, i, 5);
                 
                 if(vo.getPoint_approve() !=null) {
-                	charge = "지급완료";
-                	model.setValueAt(charge, i, 4);
-                	
-                	charge = "";
+                    charge = "지급완료";
+                    model.setValueAt(charge, i, 4);
+                    
+                    charge = "";
                     model.setValueAt(charge, i, 5);
                 }
             } else {
@@ -174,15 +183,15 @@ public class Point_new extends JPanel {
             }
 
         }
+        
+     // 정렬을 수행합니다.
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) table.getRowSorter();
+        sorter.sort();
     }
     
     // 테이블 데이터 초기화 메서드
- 	public void clearTableData() {
- 		for (int row = 0; row < table.getRowCount(); row++) {
- 			for (int column = 0; column < table.getColumnCount(); column++) {
- 				table.setValueAt("", row, column);
- 			}
- 		}
- 		
- 	}
+    public void clearTableData() {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+    }
 }
