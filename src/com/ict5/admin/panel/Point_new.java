@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
@@ -20,8 +23,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Point_new extends JPanel {
@@ -30,10 +35,10 @@ public class Point_new extends JPanel {
     DefaultTableModel model;
     String[] columnNames;
     Object[][] data;
-    JButton button; // 버튼 객체를 멤버 변수로 선언
 
     public Point_new(Admin_main main) {
         this.main = main;
+        this.table = new JTable(model); // Initialize the 'table' variable
 
         setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("최근 포인트 신청");
@@ -43,32 +48,76 @@ public class Point_new extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         setBackground(Color.lightGray);
 
-        columnNames = new String[] { "이름", "신청포인트", "입금상태", "지급상태", "지급하기", "신청날짜" };
-        data = new Object[1][6];
+        columnNames = new String[] {"신청번호", "이름", "신청포인트", "입금상태", "지급상태", "지급하기", "신청날짜" };
+        data = new Object[1][7];
 
         model = new DefaultTableModel(data, columnNames) {
+        	@Override
+			public boolean isCellEditable(int row, int column) {
+				// "승인 여부" 열은 수정할 수 없도록 설정
+				return column == 5;
+			}
+           
+        };
+
+        // Create a custom cell renderer for the "지급하기" column
+        TableCellRenderer buttonRenderer = new DefaultTableCellRenderer() {
             @Override
-            public boolean isCellEditable(int row, int column) {
-                Object value = getValueAt(row, column);
-                return value != null && column == 4 && value.toString().equals("지급");
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (column == 5 && value != null && value.toString().equals("승인")) {
+                    JButton button = new JButton("지급");
+                    return button;
+                } else {
+                    return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                }
             }
         };
 
-        ButtonRenderer renderer = new ButtonRenderer();
-        ButtonEditor editor = new ButtonEditor();
-        button = new JButton("지급"); // 버튼 객체 초기화
+
 
         table = new JTable(model);
         table.setRowHeight(30);
         table.getColumn("신청날짜").setPreferredWidth(200);
         table.getColumn("신청포인트").setPreferredWidth(100);
-        table.getColumn("지급하기").setCellRenderer(renderer);
-        table.getColumn("지급하기").setCellEditor(editor);
+        table.getColumn("지급하기").setCellRenderer(buttonRenderer); // Set the custom cell renderer for the button column
         table.getTableHeader().setReorderingAllowed(false);
 
         JScrollPane jsp = new JScrollPane(table);
         jsp.setPreferredSize(new Dimension(600, 300));
         add(jsp, BorderLayout.SOUTH);
+        
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    int row = table.getSelectedRow();
+                    int col = table.getSelectedColumn();
+                    Object obj = table.getValueAt(row, col);
+                    if (obj.toString().equals("승인")) {
+                        int res = JOptionPane.showConfirmDialog(null, "정말 승인하시겠습니까?", "승인확인",
+                                JOptionPane.YES_NO_OPTION);
+                        if (res == 0) {
+                            obj = table.getValueAt(row, 0);
+                            String charge_num = obj.toString();
+
+                            Protocol p = new Protocol();
+                            VO vo = new VO();
+
+                            vo.setCharge_num(charge_num);
+                            p.setVo(vo);
+                            p.setCmd(1005);
+                            main.out.writeObject(p);
+                            main.out.flush();
+
+                        }
+                    }
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
+			}
+		});
+        
     }
 
     public void PointApprove() {
@@ -90,83 +139,50 @@ public class Point_new extends JPanel {
 
         for (int i = 0; i < member.size(); i++) {
             VO vo = member.get(i);
-            model.setValueAt(vo.getMember_name(), i, 0);
-            model.setValueAt(vo.getPoint_money(), i, 1);
-            model.setValueAt(vo.getPoint_signup_date(), i, 5);
+            
+            model.setValueAt(vo.getCharge_num(), i, 0);
+            model.setValueAt(vo.getMember_name(), i, 1);
+            model.setValueAt(vo.getPoint_money(), i, 2);
+            model.setValueAt(vo.getPoint_signup_date(), i, 6);
 
             String charge;
             if (vo.getPoint_charge_date() != null) {
                 charge = "입금완료";
-                model.setValueAt(charge, i, 2);
+                model.setValueAt(charge, i, 3);
+                charge = "지급대기";
+                model.setValueAt(charge, i, 4);
+                
+                charge = "승인";
+                model.setValueAt(charge, i, 5);
+                
+                if(vo.getPoint_approve() !=null) {
+                	charge = "지급완료";
+                	model.setValueAt(charge, i, 4);
+                	
+                	charge = "";
+                    model.setValueAt(charge, i, 5);
+                }
             } else {
                 charge = "입금대기";
-                model.setValueAt(charge, i, 2);
+                model.setValueAt(charge, i, 3);
+                charge = "";
+                model.setValueAt(charge, i, 4);
             }
 
             if (charge.equals("입금완료")) {
-                charge = "지급";
-                model.setValueAt(charge, i, 4);
-                table.setValueAt(charge, i, 4); // 테이블에서도 값을 변경합니다.
-            }
-        }
-    }
-
-    class ButtonRenderer extends DefaultTableCellRenderer {
-        public ButtonRenderer() {
-            setOpaque(true);
-        }
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                boolean hasFocus, int row, int column) {
-            String text = (value != null) ? value.toString() : "";
-            if (text.equals("지급")) {
-                button.setEnabled(true);
-                button.setBackground(table.getSelectionBackground());
-                button.setForeground(table.getSelectionForeground());
-            } else {
-                button.setEnabled(false);
-                button.setBackground(table.getBackground());
-                button.setForeground(table.getForeground());
-            }
-            return button;
-        }
-    }
-
-    class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            JButton button = new JButton("지급"); // 각 버튼을 독립적으로 생성
-            button.addActionListener(new ActionListener() {
-                private boolean clicked = false;
-
-                public void actionPerformed(ActionEvent e) {
-                    if (!clicked) {
-                        clicked = true;
-                        JOptionPane.showMessageDialog(null, "포인트 지급");
-                        // 여기서 원하는 동작을 수행합니다.
-                        System.out.println("버튼 클릭");
-                    }
-                    button.setEnabled(false); // 버튼을 비활성화
-                    fireEditingStopped();
-                }
-            });
-
-            String text = (value != null) ? value.toString() : "";
-            button.setText(text); // 버튼의 텍스트 설정
-
-            if (isSelected) {
-                button.setBackground(table.getSelectionBackground());
-                button.setForeground(table.getSelectionForeground());
-            } else {
-                button.setBackground(table.getBackground());
-                button.setForeground(table.getForeground());
+                
             }
 
-            return button;
-        }
-
-        public Object getCellEditorValue() {
-            return null;
         }
     }
-
+    
+    // 테이블 데이터 초기화 메서드
+ 	public void clearTableData() {
+ 		for (int row = 0; row < table.getRowCount(); row++) {
+ 			for (int column = 0; column < table.getColumnCount(); column++) {
+ 				table.setValueAt("", row, column);
+ 			}
+ 		}
+ 		
+ 	}
 }

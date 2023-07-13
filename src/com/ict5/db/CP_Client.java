@@ -106,6 +106,14 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+						
+						
+					case 1005: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+					
 
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
@@ -147,10 +155,11 @@ public class CP_Client extends Thread {
 						}else {
 							p.setResult(0);
 						}
-						p.setCmd(1003);
+						p.setCmd(1206);
 						out.writeObject(p);
 						out.flush();
 						break;
+						
 					case 1207: // 포인트승인화면 가기
 						list = DAO.getApproveList();
 						p.setList(list);
