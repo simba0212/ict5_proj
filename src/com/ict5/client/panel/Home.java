@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import com.ict5.client.Client_ChargeP;
 import com.ict5.client.Client_main;
 import com.ict5.db.DAO;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Home extends JPanel {
@@ -139,13 +141,26 @@ public class Home extends JPanel {
 
 	}
 
-	public void refresh() {
+	public void refresh(int i) {
 		// 공지사항 최신화
 		this.vo = main.vo; // 중요!
 		notice.setText(vo.getNotice_text());
 
-		// 가까운 수업
-		vo = DAO.getNearClasstime(vo);
+		// 가까운 예약된 수업 불러오기
+		// 받아야 하는 데이터  class_type, tracher_name,class_res,class_max, class_date
+		// 보내야 하는 데이터 member_num
+//		vo = DAO.getNearClasstime(vo);
+		if(i==0) {
+			try {
+				Protocol p = new Protocol();
+				p.setCmd(2307);
+				p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}else if(i==1) {
 		if (vo == null) {
 			label2.setText("");
 			label3.setText("");
@@ -158,25 +173,25 @@ public class Home extends JPanel {
 
 			switch (vo.getClass_type()) {
 			case "1":
-				label2.setText("수영");
+				label2.setText("       수영");
 				break;
 			case "2":
-				label2.setText("헬스");
+				label2.setText("       헬스");
 				break;
 			case "3":
-				label2.setText("요가");
+				label2.setText("       요가");
 				break;
 			case "4":
-				label2.setText("필라테스");
+				label2.setText("       필라테스");
 				break;
 			default:
 				break;
 			}
 			String t_name = vo.getTeacher_name();
-			label4.setText(t_name);// 강사이름
+			label4.setText("       "+t_name);// 강사이름
 
-			String room = "정원 : " + vo.getClass_res() + "/" + vo.getClass_max();
-			label5.setText(room); // 정원정보
+			String room = "정원 : " + vo.getClass_res() + "/" + vo.getClass_max()+"       ";
+			label5.setText(room+"       "); // 정원정보
 
 			String near_classdate = vo.getClass_date();
 			String near_classtime = "";
@@ -227,10 +242,10 @@ public class Home extends JPanel {
 
 			String month = near_classdate.substring(5, 7);
 			String day = near_classdate.substring(8, 10);
-			String date = month + "-" + day + " / " + near_classtime;
+			String date = "       "+month + "-" + day + " / " + near_classtime;
 
 			label6.setText(date);
 		}
-
+		}
 	}
 }

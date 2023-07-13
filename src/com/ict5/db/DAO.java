@@ -70,7 +70,7 @@ public class DAO {
 		return str;
 	}
 
-	public static VO getNearClasstime(VO vo) {
+	public static VO mostclose(VO vo) {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}

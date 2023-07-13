@@ -180,11 +180,13 @@ public class Client_main extends JFrame implements Runnable {
 						 tab.noti.refresh(); 
 						break;
 					case 2306: // 알림 탭에 표시할 수업정보 가져오기
-						System.out.println("2306 maib");
 						 list2 = p.getList();
 						 
 						break;
-					
+					case 2307: // home화면에 가장 가까운 수업 표시하기
+						home.home.refresh(1);
+						 
+						break;
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");
@@ -223,7 +225,7 @@ public class Client_main extends JFrame implements Runnable {
 	public void refreshAll() {
 		home.usertop.refresh();
 		tab.usertop.refresh();
-		home.home.refresh();
+		home.home.refresh(0);
 		tab.mypage.refresh();
 		try {
 			Protocol p;

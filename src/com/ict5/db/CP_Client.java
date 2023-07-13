@@ -175,7 +175,6 @@ public class CP_Client extends Thread {
 						} else {
 							System.out.println("로그인실패");
 						}
-						System.out.print("카피 vo.num : "+p.vo.getMember_num());
 						out.writeObject(p);
 						out.flush();
 						break;
@@ -186,7 +185,6 @@ public class CP_Client extends Thread {
 						vo = new VO();
 						vo = p.getVo(); // 가입창의 정보를 가져옴
 						if (vo != null) {
-							System.out.println("cp옴");
 							DAO.setInsertJoinFields(vo); // 가입 정보를 DB에 삽입
 							System.out.println("정보가져옴");
 						} else {
@@ -235,12 +233,14 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;		
-						
+					case 2307:
+						vo = DAO.mostclose(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;			
 					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
-						System.out.println(vo.getMember_goal()+"dao실행전");
-						System.out.println(vo.getMember_num()+"dao실행전");
 						int result2 = DAO.update_goal(vo);
-						System.out.println("dao실행 후");
 						out.writeObject(p);
 						out.flush();
 						break;	
