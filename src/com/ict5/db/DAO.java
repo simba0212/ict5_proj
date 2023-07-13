@@ -52,9 +52,10 @@ public class DAO {
 			return null;
 		}
 	}
+	
 	public static VO getLoginChk_Admin(VO vo) {
-		
 		vo = getSession().selectOne("loginChk_Admin", vo);
+		
 		if(vo != null) {
 			return vo;
 		}else {
@@ -81,6 +82,21 @@ public class DAO {
 		
 		return list;
 	}
+	
+	public static List<VO> getNewMember(){
+		List<VO> list = null;
+		list = getSession().selectList("NweMember");
+		
+		return list;
+	}
+	
+	public static List<VO> getPointApprove(){
+		List<VO> list = null;
+		list = getSession().selectList("PointApprove");
+		
+		return list;
+	}
+	
 
 	public static VO getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);

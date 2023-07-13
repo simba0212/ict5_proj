@@ -31,15 +31,27 @@
 		select * from bookedclass where member_num = #{member_num}
 		order by book_date desc
 	</select>
+	
 	<select id="loginChk_Admin" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from
 		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
 	</select>
 	
 	<select id="todayclass" resultType="com.ict5.db.VO">
-		SELECT * FROM CLASS_TEACHER WHERE class_date = TRUNC(SYSDATE)
+		SELECT * FROM CLASS_TEACHER
 	</select>
 	
+	<select id="NweMember" resultType="com.ict5.db.VO">
+		SELECT MEMBER_NAME, MEMBER_GEN, MEMBER_PHONE, MEMBER_ADDR, MEMBER_BIRTH, MEMBER_SIGNUP_DATE
+		FROM MEMBER_T
+		WHERE MEMBER_SIGNUP_DATE <![CDATA[>=]]> TRUNC(SYSDATE) <![CDATA[-]]> 30 AND MEMBER_SIGNUP_DATE <![CDATA[<]]> TRUNC(SYSDATE)
+	</select>
+	
+	<select id="PointApprove" resultType="com.ict5.db.VO">
+		SELECT P.*, M.MEMBER_NAME
+		FROM POINTAPPROVE P
+		JOIN MEMBER_T M ON P.MEMBER_NUM = M.MEMBER_NUM
+	</select>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">

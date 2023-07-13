@@ -26,7 +26,6 @@ public class Admin_main extends JFrame implements Runnable {
 	public List<VO> list;
 	public String admin_id;
 
-
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	public Admin_Home home;
@@ -86,8 +85,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -136,24 +134,35 @@ public class Admin_main extends JFrame implements Runnable {
 
 					case 1001:
 						if (p.getResult() == 1) {
-							
+
 							p.setCmd(1002);
 							out.writeObject(p);
 							out.flush();
+							
+							cardlayout.show(pg1, "home");
 						} else {
 							System.out.println("실패");
-							break ;
+							break;
 						}
 
 					case 1002:
+						
 						if (p.getResult() == 1) {
 							home.timetable.Date();
 							System.out.println("테이블 성공 111");
 						} else {
 							System.out.println("테이블 실패 222");
-							break;
 						}
+						break;
 
+					case 1003:
+						home.member_new.Member();
+						System.out.println("cmd 변경");
+						break;
+						
+					case 1004:
+						home.point_new.PointApprove();
+						break;
 
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();
