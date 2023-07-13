@@ -144,13 +144,14 @@ public class Home extends JPanel {
 	public void refresh(int i) {
 		// 공지사항 최신화
 		this.vo = main.vo; // 중요!
-		notice.setText(vo.getNotice_text());
-
+		
 		// 가까운 예약된 수업 불러오기
 		// 받아야 하는 데이터  class_type, tracher_name,class_res,class_max, class_date
 		// 보내야 하는 데이터 member_num
 //		vo = DAO.getNearClasstime(vo);
 		if(i==0) {
+			notice.setText(vo.getNotice_text());
+			System.out.println(vo.getNotice_text()+"홈리프레쉬");
 			try {
 				Protocol p = new Protocol();
 				p.setCmd(2307);

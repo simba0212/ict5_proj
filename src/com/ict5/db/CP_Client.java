@@ -169,7 +169,7 @@ public class CP_Client extends Thread {
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
-							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성 -> 알림버튼 누르면으로 변경하려면 ?
+							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성
 							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 							p.setResult(1);
 						} else {
