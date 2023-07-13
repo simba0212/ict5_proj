@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.ict5.admin.panel.Navi;
@@ -40,7 +41,7 @@ public class Admin_CheckAgain extends JPanel{
 	// 패스워드 넣는 패드
 	JPanel two = new JPanel();
 	JLabel two1 = new JLabel("<html><h2> PW : </h2> ");
-	JTextField twof = new JTextField(30);
+	JPasswordField twof = new JPasswordField(30);
 	twof.setPreferredSize(new Dimension(50, 40));
 	two.add(two1);
 	two.add(twof);
@@ -112,7 +113,7 @@ public class Admin_CheckAgain extends JPanel{
 				Protocol p = new Protocol();
 				VO vo = new VO();
 				vo.setAdmin_id(main.admin_id);
-				vo.setAdmin_pw(twof.getText());
+				vo.setAdmin_pw(new String(twof.getPassword()));
 				p.setCmd(1206);
 				p.setVo(vo);
 				main.out.writeObject(p);

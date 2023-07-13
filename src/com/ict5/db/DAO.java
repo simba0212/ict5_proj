@@ -213,4 +213,15 @@ public class DAO {
 		return vo;
 	}
 
+	public static List<VO> getOneClass(VO vo) { // 클릭한 수업 상세정보
+		List<VO> list = getSession().selectList("classCheck", vo);
+		
+		return list;
+	}
+
+	public static VO getOneClass_2(VO vo) {
+		vo = getSession().selectOne("classCheck_null,vo");
+		return vo;
+	}
+
 }

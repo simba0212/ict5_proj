@@ -182,6 +182,19 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
   		values (
    	 		pointapprove_seq.nextval, #{point_money}, sysdate, null, null, #{member_num})
 	</insert>
- 
-   
+	
+	<select id="classCheck" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+	select distinct c.class_type , c.class_room , t.teacher_name , c.class_res , c.class_max ,
+        c.class_time , c.class_date , c.class_point, c.class_num , m.member_name
+	from class c,teacher t, book b, member_t m
+	where c.teacher_num = t.teacher_num and b.class_num = c.class_num and 
+	c.class_type = #{class_type} and c.class_date= #{class_date} and c.class_time = #{class_time} 
+	</select>
+	
+	<select id="classCheck_null" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select CLASS_NUM,CLASS_TIME,CLASS_DATE,CLASS_RES,CLASS_MAX,CLASS_POINT,CLASS_ROOM,CLASS_TYPE,teacher_name
+		from class c, teacher t 
+		where class_date =#{class_date} and class_type=#{class_type} and class_time=#{class_time} and c.teacher_num = t.teacher_num;
+	</select>
+	
 </mapper>

@@ -200,43 +200,35 @@ public class Navi extends JPanel {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-
 					
-				}
-			}
-		});
-
-
-		dropdown2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown2.getSelectedItem();
-				if (selected.equals("포인트관리")) {
+				}else if (selected.equals("포인트관리")) {
 					main.cardlayout.show(main.pg1, "checkagain");
 				}
 			}
 		});
 
-		dropdown1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown1.getSelectedItem();
-				if (selected.equals("수업등록 / 수정")) {
-					main.cardlayout.show(main.pg1, "classEdit");
-				}
-			}
-		});
 
 		dropdown1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown1.getSelectedItem();
-				if (selected.equals("수업확인")) {
-					
-					main.cardlayout.show(main.pg1, "classcheck");
+				try {
+					String selected = (String) dropdown1.getSelectedItem();
+					if (selected.equals("수업등록 / 수정")) {
+						main.cardlayout.show(main.pg1, "classEdit");
+					}else if (selected.equals("수업확인")) {
+						Protocol p = new Protocol();
+						p.setCmd(1105);
+						main.out.writeObject(p);
+						main.out.flush();
+						main.cardlayout.show(main.pg1, "classcheck");
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
 				}
+			
 			}
 		});
+
 
 		userApp.addMouseListener(new MouseAdapter() {
 			@Override

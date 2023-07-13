@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.ict5.admin.Admin_main;
 import com.ict5.admin.panel.TimeTable;
 
@@ -90,10 +92,31 @@ public class CP_Client extends Thread {
 					case 1004:
 						list = DAO.getPointApprove();
 						p.setList(list);
-						
 						out.writeObject(p);
 						out.flush();
+						break;
 						
+					case 1105: // 수업확인 눌렀을때
+						list = DAO.getToday(); // 일단 테이블 가져오기
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1106: // 수업확인에서 수업한개 클릭
+						list = DAO.getOneClass(vo);
+						if(list.isEmpty()) { // 예약아무도없음
+							vo=DAO.getOneClass_2(vo);
+							p.setResult(0);
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						}else {				// 예약있음
+							p.setList(list);
+							p.setResult(1);
+							out.writeObject(p);
+							out.flush();
+						}
 						break;
 
 					case 1201: // 회원목록 불러오기
@@ -136,7 +159,6 @@ public class CP_Client extends Thread {
 						}else {
 							p.setResult(0);
 						}
-						p.setCmd(1003);
 						out.writeObject(p);
 						out.flush();
 						break;

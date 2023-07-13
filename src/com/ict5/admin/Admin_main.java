@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -151,23 +152,19 @@ public class Admin_main extends JFrame implements Runnable {
 						} 
 						break;
 						
-//					case 1003:
-//						if (p.getResult() == 1) { // 비밀번호 확인완
-//							p.setCmd(1207); // 포인트승인화면 가기
-//							out.writeObject(p);
-//							out.flush();
-//						} else {
-//							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
-//						}
-//						break;
-
 					case 1003:
 						home.member_new.Member();
-						System.out.println("cmd 변경");
 						break;
 						
 					case 1004:
 						home.point_new.PointApprove();
+						break;
+						
+					case 1105: // 수업확인 눌렀을때
+						classcheck.timetable.refreshData();
+						break;
+					case 1106: // 수업 한개 클릭
+						classcheck.classCheck.setLabel();
 						break;
 
 					case 1201: // 회원목록 불러오기
@@ -184,6 +181,15 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 					case 1205: // 회원 세부정보 => 포인트이력
 						member2.memberv2.refresh3();// 포인트 이력
+						break;
+					case 1206:
+						if (p.getResult() == 1) { // 비밀번호 확인완
+							p.setCmd(1207); // 포인트승인화면 가기
+							out.writeObject(p);
+							out.flush();
+						} else {
+							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
+						}
 						break;
 					case 1207: // 포인트 승인페이지이동
 						point_Mgmt.sub.refresh(); // 포인트불러오기
