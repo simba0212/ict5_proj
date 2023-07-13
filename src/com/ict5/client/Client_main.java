@@ -12,13 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.ict5.client.panel.ChargeP2;
-import com.ict5.client.panel.ChargeP3;
-import com.ict5.client.panel.CreateId_2;
+
 import com.ict5.client.panel.Mypage;
-import com.ict5.client.panel.Mypoint;
 import com.ict5.client.panel.Notice;
-import com.ict5.client.panel.PassChange;
 import com.ict5.client.panel.TabPage;
 import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
@@ -33,17 +29,16 @@ public class Client_main extends JFrame implements Runnable {
 	
 	public int st;
 	
+	public String username;
+	
 	public Client_Login login;
 	public Client_CreateId createId;
 	public Client_Home home;
 	public TabPage tab;
-	public CreateId_2 createId2;
 	public Notice noti;
 	public Mypage myPg;
-	public Mypoint myPo;
-	public PassChange pwChan;
-	public ChargeP2 cp2;
-	public ChargeP3 cp3;
+	public Client_MyPoint myPo;
+	public Client_PassChange pwChan;
 	public Client_ChargeP chargeP;
 	public Client_ChargeP2 chargeP2;
 	public Client_ChargeP3 chargeP3;
@@ -51,6 +46,7 @@ public class Client_main extends JFrame implements Runnable {
 	public JPanel pg1;
 	
 	public String usernum,usergoal="";
+
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -65,16 +61,13 @@ public class Client_main extends JFrame implements Runnable {
 		createId = new Client_CreateId(this);
 		home = new Client_Home(this);
 		tab = new TabPage(this);
-		createId2 = new CreateId_2(this);
 		chargeP = new Client_ChargeP(this);
 		chargeP2 = new Client_ChargeP2(this);
 		chargeP3 = new Client_ChargeP3(this);
-		cp2 = new ChargeP2(this);
-		cp3 = new ChargeP3(this);
 		noti = new Notice(this);
 		myPg = new Mypage(this);
-		myPo = new Mypoint(this);
-		pwChan = new PassChange(this);
+		myPo = new Client_MyPoint(this);
+		pwChan = new Client_PassChange(this);
 
 //		클래스명 변수명 = new 클래스명(this);
 //		클래스명 변수명 = new 클래스명(this);
@@ -86,7 +79,6 @@ public class Client_main extends JFrame implements Runnable {
 		pg1.add("home", home); // 메인페이지 - 가장가까운수업 클릭 안되어있음
 		pg1.add("chargeP", chargeP); // 포인트충전
 		pg1.add("tab", tab); // 탭페이지
-		pg1.add("createId2", createId2); // 회원가입완료
 		pg1.add("chargeP2", chargeP2); // 포인트충전2p
 		pg1.add("chargeP3", chargeP3); // 입금완료
 		pg1.add("notice", noti); // 공지사항
@@ -146,12 +138,16 @@ public class Client_main extends JFrame implements Runnable {
 					case 0:
 						break esc;
 					case 2001:
+						System.out.println(p.getResult());
 						if (p.getResult() == 1) {
 							cardlayout.show(pg1, "home");
+							username=vo.getMember_name();
 							usernum=vo.getMember_num();
 							usergoal=vo.getMember_goal();
 							refreshAll();
 							
+							
+
 						} else {
 							System.out.println("실패");
 						}
@@ -190,18 +186,28 @@ public class Client_main extends JFrame implements Runnable {
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");
+						
 						} else {
 							System.out.println("실패");
 						}
+						
 						break;
 					case 2102:
 						if (p.getResult() == 1) {
-							cardlayout.show(pg1, "chargeP");
-							chargeP.usertop.refresh();
-							chargeP.cp.refresh();
+							refreshAll();
+							System.out.println("포인트 신청 완료");
 						} else {
 							System.out.println("실패");
 						}
+						
+						break;	
+					case 2103:
+						if (p.getResult() == 1) {
+							refreshAll();
+						} else {
+							System.out.println("실패");
+						}
+						
 						break;	
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문
@@ -239,6 +245,16 @@ public class Client_main extends JFrame implements Runnable {
 		} catch (Exception e2) {
 			// TODO: handle exception
 		}
+		chargeP.usertop.refresh();
+		chargeP2.usertop.refresh();
+		chargeP3.usertop.refresh();
+		pwChan.usertop.refresh();
+		myPo.usertop.refresh();
+		tab.noti.refresh();
+		chargeP.cp.refresh();
+		chargeP2.cp2.refresh();
+		pwChan.pwchan.refresh();
+		myPo.po.refresh();
 	}
 	
 

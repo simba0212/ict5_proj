@@ -16,6 +16,7 @@ public class VO implements Serializable {
 	private String teacher_num, teacher_name, teacher_phone, teacher_addr, teacher_gen, teacher_career, teacher_img,
 			teacher_type;
 	private String book_date, book_type;
+	private String old_pw, new_pw; //비밀번호 변경용
 	
 	
 	public String getMember_goal() {
@@ -336,12 +337,18 @@ public class VO implements Serializable {
 	public void setPoint_charge_date(String point_charge_date) {
 		this.point_charge_date = point_charge_date;
 	}
-	
-	
-	
-	
-	
-	
+	public String getOld_pw() {
+		return old_pw;
+	}
+	public void setOld_pw(String old_pw) {
+		this.old_pw = old_pw;
+	}
+	public String getNew_pw() {
+		return new_pw;
+	}
+	public void setNew_pw(String new_pw) {
+		this.new_pw = new_pw;
+	}
 	
 	
 	

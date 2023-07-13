@@ -21,4 +21,3 @@ public class Client_Home extends JPanel {
         add(home, BorderLayout.CENTER);
     }
 }
-

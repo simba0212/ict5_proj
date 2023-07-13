@@ -31,15 +31,27 @@
 		select * from bookedclass where member_num = #{member_num}
 		order by book_date desc
 	</select>
+	
 	<select id="loginChk_Admin" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 		select * from
 		ADMIN_T where admin_id = #{admin_id} and admin_pw=#{admin_pw}
 	</select>
 	
 	<select id="todayclass" resultType="com.ict5.db.VO">
-		SELECT * FROM CLASS_TEACHER WHERE class_date = TRUNC(SYSDATE)
+		SELECT * FROM CLASS_TEACHER
 	</select>
 	
+	<select id="NweMember" resultType="com.ict5.db.VO">
+		SELECT MEMBER_NAME, MEMBER_GEN, MEMBER_PHONE, MEMBER_ADDR, MEMBER_BIRTH, MEMBER_SIGNUP_DATE
+		FROM MEMBER_T
+		WHERE MEMBER_SIGNUP_DATE <![CDATA[>=]]> TRUNC(SYSDATE) <![CDATA[-]]> 30 AND MEMBER_SIGNUP_DATE <![CDATA[<]]> TRUNC(SYSDATE)
+	</select>
+	
+	<select id="PointApprove" resultType="com.ict5.db.VO">
+		SELECT P.*, M.MEMBER_NAME
+		FROM POINTAPPROVE P
+		JOIN MEMBER_T M ON P.MEMBER_NUM = M.MEMBER_NUM
+	</select>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
@@ -133,11 +145,11 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
  		 insert into MEMBER_T (
   		 	member_num, member_id, member_name, member_gen, member_birth,
     		member_signup_date, member_addr, member_pw, member_mail,
-    		member_point, member_chargep, member_usep, member_phone)
+    		member_point, member_chargep, member_usep, member_phone, attendent_date, attendent_month, member_goal)
   		values (
    	 		member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
    	 		TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{member_signup_date}, 'YYYY-MM-DD HH24:MI:SS'),
-    		#{member_addr}, #{member_pw}, #{member_mail}, 50000, null, null, #{member_phone})
+    		#{member_addr}, #{member_pw}, #{member_mail}, 50000, 50000, 0, #{member_phone}, sysdate, 0)
 	</insert>
 
 	<insert  id="inNotice" parameterType="com.ict5.db.VO">
@@ -154,6 +166,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		from member_t m,  pointapprove a
 		where m.member_num = a.member_num
 	</select>
+
 	
 	<select id="sel_class_noice" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
 	SELECT * FROM class c INNER JOIN book b on c.class_num=b.class_num INNER JOIN teacher t ON c.teacher_num = t.teacher_num
@@ -168,4 +181,23 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		select * from book b INNER JOIN class c ON c.class_date = #{class_date}
 	where b.class_num =#{class_num} and b.member_num=#{member_num}
 	</select>
+
+
+	<select id="checkCurrentPassword" parameterType="com.ict5.db.VO">
+		select COUNT(*) from MEMBER_T where member_pw = #{member_pw}
+	</select>
+
+	<update id="updatePassword" parameterType="com.ict5.db.VO">
+    UPDATE MEMBER_T SET member_pw = #{new_pw} WHERE member_id = #{member_id} AND member_pw = #{old_pw}
+	</update>
+	
+	<insert id="applyPoints" parameterType="com.ict5.db.VO">
+ 		 insert into POINTAPPROVE ( charge_num, point_money, point_signup_date, point_charge_date, point_approve, member_num
+  		 	)
+  		values (
+   	 		pointapprove_seq.nextval, #{point_money}, sysdate, null, null, #{member_num})
+	</insert>
+ 
+   
+
 </mapper>
