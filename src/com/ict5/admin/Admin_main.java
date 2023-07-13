@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -86,7 +87,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -198,6 +199,9 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1304: // 회원 세부정보 => 수업예약내역
 						coMg2.coTable2.refresh2();// 예약내역
 						break;
+					case 1308:
+//						System.out.println("폼비우기 호출해줘");
+						coMg3.coMgmt4.refresh(); // 폼 비우기
 					case 1309:
 						coMg3.coMgmt4.fix(); // 수정내용
 						break;
@@ -212,9 +216,19 @@ public class Admin_main extends JFrame implements Runnable {
 						out.flush();
 						break;
 					case 1318: // 강사 등록하기
-						p.setCmd(1301);
-						out.writeObject(p);
-						out.flush();
+						try {
+//							System.out.println("p.getResult :: "+ p.getResult());
+							if(p.getResult() == 1) {
+								p.setCmd(1301);
+								out.writeObject(p);
+								out.flush();
+							} else {
+								JOptionPane.showMessageDialog(null, "등록 실패!!", "등록 실패", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch(Exception e) {
+							e.printStackTrace();
+						}
+						
 						break;
 					case 1320: // 공지사항 등록하기
 						break;

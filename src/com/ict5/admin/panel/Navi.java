@@ -181,7 +181,15 @@ public class Navi extends JPanel {
 				} else if (selected.equals("강사스케줄")) {
 					main.cardlayout.show(main.pg1, "coMg2");
 				} else if (selected.equals("강사등록")) {
-					main.cardlayout.show(main.pg1, "coMg3");
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1308);
+						main.out.writeObject(p);
+						//main.cardlayout.show(main.pg1, "coMg3");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

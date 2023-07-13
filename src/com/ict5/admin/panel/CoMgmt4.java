@@ -50,6 +50,7 @@ public class CoMgmt4 extends JPanel {
 	String imagePath;
 	Image image;
 	JLabel imageLabel;
+	JButton addButton,editButton;
 
 	VO vo;
 	public CoMgmt4(Admin_main main) {
@@ -233,12 +234,13 @@ public class CoMgmt4 extends JPanel {
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // 가운데 정렬로 변경
 
 		// "등록" 버튼 생성
-		JButton addButton = new JButton("등록");
+		addButton = new JButton("등록");
 		addButton.setFont(addButton.getFont().deriveFont(17f));
 
 		// "수정" 버튼 생성
-		JButton editButton = new JButton("수정");
+		editButton = new JButton("수정");
 		editButton.setFont(editButton.getFont().deriveFont(17f));
+		editButton.setEnabled(false);
 
 		// 버튼들을 하단 패널에 추가
 
@@ -284,38 +286,43 @@ public class CoMgmt4 extends JPanel {
 
 		// 등록하는 버튼
 		addButton.addActionListener(e -> {
-			boolean allTeacherFilled = true;
-			for (JTextField textField : getTeacherFields) {
-				if (textField.getText().trim().isEmpty()) {
-					allTeacherFilled = false;
-					break;
-				}
-			}
-			if (!allTeacherFilled) {
-				JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected()
-					&& !radioButton4.isSelected()) {
-				JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
-				JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (filePath == null) {
-				JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (experienceTextArea.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
-
-			String gender = "";
+			
+			System.out.println("addButton.addActionListener !!!");
+			
 			try {
+				boolean allTeacherFilled = true;
+				for (JTextField textField : getTeacherFields) {
+					if (textField.getText().trim().isEmpty()) {
+						allTeacherFilled = false;
+						break;
+					}
+				}
+				if (!allTeacherFilled) {
+					JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected()
+						&& !radioButton4.isSelected()) {
+					JOptionPane.showMessageDialog(this, "수업종류를 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
+					JOptionPane.showMessageDialog(this, "성별을 선택해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (filePath == null) {
+					JOptionPane.showMessageDialog(this, "사진을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (experienceTextArea.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "경력사항을 등록해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+	
+	//			JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
+	
+				String gender = "";
+			
 				Protocol p = new Protocol();
 				vo.setTeacher_name(nameField.getText().trim());// 이름
 				vo.setTeacher_phone(phoneField.getText().trim());// 전화번호
@@ -341,22 +348,18 @@ public class CoMgmt4 extends JPanel {
 				}
 				vo.setTeacher_type(type);
 
+				System.out.println("vo data   " + vo.getTeacher_name());
 				p.setVo(vo);
 				p.setCmd(1318);
 				main.out.writeObject(p);
 				main.out.flush();
+				
+				JOptionPane.showMessageDialog(null, "등록 되었습니다", "등록", JOptionPane.PLAIN_MESSAGE);
+				
 				addButton.setEnabled(true);
 				main.cardlayout.show(main.pg1, "coMg1");
 				
 				//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-				
-				nameField.setText("");
-				phoneField.setText("");
-				addressField.setText("");
-				experienceTextArea.setText("");
-				//imagePath = "src/images/photo.jpg";
-				imageIcon = new ImageIcon("src/images/photo.jpg");
-				imageLabel.setIcon(imageIcon);
 				
 				
 				genderGroup.clearSelection();
@@ -365,6 +368,8 @@ public class CoMgmt4 extends JPanel {
 				
 				
 			} catch (Exception e2) {
+				e2.printStackTrace();
+				JOptionPane.showMessageDialog(null, "등록 실패!!", "등록 실패", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -443,18 +448,12 @@ public class CoMgmt4 extends JPanel {
 						main.out.writeObject(p);
 						main.out.flush();
 						main.cardlayout.show(main.pg1, "coMg1"); 
-
-						nameField.setText("");
-						phoneField.setText("");
-						addressField.setText("");
-						experienceTextArea.setText("");
-						imagePath = "src/images/photo.jpg";
-						imageIcon = new ImageIcon(imagePath);
-						imageLabel.setIcon(new ImageIcon(image));
 						
 						
 						genderGroup.clearSelection();
 						courseGroup.clearSelection();
+//						
+						
 
 					} catch (Exception e2) {
 					}
@@ -512,12 +511,58 @@ public class CoMgmt4 extends JPanel {
 				break;
 			}
 
-			
+			addButton.setEnabled(false);
+			editButton.setEnabled(true);
 			main.cardlayout.show(main.pg1, "coMg3");
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
+	}
+	
+	
+	// 강사 화면 리프레쉬 및 화면 이
+	public void refresh() {
+		try {
+			
+			vo = new VO();
+			
+//			System.out.println("refresh 호출");
+
+			filePath = null;
+			
+			nameField.setText("");
+			phoneField.setText("");
+			addressField.setText("");
+			experienceTextArea.setText("");
+		
+			maleRadioButton.setSelected(false);
+			femaleRadioButton.setSelected(false);
+
+			radioButton1.setSelected(false);
+			radioButton2.setSelected(false);
+			radioButton3.setSelected(false);
+			radioButton4.setSelected(false);
+
+			
+			// 이미지 경로
+			ImageIcon imageIcon = new ImageIcon("src/images/photo.jpg");
+			Image image = imageIcon.getImage();
+			Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH); // 원하는 크기로 조정
+			ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+			imageLabel.setIcon(scaledImageIcon);
+			
+			
+			addButton.setEnabled(true);
+			editButton.setEnabled(false);
+			System.out.println("main.cardlayout.show   coMg3 호출!!");
+
+			main.cardlayout.show(main.pg1, "coMg3");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 }

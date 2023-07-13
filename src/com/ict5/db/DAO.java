@@ -98,10 +98,10 @@ public class DAO {
 	}
 	
 
-	public static VO getTeacherInsert(VO vo) {
+	public static int getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();
-		return vo;
+		return result;
 	}
 	
 	public static VO setNotice(VO vo) {

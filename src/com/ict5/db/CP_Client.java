@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class CP_Client extends Thread {
 	Socket s;
 	DB_Server server;
@@ -169,6 +171,12 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+					case 1308: // 강사 등록화면 세팅
+//						System.out.println("강사 등록화면 세팅 예");
+						p.setVo(new VO());
+						out.writeObject(p);
+						out.flush();
+						break;
 					case 1309: // 강사 수정하기
 						vo = DAO.getTeacherOne(vo);
 						p.setVo(vo);
@@ -190,8 +198,11 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 1318: //강사 등록
-						DAO.getTeacherInsert(vo);
-						p.setVo(vo);
+						
+						int teacherInsertResult = DAO.getTeacherInsert(vo);
+						
+						
+						p.setResult(teacherInsertResult);
 						out.writeObject(p);
 						out.flush();
 						break;
