@@ -70,8 +70,7 @@ public class Schedule_bottom extends JPanel {
 		JButton jb = new JButton("예약하기");
 		if (list.get(i).getAdmin_num().equals("1")) {
 			// 예약되어있
-			jb.setText("예약되어 있음");
-			jb.setEnabled(false);
+			jb.setText("예약취소");
 		} 
 		
 		panel.add(jb);
@@ -187,9 +186,11 @@ public class Schedule_bottom extends JPanel {
 						Protocol p = new Protocol();
 						vo = main.vo;
 						vo.setClass_num(list.get(i).getClass_num());
+						vo.setClass_point(list.get(i).getClass_point());
 						vo.setMember_num(main.usernum);
 						p.setCmd(2303);
 						p.setVo(vo);
+						
 						main.out.writeObject(p);
 						main.out.flush();
 					} catch (IOException e1) {
@@ -238,6 +239,7 @@ public class Schedule_bottom extends JPanel {
 			add(new JLabel("<html><h3>수업 " + main.tab.schedule.mon + "월" + main.tab.schedule.day_i + "일 </h2></html>"),
 					BorderLayout.NORTH);
 			add(jsp);
+			
 		}
 
 	}

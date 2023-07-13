@@ -150,7 +150,6 @@ public class Home extends JPanel {
 //		vo = DAO.getNearClasstime(vo);
 		if(i==0) {
 			notice.setText(vo.getNotice_text());
-			System.out.println(vo.getNotice_text()+"홈리프레쉬");
 			try {
 				Protocol p = new Protocol();
 				p.setCmd(2307);

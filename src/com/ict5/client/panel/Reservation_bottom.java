@@ -61,6 +61,10 @@ public class Reservation_bottom extends JPanel {
 		panel.add(new JLabel(list.get(i).getTeacher_name()));
 		JButton jb = new JButton("출석");
 		panel.add(jb);
+		if(list.get(i).getAttendent_time()!=null) {
+			jb.setEnabled(false);
+			jb.setText("출석함");
+		}
 		panel.add(new JLabel("수업시간", JLabel.LEFT));
 		switch (list.get(i).getClass_time()) {
 			case "1":str="09:00~09:50";	break;

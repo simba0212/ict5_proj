@@ -139,6 +139,7 @@ public class DAO {
 		return list;
 	}
 	public static int getInsert_book(VO vo) {
+
 		getSession().insert("getInsert_book", vo);
 		ss.commit();
 		return 0;
@@ -147,6 +148,11 @@ public class DAO {
 		getSession().insert("getInsert_attenedent", vo);
 		ss.commit();
 	
+		return 0;
+	}
+	public static int book_point(VO vo) {
+		getSession().insert("book_point", vo);
+		ss.commit();
 		return 0;
 	}
 

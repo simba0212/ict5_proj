@@ -291,8 +291,22 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;	
 						
+					case 2701:
+						System.out.println("2701실행됨");
+						System.out.println(vo.getClass_point());
+						System.out.println(vo.getMember_num());
+						System.out.println(vo.getClass_num());
+						int i = DAO.book_point(vo);
+						System.out.println("2701실행됨");
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;		
+						
+						
 					case 2901:
 						result = DAO.getInsert_attenedent(vo);
+						
 						out.writeObject(p);
 						out.flush();
 						break;

@@ -164,7 +164,25 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2303:
 						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
-						tab.schedule.sb.refresh();
+						System.out.println(vo.getClass_point());
+						System.out.println(vo.getMember_num());
+						System.out.println(vo.getClass_num());
+						
+						try {
+							p.setCmd(2701);
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						
+						
+						
+						
+						
+						
+						
 						break;
 					case 2304: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 st=1;
