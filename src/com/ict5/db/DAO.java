@@ -208,4 +208,8 @@ public class DAO {
 		return vo;
 	}
 
+	public static int setApprove(VO vo) {
+		int result = getSession().update("setApprove",vo);
+		return result;
+	}
 }

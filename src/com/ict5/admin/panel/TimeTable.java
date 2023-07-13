@@ -154,6 +154,7 @@ public class TimeTable extends JPanel {
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 				Date();
+
 			}
 		});
 
@@ -184,7 +185,6 @@ public class TimeTable extends JPanel {
 	}
 
 	public void Date() {
-
 		try {
 			// 응답 받은 후 list를 확인
 			List<VO> list = main.list;
@@ -483,7 +483,6 @@ public class TimeTable extends JPanel {
 					}
 				}
 			} else {
-				System.out.println("테이블 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -500,7 +499,6 @@ public class TimeTable extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
 	// 테이블 데이터 초기화 메서드
 	public void clearTableData() {
 		for (int row = 0; row < table.getRowCount(); row++) {

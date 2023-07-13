@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,6 +18,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +30,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class Point_MgmtSub extends JPanel {
@@ -74,19 +78,10 @@ public class Point_MgmtSub extends JPanel {
 		jp1.setPreferredSize(new Dimension(1280, 60));
 		jp2.setPreferredSize(new Dimension(1200, 40));
 
-		// 가변 데이터 수를 결정할 변수
-		int rowCount = 25; // 예시로 5개의 데이터 행을 가정합니다.
-
 		// 열 제목 지정
-		String[] columnNames = { "회원번호", "이름", "ID", "전화번호", "보유 포인트", "신청 포인트", "신청 날짜", "입금상태", "승인 여부" };
-
+		String[] columnNames = { "신청번호", "이름", "ID", "전화번호", "보유 포인트", "신청 포인트", "신청 날짜", "입금상태", "승인 여부" };
 		// 테이블 모델 생성
 		model = new DefaultTableModel(columnNames, 0);
-		Object[] rowData = { "test","test","test","test","test","test","test","test","test"};
-		model.addRow(rowData);
-		model.addRow(rowData);
-		model.addRow(rowData);
-		model.addRow(rowData);
 		// 버튼을 렌더링하는 TableCellRenderer 구현
 		class ButtonRenderer extends JButton implements TableCellRenderer {
 			public ButtonRenderer() {
@@ -95,9 +90,11 @@ public class Point_MgmtSub extends JPanel {
 
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
-				
-				if(value.toString().equals("")||value==null) {
-					return null;
+				if (value.toString().equals("승인불가")) {
+
+					return new JLabel("<html><p style=\"color: rgb(255, 0, 0);\"> 승인불가 </p></html>", JLabel.CENTER);
+				} else if (value.toString().equals("승인완료")) {
+					return new JLabel("<html><p style=\"color: rgb(0, 0, 255);\"> 승인완료 </p></html>", JLabel.CENTER);
 				}
 				setText(value.toString());
 				return this;
@@ -106,23 +103,27 @@ public class Point_MgmtSub extends JPanel {
 
 		// 버튼을 편집하는 TableCellEditor 구현
 		class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
-			
 			private JButton button;
 
 			public ButtonEditor() {
 				button = new JButton();
-				button.addActionListener(e -> {
-					// 버튼 클릭 시 동작을 수행할 수 있도록 구현
-					System.out.println("Button clicked");
-					fireEditingStopped();
+				button.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						fireEditingStopped();
+					}
 				});
 			}
 
 			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
 					int column) {
 				button.setText(value.toString());
-				if(value.toString().equals("")||value==null) {
-					return null;
+				if (value.toString().equals("승인불가")) {
+					return new JLabel("<html><p style=\"color: rgb(255, 0, 0);\"> 승인불가 </p></html>", JLabel.CENTER);
+				} else if (value.toString().equals("승인완료")) {
+					return new JLabel("<html><p style=\"color: rgb(0, 0, 255);\"> 승인완료 </p></html>", JLabel.CENTER);
 				}
 				return button;
 			}
@@ -157,26 +158,45 @@ public class Point_MgmtSub extends JPanel {
 
 		// 테이블을 담을 스크롤 패널 생성
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setPreferredSize(new Dimension(700,500));
+		scrollPane.setPreferredSize(new Dimension(700, 500));
 
 		// 프레임 생성 및 테이블 스크롤 패널 추가
 		add(jp1);
 		add(jp2);
 		add(scrollPane);
 
-		// 데이터 클릭 이벤트 리스너 등록
-//		table.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				int row = table.getSelectedRow();
-//				int column = table.getSelectedColumn();
-//				if (column == 8) {
-//					// "승인 여부" 열의 버튼 클릭 동작 수행
-//					System.out.println("승인 여부 버튼 클릭됨");
-//					// 추가 동작 수행
-//				}
-//			}
-//		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					int row = table.getSelectedRow();
+					int col = table.getSelectedColumn();
+					Object obj = table.getValueAt(row, col);
+					if (obj.toString().equals("승인")) {
+						int res = JOptionPane.showConfirmDialog(null, "정말 승인하시겠습니까?", "승인확인",
+								JOptionPane.YES_NO_OPTION);
+						if (res == 0) {
+							obj = table.getValueAt(row, 0);
+							String charge_num = obj.toString();
+
+							Protocol p = new Protocol();
+							VO vo = new VO();
+
+							vo.setCharge_num(charge_num);
+							p.setVo(vo);
+							p.setCmd(1208);
+							main.out.writeObject(p);
+							main.out.flush();
+						}
+
+					}
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+
+			}
+		});
 
 		pointManagementLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -214,20 +234,28 @@ public class Point_MgmtSub extends JPanel {
 		// 데이터 추가
 		model.setRowCount(0);
 		List<VO> list = main.list;
+		main.cardlayout.show(main.pg1, "point_Mgmt");
+		String charge_date =""; // 가변으로 넣어줄 입금날짜
+		String approve = ""; // 가변으로 넣어줄 승인/승인불가/승인완료
 		for (VO k : list) {
-			String approve="";
-			if(k.getPoint_charge_date()!=null) {
-				approve="승인";
-				k.setPoint_charge_date(k.getPoint_charge_date().substring(0,10));
-			}else {
+			if (k.getPoint_charge_date() != null) { // 입금완료일때
+				charge_date =k.getPoint_charge_date().substring(0,10); // 입금날짜
+				if (k.getPoint_approve() != null) { // 승인완료일때
+					approve = "승인완료";
+				} else { // 승인대기중일때
+					approve = "승인";
+				}
+			} else { // 입금대기중
+				charge_date = "입금대기";
+				approve = "승인불가";
 			}
-			if(k.getPoint_signup_date()!=null) {
-				k.setPoint_signup_date(k.getPoint_signup_date().substring(0,10));
-			}
-			Object[] rowData = { k.getMember_num(), k.getMember_name(), k.getMember_id(),k.getMember_phone(), k.getMember_point(),
-					k.getPoint_money(), k.getPoint_signup_date(), k.getPoint_charge_date(),	approve };
+			k.setPoint_signup_date(k.getPoint_signup_date().substring(0, 10));
+			Object[] rowData = { k.getCharge_num(), k.getMember_name(), k.getMember_id(), k.getMember_phone(),
+					k.getMember_point(), k.getPoint_money(), k.getPoint_signup_date(), charge_date,
+					approve };
 			model.addRow(rowData);
 
 		}
+
 	}
 }
