@@ -155,6 +155,11 @@ public class DAO {
 		ss.commit();
 		return 0;
 	}
+	public static int book_can_point(VO vo) {
+		getSession().insert("book_point", vo);
+		ss.commit();
+		return 0;
+	}
 
 	public static List<VO> getMemberList() {
 		List<VO> list = null;
@@ -230,6 +235,10 @@ public class DAO {
 		int res = getSession().insert("applyPoints", vo);
 		ss.commit();
 		return vo;
+	}
+	public static int deletebook(VO vo) {
+		int res = getSession().delete("deletebook", vo);
+		return res;
 	}
 
 }

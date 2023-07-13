@@ -157,9 +157,7 @@ public class Schedule_bottom extends JPanel {
 					break;
 
 				}
-				Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
-						+ "예약하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
-
+				
 				String str2 = "";
 				switch (list.get(i).getClass_type()) {
 				case "1":
@@ -176,30 +174,61 @@ public class Schedule_bottom extends JPanel {
 					break;
 
 				}
+				if(jb.getText().equals("예약하기")) {
+					Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
+						+ "예약하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
 
-				int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+						int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+						if (option == JOptionPane.YES_OPTION) {
+							// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
+							try {
+								Protocol p = new Protocol();
+								vo = main.vo;
+								vo.setClass_num(list.get(i).getClass_num());
+								vo.setClass_point(list.get(i).getClass_point());
+								vo.setMember_num(main.usernum);
+								p.setCmd(2303);
+								p.setVo(vo);
+								
+								main.out.writeObject(p);
+								main.out.flush();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+		
+							} else if (option == JOptionPane.NO_OPTION) {
+							// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+							}
+				}else {
+					Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
+							+ "예약취소하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
 
-				if (option == JOptionPane.YES_OPTION) {
-					// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
-					System.out.println("확인버튼 눌럿을때");
-					try {
-						Protocol p = new Protocol();
-						vo = main.vo;
-						vo.setClass_num(list.get(i).getClass_num());
-						vo.setClass_point(list.get(i).getClass_point());
-						vo.setMember_num(main.usernum);
-						p.setCmd(2303);
-						p.setVo(vo);
+					int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+					if (option == JOptionPane.YES_OPTION) {
+						// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
 						
-						main.out.writeObject(p);
-						main.out.flush();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				} else if (option == JOptionPane.NO_OPTION) {
-					// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+						try {
+							Protocol p = new Protocol();
+							vo = main.vo;
+							
+							System.out.println(list.get(i).getMember_num()+list.get(i).getClass_num());
+							System.out.println(vo.getMember_num()+vo.getClass_num());
+							vo.setClass_num(list.get(i).getClass_num());
+							vo.setClass_point(list.get(i).getClass_point());
+							p.setCmd(2308);
+							p.setVo(vo);
+//							
+							main.out.writeObject(p);
+							main.out.flush();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	
+						} else if (option == JOptionPane.NO_OPTION) {
+						// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+						}
 				}
 			}
 		});

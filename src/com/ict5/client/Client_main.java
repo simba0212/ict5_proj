@@ -201,6 +201,22 @@ public class Client_main extends JFrame implements Runnable {
 						home.home.refresh(1);
 						 
 						break;
+					case 2308: // 예약취소 후 포인트테이블 insert
+						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
+						System.out.println(vo.getClass_point());
+						System.out.println(vo.getMember_num());
+						System.out.println(vo.getClass_num());
+						
+						try {
+							p.setCmd(2702);
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						 
+						break;
 					case 2101:
 						if (p.getResult() == 1) {
 							System.out.println("회원가입 완료");

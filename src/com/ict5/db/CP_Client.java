@@ -284,6 +284,14 @@ public class CP_Client extends Thread {
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
+						break;		
+					case 2308:
+						System.out.println(vo.getMember_num()+" ////"+vo.getClass_num());
+						DAO.deletebook(vo);
+						 System.out.println("cp 실행됨");
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
 						break;			
 					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
 						int result2 = DAO.update_goal(vo);
@@ -302,6 +310,17 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;		
+					case 2702:
+						System.out.println("2702실행됨");
+						System.out.println(vo.getClass_point());
+						System.out.println(vo.getMember_num());
+						System.out.println(vo.getClass_num());
+						int i2 = DAO.book_can_point(vo);
+						System.out.println("2702실행됨");
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
 						
 						
 					case 2901:

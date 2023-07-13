@@ -125,7 +125,11 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		
 	</insert>
 	
-	
+	<insert id="book_can_point" parameterType="com.ict5.db.VO">
+		       insert into point (point_num, point, POINT_TYPE, POINT_CHANGE_DATE, member_num,  POINT_NAME) 
+		       values (point_SEQ.nextval,#{class_point}, '취소',sysdate, #{member_num}, #{class_num} )
+		
+	</insert>
 	
 	<select id="getMemberOne" parameterType="com.ict5.db.VO">
 		resultType="com.ict5.db.VO">
@@ -210,6 +214,10 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
    	 		pointapprove_seq.nextval, #{point_money}, sysdate, null, null, #{member_num})
 	</insert>
  
+ <delete id="deletebook" parameterType="com.ict5.db.VO" >
+ 	DELETE FROM book
+        WHERE member_num = #{member_num} AND class_num =#{class_num}
+ </delete>
    
 
 </mapper>
