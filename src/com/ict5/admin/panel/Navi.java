@@ -232,6 +232,7 @@ public class Navi extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) dropdown1.getSelectedItem();
 				if (selected.equals("수업확인")) {
+					
 					main.cardlayout.show(main.pg1, "classcheck");
 				}
 			}

@@ -3,10 +3,7 @@ package com.ict5.db;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.ibatis.session.SqlSession;
-
-
 
 // DB처리하는 메서드들을 가지고 있는 클래스
 public class DAO {
@@ -52,12 +49,13 @@ public class DAO {
 			return null;
 		}
 	}
+
 	public static VO getLoginChk_Admin(VO vo) {
-		
 		vo = getSession().selectOne("loginChk_Admin", vo);
-		if(vo != null) {
+
+		if (vo != null) {
 			return vo;
-		}else {
+		} else {
 			return null;
 		}
 	}
@@ -74,11 +72,25 @@ public class DAO {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
-	
+
 	public static List<VO> getToday() {
 		List<VO> list = null;
 		list = getSession().selectList("todayclass");
-		
+
+		return list;
+	}
+
+	public static List<VO> getNewMember() {
+		List<VO> list = null;
+		list = getSession().selectList("NweMember");
+
+		return list;
+	}
+
+	public static List<VO> getPointApprove() {
+		List<VO> list = null;
+		list = getSession().selectList("PointApprove");
+
 		return list;
 	}
 
@@ -87,12 +99,12 @@ public class DAO {
 		ss.commit();
 		return vo;
 	}
-	
+
 	public static VO setNotice(VO vo) {
 		int res = getSession().insert("inNotice", vo);
 		ss.commit();
 		return vo;
-		
+
 	}
 
 	public static List<VO> t_bookclass(VO vo) {
@@ -106,24 +118,17 @@ public class DAO {
 		list = getSession().selectList("sel_date_class", vo);
 		return list;
 	}
-	public static List<VO> sel_book_class(VO vo){
+
+	public static List<VO> sel_book_class(VO vo) {
 		List<VO> list = null;
-		list = getSession().selectList("sel_book_class",vo);
+		list = getSession().selectList("sel_book_class", vo);
 		return list;
 	}
+
 	public static VO setInsertJoinFields(VO vo) {
-	    try {
-	        int res = getSession().insert("insertMember", vo);
-	        if (res > 0) {
-	        	ss.commit();
-	        } else {
-	        }
-	    } catch (Exception e) {
-	        System.out.println("오류 발생: " + e.getMessage());
-	        e.printStackTrace();
-	        // 오류 처리를 위한 추가 작업 수행
-	    }
-	    return vo;
+		int res = getSession().insert("insertMember", vo);
+		ss.commit();
+		return vo;
 	}
 
 	public static List<VO> getCoachList() {
@@ -131,15 +136,17 @@ public class DAO {
 		list = getSession().selectList("getCoachList");
 		return list;
 	}
+
 	public static int getInsert_book(VO vo) {
 		getSession().insert("getInsert_book", vo);
 		ss.commit();
 		return 0;
 	}
+
 	public static int getInsert_attenedent(VO vo) {
 		getSession().insert("getInsert_attenedent", vo);
 		ss.commit();
-	
+
 		return 0;
 	}
 
@@ -169,12 +176,12 @@ public class DAO {
 	}
 
 	public static List<VO> getBookedClass(VO vo) {
-		List<VO> list = getSession().selectList("getBookedClass",vo);
+		List<VO> list = getSession().selectList("getBookedClass", vo);
 		return list;
 	}
 
 	public static List<VO> getPointList(VO vo) {
-		List<VO> list = getSession().selectList("getPointList",vo);
+		List<VO> list = getSession().selectList("getPointList", vo);
 		return list;
 	}
 
@@ -184,7 +191,26 @@ public class DAO {
 	}
 
 	public static int setApprove(VO vo) {
-		int result = getSession().update("setApprove",vo);
+		int result = getSession().update("setApprove", vo);
 		return result;
 	}
+
+	public static List<VO> getMemberPw(VO vo) {// 비밀번호 가져오기
+		List<VO> list = null;
+		list = getSession().selectList("checkMemberPw", vo);
+		return list;
+	}
+
+	public static VO setMemberPw(VO vo) {// 비밀번호 변경
+		int res = getSession().update("updatePassword", vo);
+		ss.commit();
+		return vo;
+	}
+
+	public static VO setApplyPoints(VO vo) { // 포인트 신청
+		int res = getSession().insert("applyPoints", vo);
+		ss.commit();
+		return vo;
+	}
+
 }

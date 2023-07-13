@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.ict5.db.Protocol;
@@ -40,7 +41,7 @@ public class Admin_Login extends JPanel {
 		
 		JPanel three = new JPanel();//pw 패널
 		JLabel pw = new JLabel("<html><h2>PW :</h2>");
-		JTextField pwf = new JTextField(30);
+		JPasswordField pwf = new JPasswordField(30);
 		pwf.setPreferredSize(new Dimension(50, 40));
 		three.add(pw);
 		three.add(pwf);

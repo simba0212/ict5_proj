@@ -49,11 +49,9 @@ public class ChargeP3 extends JPanel {
 		bottomPanel.add(loginButton);
 		add(bottomPanel, BorderLayout.SOUTH);
 
-		// 로그인 버튼->로그인으로
+		// Home->홈화면으로
 		loginButton.addActionListener(e -> {
-			Client_Login login = new Client_Login(main);
-			main.pg1.add("login", login);
-			main.cardlayout.show(main.pg1, "login");
+			main.cardlayout.show(main.pg1, "home");
 		});
 
 	}

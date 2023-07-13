@@ -25,7 +25,6 @@ public class Admin_main extends JFrame implements Runnable {
 	public List<VO> list;
 	public String admin_id;
 
-
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	public Admin_Home home;
@@ -85,7 +84,6 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-
 		cardlayout.show(pg1, "login");
 
 		setResizable(false);
@@ -139,27 +137,37 @@ public class Admin_main extends JFrame implements Runnable {
 							p.setCmd(1002);
 							out.writeObject(p);
 							out.flush();
-							
+							cardlayout.show(pg1, "home");
 						} else {
 							JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-							
+							break;
 						}
 						break;
 
 					case 1002:
+						
 						if (p.getResult() == 1) {
 							home.timetable.Date();
 						} 
 						break;
 						
+//					case 1003:
+//						if (p.getResult() == 1) { // 비밀번호 확인완
+//							p.setCmd(1207); // 포인트승인화면 가기
+//							out.writeObject(p);
+//							out.flush();
+//						} else {
+//							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
+//						}
+//						break;
+
 					case 1003:
-						if (p.getResult() == 1) { // 비밀번호 확인완
-							p.setCmd(1207); // 포인트승인화면 가기
-							out.writeObject(p);
-							out.flush();
-						} else {
-							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
-						}
+						home.member_new.Member();
+						System.out.println("cmd 변경");
+						break;
+						
+					case 1004:
+						home.point_new.PointApprove();
 						break;
 
 					case 1201: // 회원목록 불러오기
