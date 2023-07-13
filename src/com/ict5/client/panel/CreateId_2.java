@@ -48,8 +48,6 @@ public class CreateId_2 extends JPanel {
 
 		// 로그인 버튼->로그인으로
 		loginButton.addActionListener(e -> {
-			Client_Login login = new Client_Login(main);
-			main.pg1.add("login", login);
 			main.cardlayout.show(main.pg1, "login");
 		});
 	}
