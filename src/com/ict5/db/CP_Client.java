@@ -336,9 +336,8 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;	
 					case 2703:
-						System.out.println(vo.getCharge_num());
-						 int a= DAO.setPointChargeDate(vo);
-						 System.out.println(vo.getCharge_num());
+						 int a= DAO.setPointChargeDate(vo.getCharge_num());
+						 System.out.println(vo.getCharge_num()+"dao갔다옴");
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();

@@ -219,10 +219,10 @@
  </delete>
 	
 	<!-- 입금내역 업데이트 -->
-    <update id="updateChargeDate" parameterType="com.ict5.db.VO">
+    <update id="updateChargeDate" parameterType="String">
         UPDATE POINTAPPROVE
         SET POINT_CHARGE_DATE = sysdate
-        WHERE charge_Num = #{charge_Num}
+        WHERE charge_Num = #{charge_num}
     </update>
     
  	<!-- 마이포인트 불러오기 -->

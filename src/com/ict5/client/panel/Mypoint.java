@@ -93,13 +93,12 @@ public class Mypoint extends JPanel {
         JLabel label2 = new JLabel("무통장입금");
         String pointlabel = list.get(i).getPoint_signup_date().substring(0,16); 
         JLabel label3 = new JLabel(pointlabel, JLabel.RIGHT);
-        
+        System.out.println(list.get(i).getPoint_approve());
         if(list.get(i).getPoint_approve()!=null) {
         	button.setText("승인됨");
         	button.setEnabled(false);
         }
-        
-        if(list.get(i).getPoint_change_date()!=null) {
+        else if(list.get(i).getPoint_charge_date()!=null) {
         	 button.setText("승인대기");
         	 button.setEnabled(false);
         }
@@ -116,7 +115,7 @@ public class Mypoint extends JPanel {
         
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	button.setText("눌림");
+            	button.setText("승인대기");
             	button.setEnabled(false);
             	try {
     				Protocol p = new Protocol();

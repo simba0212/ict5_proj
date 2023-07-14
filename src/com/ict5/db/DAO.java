@@ -240,8 +240,9 @@ public class DAO {
 		int res = getSession().delete("deletebook", vo);
 		return res;
 	}
-	public static int setPointChargeDate(VO vo) {
-        int res = getSession().update("updateChargeDate", vo);
+	public static int setPointChargeDate(String charge_num) {
+		System.out.println(charge_num+"dao내부");
+        int res = getSession().update("updateChargeDate", charge_num);
         ss.commit();
         return res;
     }
