@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import com.ict5.admin.panel.Navi;
 import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Admin_CheckAgain extends JPanel{
 	Admin_main main;
@@ -109,10 +110,13 @@ public class Admin_CheckAgain extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			try {
 				Protocol p = new Protocol();
-				p.setCmd(1207);
+				VO vo = new VO();
+				vo.setAdmin_id(main.admin_id);
+				vo.setAdmin_pw(twof.getText());
+				p.setCmd(1206);
+				p.setVo(vo);
 				main.out.writeObject(p);
 				main.out.flush();
-				cardLayout.show(main.pg1, "point_Mgmt");
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}

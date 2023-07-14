@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,16 +20,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class Mypage extends JPanel {
 	Client_main main;
 	CardLayout cardlayout;
 	TabPage tab;
-
+	JTextArea jta;
 public Mypage(Client_main main) {
 	this.main = main;
 	this.cardlayout = main.cardlayout;
-	  JTextArea jta = new JTextArea(8, 35); // 10행 20열의 JTextArea 생성
+	  jta = new JTextArea(8, 35); // 10행 20열의 JTextArea 생성
 	  jta.setLineWrap(true);
 	  JScrollPane jsp = new JScrollPane(jta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -123,6 +126,7 @@ public Mypage(Client_main main) {
 		point.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				main.myPo.po.refresh();
 	            main.cardlayout.show(main.pg1, "myPo");
 			}
 
@@ -154,9 +158,35 @@ public Mypage(Client_main main) {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			 jta.setEditable(true);
 		}
 	});
-
+	jb2.addActionListener(new ActionListener() {
+		//  jb2 --> 목표 작성후 저장버튼
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			jta.setEditable(false); // 저장을 누르면 수정버튼 누르기 전에는 수정 불가능하게 변경
+			try {
+				VO vo = new VO();
+				Protocol p = new Protocol();
+				vo.setMember_num(main.usernum);  
+				System.out.println("jb2버튼 누르고 vo에 member_num 담은 후"+vo.getMember_num());
+				vo.setMember_goal(jta.getText());
+				System.out.println("jb2버튼 누르고 vo에 member_goal담은 후"+vo.getMember_goal());
+				p.setCmd(2501);
+				p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	});
+	
+	
+	}
+	public void refresh(){
+		jta.setText(main.usergoal);
 	}
 }

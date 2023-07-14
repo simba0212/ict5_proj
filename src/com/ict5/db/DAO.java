@@ -71,7 +71,7 @@ public class DAO {
 		return str;
 	}
 
-	public static VO getNearClasstime(VO vo) {
+	public static VO mostclose(VO vo) {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
@@ -189,6 +189,24 @@ public class DAO {
 		List<VO> list = getSession().selectList("getApproveList");
 		return list;
 	}
+
+	public static List<VO> sel_class_noice(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_class_noice",vo);
+		return list;
+	}
+	public static int update_goal(VO vo) {
+		System.out.println(vo.getMember_num());
+		System.out.println(vo.getMember_goal());
+		
+		int result =getSession().update("update_goal",vo);
+		ss.commit();
+		return result;
+	}
+	public static List<VO> sel_already_book(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_already_book",vo);
+		return list;
+	}
+
 	
 
 	public static VO getTeacherOne(VO vo){
@@ -248,6 +266,25 @@ public class DAO {
 		ss.commit();
 		return vo;
 	
+	}
+
+	public static VO setPointChargeDate(VO vo) {
+        int res = getSession().update("updateChargeDate", vo);
+        ss.commit();
+        return vo;
+    }
+	
+	public static List<VO> getAllApprovePoints(VO vo) { //마이포인트 불러오기 
+		List<VO> list = getSession().selectList("getAllApprovePoints",vo);
+		return list;
+	}
+
+
+
+	public static int setApprove(VO vo) {
+		int result = getSession().update("setApprove",vo);
+		ss.commit();
+		return result;
 	}
 }
 

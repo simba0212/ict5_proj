@@ -5,8 +5,7 @@ import java.io.Serializable;
 // Member 테이블의 컬럼명과 일치 시키자. 
 public class VO implements Serializable {
 
-	private String member_num, member_id, member_name, member_gen, member_birth, member_signup_date, member_addr,
-
+	private String member_num, member_id, member_name, member_gen, member_birth, member_signup_date, member_addr, member_goal,
 	member_pw, member_mail, member_point, member_chargep, member_usep, member_phone, attendent_date,
 	attendent_month, member_totalcharge, member_totaluse;
 	private String notice_num, notice_text;
@@ -20,7 +19,13 @@ public class VO implements Serializable {
 	private String old_pw, new_pw; //비밀번호 변경용
 
 	
-
+	
+	public String getMember_goal() {
+		return member_goal;
+	}
+	public void setMember_goal(String member_goal) {
+		this.member_goal = member_goal;
+	}
 	public String getMember_num() {
 		return member_num;
 	}
