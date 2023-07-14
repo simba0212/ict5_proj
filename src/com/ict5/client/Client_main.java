@@ -236,6 +236,15 @@ public class Client_main extends JFrame implements Runnable {
 						}
 						
 						break;	
+					case 2104://마이포인트
+						if (p.getResult() == 1) {
+							refreshAll();
+							list = p.getList();
+						} else {
+							System.out.println("실패");
+						}
+						
+						break;	
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문
 						usergoal=vo.getMember_goal();
