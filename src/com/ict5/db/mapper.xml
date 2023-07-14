@@ -142,14 +142,16 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	</insert>
 	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
- 		 insert into MEMBER_T (
-  		 	member_num, member_id, member_name, member_gen, member_birth,
-    		member_signup_date, member_addr, member_pw, member_mail,
-    		member_point, member_chargep, member_usep, member_phone, attendent_date, attendent_month, member_goal)
-  		values (
-   	 		member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
-   	 		TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{member_signup_date}, 'YYYY-MM-DD HH24:MI:SS'),
-    		#{member_addr}, #{member_pw}, #{member_mail}, 50000, 50000, 0, #{member_phone}, sysdate, 0)
+    INSERT INTO MEMBER_T (
+        member_num, member_id, member_name, member_gen, member_birth,
+        member_signup_date, member_addr, member_pw, member_mail,
+        member_point, member_chargep, member_usep, member_phone, attendent_date, attendent_month, member_goal
+   	 )
+    VALUES (
+        member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
+        TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), sysdate,
+        #{member_addr}, #{member_pw}, #{member_mail}, 50000, 50000, 0, #{member_phone}, sysdate, 0, '목표를 입력해주세요'
+   	 )
 	</insert>
 
 	<insert  id="inNotice" parameterType="com.ict5.db.VO">

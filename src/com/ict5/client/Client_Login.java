@@ -161,6 +161,11 @@ public class Client_Login extends JPanel {
 			}
 		});
 		
+		// 회원가입 버튼->회원가입으로
+		join_btn.addActionListener(e -> {
+			main.cardlayout.show(main.pg1, "createId");
+				});
+		
 		
 	}
 
