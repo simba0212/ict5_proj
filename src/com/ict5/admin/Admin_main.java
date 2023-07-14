@@ -9,11 +9,11 @@ import java.net.Socket;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import com.ict5.db.CP_Client;
-import com.ict5.db.DB_Server;
+import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -130,38 +130,51 @@ public class Admin_main extends JFrame implements Runnable {
 
 					switch (p.getCmd()) {
 					case 0:
+						System.out.println("종료");
 						break esc;
 
-					case 1001:
+					case 1001: // 로그인
 						if (p.getResult() == 1) {
-
+							admin_id = vo.getAdmin_id(); // 이 id는 쭉 가지고있음
 							p.setCmd(1002);
 							out.writeObject(p);
 							out.flush();
-							
 							cardlayout.show(pg1, "home");
 						} else {
 							System.out.println("실패");
 							break;
+
 						}
+						break;
 
 					case 1002:
-						
 						if (p.getResult() == 1) {
 							home.timetable.Date();
-							System.out.println("테이블 성공 111");
-						} else {
-							System.out.println("테이블 실패 222");
 						}
 						break;
 
 					case 1003:
 						home.member_new.Member();
-						System.out.println("cmd 변경");
 						break;
-						
+
 					case 1004:
 						home.point_new.PointApprove();
+						break;
+					
+					case 1005: // 포인트 승인하기
+						if (p.getResult() > 0) {
+							System.out.println("확인");
+							home.point_new.clearTableData();
+							p.setCmd(1004);
+							out.writeObject(p);
+							out.flush();
+						}
+						break;
+					
+					case 1006: // 포인트 승인하기
+						if (p.getResult() > 0) {
+							home.point_new.PointApprove();
+						}
 						break;
 
 					case 1201: // 회원목록 불러오기
@@ -179,12 +192,28 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1205: // 회원 세부정보 => 포인트이력
 						member2.memberv2.refresh3();// 포인트 이력
 						break;
-//					case 1206: // 포인트관리 이동전 체크
-//						member2.memberv2.refresh3();
-//						break;
+					case 1206:
+						if (p.getResult() == 1) { // 비밀번호 확인완
+							p.setCmd(1207); // 포인트승인화면 가기
+							out.writeObject(p);
+							out.flush();
+						} else {
+							System.out.println("테이블 실패 222");
+							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
+						}
+						break;
 					case 1207: // 포인트 승인페이지이동
 						point_Mgmt.sub.refresh(); // 포인트불러오기
 						break;
+
+					case 1208: // 포인트 승인하기
+						if (p.getResult() > 0) {
+							p.setCmd(1207); // 포인트페이지 갱신
+							out.writeObject(p);
+							out.flush();
+						}
+						break;
+
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;

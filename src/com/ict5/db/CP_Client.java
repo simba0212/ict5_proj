@@ -19,8 +19,6 @@ public class CP_Client extends Thread {
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
-	
-	
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -46,7 +44,7 @@ public class CP_Client extends Thread {
 					list = p.getList();
 
 					switch (p.getCmd()) {
-					
+
 					case 0:
 						out.writeObject(p);
 						out.flush();
@@ -70,7 +68,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 
-					case 1002:
+					case 1002: // 홈페이지로 이동
 						list = DAO.getToday();
 					    p.setList(list);
 					    
@@ -100,11 +98,23 @@ public class CP_Client extends Thread {
 						list = DAO.getPointApprove();
 						p.setList(list);
 						
+						p.setList(list);
+						if (p.getList() != null) {
+							p.setResult(1);
+						}else {
+							p.setResult(0);
+						}
 						out.writeObject(p);
 						out.flush();
-						
 						break;
-
+						
+						
+					case 1005: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+					
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
 						p.setList(list);
@@ -137,19 +147,32 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
+					case 1206: // 포인트관리 가기전 PW체크
+						vo = DAO.getLoginChk_Admin(vo);
+						if(vo!=null) {
+							p.setResult(1);
+						}else {
+							p.setResult(0);
+						}
+						p.setCmd(1206);
+						out.writeObject(p);
+						out.flush();
+						break;
 						
-//					case 1206: // 포인트관리 가기전 PW체크
-//						list = DAO.getPointList(vo);
-//						p.setList(list);
-//						out.writeObject(p);
-//						out.flush();
-//						break;
-					case 1207:
+					case 1207: // 포인트승인화면 가기
 						list = DAO.getApproveList();
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
-
+						break;
+						
+					case 1208: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+						
 					case 1301: // 강사목록 불러오기
 						list = DAO.getCoachList();
 						p.setList(list);
@@ -194,8 +217,6 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-
-				
 
 					case 2101: // 가입
 						vo = p.getVo();
@@ -296,10 +317,6 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-
-
-
-						
 
 					}
 

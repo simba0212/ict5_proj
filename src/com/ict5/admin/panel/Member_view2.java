@@ -183,7 +183,6 @@ public class Member_view2 extends JPanel {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 	}
 
 	public void refresh2() { // 오른쪽 테이블 예약목록
