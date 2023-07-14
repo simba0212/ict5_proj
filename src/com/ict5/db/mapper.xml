@@ -163,7 +163,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 		from member_t m,  pointapprove a
 		where m.member_num = a.member_num
 	</select>
-
+	 
 	<select id="checkCurrentPassword" parameterType="com.ict5.db.VO">
 		select COUNT(*) from MEMBER_T where member_pw = #{member_pw}
 	</select>
@@ -178,6 +178,17 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
   		values (
    	 		pointapprove_seq.nextval, #{point_money}, sysdate, null, null, #{member_num})
 	</insert>
- 
+	
+	<!-- 입금내역 업데이트 -->
+    <update id="updateChargeDate" parameterType="com.ict5.db.VO">
+        UPDATE POINTAPPROVE
+        SET point_Charge_Date = #{point_Charge_Date}
+        WHERE charge_Num = #{charge_Num}
+    </update>
+    
+ 	<!-- 마이포인트 불러오기 -->
+ 	<select id="getAllApprovePoints" resultType="com.ict5.db.VO">
+        SELECT * FROM POINTAPPROVE where member_num = #{member_num}
+    </select>
    
 </mapper>

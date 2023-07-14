@@ -190,6 +190,15 @@ public class Client_main extends JFrame implements Runnable {
 						}
 						
 						break;	
+					case 2104://마이포인트
+						if (p.getResult() == 1) {
+							refreshAll();
+							list = p.getList();
+						} else {
+							System.out.println("실패");
+						}
+						
+						break;	
 					}
 				
 				}

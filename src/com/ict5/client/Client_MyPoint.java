@@ -11,7 +11,7 @@ import com.ict5.client.panel.UserTop;
 public class Client_MyPoint extends JPanel {
     Client_main main;
     UserTop usertop;
-    Mypoint po;
+    public Mypoint po;
     public Client_MyPoint(Client_main main) {
         this.main = main;
         po = new Mypoint(main);

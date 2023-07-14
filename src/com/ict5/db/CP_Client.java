@@ -203,7 +203,6 @@ public class CP_Client extends Thread {
 						vo = p.getVo();
 						if (vo != null) {
 							DAO.setInsertJoinFields(vo);
-							//System.out.println("정보가져옴");
 						} else {
 							System.out.println("정보못가져옴");
 						}
@@ -216,7 +215,6 @@ public class CP_Client extends Thread {
 					case 2102: // 포인트 구매
 						vo = p.getVo();
 						if (vo != null) {
-							//System.out.println("못넘어가는중");
 							DAO.setApplyPoints(vo);
 							System.out.println("정보가져옴");
 						} else {
@@ -229,16 +227,22 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 2103: // 비번 번경
-						//vo = new VO();
 						vo = p.getVo();
 						if (vo != null) {
 							DAO.setMemberPw(vo);
-							//System.out.println("정보가져옴");
+							
 						} else {
 							System.out.println("정보 못 가져옴");
 						}
 						p.setVo(vo);
 						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 2104: // 마이포인트
+						list = DAO.getAllApprovePoints(vo);
+						p.setList(list);
 						out.writeObject(p);
 						out.flush();
 						break;
@@ -256,6 +260,7 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+						
 					case 2303:
 						int result = DAO.getInsert_book(vo);
 						out.writeObject(p);
