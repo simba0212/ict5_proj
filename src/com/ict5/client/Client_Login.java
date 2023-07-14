@@ -161,7 +161,9 @@ public class Client_Login extends JPanel {
 			}
 		});
 		
-		
+		join_btn.addActionListener(e -> {
+			main.cardlayout.show(main.pg1, "createId");
+		});
 	}
 
 	@Override

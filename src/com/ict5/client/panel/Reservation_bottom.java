@@ -83,7 +83,6 @@ public class Reservation_bottom extends JPanel {
 		panel.add(new JLabel(str));
 		panel.add(new JLabel("정원"+list.get(i).getClass_res()+"/"+list.get(i).getClass_max(), JLabel.RIGHT));
 		jb.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub

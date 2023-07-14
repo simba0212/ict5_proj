@@ -240,10 +240,10 @@ public class DAO {
 		int res = getSession().delete("deletebook", vo);
 		return res;
 	}
-	public static VO setPointChargeDate(VO vo) {
+	public static int setPointChargeDate(VO vo) {
         int res = getSession().update("updateChargeDate", vo);
         ss.commit();
-        return vo;
+        return res;
     }
 	
 	public static List<VO> getAllApprovePoints(VO vo) { //마이포인트 불러오기 

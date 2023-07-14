@@ -29,7 +29,7 @@ public class Client_main extends JFrame implements Runnable {
 	
 	public int st;
 	
-	public String username;
+	
 	
 	public Client_Login login;
 	public Client_CreateId createId;
@@ -45,8 +45,7 @@ public class Client_main extends JFrame implements Runnable {
 	public CardLayout cardlayout;
 	public JPanel pg1;
 	
-	public String usernum,usergoal="";
-
+	public String username,usernum,usergoal="",userpoint;
 
 	public Client_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -143,27 +142,18 @@ public class Client_main extends JFrame implements Runnable {
 							username=vo.getMember_name();
 							usernum=vo.getMember_num();
 							usergoal=vo.getMember_goal();
+							userpoint=vo.getMember_point();
 							refreshAll();
-							
-							
-
 						} else {
 							System.out.println("실패");
 						}
 						break;
-						
-//					case 2301:
-//						 list = p.getList();
-//						// 초기화 메서드
-//						 tab.schedule.sb.refresh();
-//						break;
 					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
 						 tab.schedule.sb.refresh();
 						break;
 					case 2303:
 						// 예약완료됨을 알리기 위한 메소드를 스schedule_bottom에서 작성하고 실행
-						
 						try {
 							p.setCmd(2701);
 							p.setVo(vo);
@@ -236,14 +226,10 @@ public class Client_main extends JFrame implements Runnable {
 						}
 						
 						break;	
-					case 2104://마이포인트
-						if (p.getResult() == 1) {
-							refreshAll();
+					case 2104://마이포인트			
 							list = p.getList();
-						} else {
-							System.out.println("실패");
-						}
-						
+							myPo.po.refresh();
+							cardlayout.show(pg1, "myPo");
 						break;	
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문

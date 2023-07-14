@@ -15,7 +15,9 @@
 		MEMBER_T where member_id = #{member_id} and
 		member_pw=#{member_pw}
 	</select>
+	
 
+	<!-- 공지사항 불러오기  -->
 	<select id="getNotice" resultType="com.ict5.db.VO">
 		select * from notice order by
 		notice_num desc
@@ -64,7 +66,7 @@
 	</select>-->
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2302 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name,class_point, c.class_res,c.class_date, c.class_max, c.class_time,
+		SELECT c.class_num, c.class_room, c.class_type, ,t.teacher_name,class_point, c.class_res,c.class_date, c.class_max, c.class_time,
     CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = #{member_num})
          THEN 1 ELSE 0 END AS admin_num
 	FROM class c
@@ -101,13 +103,7 @@
 		WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
 		AND b.member_num = #{member_num}
 	</select>
-	
-	<!-- 작성중인 쿼리
-	 select *
-from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num in (select class_num from book where member_num=2);
-	선택된 날짜와 선택한 사용자의 member_num을 통해서 검색
-	검색할 항목 : t.name / c.class_type / c.class_time / c.res / c.max / c.class_room / 
-	 -->
+
 	 
 	<insert id="getInsert_attenedent" parameterType="com.ict5.db.VO">
 		insert into ATTENDENT values(ATTENDENT_SEQ.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
@@ -209,7 +205,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	<update id="updatePassword" parameterType="com.ict5.db.VO">
     UPDATE MEMBER_T SET member_pw = #{new_pw} WHERE member_id = #{member_id} AND member_pw = #{old_pw}
 	</update>
-	
+	<!-- 포인트 충전 신청하기 -->
 	<insert id="applyPoints" parameterType="com.ict5.db.VO">
  		 insert into POINTAPPROVE ( charge_num, point_money, point_signup_date, point_charge_date, point_approve, member_num
   		 	)
@@ -225,7 +221,7 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 	<!-- 입금내역 업데이트 -->
     <update id="updateChargeDate" parameterType="com.ict5.db.VO">
         UPDATE POINTAPPROVE
-        SET point_Charge_Date = #{point_Charge_Date}
+        SET POINT_CHARGE_DATE = sysdate
         WHERE charge_Num = #{charge_Num}
     </update>
     

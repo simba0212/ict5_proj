@@ -260,7 +260,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 						
-					case 2104: // 마이포인트
+					case 2104: // 내 포인트 신청내역 가져오기
 						list = DAO.getAllApprovePoints(vo);
 						p.setList(list);
 						out.writeObject(p);
@@ -335,11 +335,21 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;	
+					case 2703:
+						System.out.println(vo.getCharge_num());
+						 int a= DAO.setPointChargeDate(vo);
+						 System.out.println(vo.getCharge_num());
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+						
+						
 						
 						
 					case 2901:
 						result = DAO.getInsert_attenedent(vo);
-						
 						out.writeObject(p);
 						out.flush();
 						break;
