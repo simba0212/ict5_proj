@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -72,10 +73,23 @@ public class Schedule_bottom extends JPanel {
 			// 예약되어있
 			jb.setText("예약취소");
 		} 
+		String wwer= list.get(i).getClass_date().substring(8, 10);// 선택한날 일자 구해서 문자열로
+		//오늘날짜 구하기 
+		LocalDate currentDate = LocalDate.now();
+		String t_d=String.valueOf(currentDate).substring(8,10) ; // 오늘날짜 문자열로 
+		String t_m=String.valueOf(currentDate).substring(5,7) ; // 오늘날짜 문자열로 
+		int nowMonth = Integer.parseInt(t_m);
+		int today =Integer.parseInt(t_d); //오늘날짜 숫자로
+		int classday =Integer.parseInt(wwer); // 수업날짜 숫자로
+//		 main.tab.schedule.calMonth // 선택한 날의 해당하는 달 가져오기
 		
+		if(today>classday && nowMonth>=(main.tab.schedule.calMonth+1)) {
+			jb.setText("지난수업");
+			jb.setEnabled(false);
+		}
 		panel.add(jb);
 		panel.add(new JLabel("수업시간", JLabel.LEFT));
-
+		
 		switch (list.get(i).getClass_time()) {
 		case "1":
 			str = "09:00~09:50";

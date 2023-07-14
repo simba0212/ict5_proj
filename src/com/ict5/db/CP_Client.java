@@ -286,9 +286,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;		
 					case 2308:
-						System.out.println(vo.getMember_num()+" ////"+vo.getClass_num());
 						DAO.deletebook(vo);
-						 System.out.println("cp 실행됨");
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
@@ -300,23 +298,14 @@ public class CP_Client extends Thread {
 						break;	
 						
 					case 2701:
-						System.out.println("2701실행됨");
-						System.out.println(vo.getClass_point());
-						System.out.println(vo.getMember_num());
-						System.out.println(vo.getClass_num());
+					
 						int i = DAO.book_point(vo);
-						System.out.println("2701실행됨");
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
 						break;		
 					case 2702:
-						System.out.println("2702실행됨");
-						System.out.println(vo.getClass_point());
-						System.out.println(vo.getMember_num());
-						System.out.println(vo.getClass_num());
 						int i2 = DAO.book_can_point(vo);
-						System.out.println("2702실행됨");
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();

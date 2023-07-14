@@ -34,7 +34,7 @@ public class Schedule extends JPanel {
 	final static int CAL_HEIGHT = 6;
 	int calDates[][] = new int[CAL_HEIGHT][CAL_WIDTH];
 	int calYear;
-	int calMonth;
+	public int calMonth;
 	int calDayOfMon;
 	int day_i;
 	String indate;

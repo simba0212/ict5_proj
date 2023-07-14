@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,9 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import com.ict5.client.Client_ChargeP;
 import com.ict5.client.Client_main;
-import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -117,6 +116,17 @@ public class Home extends JPanel {
 			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
 			
+			try {
+				Protocol p = new Protocol();
+				p.setCmd(2307);
+				p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (IOException e1) {
+				
+			}
+			
+			
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
@@ -135,7 +145,8 @@ public class Home extends JPanel {
 					main.cardlayout.show(main.pg1, "tab");
 					main.tab.reservation.mon=vo.getClass_date().substring(5,7);
 					main.tab.reservation.day_i= Integer.parseInt(vo.getClass_date().substring(8,10));
-					main.tab.reservation.rb.refresh();
+					
+					main.tab.reservation.rb.refresh(1);
 					TabPage.tabbedPane.setSelectedIndex(1);
 					// 최근 강의시간으로 가야함
 				}
@@ -151,7 +162,7 @@ public class Home extends JPanel {
 		// 가까운 예약된 수업 불러오기
 		// 받아야 하는 데이터  class_type, tracher_name,class_res,class_max, class_date
 		// 보내야 하는 데이터 member_num
-//		vo = DAO.getNearClasstime(vo);
+		// 리프레쉬 메소드를 실행할 때 처음에 입력된 인자값을 통해 흐름제어함
 		if(i==0) {
 			notice.setText(vo.getNotice_text());
 			try {
@@ -164,32 +175,35 @@ public class Home extends JPanel {
 				e1.printStackTrace();
 			}
 		}else if(i==1) {
-		if (vo == null) {
-			label2.setText("");
-			label3.setText("");
-			label4.setText("No class");
-			label5.setText("");
-			label6.setText("");
-		} else {
-
-			label3.setText(vo.getClass_room());
-
-			switch (vo.getClass_type()) {
-			case "1":
-				label2.setText("       수영");
-				break;
-			case "2":
-				label2.setText("       헬스");
-				break;
-			case "3":
-				label2.setText("       요가");
-				break;
-			case "4":
-				label2.setText("       필라테스");
-				break;
-			default:
-				break;
-			}
+			
+			if (vo == null) {
+				label2.setText("");
+				label3.setText("");
+				label4.setText("No class");
+				label5.setText("");
+				label6.setText("");
+			} 
+			
+			else {
+	
+				label3.setText(vo.getClass_room());
+	
+				switch (vo.getClass_type()) {
+				case "1":
+					label2.setText("       수영");
+					break;
+				case "2":
+					label2.setText("       헬스");
+					break;
+				case "3":
+					label2.setText("       요가");
+					break;
+				case "4":
+					label2.setText("       필라테스");
+					break;
+				default:
+					break;
+				}
 			String t_name = vo.getTeacher_name();
 			label4.setText("       "+t_name);// 강사이름
 
