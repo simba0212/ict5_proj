@@ -13,6 +13,7 @@ import com.ict5.admin.panel.TimeTable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CP_Client extends Thread {
 	Socket s;
 	DB_Server server;
@@ -181,18 +182,15 @@ public class CP_Client extends Thread {
 
 					case 2001: // 클라이언트 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
-
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
-							vo.setNotice_text(DAO.getNotice());
+							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성
 							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 							p.setResult(1);
 						} else {
 							System.out.println("로그인실패");
 						}
-						System.out.print("카피 vo.num : ");
-						System.out.println(p.vo.getMember_num());
 						out.writeObject(p);
 						out.flush();
 						break;
@@ -202,8 +200,10 @@ public class CP_Client extends Thread {
 					case 2101: // 가입
 						vo = p.getVo();
 						if (vo != null) {
+
 							DAO.setInsertJoinFields(vo);
 							//System.out.println("정보가져옴");
+
 						} else {
 							System.out.println("정보못가져옴");
 						}
@@ -268,6 +268,30 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 2305:
+						list = DAO.sel_class_noice(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					case 2306:
+						list = DAO.sel_already_book(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;		
+					case 2307:
+						vo = DAO.mostclose(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;			
+					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
+						int result2 = DAO.update_goal(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 2901:
 						result = DAO.getInsert_attenedent(vo);
 						out.writeObject(p);
 						out.flush();
