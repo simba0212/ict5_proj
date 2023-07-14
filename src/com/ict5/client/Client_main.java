@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-
+import com.ict5.client.panel.CreateId_2;
 import com.ict5.client.panel.Mypage;
 import com.ict5.client.panel.Notice;
 import com.ict5.client.panel.TabPage;
@@ -33,6 +33,7 @@ public class Client_main extends JFrame implements Runnable {
 	
 	public Client_Login login;
 	public Client_CreateId createId;
+	public CreateId_2 createId2;
 	public Client_Home home;
 	public TabPage tab;
 	public Notice noti;
@@ -59,6 +60,7 @@ public class Client_main extends JFrame implements Runnable {
 //		클래스명 변수명 = new 클래스명(this);  이 클래스들은 각각의 페이지(카드)를 의미합니다.
 		login = new Client_Login(this);
 		createId = new Client_CreateId(this);
+		createId2 = new CreateId_2(this);
 		home = new Client_Home(this);
 		tab = new TabPage(this);
 		chargeP = new Client_ChargeP(this);
@@ -76,6 +78,7 @@ public class Client_main extends JFrame implements Runnable {
 //		pg1.add("페이지명",객체이름);	각 페이지들의 이름을 지정해주고, 각 객체들로 해당 페이지로 이동합니다.
 		pg1.add("login", login); // 로그인 페이지
 		pg1.add("createId", createId); // 회원가입
+		pg1.add("createId2", createId2); // 회원가입
 		pg1.add("home", home); // 메인페이지 - 가장가까운수업 클릭 안되어있음
 		pg1.add("chargeP", chargeP); // 포인트충전
 		pg1.add("tab", tab); // 탭페이지
