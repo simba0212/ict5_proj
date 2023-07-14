@@ -126,6 +126,7 @@ public Mypage(Client_main main) {
 		point.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				main.myPo.po.refresh();
 	            main.cardlayout.show(main.pg1, "myPo");
 			}
 

@@ -225,6 +225,17 @@ public class DAO {
 		ss.commit();
 		return vo;
 	}
+	
+	public static VO setPointChargeDate(VO vo) {
+        int res = getSession().update("updateChargeDate", vo);
+        ss.commit();
+        return vo;
+    }
+	
+	public static List<VO> getAllApprovePoints(VO vo) { //마이포인트 불러오기 
+		List<VO> list = getSession().selectList("getAllApprovePoints",vo);
+		return list;
+	}
 
 	public static int setApprove(VO vo) {
 		int result = getSession().update("setApprove",vo);
