@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -120,6 +122,27 @@ public class Client_Login extends JPanel {
 				pw_tf.setText("");
 			}
 		});
+		pw_tf.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					VO vo = new VO();
+					Protocol p = new Protocol();
+					vo.setMember_id(id_tf.getText());
+					vo.setMember_pw(pw_tf.getText());
+					p.setCmd(2001);
+					p.setVo(vo);
+					
+					
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		// 로그인 버튼->홈으로
 		login_btn.addActionListener(e -> {
 			try {
@@ -129,16 +152,16 @@ public class Client_Login extends JPanel {
 				vo.setMember_pw(pw_tf.getText());
 				p.setCmd(2001);
 				p.setVo(vo);
+				
+				
 				main.out.writeObject(p);
 				main.out.flush();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		});
-		// 가입 버튼->가입으로
-		join_btn.addActionListener(e -> {
-			main.cardlayout.show(main.pg1, "createId");
-		});
+		
+		
 	}
 
 	@Override

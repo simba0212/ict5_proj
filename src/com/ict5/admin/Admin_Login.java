@@ -73,7 +73,7 @@ public class Admin_Login extends JPanel {
 		    	Protocol p = new Protocol();
 		    	VO vo = new VO();
 		    	vo.setAdmin_id(idf.getText());
-		    	vo.setAdmin_pw(pwf.getText());
+		    	vo.setAdmin_pw(new String(pwf.getPassword()));
 		    	p.setCmd(1001);
 		    	p.setVo(vo);
 				main.out.writeObject(p);

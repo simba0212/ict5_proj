@@ -13,13 +13,12 @@ import com.ict5.admin.panel.TimeTable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CP_Client extends Thread {
 	Socket s;
 	DB_Server server;
 	ObjectInputStream in;
 	ObjectOutputStream out;
-	
-	
 
 	public CP_Client(Socket s, DB_Server server) {
 		this.s = s;
@@ -45,7 +44,7 @@ public class CP_Client extends Thread {
 					list = p.getList();
 
 					switch (p.getCmd()) {
-					
+
 					case 0:
 						out.writeObject(p);
 						out.flush();
@@ -69,7 +68,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 
-					case 1002:
+					case 1002: // 홈페이지로 이동
 						list = DAO.getToday();
 					    p.setList(list);
 					    
@@ -99,11 +98,23 @@ public class CP_Client extends Thread {
 						list = DAO.getPointApprove();
 						p.setList(list);
 						
+						p.setList(list);
+						if (p.getList() != null) {
+							p.setResult(1);
+						}else {
+							p.setResult(0);
+						}
 						out.writeObject(p);
 						out.flush();
-						
 						break;
-
+						
+						
+					case 1005: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+					
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
 						p.setList(list);
@@ -136,19 +147,32 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
+					case 1206: // 포인트관리 가기전 PW체크
+						vo = DAO.getLoginChk_Admin(vo);
+						if(vo!=null) {
+							p.setResult(1);
+						}else {
+							p.setResult(0);
+						}
+						p.setCmd(1206);
+						out.writeObject(p);
+						out.flush();
+						break;
 						
-//					case 1206: // 포인트관리 가기전 PW체크
-//						list = DAO.getPointList(vo);
-//						p.setList(list);
-//						out.writeObject(p);
-//						out.flush();
-//						break;
-					case 1207:
+					case 1207: // 포인트승인화면 가기
 						list = DAO.getApproveList();
 						p.setList(list);
 						out.writeObject(p);
 						out.flush();
-
+						break;
+						
+					case 1208: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+						
 					case 1301: // 강사목록 불러오기
 						list = DAO.getCoachList();
 						p.setList(list);
@@ -181,27 +205,23 @@ public class CP_Client extends Thread {
 
 					case 2001: // 클라이언트 로그인
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
-
 						if (vo != null) {
 							// 로그인 성공
 							System.out.println("로그인성공!");
-							vo.setNotice_text(DAO.getNotice());
+							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성
 							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
 							p.setResult(1);
 						} else {
 							System.out.println("로그인실패");
 						}
-						System.out.print("카피 vo.num : ");
-						System.out.println(p.vo.getMember_num());
 						out.writeObject(p);
 						out.flush();
 						break;
 
-				
-
 					case 2101: // 가입
 						vo = p.getVo();
 						if (vo != null) {
+
 							DAO.setInsertJoinFields(vo);
 						} else {
 							System.out.println("정보못가져옴");
@@ -273,14 +293,34 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 2305:
+						list = DAO.sel_class_noice(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					case 2306:
+						list = DAO.sel_already_book(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;		
+					case 2307:
+						vo = DAO.mostclose(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;			
+					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
+						int result2 = DAO.update_goal(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 2901:
 						result = DAO.getInsert_attenedent(vo);
 						out.writeObject(p);
 						out.flush();
 						break;
-
-
-
-						
 
 					}
 
