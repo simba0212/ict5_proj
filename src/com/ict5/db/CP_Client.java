@@ -52,7 +52,6 @@ public class CP_Client extends Thread {
 						break;
 
 					case 1001: // 관리자 로그인
-						vo = p.getVo();
 						vo = DAO.getLoginChk_Admin(vo);
 						p.setVo(vo);
 						if (vo != null) {
@@ -106,7 +105,7 @@ public class CP_Client extends Thread {
 					case 1106: // 수업확인에서 수업한개 클릭
 						list = DAO.getOneClass(vo);
 						if(list.isEmpty()) { // 예약아무도없음
-							vo=DAO.getOneClass_2(vo);
+							vo = DAO.getOneClass_2(vo);
 							p.setResult(0);
 							p.setVo(vo);
 							out.writeObject(p);
@@ -117,6 +116,30 @@ public class CP_Client extends Thread {
 							out.writeObject(p);
 							out.flush();
 						}
+						break;
+					case 1107: // 수업확인 우측하단 테이블
+						list = DAO.getBookedMember(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1108: // 예약회원 삭제
+						if(p.getResult()==0) { // 한명 보냈을때
+							int res = DAO.delMember(vo); // book에서 삭제
+							res = DAO.refundPoint(vo); // 
+						}else if(p.getResult()==1){ // 여러명 보냈을때
+							for (VO k : list) {
+								int res = DAO.delMember(k);
+								res = DAO.refundPoint(k);
+							}
+						}
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1109:
+						DAO.deleteClass(vo);
+						out.writeObject(p);
+						out.flush();
 						break;
 
 					case 1201: // 회원목록 불러오기

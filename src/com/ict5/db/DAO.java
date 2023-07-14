@@ -219,9 +219,33 @@ public class DAO {
 		return list;
 	}
 
-	public static VO getOneClass_2(VO vo) {
-		vo = getSession().selectOne("classCheck_null,vo");
+	public static VO getOneClass_2(VO vo) { // 예약 아무도없는 수업일때
+		vo = getSession().selectOne("classCheck_null",vo);
 		return vo;
+	}
+
+	public static int delMember(VO vo) { // book에서 해당수업 멤버 지우기
+		int res = getSession().delete("delMember",vo);
+		ss.commit();
+		return res;
+	}
+
+	public static int refundPoint(VO vo) { // 예약취소시 포인트 환급
+		int res = getSession().insert("refundPoint",vo);
+		ss.commit();
+		return 0;
+	}
+
+	public static List<VO> getBookedMember(VO vo) { // 해당수업 예약한 회원리스트
+		List<VO> list = getSession().selectList("bookedMember",vo);
+		return list;
+	}
+
+	public static void deleteClass(VO vo) {
+		System.out.println("클래스 번호 : "+vo.getClass_num());
+		getSession().delete("deleteClass", vo);
+		System.out.println("DAO끝");
+		
 	}
 
 }

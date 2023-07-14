@@ -193,7 +193,7 @@ public class TimeTable2 extends JPanel {
 			}
 		});
 
-		table.addMouseListener(new MouseAdapter() {
+		table.addMouseListener(new MouseAdapter() { // 수업 클릭시
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				

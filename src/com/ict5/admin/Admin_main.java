@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.ict5.admin.panel.ClassCheck2;
 import com.ict5.db.DAO;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -164,9 +165,38 @@ public class Admin_main extends JFrame implements Runnable {
 						classcheck.timetable.refreshData();
 						break;
 					case 1106: // 수업 한개 클릭
-						classcheck.classCheck.setLabel();
+						if(p.getResult()==1) {
+							classcheck.classCheck.setLabel();
+							vo.setClass_num(list.get(0).getClass_num());
+						}else {
+							classcheck.classCheck.setLabel2();
+						}
+						p.setVo(vo);
+						p.setCmd(1107); // 예약회원 리스트 가지러
+						out.writeObject(p);
+						out.flush();
 						break;
-
+					case 1107: // 수업예약명단
+						classcheck.classCheck2.refresh(list);
+						break;
+					case 1108: // 삭제한후 리프레쉬 하기
+						vo.setClass_type(classcheck.classCheck.label11.getText());
+						vo.setClass_date(classcheck.classCheck.label18.getText());
+						vo.setClass_time(classcheck.classCheck.label17.getText());
+						p.setVo(vo);
+						p.setCmd(1106);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1109: // 수업삭제후 다시 띄우기
+						JOptionPane.showMessageDialog(null, "수업이 삭제되었습니다.");
+						// 수업목록 다시 띄우기
+						classcheck.classCheck.resetLabel();
+						p.setCmd(1105);
+						out.writeObject(p);
+						out.flush();
+						break;
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();
 						break;

@@ -10,10 +10,10 @@ import com.ict5.admin.panel.Navi;
 import com.ict5.admin.panel.TimeTable2;
 
 public class Admin_ClassCheck extends JPanel {
-    Admin_main main;
-    TimeTable2 timetable;
-    ClassCheck classCheck;
-    ClassCheck2 classCheck2;
+	public Admin_main main;
+    public TimeTable2 timetable;
+    public ClassCheck classCheck;
+   	public ClassCheck2 classCheck2;
 
     public Admin_ClassCheck(Admin_main main) {
         this.main = main;
