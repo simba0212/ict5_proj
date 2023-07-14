@@ -91,6 +91,8 @@ public class TimeTable extends JPanel {
 		date.setColumns(20);
 		date.setPreferredSize(new Dimension(100, 50));
 		date.setText(date2);
+		date.setHorizontalAlignment(SwingConstants.CENTER); // 텍스트를 가운데 정렬로 설정
+		date.setEditable(false);
 		north2.add(date);
 
 		currentDate = LocalDate.now();
@@ -130,20 +132,6 @@ public class TimeTable extends JPanel {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				clearTableData();
-
-				try {
-					Protocol p = new Protocol();
-					p.setCmd(1002);
-					main.out.writeObject(p);
-					main.out.flush();
-					System.out.println();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
 				cardLayout.show(main.pg1, "classEdit");
 			}
 		});
@@ -192,6 +180,20 @@ public class TimeTable extends JPanel {
 				}
 				
 			}
+		});
+		
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Protocol p = new Protocol();
+		        p.setCmd(1006);
+
+		        try {
+		            main.out.writeObject(p);
+		            main.out.flush();
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
 		});
 
 	}

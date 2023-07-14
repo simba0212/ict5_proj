@@ -138,6 +138,36 @@ from class c  where  c.class_date = TO_DATE(20230708,'yyyyMMdd') and c.class_num
 							#{teacher_type})
 	</insert>
 	
+	<select id="getTeacherName2" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select TEACHER_NUM from TEACHER where TEACHER_NAME = #{TEACHER_NAME}
+	</select>
+	
+	<select id="getTeacherName" resultType="com.ict5.db.VO">
+		select TEACHER_NUM, TEACHER_NAME from TEACHER
+	</select>
+	
+	<insert id="setClass" parameterType="com.ict5.db.VO" >
+		insert into CLASS(
+							CLASS_NUM,
+							CLASS_TIME,
+							CLASS_DATE,
+							CLASS_RES,
+							CLASS_MAX,
+							CLASS_POINT,
+							CLASS_ROOM,
+							CLASS_TYPE,
+							TEACHER_NUM)
+		values(
+							CLASS_SEQ.nextval,
+							#{CLASS_TIME},
+							#{CLASS_DATE},
+							0,
+							#{CLASS_MAX},
+							#{CLASS_POINT},
+							#{CLASS_ROOM},
+							#{TEACHER_NUM})
+	</insert>
+	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
  		 insert into MEMBER_T (
   		 	member_num, member_id, member_name, member_gen, member_birth,

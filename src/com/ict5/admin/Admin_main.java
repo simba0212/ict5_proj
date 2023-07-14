@@ -11,9 +11,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.ict5.db.DAO;
+import com.ict5.admin.panel.ClassEdit1;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -40,6 +41,7 @@ public class Admin_main extends JFrame implements Runnable {
 	public Admin_CoMgmt3 coMg3;
 	public Admin_UserAppMgmt userMg;
 	public Admin_ClassCheck classcheck;
+	
 
 	public Admin_main() {
 		super("거구로 거듭나자 거구장센터");
@@ -171,12 +173,10 @@ public class Admin_main extends JFrame implements Runnable {
 						}
 						break;
 					
-					case 1006: // 포인트 승인하기
-						if (p.getResult() > 0) {
-							home.point_new.PointApprove();
-						}
+					case 1006:
+						classEdit.classEdit1.TeacherName();
 						break;
-
+						
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();
 						break;

@@ -104,6 +104,29 @@ public class DAO {
 		return vo;
 	}
 	
+	/*
+	 * public static VO getClassInsert(VO vo) { int result =
+	 * getSession().insert("getClassInsert", vo); ss.commit(); return vo; }
+	 */
+	
+	public static List<VO> getTeacherName(){
+		List<VO> list = null;
+		list = getSession().selectList("getTeacherName");
+		
+		return list;
+	}
+	
+	public static VO getTeacherName2(VO vo) {
+		vo = getSession().selectOne("getTeacherName2", vo);
+		return vo;
+	}
+	
+	public static VO setClass(VO vo) {
+	    int res = getSession().insert("setClass", vo);
+	    ss.commit();
+	    return vo;
+	}
+	
 	public static VO setNotice(VO vo) {
 		int res = getSession().insert("inNotice", vo);
 		ss.commit();

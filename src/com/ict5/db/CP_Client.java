@@ -108,11 +108,54 @@ public class CP_Client extends Thread {
 						break;
 						
 						
-					case 1005: // 포인트 승인하기
+					case 1005: 
 						p.setResult(DAO.setApprove(vo));
 						out.writeObject(p);
 						out.flush();
 						break;
+						
+					case 1006:
+						list = DAO.getTeacherName();
+						p.setList(list);
+						
+						for (VO vo1 : list) {
+				            String T_name = vo1.getTeacher_name();
+				            String T_num = vo1.getTeacher_num();
+				            System.out.println(T_name+""+T_num);
+				        }
+						
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1007: // 강사목록 불러오기
+					    // TEACHER_NAME을 DAO.getTeacherName2로 전달하여 SQL 문 실행
+						vo = p.getVo();
+						String teacherName = vo.getTeacher_name();
+//						String tn= DAO.aslkdjf(teacherName);
+//						vo.setTeacher_num(tn);
+//						vo 
+//						
+//						System.out.println(vo.getTeacher_name());
+						vo = DAO.getTeacherName2(vo);
+						System.out.println(vo.getTeacher_num());
+					    vo.setTeacher_num(vo.getTeacher_num()); // 데이터를 vo.setTeacher_num()에 설정
+					    
+					    p.setVo(vo);
+					    p.setCmd(1008);
+
+					    out.writeObject(p);
+					    out.flush();
+					    break;
+					    
+					case 1008:
+						vo = p.getVo();
+						DAO.setClass(vo);
+						p.setVo(vo);
+						
+						out.writeObject(p);
+						out.flush();
+						break;	
 					
 					case 1201: // 회원목록 불러오기
 						list = DAO.getMemberList();
@@ -178,7 +221,7 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
-
+					
 					case 1318:
 						vo = p.getVo();
 						if (vo != null) {
