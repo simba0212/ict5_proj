@@ -128,7 +128,6 @@ public Mypage(Client_main main) {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					VO vo = main.vo;
-					System.out.println(main.vo.getMember_num());
 					Protocol p = new Protocol();
 					p.setCmd(2104);
 					p.setVo(vo);
@@ -137,12 +136,6 @@ public Mypage(Client_main main) {
 				} catch (IOException e1) {
 					
 				}
-				
-				
-				
-				System.out.println("내포인트현황누름");
-//				main.myPo.po.refresh();
-//	            main.cardlayout.show(main.pg1, "myPo");
 			}
 
 		});

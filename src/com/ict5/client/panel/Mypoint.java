@@ -93,7 +93,6 @@ public class Mypoint extends JPanel {
         JLabel label2 = new JLabel("무통장입금");
         String pointlabel = list.get(i).getPoint_signup_date().substring(0,16); 
         JLabel label3 = new JLabel(pointlabel, JLabel.RIGHT);
-        System.out.println(list.get(i).getPoint_approve());
         if(list.get(i).getPoint_approve()!=null) {
         	button.setText("승인됨");
         	button.setEnabled(false);
@@ -128,12 +127,7 @@ public class Mypoint extends JPanel {
     			} catch (IOException e1) {
     				
     			}
-//                JButton clickedButton = (JButton) e.getSource();
-//                if (clickedButton.getText().equals("입금알람")) {
-//                    clickedButton.setText("승인대기");
-//                    clickedButton.setEnabled(false);
-//                   
-//                }
+
             }
         });
 
