@@ -54,7 +54,7 @@ public class UserAppEdit extends JPanel {
         leftTextArea.setEditable(false);
         leftPanel.add(leftTextArea, BorderLayout.CENTER);
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 10));
-        add(leftPanel, BorderLayout.WEST);
+        //add(leftPanel, BorderLayout.WEST);
 
         // 오른쪽 패널
         JPanel rightPanel = new JPanel(new BorderLayout());
@@ -69,7 +69,8 @@ public class UserAppEdit extends JPanel {
         announcementTextArea.setEditable(true);
         rightPanel.add(announcementTextArea, BorderLayout.CENTER);
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 100));
-        add(rightPanel, BorderLayout.EAST);
+        //add(rightPanel, BorderLayout.EAST);
+        add(rightPanel);
 
         // 하단패널
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));

@@ -69,20 +69,20 @@ public class Navi extends JPanel {
 		// 내비 두번째 왼쪽
 		JPanel navSW = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
 		navSW.setBackground(Color.white);
-		JButton bt_back = new JButton(new ImageIcon("src/images/back.png"));
-		JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
-		JTextField jtfMember = new JTextField(" 회원검색", 20);
-		jtfMember.setEditable(false);
-		JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
+		JButton bt_back = new JButton(new ImageIcon("src/images/home.png"));
+	//	JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
+	//	JTextField jtfMember = new JTextField(" 회원검색", 20);
+	//	jtfMember.setEditable(false);
+		//JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
 		bt_back.setPreferredSize(new Dimension(80, 40));
-		bt_refresh.setPreferredSize(new Dimension(80, 40));
-		bt_search.setPreferredSize(new Dimension(80, 40));
-		jtfMember.setPreferredSize(new Dimension(80, 40));
+		//bt_refresh.setPreferredSize(new Dimension(80, 40));
+		//bt_search.setPreferredSize(new Dimension(80, 40));
+	//	jtfMember.setPreferredSize(new Dimension(80, 40));
 		navSW.add(bt_back);
-		navSW.add(bt_refresh);
-		navSW.add(jtfMember);
+		//navSW.add(bt_refresh);
+	//	navSW.add(jtfMember);
 		navSW.add(new JLabel("")); // 공백넣기
-		navSW.add(bt_search);
+		//navSW.add(bt_search);
 		navS.add(navSW, BorderLayout.WEST);
 
 		// 내비 두번째 오른쪽
@@ -115,14 +115,14 @@ public class Navi extends JPanel {
 
 		//
 		// 마우스 클릭 이벤트 처리
-		jtfMember.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				jtfMember.setText("");
-				jtfMember.setEditable(true); // 편집 가능하도록 설정
-				jtfMember.requestFocus(); // 커서 포커스 설정
-			}
-		});
+//		jtfMember.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				jtfMember.setText("");
+//				jtfMember.setEditable(true); // 편집 가능하도록 설정
+//				jtfMember.requestFocus(); // 커서 포커스 설정
+//			}
+//		});
 
 		bt_back.addActionListener(new ActionListener() {
 			@Override

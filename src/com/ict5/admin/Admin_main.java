@@ -89,7 +89,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);

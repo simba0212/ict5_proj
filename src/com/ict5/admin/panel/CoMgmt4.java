@@ -78,10 +78,10 @@ public class CoMgmt4 extends JPanel {
 		// "강사 등록" 라벨과 "강사 목록" 라벨을 포함하는 패널을 생성하여 오른쪽에 추가
 		JPanel labelsPanel = new JPanel();
 		labelsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		JLabel registerLabel = new JLabel("강사 등록");
+		JLabel registerLabel = new JLabel(" ");
 		registerLabel.setFont(registerLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(registerLabel);
-		JLabel listLabel = new JLabel("강사 목록");
+		JLabel listLabel = new JLabel(" ");
 		listLabel.setFont(listLabel.getFont().deriveFont(Font.BOLD, 17f));
 		labelsPanel.add(listLabel);
 		listLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 20, 20));
