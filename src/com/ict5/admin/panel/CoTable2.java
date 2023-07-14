@@ -104,14 +104,6 @@ public class CoTable2 extends JPanel {
         // 콤보박스
         JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-//        Integer[] options = {10, 20, 50};
-//        resultsComboBox = new JComboBox<>(options);
-//        resultsComboBox.setPreferredSize(new Dimension(80, 30));
-//        resultsComboBox.setSelectedIndex(0);
-//        comboPanel.add(resultsComboBox);
-//
-//        comboPanel.add(new JLabel("개씩 보기"));
-
         headerPanel.add(comboPanel, BorderLayout.EAST);
 
         leftPanel.add(headerPanel, BorderLayout.NORTH);
@@ -153,12 +145,6 @@ public class CoTable2 extends JPanel {
     	classLabel = new JLabel("OOO 선생님 담당 수업");
         classLabel.setFont(classLabel.getFont().deriveFont(Font.BOLD, 20f));
         rightPanel.add(classLabel, BorderLayout.NORTH);
-
-        // 샘플 class data
-//        Object[][] classData = {
-//            {"5/10", "4층 401호", "2023-06-01", "17:00 ~ 19:00"},
-//            {"9/10", "2층 211호", "2023-06-03", "08:00 ~ 08:50"}
-//        };
 
         String[] classColumnNames = {"인원", "장소", "날짜", "시간"};
         model1 = new DefaultTableModel(classColumnNames,0); 
@@ -285,7 +271,7 @@ public class CoTable2 extends JPanel {
     			default:
     				break;
     			}
-    			Object[] rowData = { k.getClass_res(),k.getClass_room(),k.getClass_date().substring(0, 10),k.getClass_time()};
+    			Object[] rowData = { k.getClass_res(),k.getClass_room(),k.getClass_date().substring(0, 11),k.getClass_time()};
     			model1.addRow(rowData);
     		}
     		

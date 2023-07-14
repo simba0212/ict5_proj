@@ -87,7 +87,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "home");
+		cardlayout.show(pg1, "login");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -140,26 +140,20 @@ public class Admin_main extends JFrame implements Runnable {
 							p.setCmd(1002);
 							out.writeObject(p);
 							out.flush();
-							
 							cardlayout.show(pg1, "home");
 						} else {
-							System.out.println("실패");
 							break;
 						}
 
 					case 1002:
-						
 						if (p.getResult() == 1) {
 							home.timetable.Date();
-							System.out.println("테이블 성공 111");
 						} else {
-							System.out.println("테이블 실패 222");
 						}
 						break;
 
 					case 1003:
 						home.member_new.Member();
-						System.out.println("cmd 변경");
 						break;
 						
 					case 1004:
@@ -199,10 +193,9 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1304: // 회원 세부정보 => 수업예약내역
 						coMg2.coTable2.refresh2();// 예약내역
 						break;
-					case 1308:
-//						System.out.println("폼비우기 호출해줘");
+					case 1308: //강사등록 클릭시 리프레쉬 기능
 						coMg3.coMgmt4.refresh(); // 폼 비우기
-					case 1309:
+					case 1309: //강사수정하기 정보 불러오기
 						coMg3.coMgmt4.fix(); // 수정내용
 						break;
 					case 1310: //삭제 
@@ -217,7 +210,6 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 					case 1318: // 강사 등록하기
 						try {
-//							System.out.println("p.getResult :: "+ p.getResult());
 							if(p.getResult() == 1) {
 								p.setCmd(1301);
 								out.writeObject(p);

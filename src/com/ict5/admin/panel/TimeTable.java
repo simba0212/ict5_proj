@@ -483,7 +483,6 @@ public class TimeTable extends JPanel {
 					}
 				}
 			} else {
-				System.out.println("테이블 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

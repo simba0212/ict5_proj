@@ -51,14 +51,9 @@ public class CP_Client extends Thread {
 						vo = DAO.getLoginChk_Admin(vo);
 						p.setVo(vo);
 						if (vo != null) {
-							// 로그인 성공
-							p.setResult(1);
-							System.out.println("로그인성공!");
-							
+							p.setResult(1);	
 						} else {
 							p.setResult(0);
-							System.out.println("로그인실패");
-							
 						}
 						out.writeObject(p);
 						out.flush();
@@ -66,19 +61,14 @@ public class CP_Client extends Thread {
 
 					case 1002:
 						list = DAO.getToday();
-					    p.setList(list);
-					    
+					    p.setList(list);					
 					     if (p.getList() != null) {
-					        p.setResult(1);
-					        System.out.println("테이블 성공");
-					      
+					        p.setResult(1); 
 					    } else {
 					    	p.setResult(0);
-					        System.out.println("테이블 실패");
 					    }
 					    out.writeObject(p);
 					    out.flush();
-					    
 					    break;
 					    
 					case 1003:
@@ -172,7 +162,6 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 1308: // 강사 등록화면 세팅
-//						System.out.println("강사 등록화면 세팅 예");
 						p.setVo(new VO());
 						out.writeObject(p);
 						out.flush();
@@ -198,10 +187,7 @@ public class CP_Client extends Thread {
 						break;
 						
 					case 1318: //강사 등록
-						
 						int teacherInsertResult = DAO.getTeacherInsert(vo);
-						
-						
 						p.setResult(teacherInsertResult);
 						out.writeObject(p);
 						out.flush();
@@ -220,12 +206,10 @@ public class CP_Client extends Thread {
 
 						if (vo != null) {
 							// 로그인 성공
-							System.out.println("로그인성공!");
 							vo.setNotice_text(DAO.getNotice());
-							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
+							p.setVo(vo); 
 							p.setResult(1);
 						} else {
-							System.out.println("로그인실패");
 						}
 						System.out.print("카피 vo.num : ");
 						System.out.println(p.vo.getMember_num());
@@ -239,9 +223,7 @@ public class CP_Client extends Thread {
 						vo = p.getVo();
 						if (vo != null) {
 							DAO.setInsertJoinFields(vo);
-							//System.out.println("정보가져옴");
 						} else {
-							System.out.println("정보못가져옴");
 						}
 						p.setVo(vo);
 						p.setResult(1);

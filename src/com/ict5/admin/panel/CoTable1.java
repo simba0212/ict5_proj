@@ -42,6 +42,7 @@ public class CoTable1 extends JPanel {
 	Admin_main main;
 	JComboBox<Integer> resultsComboBox;
 	DefaultTableModel model;
+	Object[] dataObjects;
 
 	public CoTable1(Admin_main main) {
 		this.main = main;
@@ -87,37 +88,19 @@ public class CoTable1 extends JPanel {
 		JLabel instrLabel = new JLabel("강사 목록");
 		instrLabel.setFont(instrLabel.getFont().deriveFont(Font.BOLD, 20f));
 		headerPanel.add(instrLabel, BorderLayout.NORTH);
-
-		// 검색결과:
-//		JLabel resultsLabel = new JLabel("거구맨 선생님들");
-//		headerPanel.add(resultsLabel, BorderLayout.CENTER);
-
-//		// 콤보박스
-//		JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//
-//		Integer[] options = { 10, 20, 50 };
-//		resultsComboBox = new JComboBox<>(options);
-//		resultsComboBox.setPreferredSize(new Dimension(80, 30));
-//		resultsComboBox.setSelectedIndex(0);
-//		comboPanel.add(resultsComboBox);
-//
-//		comboPanel.add(new JLabel("개씩 보기"));
-//
-//		headerPanel.add(comboPanel, BorderLayout.EAST);
-//
 		centerPanel.add(headerPanel, BorderLayout.NORTH);
 
 		Object[] columnNames = { "강사 번호", "이름", "전화 번호", "주소", "성별", "경력사항", "사진", "담당 운동" };
-		model = new DefaultTableModel() {
+		model = new DefaultTableModel(columnNames, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// 마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
 				return column == columnNames.length;
 			}
 		};
-		for (int i = 0; i < columnNames.length; i++) {
-			model.addColumn(columnNames[i]);
-		}
+//		for (int i = 0; i < columnNames.length; i++) {
+//			model.addColumn(columnNames[i]);
+//		}
 
 		instrTable = new JTable(model);
 		instrTable.getTableHeader().setReorderingAllowed(false);
@@ -234,6 +217,7 @@ public class CoTable1 extends JPanel {
 	}
 	
 	public void refresh() { // 테이블 최신화
+		
 		model.setRowCount(0);
 		List<VO> list = main.list;
 		for (VO k : list) {
@@ -246,6 +230,7 @@ public class CoTable1 extends JPanel {
 			rowData.add(k.getTeacher_gen());
 			rowData.add(k.getTeacher_career());
 			rowData.add(k.getTeacher_img());
+			
 			
 			
 			switch (Integer.parseInt(k.getTeacher_type())) {
@@ -265,6 +250,7 @@ public class CoTable1 extends JPanel {
 
 			model.addRow(rowData);
 		}
+		main.cardlayout.show(main.pg1, "coMg1");
 	}
 	
 	public void search() { // 검색

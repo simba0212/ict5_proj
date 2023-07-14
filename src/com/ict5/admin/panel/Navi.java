@@ -172,7 +172,6 @@ public class Navi extends JPanel {
 						Protocol p = new Protocol();
 						p.setCmd(1301);
 						main.out.writeObject(p);
-						main.cardlayout.show(main.pg1, "coMg1");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
