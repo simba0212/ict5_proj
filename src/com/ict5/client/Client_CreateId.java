@@ -256,13 +256,7 @@ public class Client_CreateId extends JPanel {
 				vo.setMember_birth(textField6.getText());
 				vo.setMember_addr(textField7.getText());
 				vo.setMember_mail(textField8.getText());
-				
-				// 회원가입 시 현재 시간을 member_signup_date에 저장
-				Date now = new Date();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String signupDate = formatter.format(now);
-				vo.setMember_signup_date(signupDate);
-				
+							
 			    //성별 선택
 				String gender = null;
 				if (maleRadioButton.isSelected()) {
@@ -276,7 +270,6 @@ public class Client_CreateId extends JPanel {
 				p.setCmd(2101);
 				main.out.writeObject(p);
 				main.out.flush();
-				//필드리셋
 				main.cardlayout.show(main.pg1, "createId2");
 				System.out.println("넘김완료");
 			} catch (IOException e1) {
