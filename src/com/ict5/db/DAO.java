@@ -98,10 +98,10 @@ public class DAO {
 	}
 	
 
-	public static VO getTeacherInsert(VO vo) {
+	public static int getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();
-		return vo;
+		return result;
 	}
 	
 	public static VO setNotice(VO vo) {
@@ -208,6 +208,47 @@ public class DAO {
 	}
 
 	
+
+	public static VO getTeacherOne(VO vo){
+		vo = getSession().selectOne("getTeacherOne", vo);
+		return vo;
+	}
+	
+	public static List<VO> searchTeacherName(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("searchTeacherName", vo);
+		return list;
+	}
+	
+	public static List<VO> getTeacherClass(VO vo) {
+		List<VO> list = getSession().selectList("getTeacherClass",vo);
+		return list;
+	}
+	public static int getDeleteTeacher(VO vo) {
+//		String resultStr = "success";
+//		try {
+//			int result = getSession().update("getDeleteTeacher",vo);
+//			System.out.println("삭제 건수 : " + result);
+//			
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			resultStr = e.getMessage();
+//			
+//		}
+//		return resultStr;
+		getSession().update("getDeleteTeacher",vo);
+		ss.commit();
+		return 0;
+	}
+	
+	public static int getTeacherEdit(VO vo) {
+		getSession().update("getTeacherEdit",vo);
+		ss.commit();
+		return 1;
+	}
+
+
 	public static List<VO> getMemberPw(VO vo) {//비밀번호 가져오기
 		List<VO> list = null;
 		list = getSession().selectList("checkMemberPw", vo);
@@ -224,8 +265,9 @@ public class DAO {
 		int res = getSession().insert("applyPoints", vo);
 		ss.commit();
 		return vo;
-	}
 	
+	}
+
 	public static VO setPointChargeDate(VO vo) {
         int res = getSession().update("updateChargeDate", vo);
         ss.commit();
@@ -237,9 +279,12 @@ public class DAO {
 		return list;
 	}
 
+
+
 	public static int setApprove(VO vo) {
 		int result = getSession().update("setApprove",vo);
 		ss.commit();
 		return result;
 	}
 }
+
