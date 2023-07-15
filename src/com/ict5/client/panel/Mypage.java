@@ -151,6 +151,7 @@ public Mypage(Client_main main) {
 		setpass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println(main.vo.getMember_pw()+"setpass누름");
 	            main.cardlayout.show(main.pg1, "pwChan");
 			}
 

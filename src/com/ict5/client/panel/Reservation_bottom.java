@@ -165,19 +165,21 @@ public class Reservation_bottom extends JPanel {
 				add(jsp);
 		}
 	}
-	public void refresh(int iii) { // home 패널에서 가장가까운 수업으로 이동할때 만을 위한 코드
-		
+	public void refresh(String date) { // home 패널에서 가장가까운 수업으로 이동할때 만을 위한 코드
+		vo=main.vo;
 		list = main.list;
-		
+		 vo.setClass_date(date);
+		System.out.println(vo.getClass_date()+"rb_");
+		 vo.setMember_num(main.usernum);
 			removeAll();
 			JPanel bt = new JPanel();
 			bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
 			// 패널 배열 생성
-			JPanel[] panels = new JPanel[list.size()];
+			JPanel panels = new JPanel();
 			
-				panels[0] = createPanel(list,0); // 패널 생성 및 배열에 할당
+				panels = createPanel(list,0); // 패널 생성 및 배열에 할당
 				JButton button = new JButton("Button ");
-				bt.add(panels[0]); // 프레임에 패널 추가
+				bt.add(panels); // 프레임에 패널 추가
 			
 			jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

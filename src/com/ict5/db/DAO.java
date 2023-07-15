@@ -26,16 +26,9 @@ public class DAO {
 	// select , 결과는 여러개 , 파라미터가 없음
 	public static List<VO> getList() {
 		List<VO> list = null;
-		// selectList() : 결과가 하나이상일때
-		// selectOne() : 반드시 결과가 하나일때
-		// 파라미터가 있는 메서드와 파라미터가 없는메서드로 나눈다.
-		// 파라미터가 있는 메서드 : selectList("mepper의 id",파라미터);
-		// 파라미터가 없는 메서드 : selectList("mepper의 id")
+		
 		list = getSession().selectList("memberlist");
-		for (VO vo : list) {
-			System.out.println(vo.getMember_id());
-			System.out.println(vo.getMember_pw());
-		}
+	
 
 		return list;
 	}
@@ -206,9 +199,6 @@ public class DAO {
 		return list;
 	}
 	public static int update_goal(VO vo) {
-		System.out.println(vo.getMember_num());
-		System.out.println(vo.getMember_goal());
-		
 		int result =getSession().update("update_goal",vo);
 		ss.commit();
 		return result;
@@ -241,7 +231,6 @@ public class DAO {
 		return res;
 	}
 	public static int setPointChargeDate(String charge_num) {
-		System.out.println(charge_num+"dao내부");
         int res = getSession().update("updateChargeDate", charge_num);
         ss.commit();
         return res;

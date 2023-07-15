@@ -37,7 +37,7 @@ public class Client_Login extends JPanel {
 	JButton login_btn, join_btn;
 	JLabel img;
 	JTextField id_tf;
-	JPasswordField pw_tf;
+	JTextField pw_tf;
 
 	public Client_Login(Client_main main) {
 		setLayout(new BorderLayout());
@@ -65,7 +65,7 @@ public class Client_Login extends JPanel {
 
 		jp1_2.add(new JLabel("비밀번호 : "));
 		String pw = "Password를 입력해주세요.";
-		pw_tf = new JPasswordField(20);
+		pw_tf = new JTextField(20);
 		pw_tf.setText(pw);
 
 		jp1_2.add(pw_tf);

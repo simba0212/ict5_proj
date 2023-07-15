@@ -115,30 +115,23 @@ public class Home extends JPanel {
 			
 			main.pg1.add("tab", main.tab);
 			main.cardlayout.show(main.pg1, "tab");
-			
-			try {
-				Protocol p = new Protocol();
-				p.setCmd(2307);
-				p.setVo(vo);
-				main.out.writeObject(p);
-				main.out.flush();
-			} catch (IOException e1) {
-				
-			}
-			
-			
 			TabPage.tabbedPane.setSelectedIndex(0);
 		});
 		// 출결체크 클릭 이벤트
 		attend_bt.addActionListener(e -> {
+//			main.pg1.add("tab", main.tab);
+//			main.cardlayout.show(main.pg1, "tab");
+//			TabPage.tabbedPane.setSelectedIndex(1);
 			if (vo == null) {
 				JOptionPane.showMessageDialog(null, "예약된 클래스가 없습니다", "알림", JOptionPane.WARNING_MESSAGE);
 			} else {
 				main.cardlayout.show(main.pg1, "tab");
+				System.out.println(vo.getClass_date().substring(5,7));
+				System.out.println(vo.getMember_num());
 				main.tab.reservation.mon=vo.getClass_date().substring(5,7);
 				main.tab.reservation.day_i= Integer.parseInt(vo.getClass_date().substring(8,10));
 				
-				main.tab.reservation.rb.refresh(1);
+				main.tab.reservation.rb.refresh(vo.getClass_date());
 				TabPage.tabbedPane.setSelectedIndex(1);
 				// 최근 강의시간으로 가야함
 			}
@@ -154,7 +147,7 @@ public class Home extends JPanel {
 					main.tab.reservation.mon=vo.getClass_date().substring(5,7);
 					main.tab.reservation.day_i= Integer.parseInt(vo.getClass_date().substring(8,10));
 					
-					main.tab.reservation.rb.refresh(1);
+					main.tab.reservation.rb.refresh(vo.getClass_date());
 					TabPage.tabbedPane.setSelectedIndex(1);
 					// 최근 강의시간으로 가야함
 				}
@@ -166,13 +159,15 @@ public class Home extends JPanel {
 	public void refresh(int i) {
 		// 공지사항 최신화
 		this.vo = main.vo; // 중요!
-		
+	
+//		vo.setMember_num(main.usernum);
 		// 가까운 예약된 수업 불러오기
 		// 받아야 하는 데이터  class_type, tracher_name,class_res,class_max, class_date
 		// 보내야 하는 데이터 member_num
 		// 리프레쉬 메소드를 실행할 때 처음에 입력된 인자값을 통해 흐름제어함
 		if(i==0) {
 			notice.setText(vo.getNotice_text());
+			
 			try {
 				Protocol p = new Protocol();
 				p.setCmd(2307);

@@ -42,34 +42,22 @@ public class PassChange extends JPanel {
         JLabel nowPw = new JLabel("현재 비밀번호");
         nowPw.setFont(new Font("굴림", Font.BOLD, 13));
         id_tf = new JPasswordField(15);
-        //JLabel condition1 = new JLabel("6글자 이상");
-        //JLabel condition2 = new JLabel("특수문자");
         centerPanel.add(nowPw);
         centerPanel.add(id_tf);
-        //centerPanel.add(condition1);
-        //centerPanel.add(condition2);
 
         // 변경할 비번
         JLabel changePw = new JLabel("변경할 비밀번호");
         changePw.setFont(new Font("굴림", Font.BOLD, 13));
         id_tf2 = new JPasswordField(15);
-       // JLabel condition3 = new JLabel("6글자 이상");
-        //JLabel condition4 = new JLabel("특수문자");
         centerPanel.add(changePw);
         centerPanel.add(id_tf2);
-       // centerPanel.add(condition3);
-       // centerPanel.add(condition4);
 
         // 변경할 비번 확인
         JLabel changePwCon = new JLabel("변경할 비밀번호 확인");
         changePwCon.setFont(new Font("굴림", Font.BOLD, 13));
         id_tf3 = new JPasswordField(15);
-        //JLabel condition5 = new JLabel("6글자 이상");
-        //JLabel condition6 = new JLabel("특수문자");
         centerPanel.add(changePwCon);
         centerPanel.add(id_tf3);
-       // centerPanel.add(condition5);
-        //centerPanel.add(condition6);
 
         add(centerPanel);
 
@@ -98,62 +86,24 @@ public class PassChange extends JPanel {
             }
         });
 
-/*        // OX 처리관련
-        id_tf.addFocusListener(new CustomFocusListener(condition1, condition2));
-        id_tf2.addFocusListener(new CustomFocusListener(condition3, condition4));
-        id_tf3.addFocusListener(new CustomFocusListener(condition5, condition6));*/
     }
 
-    /* // Custom focus listener class
-    private class CustomFocusListener implements FocusListener {
-        private JLabel conditionLabel1;
-        private JLabel conditionLabel2;
-        private Color defaultColor;
-
-        public CustomFocusListener(JLabel conditionLabel1, JLabel conditionLabel2) {
-            this.conditionLabel1 = conditionLabel1;
-            this.conditionLabel2 = conditionLabel2;
-            this.defaultColor = conditionLabel1.getForeground();
-        }
-
-        @Override
-        public void focusGained(FocusEvent e) {
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            JPasswordField passwordField = (JPasswordField) e.getSource();
-            String text = new String(passwordField.getPassword());
-
-            // Check conditions and update the labels accordingly
-            if (text.length() >= 6) {
-                conditionLabel1.setText("6글자 이상 O");
-                conditionLabel1.setForeground(Color.GREEN);
-            } else {
-                conditionLabel1.setText("6글자 이상 X");
-                conditionLabel1.setForeground(Color.RED);
-            }
-
-            if (text.matches(".*[!@#$%^&*()].*")) {
-                conditionLabel2.setText("특수문자 O");
-                conditionLabel2.setForeground(Color.GREEN);
-            } else {
-                conditionLabel2.setText("특수문자 X");
-                conditionLabel2.setForeground(Color.RED);
-            }
-        }
-    }*/
+  
 
     public boolean changePassword(String nowPw, String changePw, String changePwCon) {
         this.vo = main.vo; // 중요!
         Protocol p = new Protocol();
+        System.out.println("changePassword 호출됨 nowPw :"+nowPw+"/ changePw :"+changePw+"/ changePwCon :"+changePwCon);
+        System.out.println(vo.getMember_pw());
         // DB의 비밀번호와 입력한 현재 비밀번호를 비교, 새비밀번호와 새 비밀번호 확인이 일치하면 변경하고, 일치하지 않으면 변경하지 않습니다.
         if (nowPw.equals(vo.getMember_pw())) {
+        	System.out.println("현재비번은 일치함");
             if (changePw.equals(changePwCon)) {
                 try {
                 	vo.setOld_pw(nowPw);
                     vo.setNew_pw(changePw);
-                    vo.getMember_id();
+                    System.out.println(vo.getMember_id());
+                    
                     p.setVo(vo);
                     p.setCmd(2103); // 변경 필요
                     main.out.writeObject(p);

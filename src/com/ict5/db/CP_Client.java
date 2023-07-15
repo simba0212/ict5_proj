@@ -183,9 +183,7 @@ public class CP_Client extends Thread {
 					case 1318:
 						vo = p.getVo();
 						if (vo != null) {
-							System.out.println("cp옴");
 							DAO.getTeacherInsert(vo);
-							System.out.println("dao통해서 디비에 넣어줌");
 						} else {
 							System.out.print("cp실패");
 						}
@@ -236,7 +234,6 @@ public class CP_Client extends Thread {
 						vo = p.getVo();
 						if (vo != null) {
 							DAO.setApplyPoints(vo);
-							System.out.println("정보가져옴");
 						} else {
 							System.out.println("정보 못 가져옴");
 						}

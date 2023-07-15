@@ -44,7 +44,7 @@ public class Schedule extends JPanel {
 	Calendar cal;
 	public Schedule_bottom sb;
 	String mon;
-	
+
 	JPanel calOpPanel;
 	JButton todayBut;
 	JLabel todayLab;
@@ -179,7 +179,6 @@ public class Schedule extends JPanel {
 		sb = new Schedule_bottom(main);
 		frameBottomPanel.add(sb);
 
-		
 		// Panel에 전부 배치
 		add(calOpPanel, BorderLayout.NORTH);
 		add(calPanel, BorderLayout.CENTER);
@@ -205,10 +204,6 @@ public class Schedule extends JPanel {
 				else if (j == 6)
 					fontColor = "blue";
 
-//				if(수업있을때){
-//					dateButs[i][j].setText("<html><b><font color="+fontColor+">"+calDates[i][j]+"</font></b></html>");
-//				}
-//				else 수업없을때
 				dateButs[i][j].setText("<html><font color=" + fontColor + ">" + calDates[i][j] + "</font></html>");
 
 				JLabel todayMark = new JLabel("<html><font color=green>*</html>");
@@ -306,53 +301,53 @@ public class Schedule extends JPanel {
 
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
-			
-			 
-			
-			 try {
+			try {
 				JButton jb = (JButton) e.getSource();
-				String str =jb.getText().trim();
-				String day = str.replaceAll("\\D+", "");
-			 
-			  String day_s="";
-			  day_s=day;
-				 try {
-					 
-				 if((calMonth+1)<10) {
-					 mon = ("0"+(calMonth+1));
-				 }else {
-					 mon=(""+(calMonth+1));
-				 } 
-				 day_i = Integer.parseInt(day);
-				 if(day_i<10) {
-					 day_s = ("0"+day);
-				 }
-					   
-				    
-				} catch (NumberFormatException e2) {
-				   
+				String str = jb.getText().trim(); //클릭된 버튼(날짜 등등)의 텍스트 읽어옴
+//				System.out.println(str); // 
+				String day = str.replaceAll("\\D+", ""); //가져온 텍스트 숫자만 가지고 있기
+				if(day.equals("")) {
+					day=""+today.get(Calendar.DAY_OF_MONTH);
 				}
-			 
-			 
-			 
-			 
-			 
-			indate= calYear+mon+day_s;
-			 Protocol p = new Protocol();
-			 vo = main.vo;
-			 vo.setClass_date(indate);
-			 p.setCmd(2302);
-			 p.setVo(vo);
+				String day_s = "";		
+				day_s = day;
+				try {
+					if ((calMonth + 1) < 10) {
+						mon = ("0" + (calMonth + 1));
+						System.out.println("10보다작을떄");
+					} else {
+						mon = ("" + (calMonth + 1));
+						System.out.println("10보다 클떄");
+					}
+					day_i = Integer.parseInt(day);
+					if (day_i < 10) {
+						day_s = ("0" + day);
+					}else{
+						System.out.println("엘스문내부");
+					
+					}
+
+				} catch (NumberFormatException e2) {
+					System.out.println("에러발생중");
+				}
+				indate = calYear + mon + day_s;
+				String indate2 = calYear + mon + day_s;
+				Protocol p = new Protocol();
+				vo = main.vo;
+				System.out.println("indate"+indate);
+				vo.setClass_date(indate2);
+				vo.setMember_num(main.usernum);
+				System.out.println("vo.getClass_date :"+vo.getClass_date());
+				System.out.println(vo.getMember_num());
+				p.setCmd(2302);
+				p.setVo(vo);
 				main.out.writeObject(p);
 				main.out.flush();
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			 
 
-			
 			int k = 0, l = 0;
 			for (int i = 0; i < CAL_HEIGHT; i++) {
 				for (int j = 0; j < CAL_WIDTH; j++) {
@@ -380,7 +375,8 @@ public class Schedule extends JPanel {
 
 		}
 	}
+
 	public void refresh() {
-		
+
 	}
 }
