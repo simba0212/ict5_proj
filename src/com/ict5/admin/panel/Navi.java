@@ -41,13 +41,13 @@ public class Navi extends JPanel {
 		JPanel navNW = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		navNW.setBackground(Color.white);
 		JButton bt_newPoint = new JButton("포인트 신청 N건", new ImageIcon("src/images/bell.png"));
-		JButton bt_newClient = new JButton("회원등록");
+//		JButton bt_newClient = new JButton("회원등록");
 		JButton bt_newClass = new JButton("수업등록");
 		bt_newPoint.setPreferredSize(new Dimension(160, 40));
-		bt_newClient.setPreferredSize(new Dimension(80, 40));
+//		bt_newClient.setPreferredSize(new Dimension(80, 40));
 		bt_newClass.setPreferredSize(new Dimension(80, 40));
 		navNW.add(bt_newPoint);
-		navNW.add(bt_newClient);
+//		navNW.add(bt_newClient);
 		navNW.add(bt_newClass);
 		navN.add(navNW, BorderLayout.WEST);
 
@@ -147,13 +147,13 @@ public class Navi extends JPanel {
 			}
 		});
 
-		bt_newClient.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				main.cardlayout.show(main.pg1, "member");
-			}
-		});
+//		bt_newClient.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				main.cardlayout.show(main.pg1, "member");
+//			}
+//		});
 
 		bt_newPoint.addActionListener(new ActionListener() {
 
@@ -171,14 +171,25 @@ public class Navi extends JPanel {
 					try {
 						Protocol p = new Protocol();
 						p.setCmd(1301);
+						p.setResult(0);
 						main.out.writeObject(p);
+						main.out.flush();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
 				} else if (selected.equals("강사스케줄")) {
-					main.cardlayout.show(main.pg1, "coMg2");
+					Protocol p = new Protocol();
+					p.setCmd(1301);
+					p.setResult(1);
+					try {
+						main.out.writeObject(p);
+						main.out.flush();
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
 				} else if (selected.equals("강사등록")) {
 					try {
 						Protocol p = new Protocol();

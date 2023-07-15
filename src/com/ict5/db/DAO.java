@@ -196,9 +196,6 @@ public class DAO {
 	}
 
 	public static int update_goal(VO vo) {
-		System.out.println(vo.getMember_num());
-		System.out.println(vo.getMember_goal());
-
 		int result = getSession().update("update_goal", vo);
 		ss.commit();
 		return result;
@@ -301,10 +298,7 @@ public class DAO {
 	}
 
 	public static void deleteClass(VO vo) {
-		System.out.println("클래스 번호 : " + vo.getClass_num());
 		getSession().delete("deleteClass", vo);
-		System.out.println("DAO끝");
-
 	}
 
 }

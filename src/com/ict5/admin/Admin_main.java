@@ -152,8 +152,9 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1002:
 						if (p.getResult() == 1) {
 							home.timetable.Date();
+							classcheck.timetable.Date();
 						} else {
-
+							
 						}
 						break;
 
@@ -255,10 +256,21 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 
 					case 1301: // 강사목록 불러오기
-						coMg1.coTable1.refresh();
+						if(p.getResult()==0) {
+							coMg1.coTable1.refresh();
+						}else {
+							coMg2.coTable2.refresh();
+							
+						}
 						break;
 					case 1302: // 한명 검색하기
-						coMg1.coTable1.search();
+						if(p.getResult()==0) {
+							
+							coMg1.coTable1.search();
+						}else {
+							coMg2.coTable2.search();
+							
+						}
 						break;
 					case 1303: // 강사 세부정보 보기
 						coMg2.coTable2.refresh1();// 왼쪽테이블
@@ -271,8 +283,9 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1309: //강사수정하기 정보 불러오기
 						coMg3.coMgmt4.fix(); // 수정내용
 						break;
-					case 1310: //삭제 
+					case 1310: //삭제완료후 강사목록다시부르기
 						p.setCmd(1301);
+						p.setResult(1);
 						out.writeObject(p);
 						out.flush();
 						break;

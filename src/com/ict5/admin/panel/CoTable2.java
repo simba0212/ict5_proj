@@ -3,23 +3,25 @@ package com.ict5.admin.panel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -62,7 +64,7 @@ public class CoTable2 extends JPanel {
         topPanel.setBackground(Color.lightGray);
 
         // 3번째 패널 (상단패널)
-        JLabel titleLabel = new JLabel("강사 관리");
+        JLabel titleLabel = new JLabel("강사 검색");
         titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 10));
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 17f));
         topPanel.add(titleLabel);
@@ -74,10 +76,82 @@ public class CoTable2 extends JPanel {
         searchTextField = new JTextField("강사 검색", 20);
         searchTextField.setPreferredSize(new Dimension(200, 30));
         searchPanel.add(searchTextField);
+        searchTextField.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				searchTextField.setText("");
+			}
+		});
+        searchTextField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (searchTextField.getText().trim().isEmpty()) { // 빈칸 검색시
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1301);
+						p.setResult(1);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+					}
+				} else {
+					try {
+						String name = searchTextField.getText().trim();
+						Protocol p = new Protocol();
+						VO vo = new VO();
+						vo.setTeacher_name(name);
+						p.setCmd(1302);
+						p.setResult(1);
+						p.setVo(vo);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+
+					}
+				}
+			}
+		});
 
         searchButton = new JButton("검색");
         searchButton.setPreferredSize(new Dimension(80, 30));
         searchPanel.add(searchButton);
+        searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (searchTextField.getText().trim().isEmpty()) { // 빈칸 검색시
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1301);
+						p.setResult(1);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+					}
+
+				} else {
+					try {
+						String name = searchTextField.getText().trim();
+						Protocol p = new Protocol();
+						VO vo = new VO();
+						vo.setTeacher_name(name);
+						p.setCmd(1302);
+						p.setResult(1);
+						p.setVo(vo);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+
+					}
+				}
+			}
+		});
 
         topPanel.add(searchPanel);
 
@@ -184,34 +258,32 @@ public class CoTable2 extends JPanel {
 				
 			}
 		});
+        
+        instrTable.addMouseListener(new MouseAdapter() {
+        	@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Protocol p = new Protocol();
+					VO vo = new VO();
+					p.setCmd(1303);
+					int row = instrTable.getSelectedRow();
+					Object value = instrTable.getValueAt(row, 0);
+					String teacher_num = value.toString();
+					vo.setTeacher_num(teacher_num);
+					p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
     }
     	
     	public void refresh1() {// 선생님 한명정보 불러오기
     		VO vo = main.vo;
     		teanum = vo.getTeacher_num();
-    		
     		classLabel.setText(vo.getTeacher_name()+ " 선생님 담당 수업");
-    		
-    		model.setValueAt(vo.getTeacher_num(),0,0);
-    		model.setValueAt(vo.getTeacher_name(),0,1);
-    		model.setValueAt(vo.getTeacher_phone(), 0, 2);
-    		model.setValueAt(vo.getTeacher_gen(), 0, 3);
-    		switch (Integer.parseInt(vo.getTeacher_type())) {
-			case 1:
-				model.setValueAt("헬스", 0, 4);
-				break;
-			case 2:
-				model.setValueAt("요가", 0, 4);
-				break;
-			case 3:
-				model.setValueAt("수영", 0, 4);
-				break;
-			case 4:
-				model.setValueAt("필라테스", 0, 4);
-				break;
-			}
-    		
-    	
    		// 오른쪽 테이블 불러오기
    			try {
    				Protocol p = new Protocol();
@@ -318,7 +390,6 @@ public class CoTable2 extends JPanel {
     					p.setVo(vo);
     					main.out.writeObject(p);
     					main.out.flush();
-    					main.cardlayout.show(main.pg1, "coMg1");
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}
@@ -371,6 +442,66 @@ public class CoTable2 extends JPanel {
  			return false;
  		}
  	}
+
+	public void refresh() {
+		classLabel.setText("강사를 선택해주세요");
+		List<VO> list = main.list;
+		model.setRowCount(0);
+		for (VO vo : list) {
+			Vector<Object> rowData = new Vector<>();
+			rowData.add(vo.getTeacher_num());
+			rowData.add(vo.getTeacher_name());
+			rowData.add(vo.getTeacher_phone());
+			rowData.add(vo.getTeacher_gen());
+			
+			switch (Integer.parseInt(vo.getTeacher_type())) {
+			case 1:
+				rowData.add("헬스");
+				break;
+			case 2:
+				rowData.add("요가");
+				break;
+			case 3:
+				rowData.add("수영");
+				break;
+			case 4:
+				rowData.add("필라테스");
+				break;
+			}
+			model.addRow(rowData);
+		}
+		model1.setRowCount(0);
+		main.cardlayout.show(main.pg1, "coMg2");
+	}
+
+	public void search() {
+		model.setRowCount(0);
+		List<VO> list = main.list;
+		for (VO vo : list) {
+			Vector<Object> rowData = new Vector<>();
+			rowData.add(vo.getTeacher_num());
+			rowData.add(vo.getTeacher_name());
+			rowData.add(vo.getTeacher_phone());
+			rowData.add(vo.getTeacher_gen());
+			
+			switch (Integer.parseInt(vo.getTeacher_type())) {
+			case 1:
+				rowData.add("헬스");
+				break;
+			case 2:
+				rowData.add("요가");
+				break;
+			case 3:
+				rowData.add("수영");
+				break;
+			case 4:
+				rowData.add("필라테스");
+				break;
+			}
+			model.addRow(rowData);
+		}
+		
+	}
     
     
 }

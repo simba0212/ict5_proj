@@ -114,7 +114,7 @@ public class CoTable1 extends JPanel {
 		instrTable.setDefaultRenderer(Object.class, centerRenderer);
 		add(centerPanel, BorderLayout.CENTER);
 		
-		searchTextField.addFocusListener(new FocusListener() { // 회원검색 필드 클릭시
+		searchTextField.addFocusListener(new FocusListener() { // 강사검색클릭
 			@Override
 			public void focusLost(FocusEvent e) {
 			}
@@ -158,7 +158,6 @@ public class CoTable1 extends JPanel {
 						p.setCmd(1301);
 						main.out.writeObject(p);
 						main.out.flush();
-						main.cardlayout.show(main.pg1, "coMg1");
 					} catch (Exception e2) {
 					}
 
@@ -189,9 +188,9 @@ public class CoTable1 extends JPanel {
 					try {
 						Protocol p = new Protocol();
 						p.setCmd(1301);
+						p.setResult(0);
 						main.out.writeObject(p);
 						main.out.flush();
-						main.cardlayout.show(main.pg1, "coMg1");
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}
@@ -230,7 +229,6 @@ public class CoTable1 extends JPanel {
 			rowData.add(k.getTeacher_gen());
 			rowData.add(k.getTeacher_career());
 			rowData.add(k.getTeacher_img());
-			
 			
 			
 			switch (Integer.parseInt(k.getTeacher_type())) {

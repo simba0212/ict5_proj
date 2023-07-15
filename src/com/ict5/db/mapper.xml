@@ -167,6 +167,7 @@
 		select m.member_num, m.member_name, m.member_id, m.member_phone, m.member_point,a.charge_num, a.point_approve, a.point_money, a.point_signup_date, a.point_charge_date
 		from member_t m,  pointapprove a
 		where m.member_num = a.member_num
+		order by charge_num desc
 	</select>
 	
 	<update id="setApprove" parameterType="com.ict5.db.VO">

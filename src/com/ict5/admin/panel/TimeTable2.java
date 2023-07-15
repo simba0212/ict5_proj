@@ -230,6 +230,7 @@ public class TimeTable2 extends JPanel {
 				currentDate = currentDate.plusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				clearTableData();
 				try {
 					Protocol p = new Protocol();
 					p.setCmd(1002);
@@ -238,8 +239,6 @@ public class TimeTable2 extends JPanel {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				clearTableData();
-				Date();
 			}
 		});
 
@@ -249,7 +248,7 @@ public class TimeTable2 extends JPanel {
 				currentDate = currentDate.minusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
-
+				clearTableData();
 				try {
 					Protocol p = new Protocol();
 					p.setCmd(1002);
@@ -260,9 +259,6 @@ public class TimeTable2 extends JPanel {
 					e1.printStackTrace();
 				}
 
-				// 이전 데이터를 지우기 위해 테이블 초기화
-				clearTableData();
-				Date();
 			}
 		});
 

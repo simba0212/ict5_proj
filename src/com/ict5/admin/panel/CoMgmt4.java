@@ -67,7 +67,7 @@ public class CoMgmt4 extends JPanel {
 		// "강사 관리" 패널을 생성하여 왼쪽에 추가
 		JPanel teacherManagementPanel = new JPanel();
 		teacherManagementPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JLabel label = new JLabel("강사 관리");
+		JLabel label = new JLabel("강사 검색");
 		teacherManagementPanel.add(label);
 		label.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 10));
 		label.setFont(label.getFont().deriveFont(Font.BOLD, 17f));

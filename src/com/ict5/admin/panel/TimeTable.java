@@ -162,7 +162,6 @@ public class TimeTable extends JPanel {
 					p.setCmd(1002);
 					main.out.writeObject(p);
 					main.out.flush();
-					System.out.println();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -170,8 +169,6 @@ public class TimeTable extends JPanel {
 				
 
 				// 이전 데이터를 지우기 위해 테이블 초기화
-				clearTableData();
-				Date();
 			}
 		});
 
@@ -195,8 +192,6 @@ public class TimeTable extends JPanel {
 				}
 				
 				// 이전 데이터를 지우기 위해 테이블 초기화
-				clearTableData();
-				Date();
 			}
 		});
 
