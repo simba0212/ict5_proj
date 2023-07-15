@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import com.ict5.admin.Admin_ClassCheck;
 import com.ict5.admin.Admin_main;
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -108,7 +109,7 @@ public class TimeTable extends JPanel {
 				{ "15:00", "", "", "", "" }, { "16:00", "", "", "", "" }, { "17:00", "", "", "", "" },
 				{ "18:00", "", "", "", "" }, { "19:00", "", "", "", "" }, { "20:00", "", "", "", "" },
 				{ "21:00", "", "", "", "" } };
-		String[] columnNames = { date2, "수영", "헬스", "요가", "필라테스" };
+		String[] columnNames = { date2, "헬스", "요가", "수영", "필라테스" };
 
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
@@ -129,16 +130,8 @@ public class TimeTable extends JPanel {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(main.pg1, "classEdit");
-			}
-		});
-
-		// 날짜 다음 날
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				currentDate = currentDate.plusDays(1);
-				date2 = currentDate.toString();
-				date.setText(date2);
+				
+				clearTableData();
 
 				try {
 					Protocol p = new Protocol();
@@ -150,6 +143,31 @@ public class TimeTable extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				cardLayout.show(main.pg1, "classEdit");
+			}
+		});
+
+		// 날짜 다음 날
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentDate = currentDate.plusDays(1);
+				date2 = currentDate.toString();
+				date.setText(date2);
+				// 이전 데이터를 지우기 위해 테이블 초기화
+				clearTableData();
+
+				try {
+					Protocol p = new Protocol();
+					p.setCmd(1002);
+					main.out.writeObject(p);
+					main.out.flush();
+					System.out.println();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
@@ -163,13 +181,14 @@ public class TimeTable extends JPanel {
 				currentDate = currentDate.minusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				// 이전 데이터를 지우기 위해 테이블 초기화
+				clearTableData();
 				
 				try {
 					Protocol p = new Protocol();
 					p.setCmd(1002);
 					main.out.writeObject(p);
 					main.out.flush();
-					System.out.println();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -498,7 +517,6 @@ public class TimeTable extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
 	// 테이블 데이터 초기화 메서드
 	public void clearTableData() {
 		for (int row = 0; row < table.getRowCount(); row++) {
@@ -542,8 +560,20 @@ class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
 				// 버튼 클릭 시 동작을 수행할 수 있도록 구현
 				System.out.println("Button clicked");
 				JOptionPane.showMessageDialog(button, "강의 페이지로 이동");
+				
+				timeTable.clearTableData();
+				try {
+					Protocol p = new Protocol();
+					p.setCmd(1002);
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				main.cardlayout.show(main.pg1, "classcheck"); // "classcheck" 페이지로 이동
-				timeTable.Date();
+				
 			}
 		});
 	}

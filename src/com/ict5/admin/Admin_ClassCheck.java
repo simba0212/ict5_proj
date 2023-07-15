@@ -36,8 +36,5 @@ public class Admin_ClassCheck extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    public void refreshData() {
-        // timetable을 갱신하기 위해 refreshData() 메서드 호출
-        timetable.refreshData();
-    }
+    
 }

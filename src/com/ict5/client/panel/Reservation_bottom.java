@@ -43,11 +43,19 @@ public class Reservation_bottom extends JPanel {
 	}
 	private JPanel createPanel(List<VO> list,int i) {
 		JPanel panel = new JPanel(new GridLayout(3,3));
+		String str2="";
+    	switch (list.get(i).getClass_type()) {
+		case "1":str2="수영";	break;
+		case "2":str2="PT";break;
+		case "3":str2="요가";break;
+		case "4":str2="필라테스";break;
+	
+		}
 		panel.setPreferredSize(new Dimension(300, 80));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel.add(new JLabel("수업종류", JLabel.LEFT));
-		panel.add(new JLabel(list.get(i).getClass_type()));
+		panel.add(new JLabel(str2));
 		panel.add(new JLabel(list.get(i).getClass_room(), JLabel.RIGHT));
 		panel.add(new JLabel("강사이름", JLabel.LEFT));
 		panel.add(new JLabel(list.get(i).getTeacher_name()));
@@ -110,7 +118,7 @@ public class Reservation_bottom extends JPanel {
 						vo = main.vo;
 						vo.setClass_num(list.get(i).getClass_num());
 						vo.setMember_num(main.usernum);
-						p.setCmd(2305);
+						p.setCmd(2901);
 						p.setVo(vo);
 						main.out.writeObject(p);
 						main.out.flush();

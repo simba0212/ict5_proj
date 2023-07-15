@@ -1,27 +1,39 @@
 package com.ict5.client.panel;
 
-import javax.swing.*;
-
-import com.ict5.client.Client_main;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import com.ict5.client.Client_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class TabPage extends JPanel {
     Client_main main;
     CardLayout cardlayout;
     public UserTop usertop;
-    static JTabbedPane tabbedPane;
+    public static JTabbedPane tabbedPane;
     public Schedule schedule;
     public Reservation reservation;
     public Notice noti;
+    public Mypage mypage;
+    
     public TabPage(Client_main main) {
     	
     	 usertop= new UserTop(main, true);
     	 schedule= new Schedule(main);
     	 reservation = new Reservation(main);
     	noti= new Notice(main);
+    	mypage=new Mypage(main);
         // Tab 4개와 이름 출력, 로그아웃 알람 누르면 알람으로 가는 기능만 있습니다.
 //
 //        // 상단 패널
@@ -50,7 +62,7 @@ public class TabPage extends JPanel {
         tabbedPane.addTab("          수업일정          ", schedule);
         tabbedPane.addTab("          예약현황          ", reservation);
         tabbedPane.addTab("           알 림           ", noti);
-        tabbedPane.addTab("           My           ", new Mypage(main));
+        tabbedPane.addTab("           My           ", mypage);
        
         // JTabbedPane 가로 크기 설정
         addComponentListener(new ComponentAdapter() {
@@ -79,6 +91,35 @@ public class TabPage extends JPanel {
 //        logoutButton.addActionListener(e -> {
 //        	main.cardlayout.show(main.pg1, "login");
 //        });
+//        noti.addMouseListener(new MouseAdapter() {
+//        	@Override
+//        	public void mouseClicked(MouseEvent e) {
+//        		System.out.println("노티클릭됨");
+//        	}
+//        });
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int selectedIndex = tabbedPane.getSelectedIndex();
+                if(selectedIndex==2) {
+                	//알림이 선택됐을떄
+                	try {
+        				Protocol p = new Protocol();
+        				VO vo= main.vo;
+        				vo.setMember_num(main.usernum);
+        				p.setCmd(2305);
+        				p.setVo(vo);
+        				main.out.writeObject(p);
+        				main.out.flush();
+        			} catch (Exception e2) {
+        				// TODO: handle exception
+        			}
 
+//            		main.tab = new TabPage(main);
+                }
+                
+            }
+        });
+        
     }
 }

@@ -68,7 +68,7 @@ public class DAO {
 		return str;
 	}
 
-	public static VO getNearClasstime(VO vo) {
+	public static VO mostclose(VO vo) {
 		vo = getSession().selectOne("mostclose", vo);
 		return vo;
 	}
@@ -94,10 +94,10 @@ public class DAO {
 		return list;
 	}
 
-	public static VO getTeacherInsert(VO vo) {
+	public static int getTeacherInsert(VO vo) {
 		int result = getSession().insert("teacherIns", vo);
 		ss.commit();
-		return vo;
+		return result;
 	}
 
 	public static VO setNotice(VO vo) {
@@ -190,9 +190,51 @@ public class DAO {
 		return list;
 	}
 
-	public static int setApprove(VO vo) {
-		int result = getSession().update("setApprove", vo);
+	public static List<VO> sel_class_noice(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_class_noice", vo);
+		return list;
+	}
+
+	public static int update_goal(VO vo) {
+		System.out.println(vo.getMember_num());
+		System.out.println(vo.getMember_goal());
+
+		int result = getSession().update("update_goal", vo);
+		ss.commit();
 		return result;
+	}
+
+	public static List<VO> sel_already_book(VO vo) { // 알림표시할 클래스 정보 불러오기
+		List<VO> list = getSession().selectList("sel_already_book", vo);
+		return list;
+	}
+
+	public static VO getTeacherOne(VO vo) {
+		vo = getSession().selectOne("getTeacherOne", vo);
+		return vo;
+	}
+
+	public static List<VO> searchTeacherName(VO vo) {
+		List<VO> list = null;
+		list = getSession().selectList("searchTeacherName", vo);
+		return list;
+	}
+
+	public static List<VO> getTeacherClass(VO vo) {
+		List<VO> list = getSession().selectList("getTeacherClass", vo);
+		return list;
+	}
+
+	public static int getDeleteTeacher(VO vo) {
+		getSession().update("getDeleteTeacher", vo);
+		ss.commit();
+		return 0;
+	}
+
+	public static int getTeacherEdit(VO vo) {
+		getSession().update("getTeacherEdit", vo);
+		ss.commit();
+		return 1;
 	}
 
 	public static List<VO> getMemberPw(VO vo) {// 비밀번호 가져오기
@@ -211,41 +253,58 @@ public class DAO {
 		int res = getSession().insert("applyPoints", vo);
 		ss.commit();
 		return vo;
+
 	}
 
 	public static List<VO> getOneClass(VO vo) { // 클릭한 수업 상세정보
 		List<VO> list = getSession().selectList("classCheck", vo);
-		
 		return list;
 	}
 
+	public static VO setPointChargeDate(VO vo) {
+		int res = getSession().update("updateChargeDate", vo);
+		ss.commit();
+		return vo;
+	}
+
+	public static List<VO> getAllApprovePoints(VO vo) { // 마이포인트 불러오기
+		List<VO> list = getSession().selectList("getAllApprovePoints", vo);
+		return list;
+	}
+
+	public static int setApprove(VO vo) {
+		int result = getSession().update("setApprove", vo);
+		ss.commit();
+		return result;
+	}
+
 	public static VO getOneClass_2(VO vo) { // 예약 아무도없는 수업일때
-		vo = getSession().selectOne("classCheck_null",vo);
+		vo = getSession().selectOne("classCheck_null", vo);
 		return vo;
 	}
 
 	public static int delMember(VO vo) { // book에서 해당수업 멤버 지우기
-		int res = getSession().delete("delMember",vo);
+		int res = getSession().delete("delMember", vo);
 		ss.commit();
 		return res;
 	}
 
 	public static int refundPoint(VO vo) { // 예약취소시 포인트 환급
-		int res = getSession().insert("refundPoint",vo);
+		int res = getSession().insert("refundPoint", vo);
 		ss.commit();
 		return 0;
 	}
 
 	public static List<VO> getBookedMember(VO vo) { // 해당수업 예약한 회원리스트
-		List<VO> list = getSession().selectList("bookedMember",vo);
+		List<VO> list = getSession().selectList("bookedMember", vo);
 		return list;
 	}
 
 	public static void deleteClass(VO vo) {
-		System.out.println("클래스 번호 : "+vo.getClass_num());
+		System.out.println("클래스 번호 : " + vo.getClass_num());
 		getSession().delete("deleteClass", vo);
 		System.out.println("DAO끝");
-		
+
 	}
 
 }
