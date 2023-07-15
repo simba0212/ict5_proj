@@ -10,20 +10,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
@@ -39,8 +36,8 @@ public class Client_Login extends JPanel {
 	JPanel login_p;
 	JButton login_btn, join_btn;
 	JLabel img;
-	JTextField id_tf, pw_tf;
-
+	JTextField id_tf;
+	JPasswordField pw_tf;
 
 	public Client_Login(Client_main main) {
 		setLayout(new BorderLayout());
@@ -68,7 +65,7 @@ public class Client_Login extends JPanel {
 
 		jp1_2.add(new JLabel("비밀번호 : "));
 		String pw = "Password를 입력해주세요.";
-		pw_tf = new JTextField(20);
+		pw_tf = new JPasswordField(20);
 		pw_tf.setText(pw);
 
 		jp1_2.add(pw_tf);

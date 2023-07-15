@@ -131,9 +131,17 @@ public class Home extends JPanel {
 		});
 		// 출결체크 클릭 이벤트
 		attend_bt.addActionListener(e -> {
-			main.pg1.add("tab", main.tab);
-			main.cardlayout.show(main.pg1, "tab");
-			TabPage.tabbedPane.setSelectedIndex(1);
+			if (vo == null) {
+				JOptionPane.showMessageDialog(null, "예약된 클래스가 없습니다", "알림", JOptionPane.WARNING_MESSAGE);
+			} else {
+				main.cardlayout.show(main.pg1, "tab");
+				main.tab.reservation.mon=vo.getClass_date().substring(5,7);
+				main.tab.reservation.day_i= Integer.parseInt(vo.getClass_date().substring(8,10));
+				
+				main.tab.reservation.rb.refresh(1);
+				TabPage.tabbedPane.setSelectedIndex(1);
+				// 최근 강의시간으로 가야함
+			}
 		});
 		// 패널 클릭
 		near_class.addMouseListener(new MouseAdapter() {

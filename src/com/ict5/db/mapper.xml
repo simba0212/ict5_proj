@@ -66,7 +66,7 @@
 	</select>-->
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2302 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		SELECT c.class_num, c.class_room, c.class_type, ,t.teacher_name,class_point, c.class_res,c.class_date, c.class_max, c.class_time,
+		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name,class_point, c.class_res,c.class_date, c.class_max, c.class_time,
     CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = #{member_num})
          THEN 1 ELSE 0 END AS admin_num
 	FROM class c
