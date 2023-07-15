@@ -13,7 +13,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+
+import com.ict5.db.CP_Client;
 import com.ict5.db.DAO;
+import com.ict5.db.DB_Server;
+
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -85,7 +89,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "home");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -141,7 +145,6 @@ public class Admin_main extends JFrame implements Runnable {
 							out.flush();
 							cardlayout.show(pg1, "home");
 						} else {
-							System.out.println("실패");
 							break;
 
 						}
@@ -150,6 +153,8 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1002:
 						if (p.getResult() == 1) {
 							home.timetable.Date();
+						} else {
+
 						}
 						break;
 
@@ -217,15 +222,45 @@ public class Admin_main extends JFrame implements Runnable {
 					case 1301: // 강사목록 불러오기
 						coMg1.coTable1.refresh();
 						break;
-					case 1318: // 강사 등록하기
+					case 1302: // 한명 검색하기
+						coMg1.coTable1.search();
+						break;
+					case 1303: // 강사 세부정보 보기
+						coMg2.coTable2.refresh1();// 왼쪽테이블
+						break;
+					case 1304: // 회원 세부정보 => 수업예약내역
+						coMg2.coTable2.refresh2();// 예약내역
+						break;
+					case 1308: //강사등록 클릭시 리프레쉬 기능
+						coMg3.coMgmt4.refresh(); // 폼 비우기
+					case 1309: //강사수정하기 정보 불러오기
+						coMg3.coMgmt4.fix(); // 수정내용
+						break;
+					case 1310: //삭제 
 						p.setCmd(1301);
 						out.writeObject(p);
-					case 1320: // 공지사항 등록하기
-						if (p.getResult() == 1) {
-							System.out.println("공지등록완료");
-						} else {
-							System.out.println("공지등록실패");
+						out.flush();
+						break;
+					case 1317: // 강사 수정후 재등록
+						p.setCmd(1301);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1318: // 강사 등록하기
+						try {
+							if(p.getResult() == 1) {
+								p.setCmd(1301);
+								out.writeObject(p);
+								out.flush();
+							} else {
+								JOptionPane.showMessageDialog(null, "등록 실패!!", "등록 실패", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch(Exception e) {
+							e.printStackTrace();
 						}
+						
+						break;
+					case 1320: // 공지사항 등록하기
 						break;
 
 					}
