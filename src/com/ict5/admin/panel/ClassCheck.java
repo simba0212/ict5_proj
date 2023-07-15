@@ -7,21 +7,27 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class ClassCheck extends JPanel {
 	Admin_main main;
 	CardLayout cardLayout;
-
+	public JLabel label11,label12,label13,label14,label15,label17,label18,label19,label20;	
 	public ClassCheck(Admin_main main) {
 		this.main = main;
 		this.cardLayout = main.cardlayout;
@@ -62,67 +68,58 @@ public class ClassCheck extends JPanel {
 
 		JPanel center = new JPanel(new GridLayout(10, 2)); // center 패널 생성
 
-//		 JPanel center = new JPanel();
-//		    center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-
 		JLabel label1 = new JLabel("수업종류");
 		center.add(label1);
 
-		JLabel label11 = new JLabel("요가");
+		label11 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label11);
 
 		JLabel label2 = new JLabel("수업장소");
 		center.add(label2);
 
-		JLabel label12 = new JLabel("303호");
+		label12 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label12);
 
 		JLabel label3 = new JLabel("강사");
 		center.add(label3);
 
-		JLabel label13 = new JLabel("요가 1");
+		label13 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label13);
 
 		JLabel label4 = new JLabel("정원");
 		center.add(label4);
 
-		JLabel label14 = new JLabel("7 / 10 명");
+		label14 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label14);
 
 		JLabel label5 = new JLabel("예약명단");
 		center.add(label5);
 
-		JLabel label15 = new JLabel("둘리, 고길동, 심바, 마이콜, 또치, 도우너, 가시고기");
+		label15 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label15);
-
-		JLabel label6 = new JLabel("대기명단");
-		center.add(label6);
-
-		JLabel label16 = new JLabel("대기인원1, 대기인원2");
-		center.add(label16);
 
 		JLabel label7 = new JLabel("강의시간");
 		center.add(label7);
 
-		JLabel label17 = new JLabel("10:00~10:50");
+		label17 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label17);
 
 		JLabel label8 = new JLabel("강의날짜");
 		center.add(label8);
 
-		JLabel label18 = new JLabel("2023-06-10");
+		label18 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label18);
 
 		JLabel label9 = new JLabel("강의료");
 		center.add(label9);
 
-		JLabel label19 = new JLabel("25000포인트");
+		label19 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label19);
 
 		JLabel label10 = new JLabel("강의번호");
 		center.add(label10);
 
-		JLabel label20 = new JLabel("16824");
+		label20 = new JLabel("테이블에서 수업을 선택해주세요");
 		center.add(label20);
 
 		add(center, BorderLayout.CENTER); // center 패널을 추가
@@ -134,6 +131,29 @@ public class ClassCheck extends JPanel {
 		bottomRightPanel.add(deleteButton);
 		add(bottomRightPanel, BorderLayout.SOUTH);
 
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(label15.getText().equals("예약한 회원이 없습니다.")) {
+					Protocol p = new Protocol();
+					VO vo= new VO();
+					vo.setClass_num(label20.getText());
+					p.setCmd(1109);
+					p.setVo(vo);
+					try {
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "예약한 회원이 존재합니다.\n"
+														+ "예약을 먼저 취소해주세요");
+				}
+			}
+		});
+		
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -152,7 +172,51 @@ public class ClassCheck extends JPanel {
 				main.cardlayout.show(main.pg1, "classEdit"); // "member" 페이지로 이동
 			}
 		});
+	}
 
+	public void setLabel() {
+		List<VO> list = main.list;
+		StringBuilder sb = new StringBuilder();
+		for (VO k : list) {
+			sb.append(k.getMember_name()+",");
+		}
+		sb.deleteCharAt(sb.length()-1);
+		String member = sb.toString();
+		VO vo = list.get(0);
+		label11.setText(vo.getClass_type());
+		label12.setText(vo.getClass_room());
+		label13.setText(vo.getTeacher_name());
+		label14.setText(vo.getClass_res()+"/"+vo.getClass_max()+"명");
+		label15.setText(member);
+		label17.setText(vo.getClass_time());
+		label18.setText(vo.getClass_date().substring(0,10));
+		label19.setText(vo.getClass_point());
+		label20.setText(vo.getClass_num());
+		
+	}
+
+	public void setLabel2() {
+		VO vo = main.vo;
+		label11.setText(vo.getClass_type());
+		label12.setText(vo.getClass_room());
+		label13.setText(vo.getTeacher_name());
+		label14.setText(vo.getClass_res()+"/"+vo.getClass_max()+"명");
+		label15.setText("예약한 회원이 없습니다.");
+		label17.setText(vo.getClass_time());
+		label18.setText(vo.getClass_date().substring(0,10));
+		label19.setText(vo.getClass_point());
+		label20.setText(vo.getClass_num());
+	}
+	public void resetLabel() {
+		label11.setText("테이블에서 수업을 선택해주세요");
+		label12.setText("테이블에서 수업을 선택해주세요");
+		label13.setText("테이블에서 수업을 선택해주세요");
+		label14.setText("테이블에서 수업을 선택해주세요");
+		label15.setText("테이블에서 수업을 선택해주세요");
+		label17.setText("테이블에서 수업을 선택해주세요");
+		label18.setText("테이블에서 수업을 선택해주세요");
+		label19.setText("테이블에서 수업을 선택해주세요");
+		label20.setText("테이블에서 수업을 선택해주세요");
 	}
 
 }

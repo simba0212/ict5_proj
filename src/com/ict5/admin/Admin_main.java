@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import com.ict5.db.DAO;
+import com.ict5.db.CP_Client;
+import com.ict5.db.DB_Server;
+
 import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
@@ -141,15 +144,17 @@ public class Admin_main extends JFrame implements Runnable {
 							out.flush();
 							cardlayout.show(pg1, "home");
 						} else {
-							System.out.println("실패");
+							JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 							break;
-
 						}
 						break;
 
 					case 1002:
 						if (p.getResult() == 1) {
 							home.timetable.Date();
+							classcheck.timetable.Date();
+						} else {
+							
 						}
 						break;
 
@@ -159,6 +164,43 @@ public class Admin_main extends JFrame implements Runnable {
 
 					case 1004:
 						home.point_new.PointApprove();
+						break;
+						
+					case 1105: // 수업확인 눌렀을때
+						classcheck.timetable.refreshData();
+						break;
+					case 1106: // 수업 한개 클릭
+						if(p.getResult()==1) {
+							classcheck.classCheck.setLabel();
+							vo.setClass_num(list.get(0).getClass_num());
+						}else {
+							classcheck.classCheck.setLabel2();
+						}
+						p.setVo(vo);
+						p.setCmd(1107); // 예약회원 리스트 가지러
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1107: // 수업예약명단
+						classcheck.classCheck2.refresh(list);
+						break;
+					case 1108: // 삭제한후 리프레쉬 하기
+						vo.setClass_type(classcheck.classCheck.label11.getText());
+						vo.setClass_date(classcheck.classCheck.label18.getText());
+						vo.setClass_time(classcheck.classCheck.label17.getText());
+						p.setVo(vo);
+						p.setCmd(1106);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1109: // 수업삭제후 다시 띄우기
+						JOptionPane.showMessageDialog(null, "수업이 삭제되었습니다.");
+						// 수업목록 다시 띄우기
+						classcheck.classCheck.resetLabel();
+						p.setCmd(1105);
+						out.writeObject(p);
+						out.flush();
 						break;
 					
 					case 1005: // 포인트 승인하기
@@ -198,7 +240,6 @@ public class Admin_main extends JFrame implements Runnable {
 							out.writeObject(p);
 							out.flush();
 						} else {
-							System.out.println("테이블 실패 222");
 							JOptionPane.showMessageDialog(checkagain, "비밀번호가 틀렸습니다.");
 						}
 						break;
@@ -215,17 +256,59 @@ public class Admin_main extends JFrame implements Runnable {
 						break;
 
 					case 1301: // 강사목록 불러오기
-						coMg1.coTable1.refresh();
+						if(p.getResult()==0) {
+							coMg1.coTable1.refresh();
+						}else {
+							coMg2.coTable2.refresh();
+							
+						}
 						break;
-					case 1318: // 강사 등록하기
+					case 1302: // 한명 검색하기
+						if(p.getResult()==0) {
+							
+							coMg1.coTable1.search();
+						}else {
+							coMg2.coTable2.search();
+							
+						}
+						break;
+					case 1303: // 강사 세부정보 보기
+						coMg2.coTable2.refresh1();// 왼쪽테이블
+						break;
+					case 1304: // 회원 세부정보 => 수업예약내역
+						coMg2.coTable2.refresh2();// 예약내역
+						break;
+					case 1308: //강사등록 클릭시 리프레쉬 기능
+						coMg3.coMgmt4.refresh(); // 폼 비우기
+					case 1309: //강사수정하기 정보 불러오기
+						coMg3.coMgmt4.fix(); // 수정내용
+						break;
+					case 1310: //삭제완료후 강사목록다시부르기
+						p.setCmd(1301);
+						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1317: // 강사 수정후 재등록
 						p.setCmd(1301);
 						out.writeObject(p);
-					case 1320: // 공지사항 등록하기
-						if (p.getResult() == 1) {
-							System.out.println("공지등록완료");
-						} else {
-							System.out.println("공지등록실패");
+						out.flush();
+						break;
+					case 1318: // 강사 등록하기
+						try {
+							if(p.getResult() == 1) {
+								p.setCmd(1301);
+								out.writeObject(p);
+								out.flush();
+							} else {
+								JOptionPane.showMessageDialog(null, "등록 실패!!", "등록 실패", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch(Exception e) {
+							e.printStackTrace();
 						}
+						
+						break;
+					case 1320: // 공지사항 등록하기
 						break;
 
 					}

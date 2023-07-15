@@ -1,17 +1,15 @@
 package com.ict5.db;
 
 import java.io.ObjectInputStream;
-
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.ict5.admin.Admin_main;
 import com.ict5.admin.panel.TimeTable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CP_Client extends Thread {
@@ -51,18 +49,13 @@ public class CP_Client extends Thread {
 						break;
 
 					case 1001: // 관리자 로그인
-						vo = p.getVo();
 						vo = DAO.getLoginChk_Admin(vo);
 						p.setVo(vo);
 						if (vo != null) {
 							// 로그인 성공
 							p.setResult(1);
-							System.out.println("로그인성공!");
-							
 						} else {
 							p.setResult(0);
-							System.out.println("로그인실패");
-							
 						}
 						out.writeObject(p);
 						out.flush();
@@ -70,19 +63,14 @@ public class CP_Client extends Thread {
 
 					case 1002: // 홈페이지로 이동
 						list = DAO.getToday();
-					    p.setList(list);
-					    
+					    p.setList(list);					
 					     if (p.getList() != null) {
-					        p.setResult(1);
-					        System.out.println("테이블 성공");
-					      
+					        p.setResult(1); 
 					    } else {
 					    	p.setResult(0);
-					        System.out.println("테이블 실패");
 					    }
 					    out.writeObject(p);
 					    out.flush();
-					    
 					    break;
 					    
 					case 1003:
@@ -97,17 +85,57 @@ public class CP_Client extends Thread {
 					case 1004:
 						list = DAO.getPointApprove();
 						p.setList(list);
-						
-						p.setList(list);
-						if (p.getList() != null) {
-							p.setResult(1);
-						}else {
-							p.setResult(0);
-						}
 						out.writeObject(p);
 						out.flush();
 						break;
 						
+					case 1105: // 수업확인 눌렀을때
+						list = DAO.getToday(); // 일단 테이블 가져오기
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1106: // 수업확인에서 수업한개 클릭
+						list = DAO.getOneClass(vo);
+						if(list.isEmpty()) { // 예약아무도없음
+							vo = DAO.getOneClass_2(vo);
+							p.setResult(0);
+							p.setVo(vo);
+							out.writeObject(p);
+							out.flush();
+						}else {				// 예약있음
+							p.setList(list);
+							p.setResult(1);
+							out.writeObject(p);
+							out.flush();
+						}
+						break;
+					case 1107: // 수업확인 우측하단 테이블
+						list = DAO.getBookedMember(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1108: // 예약회원 삭제
+						if(p.getResult()==0) { // 한명 보냈을때
+							int res = DAO.delMember(vo); // book에서 삭제
+							res = DAO.refundPoint(vo); // 
+						}else if(p.getResult()==1){ // 여러명 보냈을때
+							for (VO k : list) {
+								int res = DAO.delMember(k);
+								res = DAO.refundPoint(k);
+							}
+						}
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1109:
+						DAO.deleteClass(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+		
 						
 					case 1005: // 포인트 승인하기
 						p.setResult(DAO.setApprove(vo));
@@ -180,20 +208,60 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 
-					case 1318:
-						vo = p.getVo();
-						if (vo != null) {
-							DAO.getTeacherInsert(vo);
-						} else {
-							System.out.print("cp실패");
-						}
+						
+					case 1302: // 이름으로 강사검색
+						list = DAO.searchTeacherName(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 1303: // 강사상세정보 보기
+						vo = DAO.getTeacherOne(vo);
 						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+					case 1304: // 강사상세정보 =>강사수업내용
+						list = DAO.getTeacherClass(vo);
+						p.setList(list);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1308: // 강사 등록화면 세팅
+						p.setVo(new VO());
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1309: // 강사 수정하기
+						vo = DAO.getTeacherOne(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+					case 1310: // 강사 삭제
+						int deleteTeacherResult = DAO.getDeleteTeacher(vo);
+						p.setResult(deleteTeacherResult);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1317: // 수정 후 재등록
+						DAO.getTeacherEdit(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1318: //강사 등록
+						int teacherInsertResult = DAO.getTeacherInsert(vo);
+						p.setResult(teacherInsertResult);
 						out.writeObject(p);
 						out.flush();
 						break;
 
 					case 1320:
-						vo = p.getVo();
 						DAO.setNotice(vo);
 						p.setVo(vo);
 						p.setResult(1);
@@ -205,12 +273,11 @@ public class CP_Client extends Thread {
 						vo = DAO.getLoginChk(vo); // DB를 다녀온 vo를 업데이트 해주는것
 						if (vo != null) {
 							// 로그인 성공
-							System.out.println("로그인성공!");
-							vo.setNotice_text(DAO.getNotice());// 로그인하면 알림 생성
-							p.setVo(vo); // 보낼 프로토콜p의 vo에 현재 vo정보 저장
+							vo.setNotice_text(DAO.getNotice());
+							p.setVo(vo); 
+
 							p.setResult(1);
 						} else {
-							System.out.println("로그인실패");
 						}
 						out.writeObject(p);
 						out.flush();
@@ -222,7 +289,6 @@ public class CP_Client extends Thread {
 
 							DAO.setInsertJoinFields(vo);
 						} else {
-							System.out.println("정보못가져옴");
 						}
 						p.setVo(vo);
 						p.setResult(1);

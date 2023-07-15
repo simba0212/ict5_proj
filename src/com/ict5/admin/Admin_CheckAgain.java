@@ -9,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.ict5.admin.panel.Navi;
@@ -40,7 +42,7 @@ public class Admin_CheckAgain extends JPanel{
 	// 패스워드 넣는 패드
 	JPanel two = new JPanel();
 	JLabel two1 = new JLabel("<html><h2> PW : </h2> ");
-	JTextField twof = new JTextField(30);
+	JPasswordField twof = new JPasswordField(30);
 	twof.setPreferredSize(new Dimension(50, 40));
 	two.add(two1);
 	two.add(twof);
@@ -104,6 +106,24 @@ public class Admin_CheckAgain extends JPanel{
 	add(new Navi(main),BorderLayout.NORTH);
 	add(home,BorderLayout.CENTER);
 	
+	twof.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				Protocol p = new Protocol();
+				VO vo = new VO();
+				vo.setAdmin_id(main.admin_id);
+				vo.setAdmin_pw(new String(twof.getPassword()));
+				p.setCmd(1206);
+				p.setVo(vo);
+				main.out.writeObject(p);
+				main.out.flush();
+			} catch (Exception e2) {
+			}
+		}
+	});
+	
 	login_bt.addActionListener(new ActionListener() {
 		
 		@Override
@@ -112,13 +132,12 @@ public class Admin_CheckAgain extends JPanel{
 				Protocol p = new Protocol();
 				VO vo = new VO();
 				vo.setAdmin_id(main.admin_id);
-				vo.setAdmin_pw(twof.getText());
+				vo.setAdmin_pw(new String(twof.getPassword()));
 				p.setCmd(1206);
 				p.setVo(vo);
 				main.out.writeObject(p);
 				main.out.flush();
 			} catch (Exception e2) {
-				// TODO: handle exception
 			}
 		}
 	});
@@ -138,7 +157,15 @@ public class Admin_CheckAgain extends JPanel{
 	jl1.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
-	        main.cardlayout.show(main.pg1, "member"); // "member" 페이지로 이동
+	    	try {
+				Protocol p = new Protocol();
+				p.setCmd(1201);
+				main.out.writeObject(p);
+				main.out.flush();
+				main.cardlayout.show(main.pg1, "member");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 	    }
 	});
 	 

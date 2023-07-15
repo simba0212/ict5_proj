@@ -41,13 +41,13 @@ public class Navi extends JPanel {
 		JPanel navNW = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		navNW.setBackground(Color.white);
 		JButton bt_newPoint = new JButton("포인트 신청 N건", new ImageIcon("src/images/bell.png"));
-		JButton bt_newClient = new JButton("회원등록");
+//		JButton bt_newClient = new JButton("회원등록");
 		JButton bt_newClass = new JButton("수업등록");
 		bt_newPoint.setPreferredSize(new Dimension(160, 40));
-		bt_newClient.setPreferredSize(new Dimension(80, 40));
+//		bt_newClient.setPreferredSize(new Dimension(80, 40));
 		bt_newClass.setPreferredSize(new Dimension(80, 40));
 		navNW.add(bt_newPoint);
-		navNW.add(bt_newClient);
+//		navNW.add(bt_newClient);
 		navNW.add(bt_newClass);
 		navN.add(navNW, BorderLayout.WEST);
 
@@ -69,20 +69,20 @@ public class Navi extends JPanel {
 		// 내비 두번째 왼쪽
 		JPanel navSW = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
 		navSW.setBackground(Color.white);
-		JButton bt_back = new JButton(new ImageIcon("src/images/back.png"));
-		JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
-		JTextField jtfMember = new JTextField(" 회원검색", 20);
-		jtfMember.setEditable(false);
-		JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
+		JButton bt_back = new JButton(new ImageIcon("src/images/home.png"));
+	//	JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
+	//	JTextField jtfMember = new JTextField(" 회원검색", 20);
+	//	jtfMember.setEditable(false);
+		//JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
 		bt_back.setPreferredSize(new Dimension(80, 40));
-		bt_refresh.setPreferredSize(new Dimension(80, 40));
-		bt_search.setPreferredSize(new Dimension(80, 40));
-		jtfMember.setPreferredSize(new Dimension(80, 40));
+		//bt_refresh.setPreferredSize(new Dimension(80, 40));
+		//bt_search.setPreferredSize(new Dimension(80, 40));
+	//	jtfMember.setPreferredSize(new Dimension(80, 40));
 		navSW.add(bt_back);
-		navSW.add(bt_refresh);
-		navSW.add(jtfMember);
+		//navSW.add(bt_refresh);
+	//	navSW.add(jtfMember);
 		navSW.add(new JLabel("")); // 공백넣기
-		navSW.add(bt_search);
+		//navSW.add(bt_search);
 		navS.add(navSW, BorderLayout.WEST);
 
 		// 내비 두번째 오른쪽
@@ -115,14 +115,14 @@ public class Navi extends JPanel {
 
 		//
 		// 마우스 클릭 이벤트 처리
-		jtfMember.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				jtfMember.setText("");
-				jtfMember.setEditable(true); // 편집 가능하도록 설정
-				jtfMember.requestFocus(); // 커서 포커스 설정
-			}
-		});
+//		jtfMember.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				jtfMember.setText("");
+//				jtfMember.setEditable(true); // 편집 가능하도록 설정
+//				jtfMember.requestFocus(); // 커서 포커스 설정
+//			}
+//		});
 
 		bt_back.addActionListener(new ActionListener() {
 			@Override
@@ -147,13 +147,13 @@ public class Navi extends JPanel {
 			}
 		});
 
-		bt_newClient.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				main.cardlayout.show(main.pg1, "member");
-			}
-		});
+//		bt_newClient.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				main.cardlayout.show(main.pg1, "member");
+//			}
+//		});
 
 		bt_newPoint.addActionListener(new ActionListener() {
 
@@ -171,17 +171,35 @@ public class Navi extends JPanel {
 					try {
 						Protocol p = new Protocol();
 						p.setCmd(1301);
+						p.setResult(0);
 						main.out.writeObject(p);
-						main.cardlayout.show(main.pg1, "coMg1");
+						main.out.flush();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
 				} else if (selected.equals("강사스케줄")) {
-					main.cardlayout.show(main.pg1, "coMg2");
+					Protocol p = new Protocol();
+					p.setCmd(1301);
+					p.setResult(1);
+					try {
+						main.out.writeObject(p);
+						main.out.flush();
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
 				} else if (selected.equals("강사등록")) {
-					main.cardlayout.show(main.pg1, "coMg3");
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1308);
+						main.out.writeObject(p);
+						//main.cardlayout.show(main.pg1, "coMg3");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -200,42 +218,35 @@ public class Navi extends JPanel {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-
 					
-				}
-			}
-		});
-
-
-		dropdown2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown2.getSelectedItem();
-				if (selected.equals("포인트관리")) {
+				}else if (selected.equals("포인트관리")) {
 					main.cardlayout.show(main.pg1, "checkagain");
 				}
 			}
 		});
 
-		dropdown1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown1.getSelectedItem();
-				if (selected.equals("수업등록 / 수정")) {
-					main.cardlayout.show(main.pg1, "classEdit");
-				}
-			}
-		});
 
 		dropdown1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String selected = (String) dropdown1.getSelectedItem();
-				if (selected.equals("수업확인")) {
-					main.cardlayout.show(main.pg1, "classcheck");
+				try {
+					String selected = (String) dropdown1.getSelectedItem();
+					if (selected.equals("수업등록 / 수정")) {
+						main.cardlayout.show(main.pg1, "classEdit");
+					}else if (selected.equals("수업확인")) {
+						Protocol p = new Protocol();
+						p.setCmd(1105);
+						main.out.writeObject(p);
+						main.out.flush();
+						main.cardlayout.show(main.pg1, "classcheck");
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
 				}
+			
 			}
 		});
+
 
 		userApp.addMouseListener(new MouseAdapter() {
 			@Override

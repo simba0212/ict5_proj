@@ -3,11 +3,19 @@ package com.ict5.admin.panel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
@@ -24,6 +32,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import com.ict5.admin.Admin_main;
+import com.ict5.db.Protocol;
+import com.ict5.db.VO;
 
 public class CoTable2 extends JPanel {
 
@@ -34,6 +44,13 @@ public class CoTable2 extends JPanel {
     CardLayout cardLayout;
     Admin_main main;
     JComboBox<Integer> resultsComboBox;
+    DefaultTableModel model;
+    DefaultTableModel model1;
+    JLabel classLabel;
+    JButton fix;
+    JPanel bottom;
+    String teanum;
+    
 
     public CoTable2(Admin_main main) {
         this.main = main;
@@ -47,7 +64,7 @@ public class CoTable2 extends JPanel {
         topPanel.setBackground(Color.lightGray);
 
         // 3번째 패널 (상단패널)
-        JLabel titleLabel = new JLabel("강사 관리");
+        JLabel titleLabel = new JLabel("강사 검색");
         titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 10));
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 17f));
         topPanel.add(titleLabel);
@@ -59,10 +76,82 @@ public class CoTable2 extends JPanel {
         searchTextField = new JTextField("강사 검색", 20);
         searchTextField.setPreferredSize(new Dimension(200, 30));
         searchPanel.add(searchTextField);
+        searchTextField.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				searchTextField.setText("");
+			}
+		});
+        searchTextField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (searchTextField.getText().trim().isEmpty()) { // 빈칸 검색시
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1301);
+						p.setResult(1);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+					}
+				} else {
+					try {
+						String name = searchTextField.getText().trim();
+						Protocol p = new Protocol();
+						VO vo = new VO();
+						vo.setTeacher_name(name);
+						p.setCmd(1302);
+						p.setResult(1);
+						p.setVo(vo);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+
+					}
+				}
+			}
+		});
 
         searchButton = new JButton("검색");
         searchButton.setPreferredSize(new Dimension(80, 30));
         searchPanel.add(searchButton);
+        searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (searchTextField.getText().trim().isEmpty()) { // 빈칸 검색시
+					try {
+						Protocol p = new Protocol();
+						p.setCmd(1301);
+						p.setResult(1);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+					}
+
+				} else {
+					try {
+						String name = searchTextField.getText().trim();
+						Protocol p = new Protocol();
+						VO vo = new VO();
+						vo.setTeacher_name(name);
+						p.setCmd(1302);
+						p.setResult(1);
+						p.setVo(vo);
+						main.out.writeObject(p);
+						main.out.flush();
+					} catch (Exception e2) {
+
+					}
+				}
+			}
+		});
 
         topPanel.add(searchPanel);
 
@@ -78,24 +167,16 @@ public class CoTable2 extends JPanel {
         // 중앙 헤더 위치조정
         JPanel headerPanel = new JPanel(new BorderLayout());
 
-        JLabel instrLabel = new JLabel("강사 목록");
+        JLabel instrLabel = new JLabel("검색 결과");
         instrLabel.setFont(instrLabel.getFont().deriveFont(Font.BOLD, 20f));
         headerPanel.add(instrLabel, BorderLayout.NORTH);
 
         // 검색 결과:
-        JLabel resultsLabel = new JLabel("검색결과: nn 명");
+        JLabel resultsLabel = new JLabel(" ");
         headerPanel.add(resultsLabel, BorderLayout.CENTER);
 
         // 콤보박스
         JPanel comboPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        Integer[] options = {10, 20, 50};
-        resultsComboBox = new JComboBox<>(options);
-        resultsComboBox.setPreferredSize(new Dimension(80, 30));
-        resultsComboBox.setSelectedIndex(0);
-        comboPanel.add(resultsComboBox);
-
-        comboPanel.add(new JLabel("개씩 보기"));
 
         headerPanel.add(comboPanel, BorderLayout.EAST);
 
@@ -103,13 +184,13 @@ public class CoTable2 extends JPanel {
 
         // 강사목록 샘플데이터
         Object[][] data = {
-            {"성심당", "010-5634-5753", "2021-06-01", "요가"},
-            {"문준호", "010-1234-5678", "2023-07-15", "필라테스"},
+            {}
+            
             // 필요하면 더하기
         };
 
-        Object[] columnNames = {"이름", "전화번호", "등록날짜", "담당운동", "삭제버튼"};
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+        Object[] columnNames = {"번호", "이름", "전화번호", "성별", "담당운동", "삭제버튼"};
+        model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
@@ -135,40 +216,140 @@ public class CoTable2 extends JPanel {
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel classLabel = new JLabel("OOO 선생님 담당 수업");
+    	classLabel = new JLabel("OOO 선생님 담당 수업");
         classLabel.setFont(classLabel.getFont().deriveFont(Font.BOLD, 20f));
         rightPanel.add(classLabel, BorderLayout.NORTH);
 
-        // 샘플 class data
-        Object[][] classData = {
-            {"5/10", "4층 401호", "2023-06-01", "17:00 ~ 19:00"},
-            {"9/10", "2층 211호", "2023-06-03", "08:00 ~ 08:50"}
-        };
-
-        Object[] classColumnNames = {"인원", "장소", "날짜", "시간"};
-        DefaultTableModel model1 = new DefaultTableModel(classData, classColumnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //마지막 열을 제외한 모든 셀을 편집할 수 없도록 설정
-                return column == classColumnNames.length;
-            }
-        };
+        String[] classColumnNames = {"인원", "장소", "날짜", "시간"};
+        model1 = new DefaultTableModel(classColumnNames,0); 
+        
         classTable = new JTable(model1);
         classTable.getTableHeader().setReorderingAllowed(false);
+        
         JScrollPane classScrollPane = new JScrollPane(classTable);
+        
+        bottom= new JPanel();
+        fix = new JButton("수정");
+        fix.setPreferredSize(new Dimension(400, 30));
+        bottom.add(fix);
+        rightPanel.add(bottom,BorderLayout.SOUTH);
         rightPanel.add(classScrollPane, BorderLayout.CENTER);
-
-        //셀내용 가운데 정렬
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        classTable.setDefaultRenderer(Object.class, centerRenderer);
-        instrTable.setDefaultRenderer(Object.class, centerRenderer);
 
         centerPanel.add(rightPanel, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
+        
+        // 수정버튼 클릭 시 화면 이동
+        fix.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Protocol p = new Protocol();
+					VO vo = new VO();
+					p.setCmd(1309); // 수정하는 프로토콜
+					vo.setTeacher_num(teanum);
+					p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+			}
+		});
+        
+        instrTable.addMouseListener(new MouseAdapter() {
+        	@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Protocol p = new Protocol();
+					VO vo = new VO();
+					p.setCmd(1303);
+					int row = instrTable.getSelectedRow();
+					Object value = instrTable.getValueAt(row, 0);
+					String teacher_num = value.toString();
+					vo.setTeacher_num(teacher_num);
+					p.setVo(vo);
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
     }
+    	
+    	public void refresh1() {// 선생님 한명정보 불러오기
+    		VO vo = main.vo;
+    		teanum = vo.getTeacher_num();
+    		classLabel.setText(vo.getTeacher_name()+ " 선생님 담당 수업");
+   		// 오른쪽 테이블 불러오기
+   			try {
+   				Protocol p = new Protocol();
+   				p.setVo(vo);
+   				p.setCmd(1304);
+   				main.out.writeObject(p);
+   				main.out.flush();
 
+   			} catch (Exception e) {
+   				// TODO: handle exception
+   			}
+   			
+    	}
+    
+    	public void refresh2() { // 오른쪽 테이블 예약목록
+    		model1.setRowCount(0);
+    		List<VO> list = main.list;
+    		for (VO k : list) {
+    			switch (k.getClass_time()) {
+    			case "1":
+    				k.setClass_time("09:00");
+    				break;
+    			case "2":
+    				k.setClass_time("10:00");
+    				break;
+    			case "3":
+    				k.setClass_time("11:00");
+    				break;
+    			case "4":
+    				k.setClass_time("12:00");
+    				break;
+    			case "5":
+    				k.setClass_time("13:00");
+    				break;
+    			case "6":
+    				k.setClass_time("14:00");
+    				break;
+    			case "7":
+    				k.setClass_time("15:00");
+    				break;
+    			case "8":
+    				k.setClass_time("16:00");
+    				break;
+    			case "9":
+    				k.setClass_time("17:00");
+    				break;
+    			case "10":
+    				k.setClass_time("18:00");
+    				break;
+    			case "11":
+    				k.setClass_time("19:00");
+    				break;
+    			case "12":
+    				k.setClass_time("20:00");
+    				break;
+
+    			default:
+    				break;
+    			}
+    			Object[] rowData = { k.getClass_res(),k.getClass_room(),k.getClass_date().substring(0, 11),k.getClass_time()};
+    			model1.addRow(rowData);
+    		}
+    		
+    	}
+    	
+    	
     // 삭제 버튼
     private class TableColumnButtonRenderer extends JButton implements TableCellRenderer {
         public TableColumnButtonRenderer() {
@@ -193,6 +374,31 @@ public class CoTable2 extends JPanel {
             button = new JButton();
             button.setOpaque(true);
             button.addActionListener(e -> fireEditingStopped());
+            
+            button.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+            		try {
+            			Protocol p = new Protocol();
+    					VO vo = new VO();
+    					p.setCmd(1310);
+    					int row = instrTable.getSelectedRow();
+    					Object value = instrTable.getValueAt(row, 0);
+    					String teacher_num = value.toString();
+    					vo.setTeacher_num(teacher_num);
+    					p.setVo(vo);
+    					main.out.writeObject(p);
+    					main.out.flush();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+            	}
+			});
+            
+            
+            
+            
         }
 
         @Override
@@ -206,4 +412,96 @@ public class CoTable2 extends JPanel {
             return "삭제";
         }
     }
+    
+   
+    
+    
+ // 테이블 속 텍스트를 가운데정렬하기 위한 클래스
+ 	public class CenterTableCellRenderer implements TableCellRenderer {
+ 		@Override
+ 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+ 				int row, int column) {
+ 			DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+ 			renderer.setHorizontalAlignment(SwingConstants.CENTER);
+ 			return renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+ 		}
+ 	}
+
+ 	@SuppressWarnings("serial")
+ 	public class UnmodifiableTableModel extends DefaultTableModel {
+ 		public UnmodifiableTableModel(String[][] data, String[] columnNames) {
+ 			super(data, columnNames);
+ 		}
+
+ 		public UnmodifiableTableModel(String[] columnNames2, int i) {
+ 			super(columnNames2, i);
+ 		}
+
+ 		@Override
+ 		public boolean isCellEditable(int row, int column) {
+ 			return false;
+ 		}
+ 	}
+
+	public void refresh() {
+		classLabel.setText("강사를 선택해주세요");
+		List<VO> list = main.list;
+		model.setRowCount(0);
+		for (VO vo : list) {
+			Vector<Object> rowData = new Vector<>();
+			rowData.add(vo.getTeacher_num());
+			rowData.add(vo.getTeacher_name());
+			rowData.add(vo.getTeacher_phone());
+			rowData.add(vo.getTeacher_gen());
+			
+			switch (Integer.parseInt(vo.getTeacher_type())) {
+			case 1:
+				rowData.add("헬스");
+				break;
+			case 2:
+				rowData.add("요가");
+				break;
+			case 3:
+				rowData.add("수영");
+				break;
+			case 4:
+				rowData.add("필라테스");
+				break;
+			}
+			model.addRow(rowData);
+		}
+		model1.setRowCount(0);
+		main.cardlayout.show(main.pg1, "coMg2");
+	}
+
+	public void search() {
+		model.setRowCount(0);
+		List<VO> list = main.list;
+		for (VO vo : list) {
+			Vector<Object> rowData = new Vector<>();
+			rowData.add(vo.getTeacher_num());
+			rowData.add(vo.getTeacher_name());
+			rowData.add(vo.getTeacher_phone());
+			rowData.add(vo.getTeacher_gen());
+			
+			switch (Integer.parseInt(vo.getTeacher_type())) {
+			case 1:
+				rowData.add("헬스");
+				break;
+			case 2:
+				rowData.add("요가");
+				break;
+			case 3:
+				rowData.add("수영");
+				break;
+			case 4:
+				rowData.add("필라테스");
+				break;
+			}
+			model.addRow(rowData);
+		}
+		
+	}
+    
+    
 }
