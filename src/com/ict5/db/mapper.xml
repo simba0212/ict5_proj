@@ -55,8 +55,8 @@
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
-		select * from bookedclass where member_num = #{member_num}
-		and rownum = 1
+		select * from bookedclass 
+		where member_num =#{member_num} and class_date >= TRUNC(SYSDATE) and rownum = 1
 	</select>
 	
 	<!-- cmd :2302 / 선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
@@ -64,6 +64,15 @@
 		select *
    	 	from class c, teacher t
     	where c.teacher_num = t.teacher_num and  class_date = TO_DATE(#{class_date},'yyyyMMdd')
+
+    <!-- cmd :2302 / 선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
+	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
+		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name, c.class_res, c.class_max, c.class_time,
+    CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = 1)
+         THEN 1 ELSE 0 END AS admin_num
+	FROM class c
+	INNER JOIN teacher t ON c.teacher_num = t.teacher_num
+	WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
 	</select>
 	
 	<select id="getPointList" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
@@ -71,8 +80,9 @@
 	</select>
 		
 	<select id="getCoachList" resultType="com.ict5.db.VO">
-		select * from teacher order
-		by teacher_num
+		select * from teacher 
+	 	where use_yn = 'Y'
+		order by teacher_num 
 	</select>
 
 	<select id="getPoint" resultType="com.ict5.db.VO">
@@ -84,7 +94,6 @@
 		resultType="com.ict5.db.VO">
 		select * from MEMBER_T where member_name =#{member_name}
 	</select>
-	
 	
 	<!-- cmd :2304 / 선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
 	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
@@ -120,7 +129,8 @@
 							teacher_gen,
 							teacher_career,
 							teacher_img,
-							teacher_type)
+							teacher_type,
+							use_yn)
 		values(
 							teacher_seq.nextval,
 							#{teacher_name},
@@ -129,18 +139,21 @@
 							#{teacher_gen},
 							#{teacher_career},
 							#{teacher_img},
-							#{teacher_type})
+							#{teacher_type},
+							'Y')
 	</insert>
 	
 	<insert id="insertMember" parameterType="com.ict5.db.VO">
- 		 insert into MEMBER_T (
-  		 	member_num, member_id, member_name, member_gen, member_birth,
-    		member_signup_date, member_addr, member_pw, member_mail,
-    		member_point, member_chargep, member_usep, member_phone, attendent_date, attendent_month, member_goal)
-  		values (
-   	 		member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
-   	 		TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{member_signup_date}, 'YYYY-MM-DD HH24:MI:SS'),
-    		#{member_addr}, #{member_pw}, #{member_mail}, 50000, 50000, 0, #{member_phone}, sysdate, 0)
+    INSERT INTO MEMBER_T (
+        member_num, member_id, member_name, member_gen, member_birth,
+        member_signup_date, member_addr, member_pw, member_mail,
+        member_point, member_chargep, member_usep, member_phone, attendent_date, attendent_month, member_goal
+   	 )
+    VALUES (
+        member_t_seq.nextval, #{member_id}, #{member_name}, #{member_gen},
+        TO_DATE(#{member_birth}, 'YYYY-MM-DD HH24:MI:SS'), sysdate,
+        #{member_addr}, #{member_pw}, #{member_mail}, 50000, 50000, 0, #{member_phone}, sysdate, 0, '목표를 입력해주세요'
+   	 )
 	</insert>
 
 	<insert  id="inNotice" parameterType="com.ict5.db.VO">
@@ -160,6 +173,53 @@
 	
 	<update id="setApprove" parameterType="com.ict5.db.VO">
 		update pointapprove SET point_approve = TRUNC (sysdate) where charge_num = #{charge_num}
+	</update>
+	
+	<select id="sel_class_noice" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+	SELECT * FROM class c INNER JOIN book b on c.class_num=b.class_num INNER JOIN teacher t ON c.teacher_num = t.teacher_num
+	WHERE c.class_date <![CDATA[>=]]> TRUNC(SYSDATE) AND c.class_date <![CDATA[<]]> TRUNC(SYSDATE) + 8 And b.member_num=#{member_num} 
+	ORDER BY c.class_date, c.class_time
+	</select>
+	
+	<update id="update_goal" parameterType="com.ict5.db.VO" >
+		 update member_t set member_goal = #{member_goal} where member_num = #{member_num}
+	</update>
+	<select id="sel_already_book" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select * from book b INNER JOIN class c ON c.class_date = #{class_date}
+	where b.class_num =#{class_num} and b.member_num=#{member_num}
+	</select>
+
+	<select id="getTeacherOne" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from Teacher where teacher_num =#{teacher_num}
+	</select>
+	
+	<select id="searchTeacherName" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select * from teacher where teacher_name =#{teacher_name}
+	</select>
+	
+	<select id="getTeacherClass" parameterType="com.ict5.db.VO"
+		resultType="com.ict5.db.VO">
+		select class_res,class_room,class_date,class_time from class where teacher_num = #{teacher_num}
+	</select>
+	
+	<update id="getDeleteTeacher" parameterType="com.ict5.db.VO">
+		update teacher 
+		set  use_yn = 'N'
+		where teacher_num=#{teacher_num}
+	</update>
+	
+	<update id="getTeacherEdit" parameterType="com.ict5.db.VO">
+		update teacher
+		set teacher_name =#{teacher_name},
+    		teacher_phone=#{teacher_phone},
+    		teacher_addr=#{teacher_addr},
+    		teacher_gen=#{teacher_gen},
+    		teacher_career=#{teacher_career},
+    		teacher_img=#{teacher_img},
+    		teacher_type=#{teacher_type}
+		where teacher_num=#{teacher_num}
 	</update>
 
 	<select id="checkCurrentPassword" parameterType="com.ict5.db.VO">
@@ -210,4 +270,15 @@
 		delete from class where class_num = #{class_num}
 	</delete>
 	
+	<!-- 입금내역 업데이트 -->
+    <update id="updateChargeDate" parameterType="com.ict5.db.VO">
+        UPDATE POINTAPPROVE
+        SET point_Charge_Date = #{point_Charge_Date}
+        WHERE charge_Num = #{charge_Num}
+    </update>
+    
+ 	<!-- 마이포인트 불러오기 -->
+ 	<select id="getAllApprovePoints" resultType="com.ict5.db.VO">
+        SELECT * FROM POINTAPPROVE where member_num = #{member_num}
+    </select>
 </mapper>
