@@ -135,6 +135,8 @@ public class Mypoint extends JPanel {
     }
 
     public void refresh() {
+    	jp1.removeAll();
+    	plist.removeAll();
     	point.setText(main.userpoint);
     	list=main.list;
          JPanel[] panels = new JPanel[list.size()];

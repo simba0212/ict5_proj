@@ -131,6 +131,7 @@ public Mypage(Client_main main) {
 					Protocol p = new Protocol();
 					p.setCmd(2104);
 					p.setVo(vo);
+					
 					main.out.writeObject(p);
 					main.out.flush();
 				} catch (IOException e1) {

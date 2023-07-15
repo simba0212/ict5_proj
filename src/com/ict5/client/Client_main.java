@@ -232,7 +232,9 @@ public class Client_main extends JFrame implements Runnable {
 					case 2104://마이포인트			
 							list = p.getList();
 							myPo.po.refresh();
+							System.out.println("2104_1");
 							cardlayout.show(pg1, "myPo");
+							System.out.println("2104_2");
 						break;	
 					case 2501: // Reservation의 달력을 클릭해서 해당 날짜에 예약된 수업을 가져오는 프로토콜
 						 // update가 완료되면 실행할 구문
@@ -275,11 +277,15 @@ public class Client_main extends JFrame implements Runnable {
 		chargeP3.usertop.refresh();
 		pwChan.usertop.refresh();
 		myPo.usertop.refresh();
+		System.out.println("올리프레쉬 5");
 		tab.noti.refresh();
+		System.out.println("올리프레쉬 6");
 		chargeP.cp.refresh();
+		System.out.println("올리프레쉬 7");
 		chargeP2.cp2.refresh();
+		System.out.println("올리프레쉬 8");
 		pwChan.pwchan.refresh();
-		myPo.po.refresh();
+		System.out.println("올리프레쉬 9");
 	}
 	
 
