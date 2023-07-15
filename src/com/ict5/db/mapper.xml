@@ -229,7 +229,8 @@
     
  	<!-- 마이포인트 불러오기 -->
  	<select id="getAllApprovePoints" resultType="com.ict5.db.VO">
-        SELECT * FROM POINTAPPROVE where member_num = #{member_num}
+        SELECT * FROM POINTAPPROVE where member_num = #{member_num}  order by POINT_SIGNUP_DATE  desc
+ 
     </select>
    
 
