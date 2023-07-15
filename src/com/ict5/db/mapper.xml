@@ -15,7 +15,9 @@
 		MEMBER_T where member_id = #{member_id} and
 		member_pw=#{member_pw}
 	</select>
+	
 
+	<!-- 공지사항 불러오기  -->
 	<select id="getNotice" resultType="com.ict5.db.VO">
 		select * from notice order by
 		notice_num desc
@@ -63,8 +65,8 @@
 
 	<select id="sel_date_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO"><!-- cmd :2302 / 
 	선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
-		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name, c.class_res, c.class_max, c.class_time,
-    CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = 1)
+		SELECT c.class_num, c.class_room, c.class_type, t.teacher_name,class_point, c.class_res,c.class_date, c.class_max, c.class_time,
+    CASE WHEN EXISTS (SELECT 1 FROM book b WHERE b.class_num = c.class_num AND b.member_num = #{member_num})
          THEN 1 ELSE 0 END AS admin_num
 	FROM class c
 	INNER JOIN teacher t ON c.teacher_num = t.teacher_num
@@ -95,13 +97,15 @@
 
 	<!-- cmd :2304 / 선택된 날에 무슨 수업이 있는지 조회하기 위한 코드-->
 	<select id="sel_book_class" parameterType="com.ict5.db.VO"  resultType="com.ict5.db.VO">
-		SELECT *
+		
+		 SELECT *
 		FROM class c
 		INNER JOIN teacher t ON c.teacher_num = t.teacher_num
+        inner join book b on b.class_num = c.class_num
 		WHERE c.class_date = TO_DATE(#{class_date}, 'YYYY-MM-DD')
-		AND c.class_num IN (SELECT class_num FROM book WHERE member_num = #{member_num})
+		AND b.member_num = #{member_num}
 	</select>
-	
+
 	 
 	<insert id="getInsert_attenedent" parameterType="com.ict5.db.VO">
 		insert into ATTENDENT values(ATTENDENT_SEQ.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
@@ -113,7 +117,21 @@
 		values(book_seq.nextval,TRUNC(SYSDATE),#{class_num},#{member_num})
 	</insert>
 	
-	<select id="getMemberOne" parameterType="com.ict5.db.VO"
+	
+	
+	<insert id="book_point" parameterType="com.ict5.db.VO">
+		       insert into point (point_num, point, POINT_TYPE, POINT_CHANGE_DATE, member_num,  POINT_NAME) 
+		       values (point_SEQ.nextval,#{class_point}, '사용',sysdate, #{member_num}, #{class_num} )
+		
+	</insert>
+	
+	<insert id="book_can_point" parameterType="com.ict5.db.VO">
+		       insert into point (point_num, point, POINT_TYPE, POINT_CHANGE_DATE, member_num,  POINT_NAME) 
+		       values (point_SEQ.nextval,#{class_point}, '취소',sysdate, #{member_num}, #{class_num} )
+		
+	</insert>
+	
+	<select id="getMemberOne" parameterType="com.ict5.db.VO">
 		resultType="com.ict5.db.VO">
 		select * from MEMBER_T where member_num =#{member_num}
 	</select>
@@ -230,13 +248,18 @@
 	<update id="updatePassword" parameterType="com.ict5.db.VO">
     UPDATE MEMBER_T SET member_pw = #{new_pw} WHERE member_id = #{member_id} AND member_pw = #{old_pw}
 	</update>
-	
+	<!-- 포인트 충전 신청하기 -->
 	<insert id="applyPoints" parameterType="com.ict5.db.VO">
  		 insert into POINTAPPROVE ( charge_num, point_money, point_signup_date, point_charge_date, point_approve, member_num
   		 	)
   		values (
    	 		pointapprove_seq.nextval, #{point_money}, sysdate, null, null, #{member_num})
 	</insert>
+ 
+ <delete id="deletebook" parameterType="com.ict5.db.VO" >
+ 	DELETE FROM book
+        WHERE member_num = #{member_num} AND class_num =#{class_num}
+ </delete>
 	
 
 	<select id="classCheck" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
@@ -274,15 +297,16 @@
 	
 
 	<!-- 입금내역 업데이트 -->
-    <update id="updateChargeDate" parameterType="com.ict5.db.VO">
+    <update id="updateChargeDate" parameterType="String">
         UPDATE POINTAPPROVE
-        SET point_Charge_Date = #{point_Charge_Date}
-        WHERE charge_Num = #{charge_Num}
+        SET POINT_CHARGE_DATE = sysdate
+        WHERE charge_Num = #{charge_num}
     </update>
     
  	<!-- 마이포인트 불러오기 -->
  	<select id="getAllApprovePoints" resultType="com.ict5.db.VO">
-        SELECT * FROM POINTAPPROVE where member_num = #{member_num}
+        SELECT * FROM POINTAPPROVE where member_num = #{member_num}  order by POINT_SIGNUP_DATE  desc
+ 
     </select>
    
 

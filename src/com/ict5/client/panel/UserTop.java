@@ -27,7 +27,7 @@ public class UserTop extends JPanel {
 		JButton alarmButton = new JButton("알람");
 		JButton logoutButton = new JButton("로그아웃");
 		customerLabel = new JLabel("OOO고객님");
-		JButton backButton = new JButton("<<");
+		JButton backButton = new JButton("HOME");
 
 		// 버튼과 라벨을 한 줄로 배치하기 위한 패널
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

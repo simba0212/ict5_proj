@@ -207,6 +207,7 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+
 						
 					case 1302: // 이름으로 강사검색
 						list = DAO.searchTeacherName(vo);
@@ -299,7 +300,6 @@ public class CP_Client extends Thread {
 						vo = p.getVo();
 						if (vo != null) {
 							DAO.setApplyPoints(vo);
-							System.out.println("정보가져옴");
 						} else {
 							System.out.println("정보 못 가져옴");
 						}
@@ -323,7 +323,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 						
-					case 2104: // 마이포인트
+					case 2104: // 내 포인트 신청내역 가져오기
 						list = DAO.getAllApprovePoints(vo);
 						p.setList(list);
 						out.writeObject(p);
@@ -372,12 +372,40 @@ public class CP_Client extends Thread {
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();
+						break;		
+					case 2308:
+						DAO.deletebook(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
 						break;			
 					case 2501:	// 목표 작성 후 member_goal 칼럼 업데이트하기 위한 구문
 						int result2 = DAO.update_goal(vo);
 						out.writeObject(p);
 						out.flush();
 						break;	
+						
+					case 2701:
+					
+						int i = DAO.book_point(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;		
+					case 2702:
+						int i2 = DAO.book_can_point(vo);
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+					case 2703:
+						 int a= DAO.setPointChargeDate(vo.getCharge_num());
+						p.setVo(vo);
+						out.writeObject(p);
+						out.flush();
+						break;	
+						
+						
 						
 					case 2901:
 						result = DAO.getInsert_attenedent(vo);

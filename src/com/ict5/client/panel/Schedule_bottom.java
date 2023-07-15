@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -70,13 +71,25 @@ public class Schedule_bottom extends JPanel {
 		JButton jb = new JButton("예약하기");
 		if (list.get(i).getAdmin_num().equals("1")) {
 			// 예약되어있
-			jb.setText("예약되어 있음");
-			jb.setEnabled(false);
+			jb.setText("예약취소");
 		} 
+		String wwer= list.get(i).getClass_date().substring(8, 10);// 선택한날 일자 구해서 문자열로
+		//오늘날짜 구하기 
+		LocalDate currentDate = LocalDate.now();
+		String t_d=String.valueOf(currentDate).substring(8,10) ; // 오늘날짜 문자열로 
+		String t_m=String.valueOf(currentDate).substring(5,7) ; // 오늘날짜 문자열로 
+		int nowMonth = Integer.parseInt(t_m);
+		int today =Integer.parseInt(t_d); //오늘날짜 숫자로
+		int classday =Integer.parseInt(wwer); // 수업날짜 숫자로
+//		 main.tab.schedule.calMonth // 선택한 날의 해당하는 달 가져오기
 		
+		if(today>classday && nowMonth>=(main.tab.schedule.calMonth+1)) {
+			jb.setText("지난수업");
+			jb.setEnabled(false);
+		}
 		panel.add(jb);
 		panel.add(new JLabel("수업시간", JLabel.LEFT));
-
+		
 		switch (list.get(i).getClass_time()) {
 		case "1":
 			str = "09:00~09:50";
@@ -158,9 +171,7 @@ public class Schedule_bottom extends JPanel {
 					break;
 
 				}
-				Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
-						+ "예약하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
-
+				
 				String str2 = "";
 				switch (list.get(i).getClass_type()) {
 				case "1":
@@ -177,28 +188,61 @@ public class Schedule_bottom extends JPanel {
 					break;
 
 				}
+				if(jb.getText().equals("예약하기")) {
+					Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
+						+ "예약하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
 
-				int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+						int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+						if (option == JOptionPane.YES_OPTION) {
+							// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
+							try {
+								Protocol p = new Protocol();
+								vo = main.vo;
+								vo.setClass_num(list.get(i).getClass_num());
+								vo.setClass_point(list.get(i).getClass_point());
+								vo.setMember_num(main.usernum);
+								p.setCmd(2303);
+								p.setVo(vo);
+								
+								main.out.writeObject(p);
+								main.out.flush();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+		
+							} else if (option == JOptionPane.NO_OPTION) {
+							// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+							}
+				}else {
+					Object ob = str + "\n" + list.get(i).getClass_room() + "\n" + list.get(i).getTeacher_name() + "\n"
+							+ "예약취소하시겠습니까?" + "\n 시작 30분 전까지\n 취소하지 않으면 환불 불가";
 
-				if (option == JOptionPane.YES_OPTION) {
-					// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
-					System.out.println("확인버튼 눌럿을때");
-					try {
-						Protocol p = new Protocol();
-						vo = main.vo;
-						vo.setClass_num(list.get(i).getClass_num());
-						vo.setMember_num(main.usernum);
-						p.setCmd(2303);
-						p.setVo(vo);
-						main.out.writeObject(p);
-						main.out.flush();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				} else if (option == JOptionPane.NO_OPTION) {
-					// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+					int option = JOptionPane.showConfirmDialog(null, ob, str2, JOptionPane.YES_NO_OPTION);
+					if (option == JOptionPane.YES_OPTION) {
+						// 사용자가 확인 버튼을 클릭한 경우에 대한 처리
+						
+						try {
+							Protocol p = new Protocol();
+							vo = main.vo;
+							
+							System.out.println(list.get(i).getMember_num()+list.get(i).getClass_num());
+							System.out.println(vo.getMember_num()+vo.getClass_num());
+							vo.setClass_num(list.get(i).getClass_num());
+							vo.setClass_point(list.get(i).getClass_point());
+							p.setCmd(2308);
+							p.setVo(vo);
+//							
+							main.out.writeObject(p);
+							main.out.flush();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	
+						} else if (option == JOptionPane.NO_OPTION) {
+						// 사용자가 취소 버튼을 클릭한 경우에 대한 처리
+						}
 				}
 			}
 		});
@@ -238,6 +282,7 @@ public class Schedule_bottom extends JPanel {
 			add(new JLabel("<html><h3>수업 " + main.tab.schedule.mon + "월" + main.tab.schedule.day_i + "일 </h2></html>"),
 					BorderLayout.NORTH);
 			add(jsp);
+			
 		}
 
 	}
