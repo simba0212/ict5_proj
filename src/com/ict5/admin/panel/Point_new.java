@@ -181,9 +181,6 @@ public class Point_new extends JPanel {
 
         }
         
-     // 정렬을 수행합니다.
-        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) table.getRowSorter();
-        sorter.sort();
     }
     
     // 테이블 데이터 초기화 메서드

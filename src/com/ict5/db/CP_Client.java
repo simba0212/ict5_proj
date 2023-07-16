@@ -97,47 +97,28 @@ public class CP_Client extends Thread {
 					case 1006:
 						list = DAO.getTeacherName();
 						p.setList(list);
-						
-						for (VO vo1 : list) {
-							String T_name = vo1.getTeacher_name();
-							String T_num = vo1.getTeacher_num();
-							System.out.println(T_name+""+T_num);
-						}
-						
 						out.writeObject(p);
 						out.flush();
 						break;
 						
 					case 1007: // 강사목록 불러오기
 						// TEACHER_NAME을 DAO.getTeacherName2로 전달하여 SQL 문 실행
-						vo = p.getVo();
+						VO vo2 = vo;
 						
 						String teacherName = vo.getTeacher_name();
-						
 						vo.setTeacher_name(teacherName);
-						
 						vo = DAO.getTeacherName2(vo);
 						
 						String tn = vo.getTeacher_num();
 						
-						vo.setTeacher_num(tn);
-						p.setVo(vo);
-						
+						vo2.setTeacher_num(tn);
+						int res =DAO.setClass(vo2);
+						p.setVo(vo2);
+						p.setResult(res);
 						out.writeObject(p);
 						out.flush();
 						break;
 						
-					case 1008:
-						vo = p.getVo();
-						
-						DAO.setClass(vo);
-
-						
-						p.setVo(vo);
-						
-						out.writeObject(p);
-						out.flush();
-						break;
 
 					case 1105: // 수업확인 눌렀을때
 						list = DAO.getToday(); // 일단 테이블 가져오기
@@ -169,11 +150,11 @@ public class CP_Client extends Thread {
 						break;
 					case 1108: // 예약회원 삭제
 						if (p.getResult() == 0) { // 한명 보냈을때
-							int res = DAO.delMember(vo); // book에서 삭제
+							res = DAO.delMember(vo); // book에서 삭제
 							res = DAO.refundPoint(vo); //
 						} else if (p.getResult() == 1) { // 여러명 보냈을때
 							for (VO k : list) {
-								int res = DAO.delMember(k);
+								res = DAO.delMember(k);
 								res = DAO.refundPoint(k);
 							}
 						}
@@ -343,7 +324,6 @@ public class CP_Client extends Thread {
 						if (vo != null) {
 							DAO.setApplyPoints(vo);
 						} else {
-							System.out.println("정보 못 가져옴");
 						}
 						p.setVo(vo);
 						p.setResult(1);
@@ -357,7 +337,6 @@ public class CP_Client extends Thread {
 							DAO.setMemberPw(vo);
 
 						} else {
-							System.out.println("정보 못 가져옴");
 						}
 						p.setVo(vo);
 						p.setResult(1);
@@ -441,7 +420,7 @@ public class CP_Client extends Thread {
 						out.flush();
 						break;
 					case 2703:
-						int res = DAO.setPointChargeDate(vo.getCharge_num());
+						res = DAO.setPointChargeDate(vo.getCharge_num());
 						p.setVo(vo);
 						out.writeObject(p);
 						out.flush();

@@ -238,6 +238,10 @@ public class Navi extends JPanel {
 				try {
 					String selected = (String) dropdown1.getSelectedItem();
 					if (selected.equals("수업등록 / 수정")) {
+						Protocol p = new Protocol();
+						p.setCmd(1006);
+						main.out.writeObject(p);
+						main.out.flush();
 						main.cardlayout.show(main.pg1, "classEdit");
 					} else if (selected.equals("수업확인")) {
 						Protocol p = new Protocol();

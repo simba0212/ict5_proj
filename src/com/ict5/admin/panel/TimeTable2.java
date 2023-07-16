@@ -228,8 +228,10 @@ public class TimeTable2 extends JPanel {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				currentDate = currentDate.plusDays(1);
+				main.home.timetable.currentDate=main.home.timetable.currentDate.plusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				main.home.timetable.date.setText(date2);
 				clearTableData();
 				try {
 					Protocol p = new Protocol();

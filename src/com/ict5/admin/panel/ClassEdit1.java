@@ -313,6 +313,7 @@ public class ClassEdit1 extends JPanel {
                 String class_room = comboBox.getSelectedItem().toString();
                 String teacher_name = comboBox_1.getSelectedItem().toString();
                 String class_max = comboBox_2.getSelectedItem().toString();
+                class_max = class_max.substring(0,class_max.length()-1);
                 
                 String class_time = comboBox_3.getSelectedItem().toString();
                 class_time = "";

@@ -148,12 +148,10 @@ public class Client_main extends JFrame implements Runnable {
 							userpoint=vo.getMember_point();
 							refreshAll();
 						} else {
-							System.out.println("실패");
 						}
 						break;
 					case 2302: // 스케쥴을 클릭해서 해당 날짜 가져오는 프로토콜
 						 list = p.getList();
-						 System.out.println("클라멩니");
 						 tab.schedule.sb.refresh();
 						break;
 					case 2303:
@@ -206,19 +204,15 @@ public class Client_main extends JFrame implements Runnable {
 						break;
 					case 2101:
 						if (p.getResult() == 1) {
-							System.out.println("회원가입 완료");
 						
 						} else {
-							System.out.println("실패");
 						}
 						
 						break;
 					case 2102:
 						if (p.getResult() == 1) {
 							refreshAll();
-							System.out.println("포인트 신청 완료");
 						} else {
-							System.out.println("실패");
 						}
 						
 						break;	
@@ -226,7 +220,6 @@ public class Client_main extends JFrame implements Runnable {
 						if (p.getResult() == 1) {
 							refreshAll();
 						} else {
-							System.out.println("실패");
 						}
 						
 						break;	

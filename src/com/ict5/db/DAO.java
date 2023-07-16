@@ -99,15 +99,10 @@ public class DAO {
 	    return vo;
 	}
 	
-	public static VO setClass(VO vo) {
-		try {
-			int res = getSession().insert("setClass", vo);
-	    } catch (Exception e) {
-	        e.printStackTrace(); // Print the stack trace for debugging
-	    }
-		
+	public static int setClass(VO vo) {
+		int res = getSession().insert("setClass", vo);
 	    ss.commit();
-	    return vo;
+	    return res;
 	}
 
 	public static int getTeacherInsert(VO vo) {

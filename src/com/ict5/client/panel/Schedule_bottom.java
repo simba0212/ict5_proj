@@ -226,8 +226,6 @@ public class Schedule_bottom extends JPanel {
 							Protocol p = new Protocol();
 							vo = main.vo;
 							
-							System.out.println(list.get(i).getMember_num()+list.get(i).getClass_num());
-							System.out.println(vo.getMember_num()+vo.getClass_num());
 							vo.setClass_num(list.get(i).getClass_num());
 							vo.setClass_point(list.get(i).getClass_point());
 							p.setCmd(2308);

@@ -151,8 +151,10 @@ public class Admin_main extends JFrame implements Runnable {
 
 					case 1002:
 						if (p.getResult() == 1) {
+							home.timetable.clearTableData();
 							home.timetable.Date();
 							classcheck.timetable.Date();
+							classEdit.timetable.Date();
 						} else {
 							
 						}
@@ -183,13 +185,16 @@ public class Admin_main extends JFrame implements Runnable {
 					
 					case 1006:
 						classEdit.classEdit1.TeacherName();
+						
 						break;
 						
 					case 1007:
-						p.setCmd(1008);
+						if(p.getResult()>0) {
+							JOptionPane.showMessageDialog(null, "수업을 생성했습니다.");
+						}
+						p.setCmd(1002);
 						out.writeObject(p);
 						out.flush();
-						
 						break;
 						
 					case 1106: // 수업 한개 클릭

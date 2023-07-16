@@ -151,7 +151,7 @@ public class TimeTable extends JPanel {
 				main.classcheck.timetable.currentDate=main.classcheck.timetable.currentDate.plusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
-//				main.classcheck.timetable.date.setText(date2);
+				main.classcheck.timetable.date.setText(date2);
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 
