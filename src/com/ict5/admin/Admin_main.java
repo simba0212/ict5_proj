@@ -88,7 +88,7 @@ public class Admin_main extends JFrame implements Runnable {
 
 		add(pg1);
 
-		cardlayout.show(pg1, "login");
+		cardlayout.show(pg1, "classEdit");
 
 		setResizable(false);
 		getContentPane().setBackground(Color.white);
@@ -101,7 +101,7 @@ public class Admin_main extends JFrame implements Runnable {
 	// 접속
 	public void connected() {
 		try {
-			s = new Socket("localhost", 7780);
+			s = new Socket("218.51.184.166", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -170,6 +170,28 @@ public class Admin_main extends JFrame implements Runnable {
 						classcheck.timetable.refreshData();
 						
 						break;
+						
+					case 1005: // 포인트 승인하기
+						if (p.getResult() > 0) {
+							System.out.println("확인");
+							home.point_new.clearTableData();
+							p.setCmd(1004); 
+							out.writeObject(p);
+							out.flush();
+						}
+						break;
+					
+					case 1006:
+						classEdit.classEdit1.TeacherName();
+						break;
+						
+					case 1007:
+						p.setCmd(1008);
+						out.writeObject(p);
+						out.flush();
+						
+						break;
+						
 					case 1106: // 수업 한개 클릭
 						if(p.getResult()==1) {
 							classcheck.classCheck.setLabel();
@@ -189,6 +211,7 @@ public class Admin_main extends JFrame implements Runnable {
 						out.writeObject(p);
 						out.flush();
 						break;
+						
 					case 1108: // 삭제한후 리프레쉬 하기
 						vo.setClass_type(classcheck.classCheck.label11.getText());
 						vo.setClass_date(classcheck.classCheck.label18.getText());
@@ -208,22 +231,6 @@ public class Admin_main extends JFrame implements Runnable {
 						out.flush();
 						break;
 					
-					case 1005: // 포인트 승인하기
-						if (p.getResult() > 0) {
-							System.out.println("확인");
-							home.point_new.clearTableData();
-							p.setCmd(1004);
-							out.writeObject(p);
-							out.flush();
-						}
-						break;
-					
-					case 1006: // 포인트 승인하기
-						if (p.getResult() > 0) {
-							home.point_new.PointApprove();
-						}
-						break;
-
 					case 1201: // 회원목록 불러오기
 						member.memberv.refresh();
 						break;

@@ -87,6 +87,57 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+						
+					case 1005: // 포인트 승인하기
+						p.setResult(DAO.setApprove(vo));
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1006:
+						list = DAO.getTeacherName();
+						p.setList(list);
+						
+						for (VO vo1 : list) {
+							String T_name = vo1.getTeacher_name();
+							String T_num = vo1.getTeacher_num();
+							System.out.println(T_name+""+T_num);
+						}
+						
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1007: // 강사목록 불러오기
+						// TEACHER_NAME을 DAO.getTeacherName2로 전달하여 SQL 문 실행
+						vo = p.getVo();
+						
+						String teacherName = vo.getTeacher_name();
+						
+						vo.setTeacher_name(teacherName);
+						
+						vo = DAO.getTeacherName2(vo);
+						
+						String tn = vo.getTeacher_num();
+						
+						vo.setTeacher_num(tn);
+						p.setVo(vo);
+						
+						out.writeObject(p);
+						out.flush();
+						break;
+						
+					case 1008:
+						vo = p.getVo();
+						
+						DAO.setClass(vo);
+
+						
+						p.setVo(vo);
+						
+						out.writeObject(p);
+						out.flush();
+						break;
 
 					case 1105: // 수업확인 눌렀을때
 						list = DAO.getToday(); // 일단 테이블 가져오기
@@ -131,12 +182,6 @@ public class CP_Client extends Thread {
 						break;
 					case 1109:
 						DAO.deleteClass(vo);
-						out.writeObject(p);
-						out.flush();
-						break;
-
-					case 1005: // 포인트 승인하기
-						p.setResult(DAO.setApprove(vo));
 						out.writeObject(p);
 						out.flush();
 						break;

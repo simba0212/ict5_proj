@@ -132,7 +132,7 @@ public class TimeTable extends JPanel {
 
 				try {
 					Protocol p = new Protocol();
-					p.setCmd(1002);
+					p.setCmd(1006);
 					main.out.writeObject(p);
 					main.out.flush();
 				} catch (IOException e1) {
