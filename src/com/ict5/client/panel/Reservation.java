@@ -314,7 +314,9 @@ public class Reservation extends JPanel {
 					JButton jb = (JButton) e.getSource();
 					String str =jb.getText().trim();
 					String day = str.replaceAll("\\D+", "");
-				 
+					if(day.equals("")) {
+						day=""+today.get(Calendar.DAY_OF_MONTH);
+					}
 				  String day_s="";
 				  day_s=day;
 					 try {

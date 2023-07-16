@@ -303,7 +303,6 @@ public class Schedule extends JPanel {
 			try {
 				JButton jb = (JButton) e.getSource();
 				String str = jb.getText().trim(); //클릭된 버튼(날짜 등등)의 텍스트 읽어옴
-//				System.out.println(str); // 
 				String day = str.replaceAll("\\D+", ""); //가져온 텍스트 숫자만 가지고 있기
 				if(day.equals("")) {
 					day=""+today.get(Calendar.DAY_OF_MONTH);
@@ -313,31 +312,24 @@ public class Schedule extends JPanel {
 				try {
 					if ((calMonth + 1) < 10) {
 						mon = ("0" + (calMonth + 1));
-						System.out.println("10보다작을떄");
 					} else {
 						mon = ("" + (calMonth + 1));
-						System.out.println("10보다 클떄");
 					}
 					day_i = Integer.parseInt(day);
 					if (day_i < 10) {
 						day_s = ("0" + day);
 					}else{
-						System.out.println("엘스문내부");
 					
 					}
 
 				} catch (NumberFormatException e2) {
-					System.out.println("에러발생중");
 				}
 				indate = calYear + mon + day_s;
 				String indate2 = calYear + mon + day_s;
 				Protocol p = new Protocol();
 				vo = main.vo;
-				System.out.println("indate"+indate);
 				vo.setClass_date(indate2);
 				vo.setMember_num(main.usernum);
-				System.out.println("vo.getClass_date :"+vo.getClass_date());
-				System.out.println(vo.getMember_num());
 				p.setCmd(2302);
 				p.setVo(vo);
 				main.out.writeObject(p);
