@@ -142,31 +142,28 @@ public class Admin_CheckAgain extends JPanel{
 		}
 	});
 	
-	jl1.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseEntered(MouseEvent e) {
-	    	jl1.setForeground(Color.red);
-	    }
-	    
-	    @Override
-	    public void mouseExited(MouseEvent e) {
-	    	jl1.setForeground(Color.black);
-	    }
-	});
-	
-	jl1.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-	    	try {
-				Protocol p = new Protocol();
-				p.setCmd(1201);
-				main.out.writeObject(p);
-				main.out.flush();
-				main.cardlayout.show(main.pg1, "member");
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-	    }
+	jl2.addMouseListener(new MouseAdapter() {
+		 @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	jl2.setForeground(Color.red);
+		    }
+		    
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	jl2.setForeground(Color.black);
+		    }
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	try {
+					Protocol p = new Protocol();
+					p.setCmd(1201);
+					main.out.writeObject(p);
+					main.out.flush();
+					main.cardlayout.show(main.pg1, "member");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+		    }
 	});
 	 
 }

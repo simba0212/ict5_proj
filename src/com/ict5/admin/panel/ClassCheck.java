@@ -135,6 +135,7 @@ public class ClassCheck extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(label15.getText().equals("예약한 회원이 없습니다.")) {
+					int res = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?","확인",JOptionPane.YES_NO_OPTION);
 					Protocol p = new Protocol();
 					VO vo= new VO();
 					vo.setClass_num(label20.getText());

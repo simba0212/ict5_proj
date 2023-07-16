@@ -51,6 +51,7 @@
 		SELECT P.*, M.MEMBER_NAME
 		FROM POINTAPPROVE P
 		JOIN MEMBER_T M ON P.MEMBER_NUM = M.MEMBER_NUM
+		order by CHARGE_NUM desc
 	</select>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
@@ -73,7 +74,7 @@
 	</select>
 	
 	<select id="getPointList" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
-		select * from point where member_num = #{member_num}
+		select * from point where member_num = #{member_num} order by point_num desc
 	</select>
 		
 	<select id="getCoachList" resultType="com.ict5.db.VO">

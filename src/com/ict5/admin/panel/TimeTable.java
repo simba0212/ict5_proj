@@ -34,7 +34,7 @@ import com.ict5.db.Protocol;
 import com.ict5.db.VO;
 
 public class TimeTable extends JPanel {
-	private JTable table;
+	public JTable table;
 	Admin_main main;
 	CardLayout cardLayout;
 	VO vo;
@@ -46,7 +46,6 @@ public class TimeTable extends JPanel {
 	public void refreshData() {
 		clearTableData();
 		Date();
-		System.out.println("실행");
 	}
 
 	public TimeTable(Admin_main main) {
@@ -85,16 +84,14 @@ public class TimeTable extends JPanel {
 		lblNewLabel_2.setIcon(new ImageIcon("src/images/calender.png"));
 		north2.add(lblNewLabel_2);
 
-		LocalDate today = LocalDate.now();
-		date2 = today.toString();
 		date = new JTextField();
 		date.setColumns(20);
 		date.setPreferredSize(new Dimension(100, 50));
-		date.setText(date2);
-		north2.add(date);
-
+		
 		currentDate = LocalDate.now();
 		date2 = currentDate.toString();
+		date.setText(date2);
+		north2.add(date);
 
 		JButton btnNewButton_1 = new JButton(">>");
 		btnNewButton_1.setPreferredSize(new Dimension(50, 30));
@@ -115,7 +112,7 @@ public class TimeTable extends JPanel {
 
 		TableCellRenderer buttonRenderer = new ButtonRenderer();
 		TableCellEditor buttonEditor = new ButtonEditor(main, this);
-
+		
 		table = new JTable(model);
 		table.setRowHeight(40);
 		table.setShowVerticalLines(false);
@@ -138,7 +135,6 @@ public class TimeTable extends JPanel {
 					p.setCmd(1002);
 					main.out.writeObject(p);
 					main.out.flush();
-					System.out.println();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -152,8 +148,10 @@ public class TimeTable extends JPanel {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				currentDate = currentDate.plusDays(1);
+				main.classcheck.timetable.currentDate=main.classcheck.timetable.currentDate.plusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+//				main.classcheck.timetable.date.setText(date2);
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 
@@ -176,8 +174,10 @@ public class TimeTable extends JPanel {
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				currentDate = currentDate.minusDays(1);
+				main.classcheck.timetable.currentDate=main.classcheck.timetable.currentDate.minusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				main.classcheck.timetable.date.setText(date2);
 				// 이전 데이터를 지우기 위해 테이블 초기화
 				clearTableData();
 				
@@ -201,6 +201,7 @@ public class TimeTable extends JPanel {
 		try {
 			// 응답 받은 후 list를 확인
 			List<VO> list = main.list;
+			date2 = currentDate.toString();
 			if (list != null) {
 				for (VO vo : list) {
 
@@ -506,7 +507,6 @@ public class TimeTable extends JPanel {
 			p.setCmd(1003);
 			main.out.writeObject(p);
 			main.out.flush();
-			System.out.println();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -553,22 +553,28 @@ class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 버튼 클릭 시 동작을 수행할 수 있도록 구현
-				System.out.println("Button clicked");
 				JOptionPane.showMessageDialog(button, "강의 페이지로 이동");
-				
-				timeTable.clearTableData();
 				try {
 					Protocol p = new Protocol();
-					p.setCmd(1002);
+					VO vo = new VO();
+					String row = (main.home.timetable.table.getSelectedRow()+1)+"";
+					String col = main.home.timetable.table.getSelectedColumn()+"";
+					String tmp = (String) main.home.timetable.table.getValueAt(main.home.timetable.table.getSelectedRow(), main.home.timetable.table.getSelectedColumn());
+					if(tmp.equals("")) {
+						return;
+					}
+					String date2 = main.home.timetable.date2.replaceAll("-", "");
+					vo.setClass_date(date2);
+					vo.setClass_type(col);
+					vo.setClass_time(row);
+					p.setVo(vo);
+					p.setCmd(1106);
 					main.out.writeObject(p);
 					main.out.flush();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				main.cardlayout.show(main.pg1, "classcheck"); // "classcheck" 페이지로 이동
-				
 			}
 		});
 	}

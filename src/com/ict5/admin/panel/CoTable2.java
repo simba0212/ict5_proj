@@ -22,6 +22,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -380,16 +381,19 @@ public class CoTable2 extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
             		try {
-            			Protocol p = new Protocol();
-    					VO vo = new VO();
-    					p.setCmd(1310);
-    					int row = instrTable.getSelectedRow();
-    					Object value = instrTable.getValueAt(row, 0);
-    					String teacher_num = value.toString();
-    					vo.setTeacher_num(teacher_num);
-    					p.setVo(vo);
-    					main.out.writeObject(p);
-    					main.out.flush();
+            			int res=JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?");
+            			if(res==0) {
+            				Protocol p = new Protocol();
+            				VO vo = new VO();
+            				p.setCmd(1310);
+            				int row = instrTable.getSelectedRow();
+            				Object value = instrTable.getValueAt(row, 0);
+            				String teacher_num = value.toString();
+            				vo.setTeacher_num(teacher_num);
+            				p.setVo(vo);
+            				main.out.writeObject(p);
+            				main.out.flush();
+            			}
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}

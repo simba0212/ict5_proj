@@ -14,7 +14,7 @@ import com.ict5.admin.panel.TimeTable;
 
 public class Admin_Home extends JPanel {
     Admin_main main;
-    TimeTable timetable;
+    public TimeTable timetable;
     Admin_ClassCheck classCheck;
     Member_new member_new;
     Point_new point_new;

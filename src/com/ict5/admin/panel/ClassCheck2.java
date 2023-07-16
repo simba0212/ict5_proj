@@ -2,6 +2,7 @@ package com.ict5.admin.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -105,11 +106,21 @@ public class ClassCheck2 extends JPanel {
 					return;
 				}else if(list.size()==1) {
 					// 한놈 선택시
-					p.setVo(list.get(0)); // 한놈밖에없어서 이놈이 끝
-					p.setResult(0); // 한놈인걸 0으로 보내고
+					int res = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?","확인",JOptionPane.YES_NO_OPTION);
+					if(res==0) {
+						p.setVo(list.get(0)); // 한놈밖에없어서 이놈이 끝
+						p.setResult(0); // 한놈인걸 0으로 보내고
+					}else {
+						return;
+					}
 				}else {
+					int res = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?","확인",JOptionPane.YES_NO_OPTION);
+					if(res==0) {
 					p.setList(list); // 여러명 => 리스트에 담아서 보내야함
 					p.setResult(1); // 여러명인걸 1이라고 해서 보내자
+					}else {
+						return;
+					}
 				}
 				try {
 					p.setCmd(1108);
@@ -128,13 +139,9 @@ public class ClassCheck2 extends JPanel {
 
 	public void createTable() {
 		String[] columnNames = { "선택", "이름", "성별", "잔여 포인트", "회원번호" };
-		Object[][] rowData = { { false, "1", "남성", "3456", "1" }, { false, "1", "남성", "3456", "1", "대기" },
-				{ false, "1", "남성", "3456", "1" }, { false, "1", "남성", "3456", "1" },
-				{ false, "1", "남성", "3456", "1" }, { false, "1", "남성", "3456", "1" } };
-
 		// 체크박스 넣기
 
-		model = new DefaultTableModel(rowData, columnNames) {
+		model = new DefaultTableModel(columnNames,0) {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				if (columnIndex == 0) {

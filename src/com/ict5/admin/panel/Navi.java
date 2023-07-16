@@ -70,33 +70,31 @@ public class Navi extends JPanel {
 		JPanel navSW = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
 		navSW.setBackground(Color.white);
 		JButton bt_back = new JButton(new ImageIcon("src/images/home.png"));
-	//	JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
-	//	JTextField jtfMember = new JTextField(" 회원검색", 20);
-	//	jtfMember.setEditable(false);
-		//JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
+		// JButton bt_refresh = new JButton(new ImageIcon("src/images/refresh.png"));
+		// JTextField jtfMember = new JTextField(" 회원검색", 20);
+		// jtfMember.setEditable(false);
+		// JButton bt_search = new JButton(new ImageIcon("src/images/search.png"));
 		bt_back.setPreferredSize(new Dimension(80, 40));
-		//bt_refresh.setPreferredSize(new Dimension(80, 40));
-		//bt_search.setPreferredSize(new Dimension(80, 40));
-	//	jtfMember.setPreferredSize(new Dimension(80, 40));
+		// bt_refresh.setPreferredSize(new Dimension(80, 40));
+		// bt_search.setPreferredSize(new Dimension(80, 40));
+		// jtfMember.setPreferredSize(new Dimension(80, 40));
 		navSW.add(bt_back);
-		//navSW.add(bt_refresh);
-	//	navSW.add(jtfMember);
+		// navSW.add(bt_refresh);
+		// navSW.add(jtfMember);
 		navSW.add(new JLabel("")); // 공백넣기
-		//navSW.add(bt_search);
+		// navSW.add(bt_search);
 		navS.add(navSW, BorderLayout.WEST);
 
 		// 내비 두번째 오른쪽
 		JPanel navSE = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		navSE.setBackground(Color.WHITE);
-		JLabel sche = new JLabel("스케줄러", JLabel.CENTER);
 		String[] options1 = { "수업관리", "수업등록 / 수정", "수업확인" };
 		JComboBox<String> dropdown1 = new JComboBox<>(options1);
 		String[] options2 = { "회원관리", "회원목록", "포인트관리" };
 		JComboBox<String> dropdown2 = new JComboBox<>(options2);
 		String[] options3 = { "강사관리", "강사목록", "강사스케줄", "강사등록" }; // 패널에 숫자에 맞춰서 목록 수정함
 		JComboBox<String> dropdown3 = new JComboBox<>(options3);
-		JLabel userApp = new JLabel("사용자 앱 관리", JLabel.CENTER);
-		navSE.add(sche);
+		JLabel userApp = new JLabel("공지사항 작성", JLabel.CENTER);
 		navSE.add(dropdown1);
 		navSE.add(dropdown2);
 		navSE.add(dropdown3);
@@ -127,6 +125,15 @@ public class Navi extends JPanel {
 		bt_back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Protocol p = new Protocol();
+				p.setCmd(1002);
+				try {
+					main.out.writeObject(p);
+					main.out.flush();
+
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 				main.cardlayout.show(main.pg1, "home"); // 홈으로 이동
 			}
 		});
@@ -186,7 +193,7 @@ public class Navi extends JPanel {
 					try {
 						main.out.writeObject(p);
 						main.out.flush();
-						
+
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}
@@ -195,7 +202,7 @@ public class Navi extends JPanel {
 						Protocol p = new Protocol();
 						p.setCmd(1308);
 						main.out.writeObject(p);
-						//main.cardlayout.show(main.pg1, "coMg3");
+						// main.cardlayout.show(main.pg1, "coMg3");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -218,13 +225,12 @@ public class Navi extends JPanel {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-					
-				}else if (selected.equals("포인트관리")) {
+
+				} else if (selected.equals("포인트관리")) {
 					main.cardlayout.show(main.pg1, "checkagain");
 				}
 			}
 		});
-
 
 		dropdown1.addActionListener(new ActionListener() {
 			@Override
@@ -233,7 +239,7 @@ public class Navi extends JPanel {
 					String selected = (String) dropdown1.getSelectedItem();
 					if (selected.equals("수업등록 / 수정")) {
 						main.cardlayout.show(main.pg1, "classEdit");
-					}else if (selected.equals("수업확인")) {
+					} else if (selected.equals("수업확인")) {
 						Protocol p = new Protocol();
 						p.setCmd(1105);
 						main.out.writeObject(p);
@@ -243,10 +249,9 @@ public class Navi extends JPanel {
 				} catch (Exception e2) {
 					// TODO: handle exception
 				}
-			
+
 			}
 		});
-
 
 		userApp.addMouseListener(new MouseAdapter() {
 			@Override

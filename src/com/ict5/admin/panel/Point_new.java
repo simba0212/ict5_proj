@@ -108,12 +108,9 @@ public class Point_new extends JPanel {
                         if (res == 0) {
                             obj = table.getValueAt(row, 0);
                             String charge_num = obj.toString();
-
                             Protocol p = new Protocol();
                             VO vo = new VO();
-
                             vo.setCharge_num(charge_num);
-                            
                             p.setVo(vo);
                             p.setCmd(1005);
                             main.out.writeObject(p);

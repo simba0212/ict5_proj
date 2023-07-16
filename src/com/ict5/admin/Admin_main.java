@@ -168,6 +168,7 @@ public class Admin_main extends JFrame implements Runnable {
 						
 					case 1105: // 수업확인 눌렀을때
 						classcheck.timetable.refreshData();
+						
 						break;
 					case 1106: // 수업 한개 클릭
 						if(p.getResult()==1) {
@@ -180,9 +181,13 @@ public class Admin_main extends JFrame implements Runnable {
 						p.setCmd(1107); // 예약회원 리스트 가지러
 						out.writeObject(p);
 						out.flush();
+						cardlayout.show(pg1, "classcheck");
 						break;
 					case 1107: // 수업예약명단
 						classcheck.classCheck2.refresh(list);
+						p.setCmd(1105);
+						out.writeObject(p);
+						out.flush();
 						break;
 					case 1108: // 삭제한후 리프레쉬 하기
 						vo.setClass_type(classcheck.classCheck.label11.getText());
@@ -269,11 +274,14 @@ public class Admin_main extends JFrame implements Runnable {
 							coMg1.coTable1.search();
 						}else {
 							coMg2.coTable2.search();
-							
 						}
 						break;
 					case 1303: // 강사 세부정보 보기
-						coMg2.coTable2.refresh1();// 왼쪽테이블
+						coMg2.coTable2.refresh1();
+						p.setCmd(1302);
+						p.setResult(1);
+						out.writeObject(p);
+						out.flush();
 						break;
 					case 1304: // 회원 세부정보 => 수업예약내역
 						coMg2.coTable2.refresh2();// 예약내역

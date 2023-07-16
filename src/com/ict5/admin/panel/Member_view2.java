@@ -60,8 +60,7 @@ public class Member_view2 extends JPanel {
 
 		String[][] data = { { "회원번호", null }, { "이름", null }, { "ID", null }, { "전화번호", null }, { "이메일", null },
 				{ "성별", null }, { "생년월일", null }, { "주소", null }, { "보유포인트", null }, { "등록 날짜", null },
-				{ "최근 출석일", null }, { "출석일수", null }, { "사용포인트(달)", null }, { "충전포인트(달)", null }, { "누적사용포인트", null },
-				{ "누적충전포인트", null } };
+				{ "최근 출석일", null }, { "출석일수", null }, { "누적사용포인트", null }, { "누적충전포인트", null } };
 		// 테이블 모델 생성
 		model = new UnmodifiableTableModel(data, columnNames);
 		model.isCellEditable(0, 0);
@@ -169,8 +168,6 @@ public class Member_view2 extends JPanel {
 		model.setValueAt(vo.getAttendent_month(), 11, 1);
 		model.setValueAt(vo.getMember_usep(), 12, 1);
 		model.setValueAt(vo.getMember_chargep(), 13, 1);
-		model.setValueAt(vo.getMember_totaluse(), 14, 1);
-		model.setValueAt(vo.getMember_totalcharge(), 15, 1);
 
 		// 오른쪽 테이블 불러오기
 		try {

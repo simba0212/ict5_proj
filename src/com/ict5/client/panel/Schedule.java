@@ -44,7 +44,7 @@ public class Schedule extends JPanel {
 	Calendar cal;
 	public Schedule_bottom sb;
 	String mon;
-	
+
 	JPanel calOpPanel;
 	JButton todayBut;
 	JLabel todayLab;
@@ -179,7 +179,6 @@ public class Schedule extends JPanel {
 		sb = new Schedule_bottom(main);
 		frameBottomPanel.add(sb);
 
-		
 		// Panel에 전부 배치
 		add(calOpPanel, BorderLayout.NORTH);
 		add(calPanel, BorderLayout.CENTER);
@@ -287,7 +286,6 @@ public class Schedule extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == todayBut) {
 				setToday();
-				lForDateButs.actionPerformed(e);
 				focusToday();
 			} else if (e.getSource() == lYearBut)
 				moveMonth(-12);
@@ -306,53 +304,43 @@ public class Schedule extends JPanel {
 
 	private class listenForDateButs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
-			
-			 
-			
-			 try {
+
+			try {
 				JButton jb = (JButton) e.getSource();
-				String str =jb.getText().trim();
+				String str = jb.getText().trim();
 				String day = str.replaceAll("\\D+", "");
-			 
-			  String day_s="";
-			  day_s=day;
-				 try {
-					 
-				 if((calMonth+1)<10) {
-					 mon = ("0"+(calMonth+1));
-				 }else {
-					 mon=(""+(calMonth+1));
-				 } 
-				 day_i = Integer.parseInt(day);
-				 if(day_i<10) {
-					 day_s = ("0"+day);
-				 }
-					   
-				    
+
+				String day_s = "";
+				day_s = day;
+				try {
+
+					if ((calMonth + 1) < 10) {
+						mon = ("0" + (calMonth + 1));
+					} else {
+						mon = ("" + (calMonth + 1));
+					}
+					day_i = Integer.parseInt(day);
+					if (day_i < 10) {
+						day_s = ("0" + day);
+					}
+
 				} catch (NumberFormatException e2) {
-				   
+
 				}
-			 
-			 
-			 
-			 
-			 
-			indate= calYear+mon+day_s;
-			 Protocol p = new Protocol();
-			 vo = main.vo;
-			 vo.setClass_date(indate);
-			 p.setCmd(2302);
-			 p.setVo(vo);
+
+				indate = calYear + mon + day_s;
+				Protocol p = new Protocol();
+				vo = main.vo;
+				vo.setClass_date(indate);
+				p.setCmd(2302);
+				p.setVo(vo);
 				main.out.writeObject(p);
 				main.out.flush();
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			 
 
-			
 			int k = 0, l = 0;
 			for (int i = 0; i < CAL_HEIGHT; i++) {
 				for (int j = 0; j < CAL_WIDTH; j++) {
@@ -380,7 +368,8 @@ public class Schedule extends JPanel {
 
 		}
 	}
+
 	public void refresh() {
-		
+
 	}
 }

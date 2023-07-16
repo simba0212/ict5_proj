@@ -75,7 +75,7 @@ public class Member_view extends JPanel {
 
 		// 열 제목 지정
 		String[] columnNames = { "회원번호", "이름", "ID", "전화번호", "이메일", "성별", "생년월일", "주소", "보유 포인트", "등록 날짜", "최근 출석일",
-				"이번달출석", "사용포인트(달)", "충전포인트(달)", "누적사용포인트", "누적충전포인트" };
+				"이번달출석", "누적사용포인트", "누적충전포인트" };
 
 		// 테이블 모델 생성
 		model = new DefaultTableModel(columnNames, 0);
@@ -86,7 +86,7 @@ public class Member_view extends JPanel {
 
 		// 테이블 각 열 너비지정
 		TableColumnModel columnModel = table.getColumnModel();
-		int[] columnWidths = { 55, 60, 100, 100, 150, 30, 100, 200, 100, 100, 100, 100, 100, 100, 100, 100 };
+		int[] columnWidths = { 55, 60, 100, 100, 150, 30, 100, 200, 100, 100, 100, 100, 100, 100};
 		for (int i = 0; i < columnNames.length; i++) {
 			TableColumn column = columnModel.getColumn(i);
 			column.setPreferredWidth(columnWidths[i]);
@@ -219,7 +219,7 @@ public class Member_view extends JPanel {
 		jl3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				jl3.setForeground(Color.red);
+				jl2.setForeground(Color.red);
 			}
 
 			@Override

@@ -122,7 +122,7 @@ public class TimeTable2 extends JPanel {
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
 				if (value.toString().equals("")) {
-					return new JLabel();
+					return null;
 				} else {
 					setText(value.toString());
 					return this;
@@ -140,7 +140,6 @@ public class TimeTable2 extends JPanel {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-
 						fireEditingStopped();
 					}
 				});
@@ -150,7 +149,7 @@ public class TimeTable2 extends JPanel {
 					int column) {
 				button.setText(value.toString());
 				if (value.toString().equals("")) {
-					return new JLabel();
+					return null;
 				} else {
 					return button;
 				}
@@ -223,6 +222,7 @@ public class TimeTable2 extends JPanel {
 
 			}
 		});
+		// home에서 넘어올때
 
 		// 날짜 다음 날
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -246,33 +246,32 @@ public class TimeTable2 extends JPanel {
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				currentDate = currentDate.minusDays(1);
+				main.home.timetable.currentDate=main.home.timetable.currentDate.minusDays(1);
 				date2 = currentDate.toString();
 				date.setText(date2);
+				main.home.timetable.date.setText(date2);
+				
 				clearTableData();
 				try {
 					Protocol p = new Protocol();
 					p.setCmd(1002);
 					main.out.writeObject(p);
 					main.out.flush();
-					System.out.println();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
 			}
 		});
-
 	}
 
 	public void Date() {
 		try {
 			// 응답 받은 후 list를 확인
+			date2 = currentDate.toString();
 			List<VO> list = main.list;
 			if (list != null) {
 				for (VO k : list) {
-
 					voDate = k.getClass_date().substring(0, 10);
-
 					// vo의 날짜 정보가 date2와 일치하는 경우에만 처리
 					if (voDate.equals(date2)) {
 						teacherName = k.getTeacher_name();
@@ -576,6 +575,7 @@ public class TimeTable2 extends JPanel {
 			}
 		}
 	}
+	
 
 }
 class NonEditableCellEditor implements TableCellEditor {
@@ -595,7 +595,7 @@ class NonEditableCellEditor implements TableCellEditor {
 
     @Override
     public boolean isCellEditable(EventObject anEvent) {
-        return false; // Make the cell not editable
+        return false; 
     }
 
     @Override
