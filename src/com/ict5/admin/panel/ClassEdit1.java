@@ -366,7 +366,6 @@ public class ClassEdit1 extends JPanel {
                 try {
                     Protocol p = new Protocol();
     		    	VO vo = new VO();
-    		    	
     		    	vo.setTeacher_name(teacher_name);
     		    	vo.setClass_room(class_room);
     		    	vo.setClass_max(class_max);
@@ -384,7 +383,6 @@ public class ClassEdit1 extends JPanel {
     				}
             }
         });
-        
     }
     
     public void TeacherName() {

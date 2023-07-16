@@ -55,6 +55,27 @@
 		JOIN MEMBER_T M ON P.MEMBER_NUM = M.MEMBER_NUM
 		order by CHARGE_NUM desc
 	</select>
+	
+	<select id="getTeacherName2" parameterType="com.ict5.db.VO" resultType="com.ict5.db.VO">
+		select teacher_num from teacher where teacher_name = #{teacher_name}
+	</select>
+	
+	<select id="getTeacherName" resultType="com.ict5.db.VO">
+		select TEACHER_NUM, TEACHER_NAME from TEACHER
+	</select>
+	
+	<insert id="setClass" parameterType="com.ict5.db.VO" >
+		insert into CLASS values(
+							class_seq.nextval,
+							#{class_time},
+							#{class_date},
+							0,
+							#{class_max},
+							#{class_point},
+							#{class_room},
+							#{class_type},
+							#{teacher_num})
+	</insert>
 		
 	<select id="mostclose" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
