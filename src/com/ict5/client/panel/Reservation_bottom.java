@@ -61,6 +61,10 @@ public class Reservation_bottom extends JPanel {
 		panel.add(new JLabel(list.get(i).getTeacher_name()));
 		JButton jb = new JButton("출석");
 		panel.add(jb);
+		if(list.get(i).getAttendent_time()!=null) {
+			jb.setEnabled(false);
+			jb.setText("출석함");
+		}
 		panel.add(new JLabel("수업시간", JLabel.LEFT));
 		switch (list.get(i).getClass_time()) {
 			case "1":str="09:00~09:50";	break;
@@ -79,7 +83,6 @@ public class Reservation_bottom extends JPanel {
 		panel.add(new JLabel(str));
 		panel.add(new JLabel("정원"+list.get(i).getClass_res()+"/"+list.get(i).getClass_max(), JLabel.RIGHT));
 		jb.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -135,6 +138,7 @@ public class Reservation_bottom extends JPanel {
 	}
 	
 	public void refresh() {
+		
 		list = main.list;
 		if (list.size() == 0) {
 			removeAll();
@@ -160,6 +164,29 @@ public class Reservation_bottom extends JPanel {
 				add(new JLabel("<html><h3>수업 "+main.tab.reservation.mon+"월"+ main.tab.reservation.day_i+"일 </h2></html>"), BorderLayout.NORTH);
 				add(jsp);
 		}
+	}
+	public void refresh(String date) { // home 패널에서 가장가까운 수업으로 이동할때 만을 위한 코드
+		vo=main.vo;
+		list = main.list;
+		 vo.setClass_date(date);
+		System.out.println(vo.getClass_date()+"rb_");
+		 vo.setMember_num(main.usernum);
+			removeAll();
+			JPanel bt = new JPanel();
+			bt.setLayout(new BoxLayout(bt, BoxLayout.Y_AXIS)); // 박스
+			// 패널 배열 생성
+			JPanel panels = new JPanel();
+			
+				panels = createPanel(list,0); // 패널 생성 및 배열에 할당
+				JButton button = new JButton("Button ");
+				bt.add(panels); // 프레임에 패널 추가
+			
+			jsp = new JScrollPane(bt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				jsp.setPreferredSize(new Dimension(480, 350));
+				add(new JLabel("<html><h3>수업 "+main.tab.reservation.mon+"월"+ main.tab.reservation.day_i+"일 </h2></html>"), BorderLayout.NORTH);
+				add(jsp);
+		
 	}
 
 }

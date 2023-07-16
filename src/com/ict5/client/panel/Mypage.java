@@ -126,8 +126,17 @@ public Mypage(Client_main main) {
 		point.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				main.myPo.po.refresh();
-	            main.cardlayout.show(main.pg1, "myPo");
+				try {
+					VO vo = main.vo;
+					Protocol p = new Protocol();
+					p.setCmd(2104);
+					p.setVo(vo);
+					
+					main.out.writeObject(p);
+					main.out.flush();
+				} catch (IOException e1) {
+					
+				}
 			}
 
 		});
@@ -142,6 +151,7 @@ public Mypage(Client_main main) {
 		setpass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println(main.vo.getMember_pw()+"setpass누름");
 	            main.cardlayout.show(main.pg1, "pwChan");
 			}
 
@@ -171,9 +181,7 @@ public Mypage(Client_main main) {
 				VO vo = new VO();
 				Protocol p = new Protocol();
 				vo.setMember_num(main.usernum);  
-				System.out.println("jb2버튼 누르고 vo에 member_num 담은 후"+vo.getMember_num());
 				vo.setMember_goal(jta.getText());
-				System.out.println("jb2버튼 누르고 vo에 member_goal담은 후"+vo.getMember_goal());
 				p.setCmd(2501);
 				p.setVo(vo);
 				main.out.writeObject(p);

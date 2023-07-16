@@ -23,16 +23,9 @@ public class DAO {
 	// select , 결과는 여러개 , 파라미터가 없음
 	public static List<VO> getList() {
 		List<VO> list = null;
-		// selectList() : 결과가 하나이상일때
-		// selectOne() : 반드시 결과가 하나일때
-		// 파라미터가 있는 메서드와 파라미터가 없는메서드로 나눈다.
-		// 파라미터가 있는 메서드 : selectList("mepper의 id",파라미터);
-		// 파라미터가 없는 메서드 : selectList("mepper의 id")
+		
 		list = getSession().selectList("memberlist");
-		for (VO vo : list) {
-			System.out.println(vo.getMember_id());
-			System.out.println(vo.getMember_pw());
-		}
+	
 
 		return list;
 	}
@@ -138,6 +131,7 @@ public class DAO {
 	}
 
 	public static int getInsert_book(VO vo) {
+
 		getSession().insert("getInsert_book", vo);
 		ss.commit();
 		return 0;
@@ -147,6 +141,16 @@ public class DAO {
 		getSession().insert("getInsert_attenedent", vo);
 		ss.commit();
 
+		return 0;
+	}
+	public static int book_point(VO vo) {
+		getSession().insert("book_point", vo);
+		ss.commit();
+		return 0;
+	}
+	public static int book_can_point(VO vo) {
+		getSession().insert("book_can_point", vo);
+		ss.commit();
 		return 0;
 	}
 
@@ -191,7 +195,9 @@ public class DAO {
 	}
 
 	public static List<VO> sel_class_noice(VO vo) { // 알림표시할 클래스 정보 불러오기
+
 		List<VO> list = getSession().selectList("sel_class_noice", vo);
+
 		return list;
 	}
 
@@ -246,6 +252,12 @@ public class DAO {
 		return vo;
 	}
 
+	public static int deletebook(VO vo) {
+		int res = getSession().delete("deletebook", vo);
+		return res;
+	}
+	
+
 	public static VO setApplyPoints(VO vo) { // 포인트 신청
 		int res = getSession().insert("applyPoints", vo);
 		ss.commit();
@@ -258,10 +270,10 @@ public class DAO {
 		return list;
 	}
 
-	public static VO setPointChargeDate(VO vo) {
-		int res = getSession().update("updateChargeDate", vo);
+	public static int setPointChargeDate(String charge_num) {
+		int res = getSession().update("updateChargeDate", charge_num);
 		ss.commit();
-		return vo;
+		return res;
 	}
 
 	public static List<VO> getAllApprovePoints(VO vo) { // 마이포인트 불러오기
