@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -308,6 +309,8 @@ public class ClassEdit1 extends JPanel {
                 	class_type = "3";
                 } else if (rdbtnNewRadioButton_3.isSelected()) {
                 	class_type = "4";
+                } else {
+                	JOptionPane.showMessageDialog(null, "수업종류를 선택하세요");
                 }
                 
                 String class_room = comboBox.getSelectedItem().toString();
@@ -315,8 +318,8 @@ public class ClassEdit1 extends JPanel {
                 String class_max = comboBox_2.getSelectedItem().toString();
                 class_max = class_max.substring(0,class_max.length()-1);
                 
-                String class_time = comboBox_3.getSelectedItem().toString();
-                class_time = "";
+                String class_time = "";
+                class_time = comboBox_3.getSelectedItem().toString();
                 switch (class_time) {
                 case "09:00 ~ 09:50":
                 	class_time = "1";
