@@ -153,7 +153,7 @@
 		
 	</insert>
 	
-	<select id="getMemberOne" parameterType="com.ict5.db.VO">
+	<select id="getMemberOne" parameterType="com.ict5.db.VO"
 		resultType="com.ict5.db.VO">
 		select * from MEMBER_T where member_num =#{member_num}
 	</select>

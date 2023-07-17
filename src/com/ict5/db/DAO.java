@@ -191,12 +191,14 @@ public class DAO {
 	}
 
 	public static VO getMemberOne(VO vo) {
+		System.out.println(vo.getMember_num());
 		vo = getSession().selectOne("getMemberOne", vo);
 
 		return vo;
 	}
 
 	public static List<VO> getBookedClass(VO vo) {
+		System.out.println(vo.getMember_num());
 		List<VO> list = getSession().selectList("getBookedClass", vo);
 		return list;
 	}

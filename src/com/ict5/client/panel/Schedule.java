@@ -281,6 +281,7 @@ public class Schedule extends JPanel {
 	private class ListenForCalOpButtons implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == todayBut) {
+				lForDateButs.actionPerformed(e);
 				setToday();
 				focusToday();
 			} else if (e.getSource() == lYearBut)

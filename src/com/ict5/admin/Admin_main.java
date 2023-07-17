@@ -231,7 +231,6 @@ public class Admin_main extends JFrame implements Runnable {
 						JOptionPane.showMessageDialog(null, "수업이 삭제되었습니다.");
 						// 수업목록 다시 띄우기
 						classcheck.classCheck.resetLabel();
-						p.setCmd(1105);
 						out.writeObject(p);
 						out.flush();
 						break;
